@@ -144,6 +144,31 @@ class Signup extends CI_Controller {
         	$this->data['is_error'] = true;
         	$this->data['error_msg'] = $error_msg;
         }
+
+        // Load PHPMailer library
+        $this->load->library('PHPmailer_lib');
+
+        // PHPMailer object
+        $mail = $this->phpmailer_lib->load();
+        
+        // Add a recipient
+        $mail->addAddress("eugenioderick@gmail.com");
+        
+        // Email subject
+        $mail->Subject = "Account Verification";
+        
+        // Set email format to HTML
+        $mail->isHTML(true);
+        
+        // Email body content
+        $mail->Body = "test";
+
+        if(!$mail->send()){
+        	$this->data['send_status'] = "error";
+        }
+        else{
+        	$this->data['send_status'] = "success";
+        }
 		
 		echo json_encode($this->data);
 	}
