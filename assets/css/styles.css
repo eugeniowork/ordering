@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", "Odoo Unicode Support Noto", sans-serif;
+  background: #eef1f6 !important;
+  overflow-x: hidden; }
+
+.page-container button:focus,
+.page-container input:focus {
+  outline: 0 !important;
+  box-shadow: none; }
+.page-container .container-header {
+  height: auto;
+  background: white;
+  padding-right: 25px;
+  padding-left: 25px;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  border-bottom: 1px solid lightgray; }
+  .page-container .container-header .header-title {
+    color: #7d7d7d;
+    font-weight: 600;
+    font-size: 20px; }
+  .page-container .container-header .buttons {
+    float: right;
+    position: absolute;
+    top: 50px;
+    right: 25px; }
+    .page-container .container-header .buttons button {
+      margin-top: 10px; }
+.page-container .container-body {
+  height: auto;
+  background: white;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 30px; }
+  .page-container .container-body .row .col-12 {
+    margin-bottom: 15px !important; }
+
+.preloader {
+  display: flex;
+  top: 0;
+  position: fixed;
+  z-index: 999;
+  height: 100vh;
+  width: 100%;
+  background: #fff;
+  align-items: center;
+  left: 0;
+  justify-content: center;
+  transition: opacity 0.3s linear; }
+  .preloader img {
+    height: 130px;
+    width: 130px; }
+
+.header {
+  height: 50px;
+  width: 100%;
+  background: #3498db;
+  color: white;
+  line-height: 50px; }
+  .header a {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    padding-right: 20px;
+    padding-left: 20px;
+    float: right;
+    height: 50px; }
+    .header a:hover {
+      color: yellow !important; }
+  .header .left {
+    width: auto;
+    position: absolute;
+    padding-left: 20px;
+    letter-spacing: 4px;
+    font-size: 20px; }
+  .header .right {
+    float: right;
+    height: 100%;
+    width: auto; }
+    .header .right ul {
+      list-style: none; }
+      .header .right ul li {
+        float: right; }
+
+.signup-container .info-container img {
+  height: 200px;
+  width: 200px; }
+.signup-container .webcam-container {
+  padding: 0; }
+  .signup-container .webcam-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .signup-container .webcam-container video {
+    background: black;
+    width: 100%   !important;
+    height: 425px  !important;
+    margin: 0;
+    border: 0px; }
+  .signup-container .webcam-container .loading {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 300000;
+    border: white 1px;
+    color: white;
+    padding: 75px 26px;
+    font-size: 17px;
+    margin: auto;
+    width: 200px;
+    height: 200px; }
+    .signup-container .webcam-container .loading .spinner-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      color: white;
+      z-index: 300000;
+      filter: alpha(opacity=80);
+      -moz-opacity: 0.8;
+      opacity: 0.8; }
+
+/*# sourceMappingURL=styles.css.map */
