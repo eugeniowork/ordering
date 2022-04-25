@@ -12,53 +12,56 @@
 				<small style="font-style: italic;" class="text-danger"><i class="fa fa-info-circle"></i>&nbsp;During face registration, make sure that your face is visible. Don't hide you face behind a mask, sunglasses or a hat.</small><br>
 				<small style="font-style: italic;" class="text-danger"><i class="fa fa-info-circle"></i>&nbsp;If you have big changes to your appearance, such as heavy makeup or facial hair changes, keep in mind that face recognition may not recognize you.</small>
 			</div><br>
-			<br>
-	        <div class="row">
-	            <div class="col-lg-8">
-	                <div class="warning"></div>
-	            </div>
-	        </div>
 			<div class="info-container">
 	            <div class="row">
 	                <div class="col-12 col-lg-3">
-	                    <span>Lastname <span class="text-danger">*</span></span>
+	                    <span>Lastname&nbsp;<span class="text-danger">*</span></span>
 	                    <input type="text" class="form-control text-only" name="lastname" placeholder="Enter lastname" required/>
 	                </div>
 	                <div class="col-12 col-lg-3">
-	                    <span>Firstname <span class="text-danger">*</span></span>
+	                    <span>Firstname&nbsp;<span class="text-danger">*</span></span>
 	                    <input type="text" class="form-control text-only" name="firstname" placeholder="Enter firstname" required/>
 	                </div>
 	                <div class="col-12 col-lg-3">
-	                    <span>Middlename</span>
+	                    <span>Middlename&nbsp;</span>
 	                    <input type="text" class="form-control text-only" name="middlename" placeholder="Enter middlename" />
 	                </div>
 	                <div class="col-12 col-lg-3">
-	                    <span>Phone number <span class="text-danger">*</span></span>
+	                    <span>Phone number&nbsp;<span class="text-danger">*</span></span>
 	                    <input type="text" class="form-control text-only" name="phone_number" placeholder="Enter phone number" required/>
 	                </div>
 	                <div class="col-12 col-lg-3">
-		                <span>Email Address<span class="text-danger">*</span></span>
+		                <span>Email Address&nbsp;<span class="text-danger">*</span></span>
 		                <input type="text" class="form-control" name="email" placeholder="Enter email" required/>
 		            </div>
 		            <div class="col-12 col-lg-3">
-		                <span>Password<span class="text-danger">*</span></span>
+		                <span>Password&nbsp;<span class="text-danger">*</span></span>
 		                <input type="password" class="form-control" name="password" placeholder="Enter password" required/>
 		            </div>
 		            <div class="col-12 col-lg-3">
-		                <span>Confirm Password<span class="text-danger">*</span></span>
+		                <span>Confirm Password&nbsp;<span class="text-danger">*</span></span>
 		                <input type="password" class="form-control" name="confirm_password" placeholder="Enter password" required/>
 		            </div>
 	            </div>
-	            <div class="row">
+	        </div>
+	        <div class="face-container">
+	        	<div class="row">
+	        		<div class="col-12 col-lg-12">
+	        			<span>Do you wear glasses?</span><br>
+	        			<input type="radio" name="with_glasses" id="yes" value="yes">
+	        			<label for="yes">Yes</label>
+	        			<input type="radio" name="with_glasses" id="no" value="no">
+	        			<label for="no">No</label>
+					</div>
 		            <div class="col-12 col-lg-3">
-		            	<span>Face 1<span class="text-danger">*</span></span><br>
+		            	<span>Face 1&nbsp;<span class="text-danger">*</span></span><br>
 		            	<img id="img_face" src="<?= base_url();?>assets/uploads/images/face-recognition-default.jpg"><br>
-		                <button type="button" class="btn btn-sm btn-primary btn-open-camera" style="width: 200px">Register Face</button>
+		                <button type="button" class="btn btn-sm btn-primary btn-open-camera" data-number="1" style="width: 200px">Register Face</button>
 		            </div>
-		            <div class="col-12 col-lg-3">
-		            	<span>Face 2</span><br>
+		            <div class="col-12 col-lg-3 face2-div d-none">
+		            	<span>Face 2&nbsp;<span class="text-danger">*</span></span><br>
 		            	<img id="img_face2" src="<?= base_url();?>assets/uploads/images/face-recognition-default.jpg"><br>
-		                <button type="button" class="btn btn-sm btn-primary btn-open-camera" style="width: 200px">Register Face</button>
+		                <button type="button" class="btn btn-sm btn-primary btn-open-camera" data-number="2" style="width: 200px">Register Face</button>
 		            </div>
 	            </div>
 	        </div>

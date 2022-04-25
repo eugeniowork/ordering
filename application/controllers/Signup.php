@@ -8,6 +8,7 @@ class Signup extends CI_Controller {
 		$this->load->model('global_model');
 
 		$this->load->helper('date_helper');
+		$this->load->helper('encryption_helper');
 	}
 
 	public function index()
@@ -27,6 +28,7 @@ class Signup extends CI_Controller {
 		$email = $this->input->post("email");
 		$password = $this->input->post("password");
 		$confirm_password = $this->input->post("confirm_password");
+		$with_glasses = $this->input->post("with_glasses");
 		$face_value = $this->input->post("face_value");
 		$face2_value = $this->input->post("face2_value");
 
@@ -55,6 +57,12 @@ class Signup extends CI_Controller {
             'required'=> 'Face 1 is required.'
         ));
 
+        if($with_glasses == "yes"){
+        	$this->form_validation->set_rules('face2_value[]','face2_value','required',array(
+	            'required'=> 'Face 2 is required.'
+	        ));
+        }
+
         $error_count = 0;
         $error_msg = "";
 
@@ -82,13 +90,14 @@ class Signup extends CI_Controller {
 
         if($error_count == 0){
         	$target_dir = 'assets/uploads/faces';
-
+        	//CREATE DIRECTORY IF NOT EXIST
         	if(!is_dir($target_dir))
 			{
 				mkdir($target_dir,0777,true);
 			}
 
-        	$params = [
+			//INSERT USERS
+        	$users_params = [
 				"lastname"=> $lastname,
 				"firstname"=> $firstname,
 				"middlename"=> $middlename,
@@ -96,36 +105,39 @@ class Signup extends CI_Controller {
 				"email"=> $email,
 				"password"=> password_hash($password, PASSWORD_DEFAULT),
 				'created_date'=> getTimeStamp()
-				// 'face_value' => $face_value? json_encode($face_value): "",
-				// "face_value2"=> $face2_value? json_encode($face2_value): ""
 			];
+			$user_id = $this->global_model->insert("users", $users_params);
 
-			$insert_id = $this->global_model->insert("users", $params);
-
-			if($face_value){
-				//FOR FACE 1
-	            $face1_new_file_name = uniqid().".png";
-	            move_uploaded_file($_FILES['face_image']['tmp_name'], $target_dir."/".$face1_new_file_name);
-			}
-
-            if($face2_value){
-            	//FOR FACE 2
-	            $face2_new_file_name = uniqid().".png";
-	            move_uploaded_file($_FILES['face2_image']['tmp_name'], $target_dir."/".$face2_new_file_name);
-            }
-            
-            $params = [
-            	'user_id' => $insert_id,
-				'face1_value' => $face_value? json_encode($face_value): "",
-				'face1_path' => $face_value? $target_dir."/".$face1_new_file_name: "",
-				"face2_value"=> $face2_value? json_encode($face2_value): "",
-				'face2_path' => $face2_value? $target_dir."/".$face2_new_file_name: "",
+			$faces_params = [
+				'user_id' => $user_id,
 				'created_date'=> getTimeStamp()
 			];
 
-            $insert_id = $this->global_model->insert("faces", $params);
+			//FOR FACE 1
+			if($face_value){
+				//UPLOAD IMAGE OF FACE 1
+	            $face1_new_file_name = uniqid().".png";
+	            move_uploaded_file($_FILES['face_image']['tmp_name'], $target_dir."/".$face1_new_file_name);
 
-			$this->data['params'] = $params;
+	            $faces_params['face1_value'] = json_encode($face_value);
+	            $faces_params['face1_path'] = $target_dir."/".$face1_new_file_name;
+			}
+
+			//FOR FACE 2
+            if($face2_value){
+            	if($with_glasses == "yes"){
+            		//UPLOAD IMAGE OF FACE2
+		            $face2_new_file_name = uniqid().".png";
+		            move_uploaded_file($_FILES['face2_image']['tmp_name'], $target_dir."/".$face2_new_file_name);
+
+		            $faces_params['face2_value'] = json_encode($face2_value);
+	            	$faces_params['face2_path'] = $target_dir."/".$face2_new_file_name;
+            	}
+            }
+
+            $this->global_model->insert("faces", $faces_params);
+
+            $this->data['encrypted_user_id'] = encryptData($user_id);
 			$this->data['is_error'] = false;
         }
         else{

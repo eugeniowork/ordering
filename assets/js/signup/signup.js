@@ -2,16 +2,11 @@ $(document).ready(function(){
 	var webcam_element = document.getElementById('webcam');
 	var webcam = new Webcam(webcam_element, 'user');
 	var model_path = base_url+'assets/uploads/face_recognition_models';
-	var display_size;
-	var face_detection;
-	var canvas;
-	var face_descriptor;
-	var face_value;
-	var face_value_base64;
-	var face2_value;
-	var face2_value_base64;
+	var display_size, face_detection, canvas, face_descriptor, face_value, face_value_base64, face2_value, face2_value_base64, face_number;
 
 	$(".btn-open-camera").on("click", function(){
+		face_number = $(this).data("number");
+
 		$("#face_modal").modal("show")
 		init_web_cam();
 	})
@@ -109,19 +104,31 @@ $(document).ready(function(){
 	$(".btn-submit-face").on("click", function(){
 		webcam = new Webcam(webcam_element, 'user', canvas);
 		let picture = webcam.snap();
+		$("#face_modal").modal("hide")
 		
-		if(!face_value){
+		if(face_number == 1){
 			face_value = face_descriptor
 			face_value_base64 = picture
 			$("#img_face").attr('src', picture)
 		}
 		else{
-			face2_value = face_descriptor
-			face2_value_base64 = picture
-			$("#img_face2").attr('src', picture)
+			if($("#yes").is(":checked")){
+				face2_value = face_descriptor
+				face2_value_base64 = picture
+				$("#img_face2").attr('src', picture)
+			}
 		}
-		$("#face_modal").modal("hide")
+		
 	})
+
+	$("input[type=radio]").change(function () {
+		$("input[type=radio]").not(this).prop('checked', false);
+		$(".face2-div").addClass("d-none")
+
+		if($("#yes").is(":checked")){
+			$(".face2-div").removeClass("d-none")
+		}
+	});
 
 	var loading_save_registration = false;
 	$(".btn-save-registration").on("click", function(){
@@ -167,7 +174,7 @@ $(document).ready(function(){
 			    		loading_save_registration = false;
 			    	}
 			    	else{
-			    		window.location.reload();
+			    		window.location.href = base_url + "verify-account/"+response.encrypted_user_id
 			    	}
 			    },
 			    error: function(error){
