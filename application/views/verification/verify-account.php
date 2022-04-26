@@ -44,4 +44,4 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="<?= base_url();?>assets/js/user/verify-account.js"></script>
+<script type="text/javascript" src="<?= base_url();?>assets/js/verification/verify-account.js"></script>

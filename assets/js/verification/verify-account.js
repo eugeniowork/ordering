@@ -11,7 +11,7 @@ $(document).ready(function(){
 			$(".btn-verify").prop("disabled", true).html("Verifying...")
 
 			$.ajax({
-				url: base_url + "user/verifyAccount",
+				url: base_url + "verification/verifyAccount",
 				type: 'POST',
 				dataType: 'json',
 				data:{
@@ -42,7 +42,7 @@ $(document).ready(function(){
 		$(".btn-resend").prop("disabled", true).html("Resending...")
 
 		$.ajax({
-			url: base_url + 'user/resendVerification',
+			url: base_url + 'verification/resendVerification',
 			type: 'POST',
 			dataType: 'json',
 			data:{

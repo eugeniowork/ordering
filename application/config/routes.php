@@ -51,7 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 //FOR USER RELATED
-$route['verify-account/(:any)'] = 'user/verifyAccountPage/$1';
+$route['verify-account/(:any)'] = 'verification/verifyAccountPage/$1';
+$route['login'] = 'login/loginPage';
 
 $route['default_controller'] = 'home';
 $route['404_override'] = '';

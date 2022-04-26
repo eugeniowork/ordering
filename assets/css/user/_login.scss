@@ -1,18 +1,18 @@
-.verify-account-container{
+.login-container{
 	.container-body{
 		background: #3498db !important;
-		.verify-account-flex, .verified-account-flex{
-			min-height: 100vh;
+		.login-flex{
+			min-height: 90vh;
 		    width: 100%;
 		    //background: rgb(218, 218, 218);
 		    position: relative;
-		    .verify-account-body, .verified-account-body{
+		    .login-body{
 		    	z-index: 1;
 		        padding:20px 30px;
 		        background: white;
 		        min-height: 400px;
 		        height: auto;
-		        width: 460px;
+		        width: 430px;
 		        border-radius: 5px;
 		        color: #333;
 
@@ -23,9 +23,11 @@
 		                font-style: italic;
 		            }
 		        }
-		        img{
-		        	height: 150px;
-    				width: 150px;
+
+		        .btn-forgot-password{
+		        	font-style: italic;
+		            color:#333;
+		            text-align: center;
 		        }
 		    }
 		}

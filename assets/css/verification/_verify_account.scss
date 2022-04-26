@@ -1,0 +1,33 @@
+.verify-account-container{
+	.container-body{
+		background: #3498db !important;
+		.verify-account-flex, .verified-account-flex{
+			min-height: 90vh;
+		    width: 100%;
+		    //background: rgb(218, 218, 218);
+		    position: relative;
+		    .verify-account-body, .verified-account-body{
+		    	z-index: 1;
+		        padding:20px 30px;
+		        background: white;
+		        min-height: 400px;
+		        height: auto;
+		        width: 460px;
+		        border-radius: 5px;
+		        color: #333;
+
+		        .main-title{
+		        	text-align: center;
+		            font-size: 24px;
+		            span{
+		                font-style: italic;
+		            }
+		        }
+		        img{
+		        	height: 150px;
+    				width: 150px;
+		        }
+		    }
+		}
+	}
+}

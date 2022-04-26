@@ -10,5 +10,8 @@
 //FOR REGISTRATION RELATED
 @import "signup/signup";
 
+//FOR VERIFICATION RELATED
+@import "verification/verify_account";
+
 //FOR USER RELATED
-@import "user/verify_account";
+@import "user/login";
