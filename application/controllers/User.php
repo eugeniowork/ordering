@@ -100,4 +100,54 @@ class User extends CI_Controller {
         echo json_encode($this->data);
 	}
 
+	public function resendVerification(){
+		$email = $this->input->post("email");
+
+		//UPDATE EXISTING ACTIVE OTP
+        $update_data = [
+            "is_active"=> 0,
+        ];
+        $this->global_model->update("otp", "email = '$email' AND is_active = 1", $update_data);
+
+        $code = rand(100000, 999999);
+        $otp_params = [
+            'email'=> $email,
+            'code'=> $code,
+            'is_active'=> 1,
+            //plus 20 mins
+            // 20 * 60 = 1200
+            'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),
+            'date_created'=> getTimeStamp()
+        ];
+        $this->global_model->insert("otp", $otp_params);
+
+        // Load PHPMailer library
+        $this->load->library('PHPmailer_lib');
+
+        // PHPMailer object
+        $mail = $this->phpmailer_lib->load();
+        
+        // Add a recipient
+        $mail->addAddress($email);
+        
+        // Email subject
+        $mail->Subject = "Account Verification";
+        
+        // Set email format to HTML
+        $mail->isHTML(true);
+        
+        // Email body content
+        $mail->Body = "
+            Good day! <br><br>
+            Thank you for registering in <strong>AdU FacePay</strong>. To verify your account, please use this OTP:<br>
+            <strong>".$code."</strong>
+            <br><br>
+            This is only valid for 20 minutes. Do not share your OTP to anyone.
+        ";
+
+        $mail->send();
+
+		echo json_encode($email);
+	}
+
 }

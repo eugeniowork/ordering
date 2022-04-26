@@ -38,6 +38,28 @@ $(document).ready(function(){
 		}
 	})
 
+	$(".btn-resend").on("click", function(){
+		$(".btn-resend").prop("disabled", true).html("Resending...")
+
+		$.ajax({
+			url: base_url + 'user/resendVerification',
+			type: 'POST',
+			dataType: 'json',
+			data:{
+				email: email
+			},
+			success: function(response){
+				$(".btn-resend").prop("disabled", true).html("Resend it now")
+				setTimeout(function(){
+                   $(".btn-resend").prop("disabled", false)
+                },30000)
+			},
+			error: function(error){
+
+			}
+		})
+	})
+
 	$('input').on('keypress',function(e) {
         if(e.which == 13) {
             $(".btn-verify").click();
