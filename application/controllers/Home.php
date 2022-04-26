@@ -8,6 +8,7 @@ class Home extends CI_Controller {
 		$this->data['page_title'] = "Home";
 
 		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_buttons');
 		$this->load->view('home/home');
 		$this->load->view('layouts/footer');
 	}

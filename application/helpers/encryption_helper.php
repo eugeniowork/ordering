@@ -7,7 +7,7 @@
 	}
 
 	function decryptData($params){
-		$key = "HUPAY SYSTEM";
+		$key = "ORDERING";
         $options = 0; 
         $decryption_iv = '1234567891011121'; 
         return openssl_decrypt(hex2bin($params),'AES-128-CBC',$key,$options,$decryption_iv);

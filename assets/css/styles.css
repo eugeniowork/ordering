@@ -126,4 +126,28 @@ body {
       -moz-opacity: 0.8;
       opacity: 0.8; }
 
+.verify-account-container .container-body {
+  background: #3498db !important; }
+  .verify-account-container .container-body .verify-account-flex, .verify-account-container .container-body .verified-account-flex {
+    min-height: 100vh;
+    width: 100%;
+    position: relative; }
+    .verify-account-container .container-body .verify-account-flex .verify-account-body, .verify-account-container .container-body .verify-account-flex .verified-account-body, .verify-account-container .container-body .verified-account-flex .verify-account-body, .verify-account-container .container-body .verified-account-flex .verified-account-body {
+      z-index: 1;
+      padding: 20px 30px;
+      background: white;
+      min-height: 400px;
+      height: auto;
+      width: 460px;
+      border-radius: 5px;
+      color: #333; }
+      .verify-account-container .container-body .verify-account-flex .verify-account-body .main-title, .verify-account-container .container-body .verify-account-flex .verified-account-body .main-title, .verify-account-container .container-body .verified-account-flex .verify-account-body .main-title, .verify-account-container .container-body .verified-account-flex .verified-account-body .main-title {
+        text-align: center;
+        font-size: 24px; }
+        .verify-account-container .container-body .verify-account-flex .verify-account-body .main-title span, .verify-account-container .container-body .verify-account-flex .verified-account-body .main-title span, .verify-account-container .container-body .verified-account-flex .verify-account-body .main-title span, .verify-account-container .container-body .verified-account-flex .verified-account-body .main-title span {
+          font-style: italic; }
+      .verify-account-container .container-body .verify-account-flex .verify-account-body img, .verify-account-container .container-body .verify-account-flex .verified-account-body img, .verify-account-container .container-body .verified-account-flex .verify-account-body img, .verify-account-container .container-body .verified-account-flex .verified-account-body img {
+        height: 150px;
+        width: 150px; }
+
 /*# sourceMappingURL=styles.css.map */

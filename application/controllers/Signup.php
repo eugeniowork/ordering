@@ -16,6 +16,7 @@ class Signup extends CI_Controller {
 		$this->data['page_title'] = "Signup";
 
 		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
 		$this->load->view('signup/signup');
 		$this->load->view('layouts/footer');
 	}
