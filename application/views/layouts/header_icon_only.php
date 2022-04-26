@@ -3,6 +3,6 @@
 </div>
 <div class="header">
 	<div class="left">
-        <a href="<?= base_url(); ?>">AdU FacePay</a>
+        <a href="<?= base_url(); ?>"><?= APPNAME ?></a>
     </div>
 </div>

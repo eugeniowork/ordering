@@ -174,5 +174,19 @@ body {
         font-style: italic;
         color: #333;
         text-align: center; }
+      .login-container .container-body .login-flex .login-body input {
+        background: #ececec;
+        padding-left: 40px; }
+      .login-container .container-body .login-flex .login-body i {
+        position: absolute;
+        z-index: 2;
+        display: block;
+        width: 2.375rem;
+        height: 2.375rem;
+        padding: 10px 10px;
+        text-align: center;
+        color: #333;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px; }
 
 /*# sourceMappingURL=styles.css.map */

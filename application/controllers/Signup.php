@@ -170,7 +170,7 @@ class Signup extends CI_Controller {
             // Email body content
             $mail->Body = "
                 Good day! <br><br>
-                Thank you for registering in <strong>AdU FacePay</strong>. To verify your account, please use this OTP:<br>
+                Thank you for registering in <strong>".APPNAME."</strong>. To verify your account, please use this OTP:<br>
                 <strong>".$code."</strong>
                 <br><br>
                 This is only valid for 20 minutes. Do not share your OTP to anyone.
