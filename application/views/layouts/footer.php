@@ -7,6 +7,12 @@
 <script type="text/javascript">
 	var base_url = '<?= base_url();?>'
 
+	$(document).ready(function(){
+		$(".btn-logout").on("click", function(){
+			window.location.href = base_url + "dashboard/logout"
+		})
+	})
+
 	//GLOBAL FUNCTIONS
 	function b64toBlob(b64Data, contentType, sliceSize) {
 		contentType = contentType || '';

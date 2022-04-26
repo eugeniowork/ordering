@@ -36,8 +36,8 @@ class PHPMailer_Lib
         $mail->SMTPSecure = 'tsl';
         $mail->Port = 587;
         //live server 25 localhost 587
-        $mail->setFrom('kenezekiel27.1@gmail.com', APPNAME);
-        $mail->addReplyTo('kenezekiel27.1@gmail.com', APPNAME);
+        $mail->setFrom('adufacepay@gmail.com', APPNAME);
+        $mail->addReplyTo('adufacepay@gmail.com', APPNAME);
 
         return $mail;
     }

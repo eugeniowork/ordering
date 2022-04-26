@@ -84,6 +84,35 @@ body {
       list-style: none; }
       .header .right ul li {
         float: right; }
+    .header .right .header-dropdown-account {
+      display: none;
+      background: #3498db;
+      height: auto;
+      width: auto;
+      margin-top: 50px;
+      position: relative;
+      z-index: 33;
+      border-top: 1px solid lightgray; }
+      .header .right .header-dropdown-account ul {
+        z-index: 2;
+        width: 100%;
+        padding: 0px 0px;
+        list-style: none;
+        display: inline-block; }
+        .header .right .header-dropdown-account ul li {
+          margin-bottom: 5px; }
+          .header .right .header-dropdown-account ul li button, .header .right .header-dropdown-account ul li a {
+            color: white;
+            width: 100%;
+            padding: 5px 15px;
+            border: none;
+            background: none;
+            text-align: justify;
+            cursor: pointer; }
+            .header .right .header-dropdown-account ul li button:hover, .header .right .header-dropdown-account ul li a:hover {
+              background: #42a3e4; }
+      .header .right .header-dropdown-account ul li {
+        float: none; }
 
 .signup-container .face-container img {
   height: 200px;

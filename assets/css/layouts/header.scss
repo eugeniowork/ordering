@@ -1,3 +1,4 @@
+@import "../includes";
 .header{
 	height: 50px;
     width: 100%;
@@ -34,5 +35,14 @@
 	        	float: right;
 	        }
 	    }
+
+        .header-dropdown-account{
+            @include headerDropdown(auto);
+            ul {
+                li {
+                    float: none;
+                }
+            }
+        }
     }
 }

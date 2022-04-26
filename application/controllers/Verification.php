@@ -132,7 +132,7 @@ class Verification extends CI_Controller {
         $mail->addAddress($email);
         
         // Email subject
-        $mail->Subject = "Account Verification";
+        $mail->Subject = "[".APPNAME."]For Email Verification";
         
         // Set email format to HTML
         $mail->isHTML(true);

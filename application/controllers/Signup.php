@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Signup extends CI_Controller {
 	function __construct(){
 		parent::__construct();
+        if($this->session->userdata('user_id')){
+            redirect('dashboard');
+        }
 
 		$this->load->model('global_model');
 
@@ -42,9 +45,10 @@ class Signup extends CI_Controller {
         $this->form_validation->set_rules('phone_number','phone_number','required',array(
             'required'=> 'Phone number is required'
         ));
-        $this->form_validation->set_rules('email','email','required|is_unique[users.email]',array(
+        $this->form_validation->set_rules('email','email','required|is_unique[users.email]|trim|valid_email',array(
             'required'=> 'Email is required',
             'is_unique'=>"Email already exist.",
+            'valid_email'=> "Enter a valid email"
         ));
         $this->form_validation->set_rules('password','password','required|min_length[6]',array(
             'required'=> 'Password is required',
@@ -162,7 +166,7 @@ class Signup extends CI_Controller {
             $mail->addAddress($email);
             
             // Email subject
-            $mail->Subject = "Account Verification";
+            $mail->Subject = "[".APPNAME."]For Email Verification";
             
             // Set email format to HTML
             $mail->isHTML(true);

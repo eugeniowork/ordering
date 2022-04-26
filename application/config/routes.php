@@ -50,10 +50,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-//FOR USER RELATED
+//FOR VERIFICATION RELATED
 $route['verify-account/(:any)'] = 'verification/verifyAccountPage/$1';
+
+//FOR LOGIN RELATED
 $route['login'] = 'login/loginPage';
 
-$route['default_controller'] = 'home';
+//FOR DASHBOARD RELATED
+$route['dashboard'] = 'dashboard/dashboardPage';
+
+$route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
