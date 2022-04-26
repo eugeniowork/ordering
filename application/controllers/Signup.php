@@ -104,6 +104,8 @@ class Signup extends CI_Controller {
 				"phone_number"=> $phone_number,
 				"email"=> $email,
 				"password"=> password_hash($password, PASSWORD_DEFAULT),
+                "is_verified"=> 0,
+                "is_active"=> 0,
 				'created_date'=> getTimeStamp()
 			];
 			$user_id = $this->global_model->insert("users", $users_params);
@@ -137,6 +139,44 @@ class Signup extends CI_Controller {
 
             $this->global_model->insert("faces", $faces_params);
 
+            $code = rand(100000, 999999);
+            $otp_params = [
+                'email'=> $email,
+                'code'=> $code,
+                'is_active'=> 1,
+                //plus 20 mins
+                // 20 * 60 = 1200
+                'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),
+                'date_created'=> getTimeStamp()
+            ];
+            $this->global_model->insert("otp", $otp_params);
+
+            // Load PHPMailer library
+            $this->load->library('PHPmailer_lib');
+
+            // PHPMailer object
+            $mail = $this->phpmailer_lib->load();
+            
+            // Add a recipient
+            $mail->addAddress($email);
+            
+            // Email subject
+            $mail->Subject = "Account Verification";
+            
+            // Set email format to HTML
+            $mail->isHTML(true);
+            
+            // Email body content
+            $mail->Body = "
+                Good day! <br><br>
+                Thank you for registering in <strong>AdU FacePay</strong>. To verify your account, please use this OTP:<br>
+                <strong>".$code."</strong>
+                <br><br>
+                This is only valid for 20 minutes. Do not share your OTP to anyone.
+            ";
+
+            $mail->send();
+
             $this->data['encrypted_user_id'] = encryptData($user_id);
 			$this->data['is_error'] = false;
         }
@@ -145,30 +185,7 @@ class Signup extends CI_Controller {
         	$this->data['error_msg'] = $error_msg;
         }
 
-        // Load PHPMailer library
-        $this->load->library('PHPmailer_lib');
-
-        // PHPMailer object
-        $mail = $this->phpmailer_lib->load();
         
-        // Add a recipient
-        $mail->addAddress("eugenioderick@gmail.com");
-        
-        // Email subject
-        $mail->Subject = "Account Verification";
-        
-        // Set email format to HTML
-        $mail->isHTML(true);
-        
-        // Email body content
-        $mail->Body = "test";
-
-        if(!$mail->send()){
-        	$this->data['send_status'] = "error";
-        }
-        else{
-        	$this->data['send_status'] = "success";
-        }
 		
 		echo json_encode($this->data);
 	}
