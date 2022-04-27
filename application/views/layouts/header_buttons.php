@@ -9,6 +9,12 @@
 		<ul>
             <?php if ($this->session->userdata('user_id')): ?>
                 <li>
+                    <a class="btn-cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="span-cart-total-item d-none">0</span>
+                    </a>
+                </li>
+                <li>
                     <a class="header-btn-account">
                         <i class="fa fa-user-circle"></i>&nbsp;
                         <?= $this->session->userdata('user_firstname')." ".$this->session->userdata("user_lastname") ?>&nbsp;

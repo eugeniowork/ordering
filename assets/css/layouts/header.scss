@@ -5,6 +5,9 @@
     background: #3498db;
     color: white;
     line-height: 50px;
+    z-index: 10;
+    position: fixed;
+    z-index: 10;
     a{
         cursor: pointer;
         color: white;
@@ -42,6 +45,15 @@
                 li {
                     float: none;
                 }
+            }
+        }
+
+        .btn-cart{
+            .span-cart-total-item{
+                background: red;
+                padding: 0.2em 0.3em 0.3em;
+                font-size: 10px;
+                border-radius: 2px;
             }
         }
     }

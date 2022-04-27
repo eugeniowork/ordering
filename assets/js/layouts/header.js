@@ -1,16 +1,13 @@
 $(document).ready(function(){
-
-	$('.header-btn-account').on('click', function() {
-		$('.header-dropdown-account').toggle();
-        toggle_caret('.header-dropdown-account', this)
-    })
-
     $(document).mouseup(function(e) {
-    	var account_dropdown_container = $(".account-dropdown");
-    	if (!account_dropdown_container.is(e.target) && account_dropdown_container.has(e.target).length === 0) {
-    		$('.header-dropdown-account').hide();
-	    	toggle_caret('.header-dropdown-account', '.header-btn-account')
-	    }
+        if ($(".header-btn-account").is(e.target)) {
+            $('.header-dropdown-account').toggle();
+            toggle_caret('.header-dropdown-account', '.header-btn-account')
+        }
+        else if (!$(".header-dropdown-account").is(e.target) && $(".header-dropdown-account").has(e.target).length === 0) {
+            $('.header-dropdown-account').hide();
+            toggle_caret('.header-dropdown-account', '.header-btn-account')
+        }
     });
 
 

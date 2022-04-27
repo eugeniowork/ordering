@@ -3,7 +3,10 @@
   width: 100%;
   background: #3498db;
   color: white;
-  line-height: 50px; }
+  line-height: 50px;
+  z-index: 10;
+  position: fixed;
+  z-index: 10; }
   .header a {
     cursor: pointer;
     color: white;
@@ -57,5 +60,10 @@
               background: #42a3e4; }
       .header .right .header-dropdown-account ul li {
         float: none; }
+    .header .right .btn-cart .span-cart-total-item {
+      background: red;
+      padding: 0.2em 0.3em 0.3em;
+      font-size: 10px;
+      border-radius: 2px; }
 
 /*# sourceMappingURL=header.css.map */

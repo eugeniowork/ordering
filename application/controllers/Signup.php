@@ -109,6 +109,7 @@ class Signup extends CI_Controller {
 				"phone_number"=> $phone_number,
 				"email"=> $email,
 				"password"=> password_hash($password, PASSWORD_DEFAULT),
+                "user_type"=> "user",
                 "is_verified"=> 0,
                 "is_active"=> 0,
 				'created_date'=> getTimeStamp()
