@@ -6,6 +6,12 @@
 		$(".btn-logout").on("click", function(){
 			window.location.href = base_url + "dashboard/logout"
 		})
+
+		$('.select2').select2({ 
+			width: '100%',
+			allowClear: true,
+			placeholder: 'Please select'
+		});
 	})
 </script>
 
