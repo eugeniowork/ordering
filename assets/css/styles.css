@@ -64,6 +64,13 @@ body {
     position: relative; }
     .page-container .container-body .row .col-12 {
       margin-bottom: 15px !important; }
+  .page-container .process-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; }
+    .page-container .process-error i {
+      color: #dc3545; }
 
 .preloader {
   display: flex;

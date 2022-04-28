@@ -43,7 +43,7 @@ class Login extends CI_Controller {
 	        $select =  "*";
 	        $where = "email = '$email'";
 	        $order = ["column" => "id", "type" => "ASC"];
-	        $user_details = $this->global_model->get($db_name, $select, $where, $order, "single");
+	        $user_details = $this->global_model->get($db_name, $select, $where, $order, "single", []);
 
 	        if($user_details && password_verify($password, $user_details['password'])){
 	        	$this->session->set_userdata('user_id', $user_details['id']);

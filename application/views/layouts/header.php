@@ -15,5 +15,8 @@
 
 	<!-- FOR FONT AWESOME -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- FOR GLOBAL JS FUNCTIONS -->
+	<script type="text/javascript" src="<?= base_url();?>assets/js/global/global.js"></script>
 </head>
 <body>

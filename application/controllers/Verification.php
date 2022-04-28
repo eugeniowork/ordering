@@ -21,7 +21,7 @@ class Verification extends CI_Controller {
         $select =  "*";
         $where = "id = {$id}";
         $order = ["column" => "id", "type" => "ASC"];
-        $user_details = $this->global_model->get($db_name, $select, $where, $order, "single");
+        $user_details = $this->global_model->get($db_name, $select, $where, $order, "single", []);
         $email = $user_details['email'];
 		$this->data['email'] = $email;
 
@@ -55,7 +55,7 @@ class Verification extends CI_Controller {
 	        $select =  "*";
 	        $where = "email = '$email' AND is_active = 1";
 	        $order = ["column" => "id", "type" => "DESC"];
-	        $otp_details = $this->global_model->get($db_name, $select, $where, $order, "single");
+	        $otp_details = $this->global_model->get($db_name, $select, $where, $order, "single", []);
 
 	        if($otp_details){
 	        	if($otp_details['code'] != $code){

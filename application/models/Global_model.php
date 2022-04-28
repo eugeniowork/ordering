@@ -6,7 +6,7 @@ class Global_model extends CI_Model{
         return $insert_id;
     }
 
-    public function get($db_name, $select = "*", $where = "", $order = [], $query_type = "result"){
+    public function get($db_name, $select = "*", $where = "", $order = [], $query_type = "result", $limit = []){
         $this->db->select($select);
         $this->db->from($db_name);
         if($where != ""){
@@ -15,6 +15,11 @@ class Global_model extends CI_Model{
         if(!empty($order)){
             $this->db->order_by($order['column'], $order['type']);
         }
+
+        if(!empty($limit)){
+            $this->db->limit($limit['limit'], $limit['limit_start']);
+        }
+
         $query = $this->db->get();
 
         if($query_type == "multiple"){

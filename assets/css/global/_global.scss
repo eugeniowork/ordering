@@ -80,6 +80,16 @@ body {
 	    	}
 	    }
     }
+
+    .process-error {
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    flex-direction: column;
+	    i {
+	        color: #dc3545;
+	    }
+	}
 }
 
   
