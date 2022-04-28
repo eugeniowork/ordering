@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $(document).mouseup(function(e) {
+        //FOR HEADER ACCOUNT DROPDOWN
         if ($(".header-btn-account").is(e.target)) {
             $('.header-dropdown-account').toggle();
             toggle_caret('.header-dropdown-account', '.header-btn-account')
@@ -7,6 +8,14 @@ $(document).ready(function(){
         else if (!$(".header-dropdown-account").is(e.target) && $(".header-dropdown-account").has(e.target).length === 0) {
             $('.header-dropdown-account').hide();
             toggle_caret('.header-dropdown-account', '.header-btn-account')
+        }
+
+        //FOR HEADER CHART DROPDOWN
+        if($(".header-btn-cart").is(e.target)){
+            $(".header-dropdown-cart").toggle()
+        }
+        else if (!$(".header-dropdown-cart").is(e.target) && $(".header-dropdown-cart").has(e.target).length === 0) {
+            $(".header-dropdown-cart").hide();
         }
     });
 

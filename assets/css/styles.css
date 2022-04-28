@@ -150,11 +150,55 @@ body {
               background: #42a3e4; }
       .header .right .header-dropdown-account ul li {
         float: none; }
-    .header .right .btn-cart .span-cart-total-item {
+    .header .right .header-btn-cart .span-cart-total-item {
       background: red;
       padding: 0.2em 0.3em 0.3em;
       font-size: 10px;
       border-radius: 2px; }
+    .header .right .header-dropdown-cart {
+      display: none;
+      background: white;
+      height: 100vh;
+      width: 370px;
+      margin-top: 50px;
+      position: fixed;
+      z-index: 33;
+      right: 0px;
+      border-top: 1px solid lightgray;
+      -webkit-box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);
+      -moz-box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);
+      box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);
+      color: #333;
+      padding: 10px 20px;
+      word-break: break-word !important;
+      hyphens: auto !important; }
+      .header .right .header-dropdown-cart .btn-edit-my-order {
+        top: 10px;
+        float: right;
+        position: relative; }
+      .header .right .header-dropdown-cart .bold-title {
+        color: #7d7d7d;
+        font-weight: 600;
+        font-size: 20px; }
+      .header .right .header-dropdown-cart .cart-content {
+        height: 50%;
+        overflow-x: hidden;
+        overflow-y: auto; }
+        .header .right .header-dropdown-cart .cart-content .cart-product {
+          line-height: 20px;
+          font-size: 13px;
+          font-size: 15px !important;
+          color: #333;
+          margin-bottom: 10px; }
+          .header .right .header-dropdown-cart .cart-content .cart-product img {
+            height: 60px;
+            width: 60px;
+            border-radius: 5px; }
+          .header .right .header-dropdown-cart .cart-content .cart-product .btn-minus-product-qty, .header .right .header-dropdown-cart .cart-content .cart-product .btn-add-product-qty {
+            border: none;
+            background: none;
+            font-weight: 600;
+            font-size: 12px; }
 
 .signup-container .face-container img {
   height: 200px;
