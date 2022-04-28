@@ -81,15 +81,18 @@ body {
 	    }
     }
 
-    .process-error {
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    flex-direction: column;
-	    i {
-	        color: #dc3545;
-	    }
-	}
 }
 
-  
+.process-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    i {
+        color: #dc3545;
+    }
+}
+
+.toast {
+    opacity: 1 !important; // -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100); // filter: alpha(opacity=100);
+}

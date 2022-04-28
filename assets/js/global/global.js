@@ -74,3 +74,23 @@ function createProcessError(div_name, error_text, icon_size, text_size) {
         "font-size": text_size
     })
 }
+
+function toastOptions(timer){
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": 4000,
+        "extendedTimeOut": timer,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+}

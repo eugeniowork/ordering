@@ -60,7 +60,7 @@
               background: #42a3e4; }
       .header .right .header-dropdown-account ul li {
         float: none; }
-    .header .right .header-btn-cart .span-cart-total-item {
+    .header .right .header-btn-cart .span-cart-total-product {
       background: red;
       padding: 0.2em 0.3em 0.3em;
       font-size: 10px;
@@ -104,7 +104,7 @@
             height: 60px;
             width: 60px;
             border-radius: 5px; }
-          .header .right .header-dropdown-cart .cart-content .cart-product .btn-minus-product-qty, .header .right .header-dropdown-cart .cart-content .cart-product .btn-add-product-qty {
+          .header .right .header-dropdown-cart .cart-content .cart-product button {
             border: none;
             background: none;
             font-weight: 600;

@@ -36,6 +36,12 @@ class Global_model extends CI_Model{
         $this->db->update($db_name,$update_data);
         return true;
     }
+
+    public function delete($db_name, $where = ""){
+        $this->db->where($where);
+        $this->db->delete($db_name);
+        return true;
+    }
 }
 
 ?>

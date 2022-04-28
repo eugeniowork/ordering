@@ -11,11 +11,11 @@
                 <li>
                     <a class="header-btn-cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span class="span-cart-total-item d-none">0</span>
+                        <span class="span-cart-total-product d-none">0</span>
                     </a>
                     <div class="header-dropdown-cart">
                         <span class="bold-title">My Order</span>
-                        <div class="cart-content">
+                        <!-- <div class="cart-content">
                             <div class="cart-product">
                                 <div class="row">
                                     <div class="col-12 col-lg-3">
@@ -34,9 +34,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        <div class="loading-cart-product-container"></div>
                         <hr>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12 col-lg-8">
                                 <span>Total Amount</span>
                             </div>
@@ -46,7 +47,7 @@
                             <div class="col-12 col-lg-12">
                                 <button class="btn btn-success" style="width: 100%">CHECKOUT</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </li>
                 <li>

@@ -118,7 +118,7 @@ class Verification extends CI_Controller {
             //plus 20 mins
             // 20 * 60 = 1200
             'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),
-            'date_created'=> getTimeStamp()
+            'created_date'=> getTimeStamp()
         ];
         $this->global_model->insert("otp", $otp_params);
 
