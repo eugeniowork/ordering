@@ -57,7 +57,11 @@ $(document).ready(function(){
     //get_cart_item()
     function get_cart_item(){
         is_loaded_cart_products = true;
-        createProcessLoading('.loading-cart-product-container', 'Getting cart products...', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
+        createProcessLoading('.loading-cart-product-container', 'Loading cart products...', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
+
+        $(".cart-content").remove()
+        $(".cart-footer").remove()
+
         $.ajax({
             url: base_url + "product/cartItemList",
             type: 'POST',
@@ -75,8 +79,9 @@ $(document).ready(function(){
                     $.each(response.products, function(key, data){
                         var cart_product = $('<div class="cart-product '+data.encrypted_product_id+' "></div>')
                         var row_cart = $('<div class="row"></div>')
-                        var quantity = data.quantity > data.stock? data.stock: data.quantity
-                        var total_product_price = quantity * data.price;
+                        var quantity = parseInt(data.quantity) > parseInt(data.stock)? data.stock: data.quantity
+                        var total_product_price = parseInt(quantity) * parseFloat(data.price);
+
                         total_cart_product_amount += total_product_price;
                         row_cart.append('<div class="col-12 col-lg-3"><img src="'+base_url+data.image_path+'"></div>')
                         row_cart.append('<div class="col-12 col-lg-5"><span>'+data.name+'</span></div>')
@@ -87,8 +92,7 @@ $(document).ready(function(){
                         cart_content.append(cart_product)
                         $(".header-dropdown-cart").append(cart_content)
                     })
-
-                    var row_checkout = $('<div class="row"></div>')
+                    var row_checkout = $('<div class="row cart-footer"></div>')
                     row_checkout.append('<div class="col-12 col-lg-8"><span>Total Amount</span></div>')
                     row_checkout.append('<div class="col-12 col-lg-4"><span class="bold-title">'+total_cart_product_amount.toFixed(2)+'</span></div>')
                     row_checkout.append('<div class="col-12 col-lg-12"><button class="btn btn-success" style="width: 100%">CHECKOUT</button></div>')
@@ -122,6 +126,7 @@ $(document).ready(function(){
                         $('.span-cart-total-product').removeClass('d-none')
                     }
                     $('.span-cart-total-product').text(cart_total_item)
+                    get_cart_item();
                 }
             },
             error: function(error){
@@ -141,20 +146,18 @@ $(document).ready(function(){
                 id: id,
             },
             success: function(response){
-                if(response.new_quantity <= 0){
-                    $('.span-cart-total-product').addClass('d-none')
-                    $('.span-cart-total-product').text(0)
+                var cart_total_item = parseInt($('.span-cart-total-product').text());
+                if(cart_total_item > 0){
+                    $('.span-cart-total-product').removeClass('d-none')
+                    cart_total_item--;
                 }
                 else{
-                    var cart_total_item = parseInt($('.span-cart-total-product').text());
-                    if(cart_total_item > 0){
-                        $('.span-cart-total-product').removeClass('d-none')
-                        cart_total_item--;
-                    }
-                    $('.span-cart-total-product').text(cart_total_item)
+                    $('.span-cart-total-product').addClass('d-none')
+                    cart_total_item = 0;
                 }
+                $('.span-cart-total-product').text(cart_total_item)
                 
-                //$("."+id).remove()
+                get_cart_item();
             },
             error: function(error){
 

@@ -185,6 +185,8 @@ class Product extends CI_Controller {
 		    
 		    $this->data['new_quantity'] = $new_quantity;
         }
+
+        $this->data['is_error'] = false;
         
 		session_start();
 		echo json_encode($this->data);

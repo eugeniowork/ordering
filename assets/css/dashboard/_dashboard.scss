@@ -9,6 +9,9 @@
 			// overflow-x: hidden;
 			//overflow-y: auto;
 			//height: 500px;
+			margin-right: auto;
+		    margin-left: auto;
+		    max-width: 1200px;
 			.item-container{
 				background: white;
 			    border-radius: 10px;
@@ -24,7 +27,14 @@
 				    	border-radius: 10px;
 				    }
 			    }
-			    
+			    .out-of-stock{
+			    	position: absolute;
+				    padding: 85px 60px;
+				    color: black;
+				    font-weight: 600;
+				    font-size: 20px;
+				    color: black;
+			    }
 			}
 		}
 	}

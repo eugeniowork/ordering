@@ -135,8 +135,15 @@ $(document).ready(function(){
 		$.each(products, function(key, data){
 			var col_lg_3 = $('<div class="col-12 col-lg-3"></div>')
 			var item_container = $('<div class="item-container"></div>')
-			item_container.append('<button class="btn btn-sm btn-success btn-add-to-cart" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 35px;"><i class="fa fa-plus-circle"></i></button>')
-			item_container.append('<div class="row"><div class="col-12 col-lg-12 image-container"><img src="'+base_url+data.image_path+'"></div></div><br>')
+			if(data.stock > 0){
+				item_container.append('<button class="btn btn-sm btn-success btn-add-to-cart" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 35px;"><i class="fa fa-plus-circle"></i></button>')
+			}
+			else{
+				item_container.append('<div class="out-of-stock"><span>Out of Stock</span></div>')
+			}
+			var opacity = data.stock > 0? 1: 0.4;
+			
+			item_container.append('<div class="row"><div class="col-12 col-lg-12 image-container"><img style="opacity:'+opacity+'" src="'+base_url+data.image_path+'"></div></div><br>')
 			item_container.append('<div class="row product-name-container"><div class="col-12 col-lg-12"><strong>'+data.name+'</strong></div></div>')
 			item_container.append('<div class="row product-category-container"><div class="col-12 col-lg-12"><small>'+data.category_name+'</small></div></div>')
 			item_container.append('<div class="row additional-product-details-container"><div class="col-12 col-lg-6"><span>&#8369;</span>'+data.price+'</div><div class="col-12 col-lg-6">Stock: '+data.stock+'</div></div>')

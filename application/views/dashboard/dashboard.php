@@ -12,6 +12,40 @@
 	<div class="container-body">
 		<div class="products-container">
 			<div class="row products-container-row">
+				<div class="col-12 col-lg-3">
+					<div class="item-container">
+						<!-- <button class="btn btn-sm btn-success btn-add-to-cart" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 35px;"><i class="fa fa-plus-circle"></i></button> -->
+						<div class="row">
+							<div class="col-12 col-lg-5 image-container">
+								<img src="https://m.media-amazon.com/images/I/71Yp6aZx1QL.jpg" style="width: 110px;height: 110px;border-radius: 10px;">
+							</div>
+							<div class="col-12 col-lg-3">
+								<span>&#8369;</span>125
+							</div>
+							<div class="col-12 col-lg-4">
+								<span>Stock: 125</span>
+							</div>
+						</div><br>
+						<!-- <div class="row product-name-container">
+							<div class="col-12 col-lg-12">
+								<strong>Product65</strong>
+							</div>
+						</div>
+						<div class="row product-category-container">
+							<div class="col-12 col-lg-12">
+								<small>Food</small>
+							</div>
+						</div>
+						<div class="row additional-product-details-container">
+							<div class="col-12 col-lg-6">
+								<span>&#8369;</span>125
+							</div>
+							<div class="col-12 col-lg-6">
+								Stock: 125
+							</div>
+						</div> -->
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="process-loading-container"></div>

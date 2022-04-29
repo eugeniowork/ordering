@@ -36,7 +36,7 @@
                             </div>
                         </div> -->
                         <div class="loading-cart-product-container"></div>
-                        <hr>
+                        
                         <!-- <div class="row">
                             <div class="col-12 col-lg-8">
                                 <span>Total Amount</span>
