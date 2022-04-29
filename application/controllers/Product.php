@@ -240,4 +240,100 @@ class Product extends CI_Controller {
 
 		echo json_encode($this->data);
 	}
+
+	public function checkOutCart(){
+		session_write_close();
+
+		$date_pickup = $this->input->post("date_pickup");
+		$user_id = $this->session->userdata('user_id');
+
+		$this->form_validation->set_rules('date_pickup','date pickup','required', array(
+			'required'=> 'Please select date pickup.'
+		));
+
+		if($this->form_validation->run() == FALSE){
+            $this->data['is_error'] = true;
+            $this->data['error_msg'] = validation_errors();
+        }
+        else{
+        	if(strtotime($date_pickup) < strtotime(date('Y-m-d'))){
+        		$this->data['is_error'] = true;
+            	$this->data['error_msg'] = 'Please select date pickup from today onwards only.';
+        	}
+        	else{
+        		//GET CART PRODUCTS
+				$db_name = "views_cart";
+		        $select =  "*";
+		        $where = "user_id = '$user_id' AND name != 'null'";
+		        $products = $this->global_model->get($db_name, $select, $where, "", "multiple", "");
+
+		        if($products){
+			        //INSERT ORDER HISTORY
+			        $order_history_params = [
+			        	"user_id"=> $user_id,
+			        	// "total_items"=> $total_items,
+			        	// "total_amount"=> $total_amount,
+			        	"date_pickup"=> $date_pickup,
+			        	"status"=> "FOR_PROCESS",
+			        	"created_date"=> getTimeStamp(),
+			        	"created_by"=> $user_id
+			        ];
+			        $insert_id = $this->global_model->insert("order_history", $order_history_params);
+
+			        $total_quantity = 0;
+			        $total_amount = 0;
+			        $order_history_products_params = [];
+			        $products_params = [];
+			        //INSERT EACH PRODUCT ON ORDER HISTORY PRODUCTS
+			        foreach ($products as $key => $product) {
+			        	if($product->quantity <= $product->stock){
+			        		$total_quantity += $product->quantity;
+			        		$total_amount += ($product->quantity * $product->price);
+			        		$order_history_products_params[] = [
+			        			"order_history_id"=> $insert_id,
+			        			"product_id"=> $product->product_id,
+			        			"name"=> $product->name,
+			        			"category_name"=> $product->category_name,
+			        			"quantity"=> $product->quantity,
+			        			"price"=> $product->price,
+			        			"created_date"=> getTimeStamp(),
+			        			"created_by"=> $user_id
+			        		];
+
+			        		$products_params[] = [
+			        			"id"=> $product->product_id,
+			        			"stock"=> $product->stock - $product->quantity,
+			        		];
+			        	}
+			        }
+			        $this->global_model->batch_insert_or_update("order_history_products", $order_history_products_params);
+			        	
+			        //UPDATE ORDER HISTORY TOTAL AMOUNT AND TOTAL QUANTITY
+			        $update_order_history_params = [
+			        	'total_quantity'=> $total_quantity,
+			        	'total_amount'=> $total_amount
+			        ];
+			        $this->global_model->update("order_history", "id = '$insert_id'", $update_order_history_params);
+
+			        //UPDATE STOCK OF PRODUCT
+			        $this->global_model->batch_insert_or_update("products", $products_params);
+
+			        //CLEAR USER CART
+			        $this->global_model->delete("cart", "user_id = '$user_id'");
+
+					$this->data['is_error'] = false;
+
+				}
+				else{
+					$this->data['is_error'] = true;
+            		$this->data['error_msg'] = 'No products to checkout.';
+				}
+        	}
+        	
+        }
+		
+		session_start();
+
+		echo json_encode($this->data);
+	}
 }

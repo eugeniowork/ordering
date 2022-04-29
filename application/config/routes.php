@@ -59,6 +59,9 @@ $route['login'] = 'login/loginPage';
 //FOR DASHBOARD RELATED
 $route['dashboard'] = 'dashboard/dashboardPage';
 
+//FOR ORDERS RELATED
+$route['orders'] = 'order/ordersPage';
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

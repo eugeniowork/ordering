@@ -6,6 +6,11 @@ class Global_model extends CI_Model{
         return $insert_id;
     }
 
+    public function batch_insert_or_update($db_name, $insert_data){
+        $insert = $this->db->insert_on_duplicate_update_batch($db_name,$insert_data);
+        return $insert;
+    }
+
     public function get($db_name, $select = "*", $where = "", $order = [], $query_type = "result", $limit = []){
         $this->db->select($select);
         $this->db->from($db_name);
