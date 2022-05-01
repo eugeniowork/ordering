@@ -62,6 +62,9 @@ $route['dashboard'] = 'dashboard/dashboardPage';
 //FOR ORDERS RELATED
 $route['my-orders'] = 'order/myOrdersPage';
 
+//FOR USER RELATED
+$route['my-profile'] = 'user/myProfilePage';
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

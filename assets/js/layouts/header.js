@@ -243,4 +243,8 @@ $(document).ready(function(){
     $(".btn-my-orders").on("click", function(){
         window.location.href = base_url + "my-orders";
     })
+
+    $(".btn-my-profile").on("click", function(){
+        window.location.href = base_url + "my-profile";
+    })
 })

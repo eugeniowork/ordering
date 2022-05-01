@@ -9,6 +9,16 @@
 		<ul>
             <?php if ($this->session->userdata('user_id')): ?>
                 <li>
+                    <a class="header-btn-cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="span-cart-total-product d-none">0</span>
+                    </a>
+                    <div class="header-dropdown-cart">
+                        <span class="bold-title">My Order</span>
+                        <div class="loading-cart-product-container"></div>
+                    </div>
+                </li>
+                <li>
                     <a class="header-btn-account">
                         <i class="fa fa-user-circle"></i>&nbsp;
                         <?= $this->session->userdata('user_firstname')." ".$this->session->userdata("user_lastname") ?>&nbsp;
@@ -28,17 +38,6 @@
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <a class="header-btn-cart">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span class="span-cart-total-product d-none">0</span>
-                    </a>
-                    <div class="header-dropdown-cart">
-                        <span class="bold-title">My Order</span>
-                        <div class="loading-cart-product-container"></div>
-                    </div>
-                </li>
-                
             <?php else: ?>
                 <li>
                     <a href="<?= base_url();?>login">Login</a>
