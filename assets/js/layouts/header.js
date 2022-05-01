@@ -30,6 +30,14 @@ $(document).ready(function(){
                 $(".header-dropdown-cart").hide();
             }
         }
+
+        //FOR NOTIFICATIONS DROPDOWN
+        if ($(".header-btn-notifications").is(e.target) || $(".header-btn-notifications i").is(e.target)) {
+            $('.header-dropdown-notifications').toggle();
+        }
+        else if (!$(".header-dropdown-notifications").is(e.target) && $(".header-dropdown-notifications").has(e.target).length === 0) {
+            $('.header-dropdown-notifications').hide();
+        }
         
     });
 
