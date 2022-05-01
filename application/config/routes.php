@@ -60,7 +60,7 @@ $route['login'] = 'login/loginPage';
 $route['dashboard'] = 'dashboard/dashboardPage';
 
 //FOR ORDERS RELATED
-$route['orders'] = 'order/ordersPage';
+$route['my-orders'] = 'order/myOrdersPage';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

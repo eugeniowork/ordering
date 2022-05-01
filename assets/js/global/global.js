@@ -94,3 +94,11 @@ function toastOptions(timer){
         "hideMethod": "fadeOut"
     };
 }
+
+function moneyConvertion(amount, format = "PHP"){
+    var formated_amount = (amount).toLocaleString('en-US', {
+        style: 'currency',
+        currency: format,
+    });
+    return formated_amount;
+}

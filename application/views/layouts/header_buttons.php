@@ -15,39 +15,7 @@
                     </a>
                     <div class="header-dropdown-cart">
                         <span class="bold-title">My Order</span>
-                        <!-- <div class="cart-content">
-                            <div class="cart-product">
-                                <div class="row">
-                                    <div class="col-12 col-lg-3">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg">
-                                    </div>
-                                    <div class="col-12 col-lg-5">
-                                        <span>#product_name</span>
-                                    </div>
-                                    <div class="col-12 col-lg-4">
-                                        #qty x #price
-                                    </div>
-                                    <div class="col-12 col-lg-12">
-                                        <button class="btn-minus-product-qty" data-id="0"><i class="fa fa-minus"></i></button>
-                                        <span>5</span>
-                                        <button class="btn-add-product-qty" data-id="0"><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="loading-cart-product-container"></div>
-                        
-                        <!-- <div class="row">
-                            <div class="col-12 col-lg-8">
-                                <span>Total Amount</span>
-                            </div>
-                            <div class="col-12 col-lg-4">
-                                <span class="bold-title">1250</span>
-                            </div>
-                            <div class="col-12 col-lg-12">
-                                <button class="btn btn-success" style="width: 100%">CHECKOUT</button>
-                            </div>
-                        </div> -->
                     </div>
                 </li>
                 <li>
@@ -60,6 +28,9 @@
                         <ul>
                             <li>
                                 <button class="btn btn-primary btn-my-profile">My Profile</button>
+                            </li>
+                            <li>
+                                <button class="btn btn-primary btn-my-orders">My Orders</button>
                             </li>
                             <li>
                                 <button class="btn btn-primary btn-logout">Logout</button>
@@ -94,7 +65,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <span>Date Pickup <span>*</span></span>
+                    <span>Date Pickup <span class="text-danger">*</span></span>
                     <input type="date" class="form-control date-pickup" value="<?= date('Y-m-d') ?>">
                 </div>
                 <div class="warning text-danger"></div>

@@ -339,7 +339,8 @@ body {
       .dashboard-container .container-body .products-container .item-container .image-container img {
         width: 100%;
         height: 200px;
-        border-radius: 10px; }
+        border-radius: 10px;
+        border: 1px solid lightgrey; }
     .dashboard-container .container-body .products-container .item-container .out-of-stock {
       position: absolute;
       padding: 85px 60px;
@@ -347,5 +348,24 @@ body {
       font-weight: 600;
       font-size: 20px;
       color: black; }
+
+.orders-container .active-orders-container .title, .orders-container .past-orders-container .title {
+  color: #7d7d7d;
+  font-weight: 600;
+  font-size: 20px;
+  text-decoration: underline; }
+.orders-container .active-orders-container img, .orders-container .past-orders-container img {
+  height: 100px;
+  width: 100px;
+  border-radius: 5px;
+  border: 1px solid lightgrey; }
+.orders-container .active-orders-container .btn-cancel-order, .orders-container .past-orders-container .btn-cancel-order {
+  color: red; }
+  .orders-container .active-orders-container .btn-cancel-order:hover, .orders-container .past-orders-container .btn-cancel-order:hover {
+    text-decoration: underline; }
+.orders-container .active-orders-container .status, .orders-container .past-orders-container .status {
+  color: white;
+  padding: 3px 3px;
+  border-radius: 5px; }
 
 /*# sourceMappingURL=styles.css.map */

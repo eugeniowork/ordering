@@ -146,7 +146,7 @@ $(document).ready(function(){
 			item_container.append('<div class="row"><div class="col-12 col-lg-12 image-container"><img style="opacity:'+opacity+'" src="'+base_url+data.image_path+'"></div></div><br>')
 			item_container.append('<div class="row product-name-container"><div class="col-12 col-lg-12"><strong>'+data.name+'</strong></div></div>')
 			item_container.append('<div class="row product-category-container"><div class="col-12 col-lg-12"><small>'+data.category_name+'</small></div></div>')
-			item_container.append('<div class="row additional-product-details-container"><div class="col-12 col-lg-6"><span>&#8369;</span>'+data.price+'</div><div class="col-12 col-lg-6">Stock: '+data.stock+'</div></div>')
+			item_container.append('<div class="row additional-product-details-container"><div class="col-12 col-lg-6">'+moneyConvertion(parseFloat(data.price))+'</div><div class="col-12 col-lg-6">Stock: '+data.stock+'</div></div>')
 			
 			col_lg_3.append(item_container)
 			products_container_row.append(col_lg_3)
