@@ -1,7 +1,10 @@
 </body>
 </html>
 <script type="text/javascript">
-	var base_url = '<?= base_url();?>'
+	var base_url = '<?= base_url();?>';
+	var session_user_id = '<?= $this->session->userdata('user_id');?>';
+	var session_user_type = '<?= $this->session->userdata('user_type');?>';
+
 	$(document).ready(function(){
 		$(".btn-logout").on("click", function(){
 			window.location.href = base_url + "dashboard/logout"

@@ -1,6 +1,6 @@
 <div class="page-container signup-container">
 	<div class="container-header">
-		<span class="header-title">PROFILE</span><br>
+		<span class="header-title">Profile</span><br>
 		<div class="buttons">
             <button class="btn btn-sm btn-primary btn-update" disabled>Update</button>
         </div>

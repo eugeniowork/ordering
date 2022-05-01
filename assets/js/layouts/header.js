@@ -38,6 +38,16 @@ $(document).ready(function(){
         else if (!$(".header-dropdown-notifications").is(e.target) && $(".header-dropdown-notifications").has(e.target).length === 0) {
             $('.header-dropdown-notifications').hide();
         }
+
+        //FOR HEADER PAGES DROPDOWN
+        if ($(".header-btn-pages").is(e.target) || $(".header-btn-pages i").is(e.target)) {
+            $('.header-dropdown-pages').toggle();
+            toggle_caret('.header-dropdown-pages', '.header-btn-pages')
+        }
+        else if (!$(".header-dropdown-pages").is(e.target) && $(".header-dropdown-pages").has(e.target).length === 0) {
+            $('.header-dropdown-pages').hide();
+            toggle_caret('.header-dropdown-pages', '.header-btn-pages')
+        }
         
     });
 
@@ -52,23 +62,25 @@ $(document).ready(function(){
         }
     }
 
-    get_cart_total_item();
-    function get_cart_total_item(){
-        $.ajax({
-            url: base_url + "product/cartTotalItem",
-            type: 'POST',
-            dataType: 'json',
-            data:{},
-            success: function(response){
-                if(response.total > 0){
-                    $('.span-cart-total-product').removeClass('d-none')
-                    $('.span-cart-total-product').text(response.total)
-                }
-            },
-            error: function(error){
+    if(session_user_type == "user"){
+        get_cart_total_item();
+        function get_cart_total_item(){
+            $.ajax({
+                url: base_url + "product/cartTotalItem",
+                type: 'POST',
+                dataType: 'json',
+                data:{},
+                success: function(response){
+                    if(response.total > 0){
+                        $('.span-cart-total-product').removeClass('d-none')
+                        $('.span-cart-total-product').text(response.total)
+                    }
+                },
+                error: function(error){
 
-            }
-        })
+                }
+            })
+        }
     }
 
     //get_cart_item()

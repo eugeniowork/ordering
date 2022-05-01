@@ -28,7 +28,24 @@ class Dashboard extends CI_Controller {
 
 		$this->load->view('layouts/header', $this->data);
 		$this->load->view('layouts/header_buttons');
-		$this->load->view('dashboard/dashboard', $this->data);
+		if ($this->session->userdata("user_type") == "user") {
+			$this->load->view('dashboard/dashboard', $this->data);
+		}
+		else{
+			$first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+			$last_day_this_month  = date('Y-m-t');
+
+			$products = $this->global_model->get("products", "sum(stock) as total_stocks", "deleted_by = 0", [], "single", []);
+        	$this->data['total_stocks'] = $products['total_stocks'];
+
+        	$orders = $this->global_model->get("order_history", "sum(total_amount) as total_amount, sum(total_quantity) as total_quantity", "status = 'PICKED UP' AND deleted_by = 0 AND created_date >= '$first_day_this_month' AND created_date <= '$last_day_this_month'", [], "single", []);
+
+        	$this->data['revenue'] = $orders['total_amount'];
+        	$this->data['orders_this_week'] = $orders['total_quantity'];
+
+			$this->load->view('dashboard/admin-dashboard', $this->data);
+		}
+		
 		$this->load->view('layouts/footer');
 	}
 

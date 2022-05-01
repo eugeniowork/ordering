@@ -1,6 +1,6 @@
 <div class="page-container signup-container">
 	<div class="container-header">
-		<span class="header-title">SIGN UP</span><br>
+		<span class="header-title">Sign Up</span><br>
 		<div class="buttons">
             <button class="btn btn-sm btn-primary btn-save-registration">Save</button>
         </div>

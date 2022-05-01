@@ -30,3 +30,22 @@
         }
     }
 }
+
+@mixin headerDropdown2($height, $width, $right, $background){
+    height: $height;
+    width: $width;
+    display: none;
+    background: $background;
+    margin-top: 50px;
+    position: fixed;
+    z-index: 33;
+    right: $right;
+    border-top: 1px solid lightgray;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(40,40,40,0.75);
+    -moz-box-shadow:0px 0px 10px 0px rgba(40,40,40,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(40,40,40,0.75);
+    color: #333;
+    padding: 0px 20px;
+    word-break: break-word !important;
+    hyphens: auto !important;
+}
