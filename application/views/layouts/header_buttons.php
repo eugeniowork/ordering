@@ -43,7 +43,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="header-btn-notifications"><i class="fa fa-bell"></i>&nbsp;Notifications<span class="span-total-notif">9+</span></a>
+                    <a class="header-btn-notifications"><i class="fa fa-bell"></i>&nbsp;Notifications<span class="span-total-notif d-none">9+</span></a>
                     <div class="header-dropdown-notifications">
                         <span class="bold-title">Notification(s)</span>
                         <div class="notification-content" style="line-height: 23px">
@@ -58,6 +58,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="loading-notifications-container"></div>
                     </div>
                 </li>
                 <li>

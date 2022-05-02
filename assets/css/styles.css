@@ -188,7 +188,9 @@ body {
       color: #333;
       padding: 0px 20px;
       word-break: break-word !important;
-      hyphens: auto !important; }
+      hyphens: auto !important;
+      overflow-x: hidden;
+      overflow-y: auto; }
       .header .right .header-dropdown-cart .btn-edit-my-order {
         top: 10px;
         float: right;
@@ -222,7 +224,7 @@ body {
       font-size: 10px;
       border-radius: 2px; }
     .header .right .header-dropdown-notifications {
-      height: 50%;
+      height: 70%;
       width: 465px;
       display: none;
       background: white;
@@ -237,7 +239,9 @@ body {
       color: #333;
       padding: 0px 20px;
       word-break: break-word !important;
-      hyphens: auto !important; }
+      hyphens: auto !important;
+      overflow-x: hidden;
+      overflow-y: auto; }
       .header .right .header-dropdown-notifications .bold-title {
         color: #7d7d7d;
         font-weight: 500;
@@ -267,7 +271,9 @@ body {
       color: #333;
       padding: 0px 20px;
       word-break: break-word !important;
-      hyphens: auto !important; }
+      hyphens: auto !important;
+      overflow-x: hidden;
+      overflow-y: auto; }
 
 .signup-container .face-container img {
   height: 200px;
@@ -422,7 +428,7 @@ body {
   color: red; }
   .orders-container .active-orders-container .btn-cancel-order:hover, .orders-container .past-orders-container .btn-cancel-order:hover {
     text-decoration: underline; }
-.orders-container .active-orders-container .status, .orders-container .past-orders-container .status {
+.orders-container .active-orders-container .order-number, .orders-container .past-orders-container .order-number {
   color: white;
   padding: 3px 3px;
   border-radius: 5px; }

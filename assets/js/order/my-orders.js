@@ -21,20 +21,30 @@ $(document).ready(function(){
 					$.each(response.orders, function(key, data){
 						var row = $("<div class='row'>")
 						var col_12_order_details = $("<div class='col-12 col-lg-3'>")
-						var col_12_order_amount = $("<div class='col-12 col-lg-2'>")
-						col_12_order_details.append('<span style="font-weight: 600; color: #333" class="status">'+data.status+'</span>')
+						var col_12_order_amount = $("<div class='col-12 col-lg-3'>")
+						var col_12_order_status = $("<div class='col-12 col-lg-2'>")
+
+						col_12_order_details.append('<br><small style="font-style: italic">'+data.created_date+'</small><br>')
+
+						col_12_order_details.append('<span style="font-weight: 600; color: #333" class="order-number">#'+data.order_number+'</span>')
+
 						if(data.status == "FOR PROCESS"){
 							col_12_order_details.append('<button class="btn btn-sm btn-cancel-order" data-id="'+data.encrypted_id+'">Cancel Order</button>')
 						}
-						col_12_order_details.append('<br><small style="font-style: italic">'+data.created_date+'</small>')
+
+						
 						
 						$.each(data.products, function(key, data_products){
 							col_12_order_details.append('<div class=""><span>'+data_products.quantity+'</span>x&nbsp;<span>'+data_products.name+'</span></div>')
 						})
 
-						col_12_order_amount.append('<br><strong>'+moneyConvertion(parseFloat(data.total_amount))+'</strong>')
+						col_12_order_amount.append('<br><br><strong>'+moneyConvertion(parseFloat(data.total_amount))+'</strong>')
+
+						col_12_order_status.append('<br><br><span style="font-weight: 600;">'+data.status+'</span>')
+
 						row.append(col_12_order_details)
 						row.append(col_12_order_amount)
+						row.append(col_12_order_status)
 
 						if(data.status == "CANCELLED" || data.status == "PICKED UP"){
 							past_orders_container.append(row)

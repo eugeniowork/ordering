@@ -1,5 +1,6 @@
 $(document).ready(function(){
     var is_loaded_cart_products = false;
+    var is_loaded_notifications = false;
 
     $(document).mouseup(function(e) {
         //FOR HEADER ACCOUNT DROPDOWN
@@ -34,6 +35,10 @@ $(document).ready(function(){
         //FOR NOTIFICATIONS DROPDOWN
         if ($(".header-btn-notifications").is(e.target) || $(".header-btn-notifications i").is(e.target)) {
             $('.header-dropdown-notifications').toggle();
+            if(!is_loaded_notifications){
+                get_nofitications();
+                read_notifications();
+            }
         }
         else if (!$(".header-dropdown-notifications").is(e.target) && $(".header-dropdown-notifications").has(e.target).length === 0) {
             $('.header-dropdown-notifications').hide();
@@ -259,4 +264,80 @@ $(document).ready(function(){
     $(".btn-my-profile").on("click", function(){
         window.location.href = base_url + "my-profile";
     })
+
+    get_total_unread_notifications();
+    function get_total_unread_notifications(){
+        $.ajax({
+            url: base_url + "notification/totalUnreadNotifications",
+            type: 'POST',
+            dataType: 'json',
+            data:{},
+            success: function(response){
+                if(response.notifications > 0){
+                    $('.span-total-notif').removeClass('d-none')
+                    $('.span-total-notif').text(response.notifications)
+                }
+            },
+            error: function(error){
+
+            }
+        })
+    }
+
+
+    function get_nofitications(){
+        is_loaded_notifications = true;
+        createProcessLoading('.loading-notifications-container', 'Loading notifcations...', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
+        $(".notification-content-body").empty();
+
+        $.ajax({
+            url: base_url + "notification/getNotifications",
+            type: 'POST',
+            dataType: 'json',
+            data:{},
+            success: function(response){
+                if(response.is_error){
+                    createProcessError('.loading-notifications-container', 'Unable to load notifications.', "30px", "15px");
+                }
+                else{
+                    $(".loading-notifications-container").empty();
+
+                    if(response.notifications.length > 0){
+                        $.each(response.notifications, function(key, data) {
+                            var row = $("<div class='row'>")
+                            row.append('<div class="col-12 col-lg-2"><img src="'+data.customer_profile_path+'"></div>')
+                            row.append('<div class="col-12 col-lg-10"><span class="description">'+data.content+'</span></div>')
+                            row.append('<div class="col-12 col-lg-2"></div>');
+                            row.append('<div class="col-12 col-lg-10 date"><span>'+data.created_date+'</span></div>')
+
+                            $(".notification-content-body").append('<hr>')
+                            $(".notification-content-body").append(row)
+                        });
+
+                    }
+                    else{
+                        $(".notification-content-body").append("<span>No notification(s) yet.</span>")
+                    }
+                }
+            },
+            error: function(error){
+                createProcessError('.loading-notifications-container', 'Unable to load notifications.', "30px", "15px");
+            }
+        })
+    }
+
+    function read_notifications(){
+        $.ajax({
+            url: base_url + "notification/readNotifications",
+            type: 'POST',
+            dataType: 'json',
+            data:{},
+            success: function(response){
+                $('.span-total-notif').addClass('d-none')
+                $('.span-total-notif').text(0)
+            },
+            error: function(error){
+            }
+        })
+    }
 })

@@ -268,9 +268,11 @@ class Product extends CI_Controller {
 		        $products = $this->global_model->get($db_name, $select, $where, "", "multiple", "");
 
 		        if($products){
+		        	$order_number = time();
 			        //INSERT ORDER HISTORY
 			        $order_history_params = [
 			        	"user_id"=> $user_id,
+			        	"order_number"=> $order_number,
 			        	// "total_items"=> $total_items,
 			        	// "total_amount"=> $total_amount,
 			        	"date_pickup"=> $date_pickup,
@@ -320,6 +322,25 @@ class Product extends CI_Controller {
 
 			        //CLEAR USER CART
 			        $this->global_model->delete("cart", "user_id = '$user_id'");
+
+			        //NOTIFY ADMIN AND STAFF
+			        $bulk_insert_params = [];
+		        	$users = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", [], "multiple", []);
+		        	foreach ($users as $key => $user) {
+		        		$bulk_insert_params[] = [
+		        			"receiver"=> $user->id,
+		        			"user_id"=> $user_id,
+		        			"content"=> "Customer #customer_name placed an order with Order Number <strong>{$order_number}</strong>.",
+		        			"type"=> "NEW_ORDER",
+		        			"source_table"=> "order_history",
+		        			"source_id"=>$insert_id,
+		        			"read_status"=> 0,
+		        			"created_date"=> getTimeStamp(),
+		        			"created_by"=> $user_id
+		        		];
+		        	}
+
+		        	$this->global_model->batch_insert_or_update("notifications", $bulk_insert_params);
 
 					$this->data['is_error'] = false;
 

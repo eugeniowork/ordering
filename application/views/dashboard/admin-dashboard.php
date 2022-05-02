@@ -23,8 +23,8 @@
                             <h1><span class="fa text-primary fa-chart-bar py-3 px-4 rounded-circle border border-primary"></span></h1>
                         </div>
                         <div class="col-12 col-lg-8">
-                            <span class="value"><span>&#8369;</span><?= $revenue ?></span><br>
-                            <span class="title">Revenue this Week</span>
+                            <span class="value"><span>&#8369;</span><?= number_format($revenue, 2) ?></span><br>
+                            <span class="title">Revenue this month</span>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-12 col-lg-9">
                             <span class="value"><?= $orders_this_week; ?></span><br>
-                            <span class="title">Orders this Week</span>
+                            <span class="title">Orders this month</span>
                         </div>
                     </div>
                 </div>
