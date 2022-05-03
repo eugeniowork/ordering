@@ -133,9 +133,6 @@ class Order extends CI_Controller {
 
 	            $mail->send();
         	}
-        	
-
-        	
 
 	    	$this->data['is_error'] = false;
         }

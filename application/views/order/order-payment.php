@@ -27,7 +27,17 @@
 							<input type="radio" id="face_pay" value="face_pay">
 							<label for="face_pay">FacePay</label>
 
-							<div class="face-pay-container d-none">face pay</div>
+							<div class="face-pay-container d-none">
+								<strong>Select Authentication Method</strong><br>
+								<button class="btn btn-facial-recognition">
+									<span>Facial Recognition</span>
+									<img src="<?= base_url();?>assets/uploads/images/face-recognition-default.jpg">
+								</button><br>
+								<button class="btn btn-code">
+									<span>Code</span>
+									<img src="<?= base_url();?>assets/uploads/images/code_icon.png">
+								</button>
+							</div>
 							<div class="cash-container d-none">
 								<div class="form-group">
 									<span>Cash Amount&nbsp;<span class="text-danger">*</span></span>

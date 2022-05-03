@@ -1,4 +1,24 @@
 .order-payment-container{
+	.payment-method-container{
+		.face-pay-container{
+			button{
+				line-height: 50px;
+			    width: 35%;
+			    text-align: justify;
+			    margin-bottom: 10px;
+			    border: 1px solid lightgrey;
+			}
+			img{
+				width: 50px;
+			    height: 50px;
+			    border: 1px solid #f3f3f3;
+			    padding: 5px 5px;
+			    border-radius: 5px;
+			    float: right;
+			}
+		}
+	}
+
 	.order-details-container{
 		display: inline-flex;
 	    justify-content: space-between;

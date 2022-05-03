@@ -37,6 +37,13 @@ $(document).ready(function(){
 	$(".btn-open-payment-confirmation").on("click", function(){
 		$("#confirm_payment_modal").modal("show")
 	})
+
+	$(".btn-code").on("click", function(){
+		
+	})
+	$(".btn-facial-recognition").on("click", function(){
+
+	})
 	
 	$(".btn-confirm-payment").on("click", function(){
 		if(!loading_confirm_payment){
@@ -76,16 +83,6 @@ $(document).ready(function(){
 	                    $(".btn-confirm-payment").prop("disabled", false).html("Submit")
             		}
             		else{
-            			// is_successful_payment = true;
-            			// $(".modal").modal("hide")
-            			// $("#message_modal").modal("show")
-            			// $(".btn-open-payment-confirmation").remove()
-            			// $(".btn-confirm-payment").remove();
-            			// $(".global-loading").css({
-	              //           "display": "none"
-	              //       })
-	              //       $("#message_modal .modal-body").html("<span class='text-success'>Payment Successful</span>")
-
 	              		window.location.href = base_url + "order-payment-successful/"+order_id;
             		}
             	},
@@ -102,10 +99,4 @@ $(document).ready(function(){
             })
 		}
 	})
-
-	$('#message_modal').on('hidden.bs.modal', function () {
-		if(is_successful_payment){
-			window.location.href = base_url + "order-payment-successful/"+order_id;
-		}
-	});
 })

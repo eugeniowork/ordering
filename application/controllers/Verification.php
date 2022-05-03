@@ -53,7 +53,7 @@ class Verification extends CI_Controller {
         	//GET USER LATEST OTP
 			$db_name = "otp";
 	        $select =  "*";
-	        $where = "email = '$email' AND is_active = 1";
+	        $where = "email = '$email' AND is_active = 1 AND module = 'email_verification'";
 	        $order = ["column" => "id", "type" => "DESC"];
 	        $otp_details = $this->global_model->get($db_name, $select, $where, $order, "single", []);
 
@@ -115,6 +115,7 @@ class Verification extends CI_Controller {
             'email'=> $email,
             'code'=> $code,
             'is_active'=> 1,
+            'module'=> 'email_verification',
             //plus 20 mins
             // 20 * 60 = 1200
             'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),

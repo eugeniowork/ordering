@@ -150,6 +150,7 @@ class Signup extends CI_Controller {
                 'email'=> $email,
                 'code'=> $code,
                 'is_active'=> 1,
+                'module'=> 'email_verification',
                 //plus 20 mins
                 // 20 * 60 = 1200
                 'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),
