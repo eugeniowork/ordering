@@ -325,7 +325,7 @@ class Product extends CI_Controller {
 
 			        //NOTIFY ADMIN AND STAFF
 			        $bulk_insert_params = [];
-		        	$users = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", [], "multiple", []);
+		        	$users = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", ["column" => "id", "type" => "ASC"], "multiple", []);
 		        	foreach ($users as $key => $user) {
 		        		$bulk_insert_params[] = [
 		        			"receiver"=> $user->id,

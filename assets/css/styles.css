@@ -32,7 +32,7 @@ body {
       position: absolute;
       top: 0px;
       right: 25px; }
-      .page-container .container-header .buttons button {
+      .page-container .container-header .buttons button, .page-container .container-header .buttons a {
         margin-top: 10px; }
     .page-container .container-header .inputs {
       float: right;
@@ -88,6 +88,12 @@ body {
   left: 0;
   justify-content: center;
   transition: opacity 0.3s linear; }
+
+table {
+  font-size: 12.5px; }
+  table tbody {
+    word-break: break-word !important;
+    hyphens: auto !important; }
 
 .preloader {
   display: flex;
@@ -256,14 +262,14 @@ body {
       .header .right .header-dropdown-notifications .notification-content .notification-content-body .description {
         font-size: 15px; }
     .header .right .header-dropdown-pages {
-      height: 80vh;
-      width: 95%;
+      height: auto;
+      width: auto;
       display: none;
       background: #3498db;
       margin-top: 50px;
       position: fixed;
       z-index: 33;
-      right: 30px;
+      right: 285px;
       border-top: 1px solid lightgray;
       -webkit-box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);
       -moz-box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);
@@ -273,7 +279,12 @@ body {
       word-break: break-word !important;
       hyphens: auto !important;
       overflow-x: hidden;
-      overflow-y: auto; }
+      overflow-y: auto;
+      padding: 0px 5px;
+      min-width: 230px;
+      color: white; }
+      .header .right .header-dropdown-pages a {
+        float: left; }
 
 .signup-container .face-container img {
   height: 200px;
@@ -432,5 +443,18 @@ body {
   color: white;
   padding: 3px 3px;
   border-radius: 5px; }
+
+.status-container {
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  background: #a7a2a2c4; }
+
+.status-container-active {
+  background: #28a745; }
 
 /*# sourceMappingURL=styles.css.map */

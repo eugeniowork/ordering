@@ -22,17 +22,15 @@ $(document).ready(function(){
 						var row = $("<div class='row'>")
 						var col_12_order_details = $("<div class='col-12 col-lg-3'>")
 						var col_12_order_amount = $("<div class='col-12 col-lg-3'>")
-						var col_12_order_status = $("<div class='col-12 col-lg-2'>")
+						var col_12_order_status = $("<div class='col-12 col-lg-6'>")
 
 						col_12_order_details.append('<br><small style="font-style: italic">'+data.created_date+'</small><br>')
 
-						col_12_order_details.append('<span style="font-weight: 600; color: #333" class="order-number">#'+data.order_number+'</span>')
+						col_12_order_details.append('<span style="font-weight: 600; color: #333" class="order-number">Order #'+data.order_number+'</span>')
 
 						if(data.status == "FOR PROCESS"){
 							col_12_order_details.append('<button class="btn btn-sm btn-cancel-order" data-id="'+data.encrypted_id+'">Cancel Order</button>')
 						}
-
-						
 						
 						$.each(data.products, function(key, data_products){
 							col_12_order_details.append('<div class=""><span>'+data_products.quantity+'</span>x&nbsp;<span>'+data_products.name+'</span></div>')
@@ -40,13 +38,43 @@ $(document).ready(function(){
 
 						col_12_order_amount.append('<br><br><strong>'+moneyConvertion(parseFloat(data.total_amount))+'</strong>')
 
-						col_12_order_status.append('<br><br><span style="font-weight: 600;">'+data.status+'</span>')
+						//col_12_order_status.append('<br><br><span style="font-weight: 600;">'+data.status+'</span>')
+						var col_12_order_status_row = $("<br><div class='row'>");
+
+						if(data.status == "FOR PROCESS"){
+							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container status-container-active"><span>For Process</span></div></div>')
+						}
+						else{
+							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container"><span>For Process</span></div></div>')
+						}
+
+						if(data.status == "FOR PICKUP"){
+							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container status-container-active"><span>For Pickup</span></div></div>')
+						}
+						else{
+							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container"><span>For Pickup</span></div></div>')
+						}
+
+						if(data.status == "CANCELED"){
+							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container status-container-active"><span>Canceled</span></div></div>')
+						}
+						else{
+							if(data.status == "PICKED UP"){
+								col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container status-container-active"><span>Picked Up</span></div></div>')
+							}
+							else{
+								col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container"><span>Picked Up</span></div></div>')
+							}
+						}
+						
+
+						col_12_order_status.append(col_12_order_status_row)
 
 						row.append(col_12_order_details)
 						row.append(col_12_order_amount)
 						row.append(col_12_order_status)
 
-						if(data.status == "CANCELLED" || data.status == "PICKED UP"){
+						if(data.status == "CANCELED" || data.status == "PICKED UP"){
 							past_orders_container.append(row)
 						}
 						else{
@@ -56,7 +84,7 @@ $(document).ready(function(){
 				}
 			},
 			error: function(error){
-				createProcessError('.process-loading-container', 'Unable to load prders.', "30px", "15px");
+				createProcessError('.process-loading-container', 'Unable to load orders.', "30px", "15px");
 			}
 		})
 
@@ -84,7 +112,9 @@ $(document).ready(function(){
 					dataType: 'json',
 					data:{
 						order_id: order_id,
-						reason: $(".cancel-order-remarks").val(),
+						remarks: $(".remarks").val(),
+						status: "CANCELED",
+						user_type: "user"
 					},
 					success: function(response){
 						if(response.is_error){

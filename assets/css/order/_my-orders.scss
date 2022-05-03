@@ -1,0 +1,13 @@
+.status-container{
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    background: #a7a2a2c4;
+}
+.status-container-active{
+    background: #28a745;
+}

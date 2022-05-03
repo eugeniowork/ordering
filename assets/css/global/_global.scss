@@ -38,7 +38,7 @@ body {
 		    position: absolute;
 		    top: 0px;
 		    right: 25px;
-		    button {
+		    button,a {
 		        margin-top: 10px;
 		    }
     	}
@@ -109,4 +109,12 @@ body {
     left: 0;
     justify-content: center;
     transition: opacity 0.3s linear;
+}
+
+table{
+    font-size: 12.5px;
+    tbody{
+        word-break: break-word !important;
+        hyphens: auto !important;
+    }
 }

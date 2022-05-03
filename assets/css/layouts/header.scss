@@ -132,7 +132,13 @@
         }
 
         .header-dropdown-pages{
-            @include headerDropdown2(80vh, 95%, 30px, #3498db);
+            @include headerDropdown2(auto, auto, 285px, #3498db);
+            padding: 0px 5px;
+            min-width: 230px;
+            color: white;
+            a{
+                float: left;
+            }
         }
     }
 }

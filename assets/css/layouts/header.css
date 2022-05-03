@@ -149,14 +149,14 @@
       .header .right .header-dropdown-notifications .notification-content .notification-content-body .description {
         font-size: 15px; }
     .header .right .header-dropdown-pages {
-      height: 80vh;
-      width: 95%;
+      height: auto;
+      width: auto;
       display: none;
       background: #3498db;
       margin-top: 50px;
       position: fixed;
       z-index: 33;
-      right: 30px;
+      right: 285px;
       border-top: 1px solid lightgray;
       -webkit-box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);
       -moz-box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);
@@ -166,6 +166,11 @@
       word-break: break-word !important;
       hyphens: auto !important;
       overflow-x: hidden;
-      overflow-y: auto; }
+      overflow-y: auto;
+      padding: 0px 5px;
+      min-width: 230px;
+      color: white; }
+      .header .right .header-dropdown-pages a {
+        float: left; }
 
 /*# sourceMappingURL=header.css.map */

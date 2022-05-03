@@ -2,62 +2,9 @@
 	<div class="container-body" style="top: 0px;">
 		<div class="active-orders-container">
 			<span class="title">Acitve Orders</span><br>
-			<!-- <div class="row">
-				<div class="col-12 col-lg-3">
-					<span style="font-weight: 600; color: #333" class="status">FOR PROCESS</span><br>
-					<small style="font-style: italic">May 03, 2022</small>
-					<div class="order-product-container">
-						<span>1x</span>&nbsp;
-						<span>Pizza</span>
-					</div>
-					<div class="order-product-container">
-						<span>1x</span>&nbsp;
-						<span>Pizza</span>
-					</div>
-					<div class="order-product-container">
-						<span>1x</span>&nbsp;
-						<span>Pizza</span>
-					</div>
-					<div class="order-product-container">
-						<span>1x</span>&nbsp;
-						<span>Pizza</span>
-					</div>
-				</div>
-				<div class="col-12 col-lg-2">
-					<br>
-					<strong><span>&#8369;</span>159</strong>
-				</div>
-			</div> -->
 		</div><hr>
 		<div class="past-orders-container">
 			<span class="title">Past Orders</span><br>
-			<!-- <div class="row">
-				<div class="col-12 col-lg-3">
-					<span style="font-weight: 600; color: #333" class="status">CANCELLED</span><br>
-					<small style="font-style: italic">May 03, 2022</small>
-					<div class="order-product-container">
-						<span>1x</span>&nbsp;
-						<span>Pizza</span>
-					</div>
-					<div class="order-product-container">
-						<span>1x</span>&nbsp;
-						<span>Pizza</span>
-					</div>
-					<div class="order-product-container">
-						<span>1x</span>&nbsp;
-						<span>Pizza</span>
-					</div>
-					<div class="order-product-container">
-						<span>1x</span>&nbsp;
-						<span>Pizza</span>
-					</div>
-				</div>
-				<div class="col-12 col-lg-2">
-					<br>
-					<strong><span>&#8369;</span>159</strong>
-				</div>
-			</div> -->
-
 		</div>
 		<div class="process-loading-container"></div>
 	</div>
@@ -74,7 +21,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <textarea rows="3" class="form-control cancel-order-remarks" placeholder="Please enter reason of cancelling"></textarea>
+                    <textarea rows="3" class="form-control remarks" placeholder="Enter remarks"></textarea>
                 </div>
                 <div class="warning text-danger"></div>
             </div>
