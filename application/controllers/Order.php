@@ -187,4 +187,136 @@ class Order extends CI_Controller {
 		$this->load->view('order/ongoing-orders-view');
 		$this->load->view('layouts/footer');
 	}
+
+	public function orderPaymentPage($hash_id){
+		$order_id = decryptData($hash_id);
+
+		$order = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+		$this->data['order'] = $order;
+
+		$order_items = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
+		$this->data['order_items'] = $order_items;
+
+		$this->data['page_title'] = "Order Payment";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('order/order-payment');
+		$this->load->view('layouts/footer');
+	}
+
+	public function saveCashOrderPayment(){
+		session_write_close();
+
+		$order_id = $this->input->post("order_id");
+		$order_id = decryptData($order_id);
+		$cash_amount = $this->input->post("cash_amount");
+
+		$this->form_validation->set_rules('cash_amount','cash amount','required',array(
+            'required'=> 'Please enter cash amount'
+        ));
+
+        if($this->form_validation->run() == FALSE){
+            $this->data['is_error'] = true;
+            $this->data['error_msg'] = validation_errors();
+        }
+        else{
+        	$order_details = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+        	$customer_id = $order_details['user_id'];
+        	$order_number = $order_details['order_number'];
+
+        	if($cash_amount < $order_details['total_amount']){
+        		$this->data['is_error'] = true;
+            	$this->data['error_msg'] = "Please enter amount that is equal or greater than <span>&#8369;</span>".number_format($order_details['total_amount'], 2);
+        	}
+        	else{
+        		//UPDATE ORDER
+        		$order_params = [
+        			'status'=> 'PICKED UP',
+        			'mode_of_payment'=> 'CASH',
+        			'actual_date_pickup'=> getTimeStamp(),
+        			'cash_payment_amount'=> $cash_amount,
+        			'user_in_charge'=> $this->session->userdata('user_id'),
+        			'updated_date'=> getTimeStamp(),
+        			'updated_by'=> $this->session->userdata('user_id'),
+        		];
+        		$this->global_model->update("order_history", "id = '$order_id'", $order_params);
+
+        		$user = $this->global_model->get("users", "id, email", "id = '$customer_id'", [], "single", []);
+
+        		//NOTIFY USER/CUSTOMER
+        		$content = "Payment successful for Order Number <strong>{$order_number}</strong> using Cash Payment.";
+        		$notification_params = [
+        			"receiver"=> $customer_id,
+        			"user_id"=> $this->session->userdata('user_id'),
+        			"content"=> $content,
+        			"type"=> "ORDER_PAYMENT",
+        			"source_table"=> "order_history",
+        			"source_id"=>$order_details['id'],
+        			"read_status"=> 0,
+        			"created_date"=> getTimeStamp(),
+        			"created_by"=> $this->session->userdata('user_id')
+        		];
+        		$this->global_model->insert("notifications", $notification_params);
+
+        		// Load PHPMailer library
+	            $this->load->library('PHPmailer_lib');
+
+	            // PHPMailer object
+	            $mail = $this->phpmailer_lib->load();
+	            
+	            // Add a recipient
+	            $mail->addAddress($user['email']);
+	            
+	            // Email subject
+	            $mail->Subject = "[".APPNAME."] ORDER PICKED UP";
+	            
+	            // Set email format to HTML
+	            $mail->isHTML(true);
+	            
+	            // Email body content
+	            $mail->Body = "
+	                Good day! <br><br>
+	                $content
+	            ";
+
+	            $mail->send();
+
+				$this->data['is_error'] = false;
+        	}
+        }
+
+		session_start();
+		echo json_encode($this->data);
+	}
+
+	public function saveFacePayOrderPayment(){
+		session_write_close();
+
+		$order_id = $this->input->post("order_id");
+		$order_id = decryptData($order_id);
+
+		$order = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+		$this->data['order'] = $order;
+
+		session_start();
+		echo json_encode($this->data);
+	}
+
+	public function orderPaymentSuccessfulPage($hash_id){
+		$this->data['page_title'] = "Order Payment Successful";
+		$order_id = decryptData($hash_id);
+
+		$order = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+		$this->data['order'] = $order;
+
+		if($order['status'] != "PICKED UP"){
+			redirect("ongoing-orders");
+		}
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_icon_only');
+		$this->load->view('order/order-payment-successful');
+		$this->load->view('layouts/footer');
+	}
 }

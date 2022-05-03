@@ -1,15 +1,18 @@
 <?php if ($this->session->userdata('user_type') == "user"): ?>
-    <div class="page-container ongoing-orders-container">
+    <div class="page-container ongoing-orders-view-container">
         <div class="container-body" style="top: 0px;">  
             <span><span class="fa fa-exclamation-circle text-warning"></span>&nbsp;You are not allowed to access this page.</span>
         </div>
     </div>
 <?php else: ?>
-    <div class="page-container ongoing-orders-container">
+    <div class="page-container ongoing-orders-view-container">
     	<div class="container-header">
     		<span class="header-title">#<?= $order['order_number'] ?></span><br>
             <div class="buttons">
-                <a href="<?= base_url();?>ongoing-orders" class="btn btn-sm btn-primary">Back to List</a>
+                <a href="<?= base_url();?>ongoing-orders" class="btn btn-sm btn-primary">Back</a>
+                <?php if ($order['status'] == "FOR PICKUP"): ?>
+                    <a href="<?= base_url();?>order-payment/<?= encryptData($order['id']) ?>" class="btn btn-sm btn-primary">Proceed to Payment</a>
+                <?php endif ?>
             </div>
     	</div>
     	<div class="container-body">

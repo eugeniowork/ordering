@@ -1,56 +1,56 @@
-.orders-container{
-	.active-orders-container, .past-orders-container{
-		.title{
-			color: #7d7d7d;
-		    font-weight: 600;
-		    font-size: 20px;
-		    text-decoration: underline;
-		}
-		img{
-			height: 100px;
-		    width: 100px;
-		    border-radius: 5px;
-		    border: 1px solid lightgrey;
-		}
-		.btn-cancel-order{
-			color: red;
-			&:hover{
-				text-decoration: underline;
-			}
-		}
-		.order-number{
-			//font-weight: 600;
-		    color: white;
-		    padding: 3px 3px;
-		    border-radius: 5px;
-		 //    //CANCELLED
-			// font-weight: 600;
-		 //    color: white;
-		 //    background: #dc3545;
-		 //    padding: 3px 3px;
-		 //    border-radius: 5px;
+// .orders-container{
+// 	.active-orders-container, .past-orders-container{
+// 		.title{
+// 			color: #7d7d7d;
+// 		    font-weight: 600;
+// 		    font-size: 20px;
+// 		    text-decoration: underline;
+// 		}
+// 		img{
+// 			height: 100px;
+// 		    width: 100px;
+// 		    border-radius: 5px;
+// 		    border: 1px solid lightgrey;
+// 		}
+// 		.btn-cancel-order{
+// 			color: red;
+// 			&:hover{
+// 				text-decoration: underline;
+// 			}
+// 		}
+// 		.order-number{
+// 			//font-weight: 600;
+// 		    color: white;
+// 		    padding: 3px 3px;
+// 		    border-radius: 5px;
+// 		 //    //CANCELLED
+// 			// font-weight: 600;
+// 		 //    color: white;
+// 		 //    background: #dc3545;
+// 		 //    padding: 3px 3px;
+// 		 //    border-radius: 5px;
 
-		 //    //FOR PROCESS
-		 //    font-weight: 600;
-		 //    color: white;
-		 //    background: #ffc107;
-		 //    padding: 3px 3px;
-		 //    border-radius: 5px;
+// 		 //    //FOR PROCESS
+// 		 //    font-weight: 600;
+// 		 //    color: white;
+// 		 //    background: #ffc107;
+// 		 //    padding: 3px 3px;
+// 		 //    border-radius: 5px;
 
-		 //    //FOR PICKUP
-		 //    font-weight: 600;
-		 //    color: white;
-		 //    background: #28a745;
-		 //    padding: 3px 3px;
-		 //    border-radius: 5px;
+// 		 //    //FOR PICKUP
+// 		 //    font-weight: 600;
+// 		 //    color: white;
+// 		 //    background: #28a745;
+// 		 //    padding: 3px 3px;
+// 		 //    border-radius: 5px;
 
-		 //    //PICKED UP
-		 //    font-weight: 600;
-		 //    color: white;
-		 //    background: #007bff;
-		 //    padding: 3px 3px;
-		 //    border-radius: 5px;
-		}
-	}
+// 		 //    //PICKED UP
+// 		 //    font-weight: 600;
+// 		 //    color: white;
+// 		 //    background: #007bff;
+// 		 //    padding: 3px 3px;
+// 		 //    border-radius: 5px;
+// 		}
+// 	}
 	
-}
+// }

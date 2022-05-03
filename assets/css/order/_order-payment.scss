@@ -1,0 +1,19 @@
+.order-payment-container{
+	.order-details-container{
+		display: inline-flex;
+	    justify-content: space-between;
+	    word-break: break-word;
+	    .quantity-container{
+	    	width: 100px;
+	    	padding: 5px 10px;
+	    }
+	    .name-container{
+	    	width: 200px;
+	    	padding: 5px 10px;
+	    } 
+	    .price-container{
+	    	width: 250px;
+	    	padding: 5px 10px;
+	    }
+	}
+}

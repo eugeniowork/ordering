@@ -23,7 +23,7 @@
 			</div>
 		</div>
 
-		<div class="verified-account-div" style="display: none;">
+		<div class="verified-account-div" style="display: nodne;">
 			<div class="d-flex flex-column justify-content-center align-items-center verified-account-flex" >
 				<div class="verified-account-body">
 					<div class="d-flex p-2 justify-content-center">

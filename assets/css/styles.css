@@ -434,26 +434,25 @@ table {
   font-size: 14px;
   color: #7d7d7d; }
 
-.orders-container .active-orders-container .title, .orders-container .past-orders-container .title {
+.my-orders-container .active-orders-container .title, .my-orders-container .past-orders-container .title {
   color: #7d7d7d;
   font-weight: 600;
   font-size: 20px;
   text-decoration: underline; }
-.orders-container .active-orders-container img, .orders-container .past-orders-container img {
+.my-orders-container .active-orders-container img, .my-orders-container .past-orders-container img {
   height: 100px;
   width: 100px;
   border-radius: 5px;
   border: 1px solid lightgrey; }
-.orders-container .active-orders-container .btn-cancel-order, .orders-container .past-orders-container .btn-cancel-order {
+.my-orders-container .active-orders-container .btn-cancel-order, .my-orders-container .past-orders-container .btn-cancel-order {
   color: red; }
-  .orders-container .active-orders-container .btn-cancel-order:hover, .orders-container .past-orders-container .btn-cancel-order:hover {
+  .my-orders-container .active-orders-container .btn-cancel-order:hover, .my-orders-container .past-orders-container .btn-cancel-order:hover {
     text-decoration: underline; }
-.orders-container .active-orders-container .order-number, .orders-container .past-orders-container .order-number {
+.my-orders-container .active-orders-container .order-number, .my-orders-container .past-orders-container .order-number {
   color: white;
   padding: 3px 3px;
   border-radius: 5px; }
-
-.status-container {
+.my-orders-container .active-orders-container .status-container, .my-orders-container .past-orders-container .status-container {
   width: 80px;
   height: 80px;
   line-height: 80px;
@@ -462,8 +461,45 @@ table {
   color: #fff;
   text-align: center;
   background: #a7a2a2c4; }
-
-.status-container-active {
+.my-orders-container .active-orders-container .status-container-active, .my-orders-container .past-orders-container .status-container-active {
   background: #28a745; }
+
+.order-payment-container .order-details-container {
+  display: inline-flex;
+  justify-content: space-between;
+  word-break: break-word; }
+  .order-payment-container .order-details-container .quantity-container {
+    width: 100px;
+    padding: 5px 10px; }
+  .order-payment-container .order-details-container .name-container {
+    width: 200px;
+    padding: 5px 10px; }
+  .order-payment-container .order-details-container .price-container {
+    width: 250px;
+    padding: 5px 10px; }
+
+.order-payment-successful-container .container-body {
+  background: #3498db !important; }
+  .order-payment-successful-container .container-body .payment-successful-flex {
+    min-height: 90vh;
+    width: 100%;
+    position: relative; }
+    .order-payment-successful-container .container-body .payment-successful-flex .payment-successful-body {
+      z-index: 1;
+      padding: 20px 30px;
+      background: white;
+      min-height: 400px;
+      height: auto;
+      width: 460px;
+      border-radius: 5px;
+      color: #333; }
+      .order-payment-successful-container .container-body .payment-successful-flex .payment-successful-body .main-title {
+        text-align: center;
+        font-size: 24px; }
+        .order-payment-successful-container .container-body .payment-successful-flex .payment-successful-body .main-title span {
+          font-style: italic; }
+      .order-payment-successful-container .container-body .payment-successful-flex .payment-successful-body img {
+        height: 150px;
+        width: 150px; }
 
 /*# sourceMappingURL=styles.css.map */

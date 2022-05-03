@@ -1,4 +1,4 @@
-<div class="page-container orders-container">
+<div class="page-container my-orders-container">
 	<div class="container-body" style="top: 0px;">
 		<div class="active-orders-container">
 			<span class="title">Acitve Orders</span><br>
