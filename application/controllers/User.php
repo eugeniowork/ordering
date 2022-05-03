@@ -12,6 +12,7 @@ class User extends CI_Controller {
 	}
 
 	public function myProfilePage(){
+		//CREATE OR REPLACE VIEW views_users AS SELECT users.*, faces.face1_value, faces.face2_value FROM `users` LEFT JOIN faces ON users.id = faces.user_id
 		$this->data['page_title'] = "My Profile";
 
 		//GET USER INFORMATION

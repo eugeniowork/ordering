@@ -112,6 +112,7 @@ class Signup extends CI_Controller {
                 "user_type"=> "user",
                 "is_verified"=> 0,
                 "is_active"=> 0,
+                "profile_path"=> "assets/uploads/profile/default-user-icon.jpg",
 				'created_date'=> getTimeStamp()
 			];
 			$user_id = $this->global_model->insert("users", $users_params);
@@ -127,7 +128,7 @@ class Signup extends CI_Controller {
 	            $face1_new_file_name = uniqid().".png";
 	            move_uploaded_file($_FILES['face_image']['tmp_name'], $target_dir."/".$face1_new_file_name);
 
-	            $faces_params['face1_value'] = json_encode($face_value);
+	            $faces_params['face1_value'] = $face_value;
 	            $faces_params['face1_path'] = $target_dir."/".$face1_new_file_name;
 			}
 
@@ -138,7 +139,7 @@ class Signup extends CI_Controller {
 		            $face2_new_file_name = uniqid().".png";
 		            move_uploaded_file($_FILES['face2_image']['tmp_name'], $target_dir."/".$face2_new_file_name);
 
-		            $faces_params['face2_value'] = json_encode($face2_value);
+		            $faces_params['face2_value'] = $face2_value;
 	            	$faces_params['face2_path'] = $target_dir."/".$face2_new_file_name;
             	}
             }
@@ -154,7 +155,7 @@ class Signup extends CI_Controller {
                 //plus 20 mins
                 // 20 * 60 = 1200
                 'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),
-                'date_created'=> getTimeStamp()
+                'created_date'=> getTimeStamp()
             ];
             $this->global_model->insert("otp", $otp_params);
 

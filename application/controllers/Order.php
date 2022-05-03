@@ -212,6 +212,10 @@ class Order extends CI_Controller {
 		$order_items = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
 		$this->data['order_items'] = $order_items;
 
+		$user_id = $order['user_id'];
+		$user_details = $this->global_model->get("views_users", "face1_value, face2_value", "id = '$user_id'", [], "single", []);
+		$this->data['user_details'] = $user_details;
+
 		$this->data['page_title'] = "Order Payment";
 
 		$this->load->view('layouts/header', $this->data);

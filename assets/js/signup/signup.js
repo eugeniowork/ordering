@@ -143,7 +143,7 @@ $(document).ready(function(){
 				var real_data = block[1].split(",")[1];
 				var blob = b64toBlob(real_data, content_type);
 
-				fd.append('face_value[]', face_value)
+				fd.append('face_value', JSON.stringify(face_value))
 				fd.append('face_image', blob)
 			}
 			if(face2_value){
@@ -152,7 +152,7 @@ $(document).ready(function(){
 				var real_data = block[1].split(",")[1];
 				var blob = b64toBlob(real_data, content_type);
 
-				fd.append('face2_value[]', face2_value)
+				fd.append('face2_value', JSON.stringify(face2_value))
 				fd.append('face2_image', blob)
 			}
 

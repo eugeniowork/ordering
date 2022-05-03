@@ -80,51 +80,88 @@
 				<span><span class="fa fa-exclamation-circle text-warning"></span>&nbsp;Order picked up.</span>
 			<?php endif ?>
 		</div>
+    
+	    <?php if ($order['status'] == "FOR PICKUP"): ?>
+	    	<div class="modal fade" id="message_modal" tabindex="-1" role="dialog" aria-hidden="true">
+	            <div class="modal-dialog modal-dialog-centered" role="document">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title">Message</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                        </button>
+	                    </div>
+	                    <div class="modal-body">
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-label="Close">Okay</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	    	<div class="modal fade" id="confirm_payment_modal" tabindex="-1" role="dialog" aria-hidden="true">
+	            <div class="modal-dialog modal-dialog-centered" role="document">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title">Confirm Payment</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                        </button>
+	                    </div>
+	                    <div class="modal-body">
+	                    	<span>Are you sure you want to confirm payment?</span>
+	                        <div class="warning text-danger"></div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button class="btn btn-primary btn-sm btn-confirm-payment">Yes</button>
+	                        <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">No</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="modal fade" id="face_modal" tabindex="-1" role="dialog" aria-labelledby="editAttendanceModalTitle" aria-hidden="true">
+				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="editAttendanceModalLongTitle">Register Face</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="webcam-container col-12 col-md-8 col-xl-9 align-top" id="webcam-container">
+								<div class="video-container"><video id="webcam" autoplay muted playsinline></video></div>
+								<div class="loading d-none">
+									<center>Detecting face</center>
+									<div class="spinner-border" role="status">
+										<span class="sr-only"></span>
+									</div>
+			                    </div>
+								<div id="error_msg" class="col-12 alert-danger d-none">
+			                        <span>Fail to start camera</span> <br>
+			                        <span>1. Please allow permission to access camera.</span> <br>
+			                        <span>2. If you are browsing through social media built in browsers, look for the ... or browser icon on the right top/bottom corner, and open the page in Sarafi (iPhone)/ Chrome (Android)</span>
+			                    </div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-sm btn-primary btn-submit-face" disabled>Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	    	<script type="text/javascript">
+	    		var total_order_amount = '<?= $order['total_amount'] ?>';
+	    		var order_id = '<?= encryptData($order['id']) ?>';
+	    		var face1_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face1_value'] ?>')))
+	    		var face2_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face2_value'] ?>')))
+	    	</script>
+	    	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+			<script type="text/javascript" src="<?= base_url();?>assets/js/external/face-api.min.js"></script>
+	    	<script type="text/javascript" src="<?= base_url();?>assets/js/order/order-payment.js"></script>
+	    <?php endif ?>
     </div>
-    <?php if ($order['status'] == "FOR PICKUP"): ?>
-    	<div class="modal fade" id="message_modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Message</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-label="Close">Okay</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    	<div class="modal fade" id="confirm_payment_modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Confirm Payment</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    	<span>Are you sure you want to confirm payment?</span>
-                        <div class="warning text-danger"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary btn-sm btn-confirm-payment">Yes</button>
-                        <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">No</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    	<script type="text/javascript">
-    		var total_order_amount = '<?= $order['total_amount'] ?>'
-    		var order_id = '<?= encryptData($order['id']) ?>'
-    	</script>
-    	<script type="text/javascript" src="<?= base_url();?>assets/js/order/order-payment.js"></script>
-    <?php endif ?>
 <?php endif ?>
