@@ -8,13 +8,16 @@
     z-index: 10;
     position: fixed;
     z-index: 10;
+    .header-btn-cart, .header-btn-account, .header-btn-notifications, .header-btn-pages{
+        float: right;
+    }
     a{
         cursor: pointer;
         color: white;
         text-decoration: none;
         padding-right: 20px;
         padding-left: 20px;
-        float: right;
+        //float: right;
         height: 50px;
         &:hover {
             //background: #327eb1 !important;
@@ -108,6 +111,14 @@
 
         .header-dropdown-notifications{
             @include headerDropdown2(70%, 465px, 100px, white);
+            a{
+                color: #007bff;
+                padding: 0;
+                &:hover{
+                    color: #007bff !important;
+                    text-decoration: underline;
+                }
+            }
             .bold-title{
                 color: #7d7d7d;
                 font-weight: 500;
@@ -132,12 +143,15 @@
         }
 
         .header-dropdown-pages{
-            @include headerDropdown2(auto, auto, 285px, #3498db);
-            padding: 0px 5px;
-            min-width: 230px;
+            @include headerDropdown2(auto, 98%, 10px, #3498db);
+            padding: 25px 25px;
             color: white;
             a{
+                height: auto;
                 float: left;
+            }
+            .all-pages-row{
+                line-height: 30px;
             }
         }
     }

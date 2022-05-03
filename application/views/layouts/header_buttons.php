@@ -54,13 +54,19 @@
                         <i class="fa fa-caret-down"></i>&nbsp;
                     </a>
                     <div class="header-dropdown-pages">
-                        <?php if ($this->session->userdata("user_type") == "admin"): ?>
-                            <a href="<?= base_url(); ?>ongoing-orders"><i class="fas fa-clipboard-check"></i>&nbsp;Customer Orders</a><br>
-                            <a href=""><i class="fas fa-box"></i>&nbsp;Products</a><br>
-                            <a href=""><i class="fas fa-tag"></i>&nbsp;Product Category</a>
-                        <?php else: ?>
-                            <a href="<?= base_url(); ?>my-orders" ><i class="fas fa-clipboard-check"></i>&nbsp;My Orders</a>
-                        <?php endif ?>
+                        <div class="row all-pages-row">
+                            <div class="col-12 col-lg-3">
+                                <span><i class="fas fa-clipboard-check"></i>&nbsp;Order Management</span>
+                                <div class="row">
+                                    <?php if ($this->session->userdata("user_type") == "admin"): ?>
+                                        <div class="col-lg-12"><a href="<?= base_url(); ?>ongoing-orders">Ongoing Orders</a></div>
+                                    <?php else: ?>
+                                        <div class="col-lg-12"><a href="<?= base_url(); ?>dashboard">Add Order</a></div>
+                                        <div class="col-lg-12"><a href="<?= base_url(); ?>my-orders">My Orders</a></div>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </li>
             <?php else: ?>

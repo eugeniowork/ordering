@@ -34,7 +34,7 @@
                             <h1><span class="fa text-primary fa-clipboard-check py-3 px-4 rounded-circle border border-primary"></span></h1>
                         </div>
                         <div class="col-12 col-lg-9">
-                            <span class="value"><?= $orders_this_week; ?></span><br>
+                            <span class="value"><?= (int)$orders_this_week; ?></span><br>
                             <span class="title">Orders this month</span>
                         </div>
                     </div>
