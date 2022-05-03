@@ -76,6 +76,24 @@ class Order extends CI_Controller {
 	    	];
 	    	$this->global_model->update("order_history", "id = '$order_id'", $params);
 
+
+	    	if($status == "CANCELED"){
+	    		//GET ORDERED PRODUCTS
+        		$products_params = [];
+		        $ordered_products = $this->global_model->get("order_history_products", "product_id, quantity", "order_history_id = '$order_id'", [], "multiple", []);
+		        foreach ($ordered_products as $key => $product) {
+		        	$product_id = $product->product_id;
+		        	$product_details = $this->global_model->get("products", "stock", "id = '$product_id'", [], "single", []);
+
+		        	$products_params[] = [
+	        			"id"=> $product->product_id,
+	        			"stock"=> $product_details['stock'] + $product->quantity,
+	        		];
+		        }
+		        //RETURN STOCK
+		        $this->global_model->batch_insert_or_update("products", $products_params);
+	    	}
+
 	    	//SEND EMAIL NOTIFICATION AND SYSTEM NOTIFICATION
         	if($user_type == "user"){
 
