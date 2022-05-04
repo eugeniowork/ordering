@@ -16,6 +16,7 @@
             </div>
     	</div>
 		<div class="container-body">
+			<br>
 			<?php if ($order['status'] == "FOR PICKUP"): ?>
 				<div class="row">
 					<div class="col-12 col-lg-6">

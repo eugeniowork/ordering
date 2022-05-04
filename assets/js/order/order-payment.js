@@ -105,7 +105,10 @@ $(document).ready(function(){
             		else{
             			$(".btn-open-payment-confirmation").removeClass("d-none")
             			is_face_pay_successful = true;
-            			$("#verification_code_modal").modal("hide")
+            			$(".modal").modal("hide")
+						$("#message_modal").modal("show")
+						$("#message_modal .modal-body").html("<span>Account Matched. You can now confirm the payment.</span>")
+
             		}
             	},
             	error: function(error){
@@ -281,11 +284,14 @@ $(document).ready(function(){
 	$(".btn-submit-face").on("click", function(){
 		const distance = faceapi.euclideanDistance(face_descriptor, face1_value);
 		const distance2 = faceapi.euclideanDistance(face_descriptor, face2_value);
-
+		$(".modal").modal("hide")
 		if(distance < 0.5 || distance2 < 0.5){
 			console.log("face match")
 	    	is_face_pay_successful = true;
 	    	$(".btn-open-payment-confirmation").removeClass("d-none")
+
+	    	$("#message_modal").modal("show")
+			$("#message_modal .modal-body").html("<span class='text-primary'>Account Matched. You can now confirm the payment.</span>")
 	    }
 	    else{
 	    	console.log("face not match")
@@ -294,7 +300,7 @@ $(document).ready(function(){
 	    	$("#message_modal").modal("show")
 			$("#message_modal .modal-body").html("<span class='text-danger'>Registered face does not match. Make sure to face the camera properly.</span>")
 	    }
-	    $(".modal").modal("hide")
+	    
 
 	})
 })
