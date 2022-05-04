@@ -19,56 +19,64 @@
 			<?php if ($order['status'] == "FOR PICKUP"): ?>
 				<div class="row">
 					<div class="col-12 col-lg-6">
-						<strong>Payment Method</strong>
-						<div class="payment-method-container">
-							<input type="radio" id="cash" value="cash">
-							<label for="cash">Cash</label>
-							&nbsp;&nbsp;&nbsp;
-							<input type="radio" id="face_pay" value="face_pay">
-							<label for="face_pay">FacePay</label>
-
-							<div class="face-pay-container d-none">
-								<strong>Select Authentication Method</strong><br>
-								<button class="btn btn-facial-recognition">
-									<span>Facial Recognition</span>
-									<img src="<?= base_url();?>assets/uploads/images/face-recognition-default.jpg">
-								</button><br>
-								<button class="btn btn-code">
-									<span>Code</span>
-									<img src="<?= base_url();?>assets/uploads/images/code_icon.png">
-								</button>
-							</div>
-							<div class="cash-container d-none">
-								<div class="form-group">
-									<span>Cash Amount&nbsp;<span class="text-danger">*</span></span>
-									<input type="text" class="form-control cash-amount float-only" placeholder="Enter amount" style="width: 50%">
-									<div class="cash-amount-warning"></div>
+						
+						<div class="row">
+							<div class="col-12 col-lg-12">
+								<div class="payment-method-container">
+									<p style="font-size: 22px;">Customer Details</p>
+									<span><?= $user_details['firstname']." ".$user_details['lastname'];?></span><br>
+									<span><?= $user_details['email'] ?></span><br>
+									<span><?= $user_details['phone_number'] ?></span><br>
 								</div>
-								<div class="form-group">
-									<span>Change</span>
-									<span class="form-control cash-change" style="width: 50%" readonly></span>
+							</div>
+							<div class="col-12 col-lg-12">
+								<div class="payment-method-container">
+									<p style="font-size: 22px;">Payment Method</p>
+									<input type="radio" id="cash" value="cash">
+									<label for="cash">Cash</label>&nbsp;&nbsp;&nbsp;
+									<input type="radio" id="face_pay" value="face_pay">
+									<label for="face_pay">FacePay</label>
+
+									<div class="face-pay-container d-none">
+										<p>Select Authentication Method</p>
+										<button class="btn btn-facial-recognition">
+											<span>Facial Recognition</span>
+											<img src="<?= base_url();?>assets/uploads/images/face-recognition-default.jpg">
+										</button><br>
+										<button class="btn btn-code">
+											<span>Code</span>
+											<img src="<?= base_url();?>assets/uploads/images/code_icon.png">
+										</button>
+									</div>
+									<div class="cash-container d-none">
+										<div class="form-group">
+											<span>Cash Amount&nbsp;<span class="text-danger">*</span></span>
+											<input type="text" class="form-control cash-amount float-only" placeholder="Enter amount" style="width: 50%">
+											<div class="cash-amount-warning"></div>
+										</div>
+										<div class="form-group">
+											<span>Change</span>
+											<span class="form-control cash-change" style="width: 50%" readonly></span>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
+						
 					</div>
 					<div class="col-12 col-lg-6">
-						<strong>Order Details</strong><br>
 						<div class="order-details-container">
-							<div class="quantity-container">Quantity</div>
-							<div class="name-container">Name</div>
-							<div class="price-container">Total Price</div>
-						</div>
-						<?php foreach ($order_items as $key => $item): ?>
-							<div class="order-details-container">
-								<div class="quantity-container"><?= $item->quantity ?></div>
-								<div class="name-container"><?= $item->name; ?></div>
-								<div class="price-container"><span>&#8369;</span><?= number_format($item->price * $item->quantity, 2); ?></div>
+							<p style="font-size: 22px;">Order Details</p>
+							<?php foreach ($order_items as $key => $item): ?>
+								<div class="order-details-content">
+									<div class="name-container"><?= $item->quantity ?> x <?= $item->name; ?></div>
+									<div class="price-container"><span>&#8369;</span><?= number_format($item->price * $item->quantity, 2); ?></div>
+								</div>
+							<?php endforeach ?>
+							<div class="order-details-content">
+								<div class="name-container"><strong>Total Amount</strong></div>
+								<div class="price-container"><strong><span>&#8369;</span><?= number_format($order['total_amount'],2) ?></strong></div>
 							</div>
-						<?php endforeach ?>
-						<div class="order-details-container">
-							<div class="quantity-container"></div>
-							<div class="name-container"><strong>Total Amount</strong></div>
-							<div class="price-container"><strong><span>&#8369;</span><?= number_format($order['total_amount'],2) ?></strong></div>
 						</div>
 					</div>
 				</div>
@@ -171,7 +179,7 @@
 						        $email .= str_repeat("*", strlen($mail_part2))."@"; // Replace *. And add @
 						        $email .= $mail_part1[1]; // Add last part.
 	                    	?>
-	                    	<span>A 6 digit verification code was sent to customer's email address <strong><?= $email; ?></strong></span><br><br>
+	                    	<span>A 6 digit verification code was sent to customer's email address.</span><br><br>
 	                    	<div class="form-group">
 	                    		<input type="text" class="form-control code" placeholder="Enter code">
 	                    	</div>

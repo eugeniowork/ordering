@@ -1,9 +1,25 @@
 .order-payment-container{
+	.customer-details-container{
+		border: 1px solid #f3f3f3;
+    	padding: 10px 10px;
+    	-webkit-box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
+	    -moz-box-shadow:0px 0px 10px 0px rgba(193,193,193,0.75);
+	    box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
+	}
 	.payment-method-container{
+		border: 1px solid #f3f3f3;
+    	padding: 10px 10px;
+    	-webkit-box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
+	    -moz-box-shadow:0px 0px 10px 0px rgba(193,193,193,0.75);
+	    box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
+
 		.face-pay-container{
+			.active{
+				background: lightblue;
+			}
 			button{
 				line-height: 50px;
-			    width: 35%;
+			    width: 100%;
 			    text-align: justify;
 			    margin-bottom: 10px;
 			    border: 1px solid lightgrey;
@@ -20,21 +36,28 @@
 	}
 
 	.order-details-container{
-		display: inline-flex;
-	    justify-content: space-between;
-	    word-break: break-word;
-	    .quantity-container{
-	    	width: 100px;
-	    	padding: 5px 10px;
-	    }
-	    .name-container{
-	    	width: 200px;
-	    	padding: 5px 10px;
-	    } 
-	    .price-container{
-	    	width: 250px;
-	    	padding: 5px 10px;
-	    }
+		border: 1px solid #f3f3f3;
+    	padding: 10px 10px;
+    	-webkit-box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
+	    -moz-box-shadow:0px 0px 10px 0px rgba(193,193,193,0.75);
+	    box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
+		.order-details-content{
+			display: inline-flex;
+		    justify-content: space-between;
+		    word-break: break-word;
+		    // .quantity-container{
+		    // 	width: 100px;
+		    // 	padding: 5px 10px;
+		    // }
+		    .name-container{
+		    	width: 250px;
+		    	padding: 5px 10px;
+		    } 
+		    .price-container{
+		    	width: 250px;
+		    	padding: 5px 10px;
+		    }
+		}
 	}
 
 	.webcam-container{

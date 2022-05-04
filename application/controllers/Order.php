@@ -213,7 +213,7 @@ class Order extends CI_Controller {
 		$this->data['order_items'] = $order_items;
 
 		$user_id = $order['user_id'];
-		$user_details = $this->global_model->get("views_users", "face1_value, face2_value, email", "id = '$user_id'", [], "single", []);
+		$user_details = $this->global_model->get("views_users", "*", "id = '$user_id'", [], "single", []);
 		$this->data['user_details'] = $user_details;
 
 		$this->data['page_title'] = "Order Payment";
@@ -225,8 +225,6 @@ class Order extends CI_Controller {
 	}
 
 	public function saveCashOrderPayment(){
-		session_write_close();
-
 		$order_id = $this->input->post("order_id");
 		$order_id = decryptData($order_id);
 		$cash_amount = $this->input->post("cash_amount");
@@ -305,13 +303,10 @@ class Order extends CI_Controller {
         	}
         }
 
-		session_start();
 		echo json_encode($this->data);
 	}
 
 	public function saveFacePayOrderPayment(){
-		session_write_close();
-
 		$order_id = $this->input->post("order_id");
 		$order_id = decryptData($order_id);
 		$is_face_pay_successful = $this->input->post("is_face_pay_successful");
@@ -397,7 +392,6 @@ class Order extends CI_Controller {
 			
 		}
 
-		session_start();
 		echo json_encode($this->data);
 	}
 
@@ -419,6 +413,8 @@ class Order extends CI_Controller {
 	}
 
 	public function sendPaymentVerificationCode(){
+		session_write_close();
+
 		$email = $this->input->post("email");
 		$order_number = $this->input->post("order_number");
 
@@ -466,6 +462,8 @@ class Order extends CI_Controller {
         ";
 
         $mail->send();
+
+        session_start();
 
 		echo json_encode($email);
 	}

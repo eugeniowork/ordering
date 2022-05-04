@@ -48,6 +48,8 @@ $(document).ready(function(){
 		$("#verification_code_modal").modal("show")
 		is_face_pay_successful = false;
 	    $(".btn-open-payment-confirmation").addClass("d-none")
+	    $(this).addClass("active");
+	    $(".btn-facial-recognition").removeClass("active");
 
 		$.ajax({
 			url: base_url + "order/sendPaymentVerificationCode",
@@ -182,6 +184,8 @@ $(document).ready(function(){
 		$("#face_modal").modal("show")
 		is_face_pay_successful = false;
 	    $(".btn-open-payment-confirmation").addClass("d-none")
+	    $(this).addClass("active");
+	    $(".btn-code").removeClass("active");
 		init_web_cam();
 	})
 
