@@ -1,7 +1,13 @@
 $(document).ready(function(){
 	var payment_method = "";
 	var loading_confirm_payment = false;
-	var is_successful_payment = false;
+	var is_face_pay_successful = false;
+
+	//FOR FACIAL RECOGNITION
+	var webcam_element = document.getElementById('webcam');
+	var webcam = new Webcam(webcam_element, 'user');
+	var model_path = base_url+'assets/uploads/face_recognition_models';
+	var display_size, face_detection, canvas, face_descriptor;
 
 	$("input[type=radio]").change(function () {
 		$("input[type=radio]").not(this).prop('checked', false);
@@ -39,7 +45,79 @@ $(document).ready(function(){
 	})
 
 	$(".btn-code").on("click", function(){
+		$("#verification_code_modal").modal("show")
+		is_face_pay_successful = false;
+	    $(".btn-open-payment-confirmation").addClass("d-none")
 
+		$.ajax({
+			url: base_url + "order/sendPaymentVerificationCode",
+			type: 'POST',
+			dataType: 'json',
+			data:{
+				email: customer_email,
+				order_number: order_number
+			},
+			success: function(response){
+
+			},
+			error: function(){
+
+			}
+		})
+	})
+
+	var loading_verify_code = false
+	$(".btn-verify-code").on("click", function(){
+		if(!loading_verify_code){
+			loading_verify_code = true;
+
+			$(".btn-verify-code").prop("disabled", true).html("Loading....")
+
+			$("#verification_code_modal .warning").empty();
+
+			$(".global-loading").css({
+                "display": "flex"
+            })
+            createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
+
+            $.ajax({
+            	url: base_url + "order/verifyPaymentVerificationCode",
+            	type: 'POST',
+            	dataType: 'json',
+            	data:{
+            		email: customer_email,
+            		code: $(".code").val(),
+            	},
+            	success: function(response){
+            		$(".btn-verify-code").prop("disabled", false).html("Submit")
+            		loading_verify_code = false;
+            		is_face_pay_successful = false;
+            		$(".btn-open-payment-confirmation").addClass("d-none")
+            		$(".global-loading").css({
+                        "display": "none"
+                    })
+
+            		if(response.is_error){
+            			renderResponse('#verification_code_modal .warning',response.error_msg, "danger")
+            		}
+            		else{
+            			$(".btn-open-payment-confirmation").removeClass("d-none")
+            			is_face_pay_successful = true;
+            			$("#verification_code_modal").modal("hide")
+            		}
+            	},
+            	error: function(error){
+            		renderResponse('#verification_code_modal .warning',"Unable to verify code, please try again.", "danger")
+            		$(".btn-verify-code").prop("disabled", false).html("Submit")
+            		loading_verify_code = false;
+            		is_face_pay_successful = false;
+            		$(".btn-open-payment-confirmation").addClass("d-none")
+            		$(".global-loading").css({
+                        "display": "none"
+                    })
+            	}
+            })
+		}
 	})
 	
 	$(".btn-confirm-payment").on("click", function(){
@@ -67,6 +145,7 @@ $(document).ready(function(){
             	data:{
             		order_id: order_id,
             		cash_amount: $(".cash-amount").val(),
+            		is_face_pay_successful: is_face_pay_successful
             	},
             	success: function(response){
             		if(response.is_error){
@@ -98,13 +177,11 @@ $(document).ready(function(){
 	})
 
 	//FOR FACIAL RECOGNITION
-	var webcam_element = document.getElementById('webcam');
-	var webcam = new Webcam(webcam_element, 'user');
-	var model_path = base_url+'assets/uploads/face_recognition_models';
-	var display_size, face_detection, canvas, face_descriptor;
 
 	$(".btn-facial-recognition").on("click", function(){
 		$("#face_modal").modal("show")
+		is_face_pay_successful = false;
+	    $(".btn-open-payment-confirmation").addClass("d-none")
 		init_web_cam();
 	})
 
@@ -199,31 +276,21 @@ $(document).ready(function(){
 
 	$(".btn-submit-face").on("click", function(){
 		const distance = faceapi.euclideanDistance(face_descriptor, face1_value);
-		if(distance < 0.5){
-	    	console.log("match")
-	    }
-		// var fd = new FormData()
-		// fd.append('test', JSON.stringify(test))
-		// $.ajax({
-		// 	url: base_url + "order/saveFacePayOrderPayment",
-		// 	type: 'POST',
-		// 	dataType: 'json',
-		// 	data:fd,
-		// 	contentType: false,
-		//     cache: false,
-		//    	processData:false,
-		// 	success: function(response){
-		// 		var newfloat = new Float32Array(response.test_encode)
-		// 		new_float = newfloat;
-		// 		// console.log(newfloat)
-		// 		// console.log(response.test_encode)
-		// 		// console.log(test)
-		// 		// const distance = faceapi.euclideanDistance(newfloat, test);
-		//   //   	console.log(distance)
-		// 	},
-		// 	error: function(error){
+		const distance2 = faceapi.euclideanDistance(face_descriptor, face2_value);
 
-		// 	}
-		// })
+		if(distance < 0.5 || distance2 < 0.5){
+			console.log("face match")
+	    	is_face_pay_successful = true;
+	    	$(".btn-open-payment-confirmation").removeClass("d-none")
+	    }
+	    else{
+	    	console.log("face not match")
+	    	is_face_pay_successful = false;
+	    	$(".btn-open-payment-confirmation").addClass("d-none")
+	    	$("#message_modal").modal("show")
+			$("#message_modal .modal-body").html("<span class='text-danger'>Registered face does not match. Make sure to face the camera properly.</span>")
+	    }
+	    $(".modal").modal("hide")
+
 	})
 })

@@ -16,7 +16,7 @@
 			        	<span class="main-title">Payment Successful!</span>
 			        </div>
 			        <div class="form-group d-flex p-0 justify-content-center">
-			        	<span>Payment successful for Order Number <?= $order['order_number'] ?>.</span>
+			        	<span>Payment successful for Order #<?= $order['order_number'] ?>.</span>
 			        </div>
 			        <div class="form-group d-flex p-0 justify-content-center">
 			        	<span>Amount Paid <span>&#8369;</span><?= number_format($order['total_amount'], 2) ?></span>

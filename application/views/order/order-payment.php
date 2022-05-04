@@ -121,11 +121,11 @@
 	            </div>
 	        </div>
 
-	        <div class="modal fade" id="face_modal" tabindex="-1" role="dialog" aria-labelledby="editAttendanceModalTitle" aria-hidden="true">
+	        <div class="modal fade" id="face_modal" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="editAttendanceModalLongTitle">Register Face</h5>
+							<h5 class="modal-title" id="editAttendanceModalLongTitle">Face Recognition</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 							</button>
@@ -153,11 +153,45 @@
 				</div>
 			</div>
 
+			<div class="modal fade" id="verification_code_modal" tabindex="-1" role="dialog" aria-hidden="true">
+	            <div class="modal-dialog modal-dialog-centered" role="document">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title">Verification Code</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                        </button>
+	                    </div>
+	                    <div class="modal-body">
+	                    	<?php
+	                    		$email = "";
+	                    		$mail_part1 = explode("@", $user_details['email']);
+        						$mail_part2 = substr($mail_part1[0],4); // Sub string after fourth character.
+        						$email = substr($mail_part1[0],0,4); // Add first four character part.
+						        $email .= str_repeat("*", strlen($mail_part2))."@"; // Replace *. And add @
+						        $email .= $mail_part1[1]; // Add last part.
+	                    	?>
+	                    	<span>A 6 digit verification code was sent to customer's email address <strong><?= $email; ?></strong></span><br><br>
+	                    	<div class="form-group">
+	                    		<input type="text" class="form-control code" placeholder="Enter code">
+	                    	</div>
+	                    	<div class="warning text-danger"></div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button class="btn btn-primary btn-sm btn-verify-code">Submit</button>
+	                        <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">Cancel</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
 	    	<script type="text/javascript">
 	    		var total_order_amount = '<?= $order['total_amount'] ?>';
 	    		var order_id = '<?= encryptData($order['id']) ?>';
-	    		var face1_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face1_value'] ?>')))
-	    		var face2_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face2_value'] ?>')))
+	    		var order_number = '<?= $order['order_number'] ?>';
+	    		var face1_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face1_value'] ?>')));
+	    		var face2_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face2_value'] ?>')));
+	    		var customer_email = '<?= $user_details['email'] ?>';
 	    	</script>
 	    	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 			<script type="text/javascript" src="<?= base_url();?>assets/js/external/face-api.min.js"></script>

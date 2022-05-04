@@ -108,7 +108,7 @@ class Verification extends CI_Controller {
         $update_data = [
             "is_active"=> 0,
         ];
-        $this->global_model->update("otp", "email = '$email' AND is_active = 1", $update_data);
+        $this->global_model->update("otp", "email = '$email' AND is_active = 1 AND module = 'email_verification'", $update_data);
 
         $code = rand(100000, 999999);
         $otp_params = [
