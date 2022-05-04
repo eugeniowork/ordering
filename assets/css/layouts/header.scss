@@ -143,7 +143,7 @@
         }
 
         .header-dropdown-pages{
-            @include headerDropdown2(auto, 98%, 10px, #3498db);
+            @include headerDropdown2(auto, auto, 300px, #3498db);
             padding: 25px 25px;
             color: white;
             a{
@@ -152,6 +152,89 @@
             }
             .all-pages-row{
                 line-height: 30px;
+            }
+        }
+    }
+}
+
+.side-navbar-container{
+    width: auto;
+    min-width: 300px;
+    position: fixed;
+    z-index: 250;
+    height: 100vh;
+    padding-right: 30px;
+    .btn-toggle-menu{
+        position: absolute;
+        z-index: 300;
+        top: 9px;
+        right: -1px;
+        border: 1px solid lightgrey;
+        font-size: 20px;
+        background: white;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+        box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.20);
+        &:focus {
+            outline: 0 !important;
+            //box-shadow: none;
+        }
+    }
+    .side-navbar-content{
+        background: white;
+        height: 100vh;
+        min-width: 200px;
+        width: auto;
+        // padding: 0px 5px;
+        padding-bottom: 20px;
+        // height: 100vh;
+        // background: white;
+        // width: auto;
+        // z-index: 200;
+        // position: fixed;
+        // min-width: 250px;
+        box-shadow: 0px 0px 10px 0px rgba(40,40,40,0.75);
+        overflow-x: hidden;
+        overflow-y: auto;
+        &::-webkit-scrollbar-thumb {
+            background-color: #bdbdbd;    /* color of the scroll thumb */
+            border-radius: 0px;       /* roundness of the scroll thumb */
+            border: 3px solid #bdbdbd;  /* creates padding around scroll thumb */
+        }
+        &::-webkit-scrollbar-track {
+            background: white;        /* color of the tracking area */
+        }
+        &::-webkit-scrollbar {
+            width: 9px;               /* width of the entire scrollbar */
+        }
+        .side-navbar-header{
+            display: flex;
+            justify-content: center;
+            img{
+                width: 150px;
+                height: 150px;
+            }
+        }
+        .side-navbar-body{
+            button{
+                &:focus {
+                    outline: 0 !important;
+                    box-shadow: none;
+                }
+                width: 100%;
+                text-align: justify;
+                padding: 5px 10px;
+                border: none;
+                background: white;
+                color: #4D4D4E;
+                .caret{
+                    float: right;
+                    line-height: 25px;
+                }
+            }
+            .sub-buttons{
+                display: none;
+                margin-left: 20px;
             }
         }
     }

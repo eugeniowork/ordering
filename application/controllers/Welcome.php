@@ -24,7 +24,12 @@ class Welcome extends CI_Controller {
 
 		$this->load->view('layouts/header', $this->data);
 		$this->load->view('layouts/header_buttons');
-		$this->load->view('home/home');
+		if ($this->session->userdata("user_id")) {
+			redirect('dashboard');
+		}
+		else{
+			$this->load->view('home/home');
+		}
 		$this->load->view('layouts/footer');
 	}
 }
