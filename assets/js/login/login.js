@@ -20,6 +20,11 @@ $(document).ready(function(){
 					if(response.is_error){
 						renderResponse('.warning',response.error_msg, "danger")
 						loading_login = false;
+						if(response.is_redirect_to_verification){
+							setTimeout(function(){
+								window.location.href = 'verify-account/'+response.encrypted_user_id
+							}, 1000)
+						}
 					}
 					else{
 						var msg = "<div class='spinner-border text-primary' role='status' style='color:#155724 !important;height:15px;width:15px;'></div>"+"&nbsp;Login successful, you'll be redirected to the page."
