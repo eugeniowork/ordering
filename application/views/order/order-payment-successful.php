@@ -23,7 +23,7 @@
 			        </div>
 			        <div class="btn-group d-flex p-2 justify-content-center">
 			        	<a href="<?= base_url();?>ongoing-orders" class="btn btn-primary">Done</a>&nbsp;
-			        	<a href="<?= base_url()."order-receipt/".encryptData($order['id']);?>" target="_blank" class="btn btn-primary">Print Receipt</a>
+			        	<a href="<?= base_url()."order-receipt-pdf/".encryptData($order['id']);?>" target="_blank" class="btn btn-primary">Print Receipt</a>
 			        </div>
 				</div>
 			</div>

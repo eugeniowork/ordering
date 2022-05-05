@@ -524,7 +524,7 @@ class Order extends CI_Controller {
         echo json_encode($this->data);
 	}
 
-	public function orderReceiptPage($hash_id){
+	public function orderReceiptPdf($hash_id){
 		$id = decryptData($hash_id);
 
 		$this->data['page_title'] = "Order Receipt";
@@ -543,6 +543,6 @@ class Order extends CI_Controller {
 			//redirect("ongoing-orders");
 		}
 
-		$this->load->view('order/order-receipt', $this->data);
+		$this->load->view('order/order-receipt-pdf', $this->data);
 	}
 }
