@@ -68,7 +68,7 @@
 <div class="side-navbar-container">
     <div class="side-navbar-content">
         <div class="side-navbar-header">
-            <img src="https://i.pinimg.com/originals/5a/ae/50/5aae503e4f037a5a4375944d8861fb6a.png">
+            <img src="<?= base_url().LOGO ?>">
         </div>
         <div class="side-navbar-body">
             <!-- <?php

@@ -87,3 +87,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //CONSTANTS
 //defined('APPNAME')  OR define('APPNAME', 'AdU FacePay');
 defined('APPNAME')  OR define('APPNAME', 'SBS');
+defined('LOGO')  OR define('LOGO', 'assets/uploads/images/logo.png');

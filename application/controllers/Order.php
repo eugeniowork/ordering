@@ -523,4 +523,26 @@ class Order extends CI_Controller {
 
         echo json_encode($this->data);
 	}
+
+	public function orderReceiptPage($hash_id){
+		$id = decryptData($hash_id);
+
+		$this->data['page_title'] = "Order Receipt";
+
+		$order = $this->global_model->get("views_order_history", "*", "id = '$id'", [], "single", []);
+		$this->data['order'] = $order;
+
+		$products = $this->global_model->get("order_history_products", "*", "order_history_id = '$id'", [], "multiple", []);
+		$this->data['products'] = $products;
+
+		$user_in_charge_id = $order['user_in_charge'];
+		$user_in_charge_details = $this->global_model->get("users", "*", "id = '$user_in_charge_id'", [], "single", []);
+		$this->data['user_in_charge_details'] = $user_in_charge_details;
+
+		if($order['status'] != "PICKED UP"){
+			//redirect("ongoing-orders");
+		}
+
+		$this->load->view('order/order-receipt', $this->data);
+	}
 }

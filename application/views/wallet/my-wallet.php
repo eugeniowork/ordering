@@ -8,14 +8,6 @@
 		<br><br>
 		<span style="font-size: 20px;">Recent Transactions</span><br>
 		<div class="transaction-container">
-			<!-- <div class="transaction-details-container">
-				<div class="description-container">
-					<span>FacePay order payment</span><br>
-					<span class="date">2022-05-05 13:191:22</span>
-				</div>
-				<div class="amount-container">-&nbsp;<span>&#8369;</span>100</div>
-			</div> -->
-
 		</div>
 		<div class="process-loading-container" style="width: 50px;"></div>
 	</div>
