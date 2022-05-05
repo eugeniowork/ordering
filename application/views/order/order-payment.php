@@ -72,7 +72,7 @@
 								<div class="order-details-content">
 									<div class="name-container"><?= $item->quantity ?> x <?= $item->name; ?></div>
 									<div class="price-container"><span>&#8369;</span><?= number_format($item->price * $item->quantity, 2); ?></div>
-								</div>br
+								</div>
 							<?php endforeach ?>
 							<div class="order-details-content">
 								<div class="name-container"><strong>Total Amount</strong></div>

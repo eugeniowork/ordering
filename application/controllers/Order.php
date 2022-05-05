@@ -12,6 +12,7 @@ class Order extends CI_Controller {
 
 		$this->load->helper('date_helper');
 		$this->load->helper('encryption_helper');
+		$this->load->helper('receipt_helper');
 	}
 
 	public function myOrdersPage(){
@@ -276,27 +277,19 @@ class Order extends CI_Controller {
         		];
         		$this->global_model->insert("notifications", $notification_params);
 
-        		// Load PHPMailer library
-	            $this->load->library('PHPmailer_lib');
+				$pdf_output = generateOrderReceipt($order_id);
 
-	            // PHPMailer object
+        		// NOTIFY USER THROUGH EMAIL
+	            $this->load->library('PHPmailer_lib');
 	            $mail = $this->phpmailer_lib->load();
-	            
-	            // Add a recipient
 	            $mail->addAddress($user['email']);
-	            
-	            // Email subject
 	            $mail->Subject = "[".APPNAME."] ORDER PICKED UP";
-	            
-	            // Set email format to HTML
 	            $mail->isHTML(true);
-	            
-	            // Email body content
 	            $mail->Body = "
 	                Good day! <br><br>
 	                $content
 	            ";
-
+	            $mail->AddStringAttachment($pdf_output,"Receipt.pdf","base64","application/pdf");
 	            $mail->send();
 
 				$this->data['is_error'] = false;
@@ -375,6 +368,8 @@ class Order extends CI_Controller {
         		];
         		$this->global_model->insert("notifications", $notification_params);
 
+				$pdf_output = generateOrderReceipt($order_id);
+
         		// NOTIFY USER THROUGH EMAIL
 	            $this->load->library('PHPmailer_lib');
 	            $mail = $this->phpmailer_lib->load();
@@ -385,6 +380,7 @@ class Order extends CI_Controller {
 	                Good day! <br><br>
 	                $content
 	            ";
+	            $mail->AddStringAttachment($pdf_output,"Receipt.pdf","base64","application/pdf");
 	            $mail->send();
 
         		$this->data['is_error'] = false;
@@ -540,7 +536,7 @@ class Order extends CI_Controller {
 		$this->data['user_in_charge_details'] = $user_in_charge_details;
 
 		if($order['status'] != "PICKED UP"){
-			//redirect("ongoing-orders");
+			redirect("ongoing-orders");
 		}
 
 		$this->load->view('order/order-receipt-pdf', $this->data);
