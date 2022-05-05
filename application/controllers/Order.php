@@ -346,10 +346,10 @@ class Order extends CI_Controller {
         		$this->global_model->update("users", "id = '$customer_id'", $user_params);
 
         		//ADD FACEPAY WALLET ACITIVTY
-        		$facepay_activity_params = [
+        		$wallet_activity_params = [
         			"user_id"=> $customer_id,
         			"reference_no"=> time() . rand(10*45, 100*98),
-        			"description"=> "FacePay order payment",
+        			"description"=> "Order payment",
         			"debit"=> 0,
         			"credit"=> $order_amount,
         			"balance" => $new_facepay_wallet_balance,
@@ -358,7 +358,7 @@ class Order extends CI_Controller {
         			"created_date"=> getTimeStamp(),
         			"created_by"=> $this->session->userdata("user_id")
         		];
-        		$this->global_model->insert("facepay_activity", $facepay_activity_params);
+        		$this->global_model->insert("wallet_activity", $wallet_activity_params);
 
         		//NOTIFY USER/CUSTOMER
         		$content = "Payment successful for Order <strong>#{$order_number}</strong> using FacePay Payment.";

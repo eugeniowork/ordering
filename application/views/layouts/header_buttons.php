@@ -71,6 +71,20 @@
             <img src="https://i.pinimg.com/originals/5a/ae/50/5aae503e4f037a5a4375944d8861fb6a.png">
         </div>
         <div class="side-navbar-body">
+            <!-- <?php
+                echo time() . rand(10*45, 100*98);
+            ?> -->
+
+            <!-- FOR FACE PAY WALLET -->
+            <button class="btn-menu" id="facepay_wallet" data-id="sub_menu_facepay_wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;FacePay Wallet<i class="fa-solid fa-caret-down caret"></i></button>
+            <div class="facepay-wallet-dropdown sub-buttons" id="sub_menu_facepay_wallet">
+                <?php if ($this->session->userdata("user_type") == "admin"): ?>
+                <?php else: ?>
+                    <a href="<?= base_url()?>my-wallet"><i class="fas fa-money-bill-wave"></i>&nbsp;&nbsp;My Wallet</a><br>
+                <?php endif ?>
+            </div><br>
+
+            <!-- FOR ORDER MANAGEMENT -->
             <button class="btn-menu" id="order_management" data-id="sub_menu_order_management"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Order Management<i class="fa-solid fa-caret-down caret"></i></button>
             <div class="order-management-dropdown sub-buttons" id="sub_menu_order_management">
                 <?php if ($this->session->userdata("user_type") == "admin"): ?>
@@ -80,6 +94,8 @@
                     <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a><br>
                 <?php endif ?>
             </div><br>
+
+
         </div>
     </div>
     <button class="btn-toggle-menu" style="right: 4px; z-index: 300;"><i class="fas fa-bars"></i></button>

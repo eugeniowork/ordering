@@ -69,6 +69,9 @@ $route['order-payment-successful/(:any)'] = 'order/orderPaymentSuccessfulPage/$1
 //FOR USER RELATED
 $route['my-profile'] = 'user/myProfilePage';
 
+//FOR WALLET RELATED
+$route['my-wallet'] = 'wallet/myWalletPage';
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

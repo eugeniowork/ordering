@@ -611,4 +611,19 @@ table {
         height: 150px;
         width: 150px; }
 
+.my-wallet-container .transaction-container .transaction-details-container {
+  display: inline-flex;
+  justify-content: space-between;
+  word-break: break-word;
+  padding: 10px 10px;
+  margin-top: 10px; }
+  .my-wallet-container .transaction-container .transaction-details-container .description-container {
+    width: 300px; }
+    .my-wallet-container .transaction-container .transaction-details-container .description-container .date {
+      font-size: 13px;
+      font-style: italic; }
+  .my-wallet-container .transaction-container .transaction-details-container .amount-container {
+    width: 250px;
+    text-align: end; }
+
 /*# sourceMappingURL=styles.css.map */
