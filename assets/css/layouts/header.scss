@@ -8,7 +8,7 @@
     z-index: 10;
     position: fixed;
     z-index: 10;
-    .header-btn-cart, .header-btn-account, .header-btn-notifications, .header-btn-pages{
+    .header-btn-cart, .header-btn-account, .header-btn-notifications{
         float: right;
     }
     a{
@@ -141,45 +141,19 @@
                 }
             }
         }
-
-        .header-dropdown-pages{
-            @include headerDropdown2(auto, auto, 300px, #3498db);
-            padding: 25px 25px;
-            color: white;
-            a{
-                height: auto;
-                float: left;
-            }
-            .all-pages-row{
-                line-height: 30px;
-            }
-        }
     }
 }
 
 .side-navbar-container{
+    display: none;
     width: auto;
     min-width: 300px;
     position: fixed;
     z-index: 250;
     height: 100vh;
     padding-right: 30px;
-    .btn-toggle-menu{
-        position: absolute;
-        z-index: 300;
-        top: 9px;
-        right: -1px;
-        border: 1px solid lightgrey;
-        font-size: 20px;
-        background: white;
-        border-bottom-right-radius: 5px;
-        border-top-right-radius: 5px;
-        box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.20);
-        &:focus {
-            outline: 0 !important;
-            //box-shadow: none;
-        }
-    }
+    //left: -270px;
+    
     .side-navbar-content{
         background: white;
         height: 100vh;
@@ -216,10 +190,13 @@
             }
         }
         .side-navbar-body{
-            button{
+            button, a{
                 &:focus {
                     outline: 0 !important;
                     box-shadow: none;
+                }
+                &:hover{
+                    text-decoration: none;
                 }
                 width: 100%;
                 text-align: justify;
@@ -235,7 +212,23 @@
             .sub-buttons{
                 display: none;
                 margin-left: 20px;
+                line-height: 37px;
             }
         }
+    }
+}
+
+.btn-toggle-menu{
+    position: absolute;
+    top: 11px;
+    border: 1px solid lightgrey;
+    font-size: 14px;
+    background: white;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.20);
+    &:focus {
+        outline: 0 !important;
+        //box-shadow: none;
     }
 }

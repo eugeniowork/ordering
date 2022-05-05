@@ -43,17 +43,15 @@ $(document).ready(function(){
         else if (!$(".header-dropdown-notifications").is(e.target) && $(".header-dropdown-notifications").has(e.target).length === 0) {
             $('.header-dropdown-notifications').hide();
         }
-
-        //FOR HEADER PAGES DROPDOWN
-        if ($(".header-btn-pages").is(e.target) || $(".header-btn-pages i").is(e.target)) {
-            $('.header-dropdown-pages').toggle();
-            toggle_caret('.header-dropdown-pages', '.header-btn-pages')
-        }
-        else if (!$(".header-dropdown-pages").is(e.target) && $(".header-dropdown-pages").has(e.target).length === 0) {
-            $('.header-dropdown-pages').hide();
-            toggle_caret('.header-dropdown-pages', '.header-btn-pages')
-        }
         
+        if($(".btn-toggle-menu").is(e.target) || $(".btn-toggle-menu i").is(e.target)){
+            $(".side-navbar-container").toggle("slide", { direction: "left" }, 1000);
+            $(".btn-show-menu").toggle();
+        }
+        else if (!$(".side-navbar-container").is(e.target) && $(".side-navbar-container").has(e.target).length === 0) {
+            $(".side-navbar-container").hide("slide", { direction: "left" }, 1000);
+            $(".btn-show-menu").show();
+        }
     });
 
 	function toggle_caret(dropdown, button_name) {

@@ -48,38 +48,6 @@
                         <div class="loading-notifications-container"></div>
                     </div>
                 </li>
-                <li>
-                    <a class="header-btn-pages">
-                        Pages
-                        <i class="fa fa-caret-down"></i>&nbsp;
-                    </a>
-                    <div class="header-dropdown-pages">
-                        <div class="all-pages-row">
-                            <div class="order-management-container">
-                                <span><i class="fas fa-clipboard-check"></i>&nbsp;Order Management</span><br>
-                                <?php if ($this->session->userdata("user_type") == "admin"): ?>
-                                    <a href="<?= base_url(); ?>ongoing-orders">Ongoing Orders</a><br>
-                                <?php else: ?>
-                                    <a href="<?= base_url(); ?>dashboard">Add Order</a><br>
-                                    <a href="<?= base_url(); ?>my-orders">My Orders</a><br>
-                                <?php endif ?>
-                            </div>
-                        </div>
-                        <!-- <div class="row all-pages-row">
-                            <div class="col-12 col-lg-12">
-                                <span><i class="fas fa-clipboard-check"></i>&nbsp;Order Management</span>
-                                <div class="row">
-                                    <?php if ($this->session->userdata("user_type") == "admin"): ?>
-                                        <div class="col-lg-12"><a href="<?= base_url(); ?>ongoing-orders">Ongoing Orders</a></div>
-                                    <?php else: ?>
-                                        <div class="col-lg-12"><a href="<?= base_url(); ?>dashboard">Add Order</a></div>
-                                        <div class="col-lg-12"><a href="<?= base_url(); ?>my-orders">My Orders</a></div>
-                                    <?php endif ?>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
-                </li>
             <?php else: ?>
                 <li>
                     <a href="<?= base_url();?>login">Login</a>
@@ -95,6 +63,8 @@
 	</div>
 </div>
 
+<?php if ($this->session->userdata('user_id')): ?>
+
 <div class="side-navbar-container">
     <div class="side-navbar-content">
         <div class="side-navbar-header">
@@ -103,13 +73,20 @@
         <div class="side-navbar-body">
             <button class="btn-menu" id="order_management" data-id="sub_menu_order_management"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Order Management<i class="fa-solid fa-caret-down caret"></i></button>
             <div class="order-management-dropdown sub-buttons" id="sub_menu_order_management">
-                <button><i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;Add Order</button>
-                <button><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</button>
+                <?php if ($this->session->userdata("user_type") == "admin"): ?>
+                    <a href="<?= base_url(); ?>ongoing-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;Ongoing Orders</a><br>
+                <?php else: ?>
+                    <a href="<?= base_url(); ?>dashboard"><i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;Add Order</a><br>
+                    <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a><br>
+                <?php endif ?>
             </div><br>
         </div>
     </div>
-    <button class="btn-toggle-menu"><i class="fas fa-bars"></i></button>
+    <button class="btn-toggle-menu" style="right: 4px; z-index: 300;"><i class="fas fa-bars"></i></button>
 </div>
+<button class="btn-toggle-menu btn-show-menu" style="z-index: 200; left: 0px"><i class="fas fa-bars"></i></button>
+
+<?php endif; ?>
 
 <div class="modal fade" id="checkout_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -135,8 +112,7 @@
     </div>
 </div>
 
-<div class="global-loading">
-    
-</div>
+<div class="global-loading"></div>
+
 <script type="text/javascript" src="<?= base_url();?>/assets/js/layouts/header.js"></script>
 <script type="text/javascript" src="<?= base_url();?>/assets/js/layouts/header-side-bar-buttons.js"></script>
