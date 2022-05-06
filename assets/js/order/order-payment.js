@@ -107,7 +107,7 @@ $(document).ready(function(){
             			is_face_pay_successful = true;
             			$(".modal").modal("hide")
 						$("#message_modal").modal("show")
-						$("#message_modal .modal-body").html("<span>Account Matched. You can now confirm the payment.</span>")
+						$("#message_modal .modal-body").html("<span class='text-primary'>Account Matched. You can now confirm the payment.</span>")
 
             		}
             	},
