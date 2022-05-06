@@ -5,6 +5,8 @@
 	<div class="container-body">
 		<span style="font-size: 20px;">Balance</span><br>
 		<strong><span>&#8369;</span><?= number_format($user_details['facepay_wallet_balance'], 2) ?></strong>
+        <button class="btn btn-link btn-sm btn-cash-in">Cash In</button>
+
 		<br><br>
 		<span style="font-size: 20px;">Recent Transactions</span><br>
 		<div class="transaction-container">
@@ -43,6 +45,55 @@
             		<span>Ending Balance</span><br>
             		<span><span>&#8369;</span>800</span>
             	</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cash_in_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cash In</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="cash-in-details-container">
+                    <span>Your pending cash in will expire on <strong>May 07, 2020 10:00 AM</strong></span><br><br>
+                    <div class="form-group">
+                        <span>Reference No.</span><br>
+                        <span>123456789</span>
+                    </div>
+                    <div class="form-group">
+                        <span>Amount</span><br>
+                        <span><span>&#8369;</span>123,456</span>
+                    </div>
+                    <button class="btn btn-sm btn-danger btn-cancel-cash-in">Cancel</button>
+                </div>
+                <div class="cash-in-process-loading-container" style="width: 50px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirm_cash_in_cancel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cancel Cash In</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>Are you sure you want to cancel cash in?</span>
+                <div class="warning text-danger"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm btn-confirm-cancel-cash-in">Yes</button>
+                <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">No</button>
             </div>
         </div>
     </div>

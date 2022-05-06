@@ -87,58 +87,57 @@ $(document).ready(function(){
 				createProcessError('.process-loading-container', 'Unable to load orders.', "30px", "15px");
 			}
 		})
+	}
+	var order_id;
+	$(document).on("click", ".btn-cancel-order", function(){
+		order_id = $(this).data("id");
+		$("#cancel_order_modal").modal("show")
+	})
 
-		var order_id;
-		$(document).on("click", ".btn-cancel-order", function(){
-			order_id = $(this).data("id");
-			$("#cancel_order_modal").modal("show")
-		})
+	var loading_cancel_order = false;
+	$(".btn-confirm-cancel-order").on("click", function(){
+		if(!loading_cancel_order){
+			loading_cancel_order = true
+		
+			$(".btn-confirm-cancel-order").prop("disabled", true).html("Cancelling order...")
 
-		var loading_cancel_order = false;
-		$(".btn-confirm-cancel-order").on("click", function(){
-			if(!loading_cancel_order){
-				loading_cancel_order = true
-			
-				$(".btn-confirm-cancel-order").prop("disabled", true).html("Cancelling order...")
+			$(".global-loading").css({
+                "display": "flex"
+            })
+            createProcessLoading('.global-loading', '<span style="color:white;">Cancelling order...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
 
-				$(".global-loading").css({
-	                "display": "flex"
-	            })
-	            createProcessLoading('.global-loading', '<span style="color:white;">Cancelling order...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
-
-				$.ajax({
-					url: base_url + "order/updateOrderStatus",
-					type: 'POST',
-					dataType: 'json',
-					data:{
-						order_id: order_id,
-						remarks: $(".remarks").val(),
-						status: "CANCELED",
-						user_type: "user"
-					},
-					success: function(response){
-						if(response.is_error){
-							loading_cancel_order = false;
-							$(".warning").html(response.error_msg)
-							$(".global-loading").css({
-	                            "display": "none"
-	                        })
-	                        $(".btn-confirm-cancel-order").prop("disabled", false).html("Submit")
-						}
-						else{
-							window.location.reload();
-						}
-					},
-					error: function(error){
+			$.ajax({
+				url: base_url + "order/updateOrderStatus",
+				type: 'POST',
+				dataType: 'json',
+				data:{
+					order_id: order_id,
+					remarks: $(".remarks").val(),
+					status: "CANCELED",
+					user_type: "user"
+				},
+				success: function(response){
+					if(response.is_error){
 						loading_cancel_order = false;
-						$(".warning").html("Unable to cancel order, please try again.")
+						$(".warning").html(response.error_msg)
 						$(".global-loading").css({
                             "display": "none"
                         })
                         $(".btn-confirm-cancel-order").prop("disabled", false).html("Submit")
 					}
-				})
-			}
-		})
-	}
+					else{
+						window.location.reload();
+					}
+				},
+				error: function(error){
+					loading_cancel_order = false;
+					$(".warning").html("Unable to cancel order, please try again.")
+					$(".global-loading").css({
+                        "display": "none"
+                    })
+                    $(".btn-confirm-cancel-order").prop("disabled", false).html("Submit")
+				}
+			})
+		}
+	})
 })

@@ -80,7 +80,7 @@
             <div class="facepay-wallet-dropdown sub-buttons" id="sub_menu_facepay_wallet">
                 <?php if ($this->session->userdata("user_type") == "admin"): ?>
                 <?php else: ?>
-                    <a href="<?= base_url()?>my-wallet"><i class="fas fa-money-bill-wave"></i>&nbsp;&nbsp;My Wallet</a><br>
+                    <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a><br>
                 <?php endif ?>
             </div><br>
 

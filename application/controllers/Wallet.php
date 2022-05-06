@@ -34,4 +34,95 @@ class Wallet extends CI_Controller {
 
 		echo json_encode($this->data);
 	}
+
+	public function getCashInRequest(){
+		//CREATE OR REPLACE VIEW views_cash_in_request AS SELECT cash_in_request.*, CONCAT(users.firstname," ",users.lastname) AS fullname, users.email, users.facepay_wallet_balance FROM `cash_in_request` LEFT JOIN users ON cash_in_request.user_id = users.id
+
+		session_write_close();
+
+		$user_id = $this->session->userdata("user_id");
+		$status = $this->input->post("status");
+		$date_today = getTimeStamp();
+
+		$query_type = "single";
+		$where = "";
+
+		if($this->session->userdata('user_type') == "user"){
+			$where = "user_id = '$user_id' AND status = '$status' AND date_expiration > '$date_today' ";
+		}
+		else{
+
+		}
+
+		$this->data['results'] = $this->global_model->get("views_cash_in_request", "*",$where, ["column" => "created_date", "type" => "DESC"], $query_type, []);
+
+		session_start();
+		echo json_encode($this->data);
+	}
+
+	public function submitCashIn(){
+		session_write_close();
+
+		$user_id = $this->session->userdata("user_id");
+		$amount = $this->input->post("amount");
+		$date_today = getTimeStamp();
+
+		$this->form_validation->set_rules('amount','amount','required',array(
+            'required'=> 'Please enter amount.'
+        ));
+
+        if($this->form_validation->run() == FALSE){
+            $this->data['is_error'] = true;
+            $this->data['error_msg'] = validation_errors();
+        }
+        else{
+        	if(!is_numeric($amount) && !floor($amount)){
+        		$this->data['is_error'] = true;
+            	$this->data['error_msg'] = "Please enter correct amount.";
+        	}
+        	else{
+        		$converted_amount = number_format($amount,2);
+        		$reference_no = time() . rand(10*45, 100*98);
+
+        		$this->global_model->update("cash_in_request", "user_id = '$user_id' AND status = 'PENDING'", ['status' => 'CANCELED']);
+        		$cash_in_params = [
+        			'user_id'=> $user_id,
+        			'reference_no'=> $reference_no,
+        			'request_amount'=> $amount,
+        			'date_expiration'=> date('Y-m-d H:i:s',strtotime($date_today.' + 1 days')),
+        			'status'=> 'PENDING',
+        			'created_date'=> $date_today,
+        			'created_by'=> $user_id
+        		];
+        		$insert_id = $this->global_model->insert("cash_in_request", $cash_in_params);
+
+        		//NOTIFY ADMIN AND STAFF
+		        $bulk_insert_params = [];
+	        	$users = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", ["column" => "id", "type" => "ASC"], "multiple", []);
+	        	foreach ($users as $key => $user) {
+	        		$bulk_insert_params[] = [
+	        			"receiver"=> $user->id,
+	        			"user_id"=> $user_id,
+	        			"content"=> "Customer #customer_name request Cash In amounting <span>&#8369;</span>{$converted_amount} with Reference No <a href='".base_url()."cash-in-request/".encryptData($insert_id)."'>{$reference_no}</a>.",
+	        			"type"=> "NEW_ORDER",
+	        			"source_table"=> "cash_in_request",
+	        			"source_id"=>$insert_id,
+	        			"read_status"=> 0,
+	        			"created_date"=> getTimeStamp(),
+	        			"created_by"=> $user_id
+	        		];
+	        	}
+
+	        	$this->global_model->batch_insert_or_update("notifications", $bulk_insert_params);
+
+        		$this->data['is_error'] = false;
+        	}
+        	
+        }
+
+        $this->data['amount'] = $amount;
+
+		session_start();
+		echo json_encode($this->data);
+	}
 }

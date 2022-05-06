@@ -62,4 +62,88 @@ $(document).ready(function(){
 
 		$("#transaction_details_modal").modal("show")
 	})
+
+	$(".btn-cash-in").on("click", function(){
+		$("#cash_in_modal").modal("show")
+		//$(".cash-in-details-container").empty();
+		createProcessLoading('.cash-in-process-loading-container', '', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
+
+		$.ajax({
+			url: base_url + "wallet/getCashInRequest",
+			type: 'POST',
+			dataType: 'json',
+			data:{
+				status: 'PENDING'
+			},
+			success: function(response){
+				$('.cash-in-process-loading-container').empty();
+				var cash_in_details_container = $(".cash-in-details-container");
+				if(response.results){
+
+				}
+				else{
+					cash_in_details_container.append('<div class="form-group"><span>Amount&nbsp;<span class="text-danger">*</span></span><input type="text" class="form-control float-only cash-in-amount" placeholder="Enter amount"></div>')
+					cash_in_details_container.append('<div class="cash-in-warning"></div>')
+					cash_in_details_container.append('<button class="btn btn-sm btn-primary btn-submit-cash-in">Submit</button>');
+				}
+				//$(".cash-in-details-container").append(cash_in_details_container)
+			},
+			error: function(error){
+
+			}
+		})
+	})
+
+	var loading_submit_cash_in = false;
+	$(document).on("click", ".btn-submit-cash-in", function(){
+		if(!loading_submit_cash_in){
+			loading_submit_cash_in = true;
+		
+			$(".btn-submit-cash-in").prop("disabled", true).html("Loading....")
+			$(".cash-in-warning").empty();
+
+			$(".global-loading").css({
+	            "display": "flex"
+	        })
+	        createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
+
+	        $.ajax({
+	        	url: base_url + "wallet/submitCashIn",
+	        	type: 'POST',
+	        	dataType: 'json',
+	        	data:{
+	        		amount: $(".cash-in-amount").val(),
+	        	},
+	        	success: function(response){
+	        		$(".global-loading").css({"display": "none"})
+
+	                if(response.is_error){
+	                	$(".btn-submit-cash-in").prop("disabled", false).html("Submit")
+	        			loading_submit_cash_in = false;
+	                	renderResponse('.cash-in-warning',response.error_msg, "danger")
+	                }
+	                else{
+	                	toastOptions(4000);
+	                    toastr.success("Cash in successful");
+	                    $("#cash_in_modal").modal("hide")
+	                    $(".btn-cash-in").click();
+	                }
+	        	},
+	        	error: function(error){
+	        		$(".global-loading").css({"display": "none"})
+	        		$(".btn-submit-cash-in").prop("disabled", false).html("Submit")
+        			loading_submit_cash_in = false;
+                	renderResponse('.cash-in-warning',"Unable to request cash in, please try again.", "danger")
+	        	}
+	        })
+        }
+	})
+
+	$(document).on("click", ".btn-cancel-cash-in", function(){
+		$("#confirm_cash_in_cancel").modal("show")
+	})
+
+	$(".btn-confirm-cancel-cash-in").on("click", function(){
+		
+	})
 })
