@@ -60,18 +60,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="cash-in-details-container">
-                    <span>Your pending cash in will expire on <strong>May 07, 2020 10:00 AM</strong></span><br><br>
-                    <div class="form-group">
-                        <span>Reference No.</span><br>
-                        <span>123456789</span>
-                    </div>
-                    <div class="form-group">
-                        <span>Amount</span><br>
-                        <span><span>&#8369;</span>123,456</span>
-                    </div>
-                    <button class="btn btn-sm btn-danger btn-cancel-cash-in">Cancel</button>
-                </div>
+                <div class="cash-in-details-container"></div>
                 <div class="cash-in-process-loading-container" style="width: 50px;"></div>
             </div>
         </div>

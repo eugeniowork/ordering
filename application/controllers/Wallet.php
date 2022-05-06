@@ -44,17 +44,24 @@ class Wallet extends CI_Controller {
 		$status = $this->input->post("status");
 		$date_today = getTimeStamp();
 
-		$query_type = "single";
 		$where = "";
 
 		if($this->session->userdata('user_type') == "user"){
 			$where = "user_id = '$user_id' AND status = '$status' AND date_expiration > '$date_today' ";
+			$results = $this->global_model->get("views_cash_in_request", "*",$where, ["column" => "created_date", "type" => "DESC"], "single", []);
+			if($results){
+				$results["encrypted_id"] = encryptData($results['id']);
+				$results["date_expiration"] = date("M d, Y h:i a", strtotime($results['date_expiration']));
+			}
 		}
 		else{
-
+			$results = $this->global_model->get("views_cash_in_request", "*",$where, ["column" => "created_date", "type" => "DESC"], "multiple", []);
+			foreach ($results as $key => $result) {
+				$results[$key]->{"encrypted_id"} = encryptData($result->id);
+			}
 		}
 
-		$this->data['results'] = $this->global_model->get("views_cash_in_request", "*",$where, ["column" => "created_date", "type" => "DESC"], $query_type, []);
+		$this->data['results'] = $results;
 
 		session_start();
 		echo json_encode($this->data);
@@ -121,6 +128,26 @@ class Wallet extends CI_Controller {
         }
 
         $this->data['amount'] = $amount;
+
+		session_start();
+		echo json_encode($this->data);
+	}
+
+	public function cancelMyCashIn(){
+		session_write_close();
+
+		$id = $this->input->post("id");
+		$id = decryptData($id);
+
+		$params = [
+			"status"=> "CANCELED",
+			"updated_date"=> getTimeStamp(),
+			"updated_by"=> $this->session->userdata("user_id")
+		];
+		$this->global_model->update("cash_in_request", "id = '$id'", $params);
+
+		$this->data['is_error'] = false;
+
 
 		session_start();
 		echo json_encode($this->data);

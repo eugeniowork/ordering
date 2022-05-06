@@ -65,11 +65,11 @@ $(document).ready(function(){
 
 	$(".btn-cash-in").on("click", function(){
 		$("#cash_in_modal").modal("show")
-		//$(".cash-in-details-container").empty();
+		$(".cash-in-details-container").empty();
 		createProcessLoading('.cash-in-process-loading-container', '', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
 
 		$.ajax({
-			url: base_url + "wallet/getCashInRequest",
+			url: base_url + "wallet/getCashInRequest1",
 			type: 'POST',
 			dataType: 'json',
 			data:{
@@ -79,17 +79,26 @@ $(document).ready(function(){
 				$('.cash-in-process-loading-container').empty();
 				var cash_in_details_container = $(".cash-in-details-container");
 				if(response.results){
-
+					cash_in_details_container.append('<span>Your pending cash in will expire on <strong>'+response.results.date_expiration+'</strong></span><br><br>')
+					cash_in_details_container.append('<div class="form-group"><span>Reference No.</span><br><span>'+response.results.reference_no+'</span></div>')
+					cash_in_details_container.append('<div class="form-group"><span>Amount</span><br><span>'+moneyConvertion(parseFloat(response.results.request_amount))+'</span></div>')
+					cash_in_details_container.append('<div class="cash-in-warning"></div>')
+					cash_in_details_container.append('<button class="btn btn-sm btn-danger btn-cancel-cash-in" data-id="'+response.results.encrypted_id+'">Cancel</button>')
 				}
 				else{
 					cash_in_details_container.append('<div class="form-group"><span>Amount&nbsp;<span class="text-danger">*</span></span><input type="text" class="form-control float-only cash-in-amount" placeholder="Enter amount"></div>')
 					cash_in_details_container.append('<div class="cash-in-warning"></div>')
 					cash_in_details_container.append('<button class="btn btn-sm btn-primary btn-submit-cash-in">Submit</button>');
 				}
-				//$(".cash-in-details-container").append(cash_in_details_container)
+				$(".cash-in-details-container").append(cash_in_details_container)
 			},
 			error: function(error){
-
+				$('.cash-in-process-loading-container').empty();
+				var cash_in_details_container = $(".cash-in-details-container");
+				cash_in_details_container.append('<div class="form-group"><span>Amount&nbsp;<span class="text-danger">*</span></span><input type="text" class="form-control float-only cash-in-amount" placeholder="Enter amount"></div>')
+				cash_in_details_container.append('<div class="cash-in-warning"></div>')
+				cash_in_details_container.append('<button class="btn btn-sm btn-primary btn-submit-cash-in">Submit</button>');
+				$(".cash-in-details-container").append(cash_in_details_container)
 			}
 		})
 	})
@@ -139,11 +148,39 @@ $(document).ready(function(){
         }
 	})
 
+	var cash_in_id;
 	$(document).on("click", ".btn-cancel-cash-in", function(){
+		cash_in_id = $(this).data("id")
 		$("#confirm_cash_in_cancel").modal("show")
 	})
 
+	var loading_cancel_cash_in = false;
 	$(".btn-confirm-cancel-cash-in").on("click", function(){
-		
+		if(!loading_cancel_cash_in){
+			loading_cancel_cash_in = true;
+			$(".global-loading").css({
+	            "display": "flex"
+	        })
+	        $(".cash-in-warning").empty();
+	        createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
+
+	        $.ajax({
+	        	url: base_url + "wallet/cancelMyCashIn",
+	        	type: 'POST',
+	        	dataType: 'json',
+	        	data:{
+	        		id: cash_in_id
+	        	},
+	        	success: function(response){
+	        		window.location.reload();
+	        	},
+	        	error: function(error){
+	        		$(".global-loading").css({"display": "none"})
+	        		loading_cancel_cash_in = false;
+	        		renderResponse('.cash-in-warning',"Unable to cancel cash in, please try again.", "danger")
+	        		$("#confirm_cash_in_cancel").modal("hide")
+	        	}
+	        })
+		}
 	})
 })

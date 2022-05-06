@@ -34,7 +34,7 @@
 		</div><br>
 
 		<div class="order-details-container" style="font-size: 12px; padding: 0px 20px;">
-			<span>Date: <strong>'.date('M d, Y H:i a', strtotime($order['created_date'])).'</strong></span><br>
+			<span>Date: <strong>'.date('M d, Y h:i a', strtotime($order['created_date'])).'</strong></span><br>
 			<span>Order Number: <strong>'.$order['order_number'].'</strong></span><br>
 			<span>Mode of Payment: <strong>'.$order['mode_of_payment'].'</strong></span><br>
 			<span>Staff: <strong>'.$user_in_charge_details['firstname']." ".$user_in_charge_details['lastname'].'</strong></span>
