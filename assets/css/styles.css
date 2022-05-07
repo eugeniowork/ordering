@@ -626,4 +626,59 @@ table {
     width: 250px;
     text-align: end; }
 
+.cash-in-view-container .authentication-method-container {
+  width: 350px; }
+  .cash-in-view-container .authentication-method-container .active {
+    background: lightblue; }
+  .cash-in-view-container .authentication-method-container button {
+    line-height: 50px;
+    width: 100%;
+    text-align: justify;
+    margin-bottom: 10px;
+    border: 1px solid lightgrey; }
+  .cash-in-view-container .authentication-method-container img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #f3f3f3;
+    padding: 5px 5px;
+    border-radius: 5px;
+    float: right; }
+.cash-in-view-container .webcam-container {
+  padding: 0; }
+  .cash-in-view-container .webcam-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .cash-in-view-container .webcam-container video {
+    background: black;
+    width: 100%   !important;
+    height: 425px  !important;
+    margin: 0;
+    border: 0px; }
+  .cash-in-view-container .webcam-container .loading {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 300000;
+    border: white 1px;
+    color: white;
+    padding: 75px 26px;
+    font-size: 17px;
+    margin: auto;
+    width: 200px;
+    height: 200px; }
+    .cash-in-view-container .webcam-container .loading .spinner-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      color: white;
+      z-index: 300000;
+      filter: alpha(opacity=80);
+      -moz-opacity: 0.8;
+      opacity: 0.8; }
+
 /*# sourceMappingURL=styles.css.map */

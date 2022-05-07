@@ -1,7 +1,5 @@
 $(document).ready(function(){
-	var payment_method = "";
-	var loading_confirm_payment = false;
-	var is_face_pay_successful = false;
+	var is_authentication_successful = false;
 
 	//FOR FACIAL RECOGNITION
 	var webcam_element = document.getElementById('webcam');
@@ -9,55 +7,20 @@ $(document).ready(function(){
 	var model_path = base_url+'assets/uploads/face_recognition_models';
 	var display_size, face_detection, canvas, face_descriptor;
 
-	$("input[type=radio]").change(function () {
-		$("input[type=radio]").not(this).prop('checked', false);
-
-		$(".cash-amount").val("")
-
-		if($(this).val() == "face_pay"){
-			$(".face-pay-container").removeClass("d-none")
-			$(".cash-container").addClass("d-none")
-			payment_method = "FACE PAY"
-		}
-		else{
-			$(".cash-container").removeClass("d-none")
-			$(".face-pay-container").addClass("d-none")
-			payment_method = "CASH"
-		}
-	});
-
-	$(".cash-amount").on("keyup", function(){
-		var cash_amount = parseFloat($(this).val())
-		if(cash_amount >= total_order_amount){
-			$(".btn-open-payment-confirmation").removeClass("d-none")
-			$(".cash-change").text((cash_amount - total_order_amount).toFixed(2))
-			$(".cash-amount-warning").html("")
-		}
-		else{
-			$(".btn-open-payment-confirmation").addClass("d-none")
-			$(".cash-change").text("")
-			$(".cash-amount-warning").html("<small class='text-danger'>Please enter amount that is equal or greater than "+moneyConvertion(parseFloat(total_order_amount))+".</small>")
-		}
-	})
-
-	$(".btn-open-payment-confirmation").on("click", function(){
-		$("#confirm_payment_modal").modal("show")
-	})
-
 	$(".btn-code").on("click", function(){
-		$("#verification_code_modal").modal("show")
-		is_face_pay_successful = false;
-	    $(".btn-open-payment-confirmation").addClass("d-none")
 	    $(this).addClass("active");
 	    $(".btn-facial-recognition").removeClass("active");
+	    $("#verification_code_modal").modal("show")
+	    $(".btn-confirm-cash-in").addClass("d-none")
+	    is_authentication_successful = false;
 
-		$.ajax({
-			url: base_url + "order/sendPaymentVerificationCode",
+	    $.ajax({
+			url: base_url + "wallet/sendCashInVerificationCode",
 			type: 'POST',
 			dataType: 'json',
 			data:{
 				email: customer_email,
-				order_number: order_number
+				reference_no: reference_no
 			},
 			success: function(response){
 
@@ -68,7 +31,7 @@ $(document).ready(function(){
 		})
 	})
 
-	var loading_verify_code = false
+	var loading_verify_code = false;
 	$(".btn-verify-code").on("click", function(){
 		if(!loading_verify_code){
 			loading_verify_code = true;
@@ -83,7 +46,7 @@ $(document).ready(function(){
             createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
 
             $.ajax({
-            	url: base_url + "order/verifyPaymentVerificationCode",
+            	url: base_url + "wallet/verifyCashInVerificationCode",
             	type: 'POST',
             	dataType: 'json',
             	data:{
@@ -93,105 +56,47 @@ $(document).ready(function(){
             	success: function(response){
             		$(".btn-verify-code").prop("disabled", false).html("Submit")
             		loading_verify_code = false;
-            		is_face_pay_successful = false;
-            		$(".btn-open-payment-confirmation").addClass("d-none")
+            		is_authentication_successful = false;
+            		$(".btn-confirm-cash-in").addClass("d-none")
             		$(".global-loading").css({
                         "display": "none"
                     })
 
-            		if(response.is_error){
+                    if(response.is_error){
             			renderResponse('#verification_code_modal .warning',response.error_msg, "danger")
             		}
             		else{
-            			$(".btn-open-payment-confirmation").removeClass("d-none")
-            			is_face_pay_successful = true;
+            			$(".btn-confirm-cash-in").removeClass("d-none")
+            			is_authentication_successful = true;
             			$(".modal").modal("hide")
-						$("#message_modal").modal("show")
-						$("#message_modal .modal-body").html("<span class='text-primary'>Account Matched. You can now confirm the payment.</span>")
-
+            			$("#message_modal").modal("show")
+						$("#message_modal .modal-body").html("<span class='text-primary'>Account Matched. You can now confirm the cash in.</span>")
             		}
             	},
             	error: function(error){
             		renderResponse('#verification_code_modal .warning',"Unable to verify code, please try again.", "danger")
             		$(".btn-verify-code").prop("disabled", false).html("Submit")
             		loading_verify_code = false;
-            		is_face_pay_successful = false;
-            		$(".btn-open-payment-confirmation").addClass("d-none")
+            		is_authentication_successful = false;
+            		$(".btn-confirm-cash-in").addClass("d-none")
             		$(".global-loading").css({
                         "display": "none"
                     })
-            	}
+				}
             })
 		}
 	})
-	
-	$(".btn-confirm-payment").on("click", function(){
-		if(!loading_confirm_payment){
-			loading_confirm_payment = true;
 
-			$(".btn-confirm-payment").prop("disabled", true).html("Loading....")
-
-			$(".global-loading").css({
-                "display": "flex"
-            })
-            createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
-
-            var url = "";
-            if(payment_method == "CASH"){
-            	var url = "order/saveCashOrderPayment";
-            }
-            else if(payment_method == "FACE PAY"){
-            	var url = "order/saveFacePayOrderPayment";
-            }
-            $.ajax({
-            	url: base_url + url,
-            	type: 'POST',
-            	dataType: 'json',
-            	data:{
-            		order_id: order_id,
-            		cash_amount: $(".cash-amount").val(),
-            		is_face_pay_successful: is_face_pay_successful
-            	},
-            	success: function(response){
-            		if(response.is_error){
-            			loading_confirm_payment = false;
-            			$(".modal").modal("hide")
-            			$("#message_modal").modal("show")
-            			$("#message_modal .modal-body").html("<span class='text-danger'>"+response.error_msg+"</span>")
-						$(".global-loading").css({
-	                        "display": "none"
-	                    })
-	                    $(".btn-confirm-payment").prop("disabled", false).html("Submit")
-            		}
-            		else{
-	              		window.location.href = base_url + "order-payment-successful/"+order_id;
-            		}
-            	},
-            	error: function(error){
-            		loading_confirm_payment = false;
-            		$(".modal").modal("hide")
-            		$("#message_modal").modal("show")
-					$("#message_modal .modal-body").html("<span class='text-danger'>Unable to confirm payment, please try again.</span>")
-					$(".global-loading").css({
-                        "display": "none"
-                    })
-                    $(".btn-confirm-payment").prop("disabled", false).html("Submit")
-            	}
-            })
-		}
+	$(".btn-facial-recognition").on("click", function(){
+		$(this).addClass("active");
+	    $(".btn-code").removeClass("active");
+	    $("#face_modal").modal("show")
+	    $(".btn-confirm-cash-in").addClass("d-none")
+	    is_authentication_successful = false;
+	   	init_web_cam();
 	})
 
 	//FOR FACIAL RECOGNITION
-
-	$(".btn-facial-recognition").on("click", function(){
-		$("#face_modal").modal("show")
-		is_face_pay_successful = false;
-	    $(".btn-open-payment-confirmation").addClass("d-none")
-	    $(this).addClass("active");
-	    $(".btn-code").removeClass("active");
-		init_web_cam();
-	})
-
 	$('#face_modal').on('hidden.bs.modal', function () {
 		camera_stopped();
 		
@@ -259,7 +164,7 @@ $(document).ready(function(){
 			faceapi.matchDimensions(canvas, display_size)
 		}
 	}
-	
+
 	function start_detection(){
 		face_detection = setInterval(async () => {
 			const detections = await faceapi.detectSingleFace(webcam_element, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks(true).withFaceDescriptor()
@@ -287,18 +192,83 @@ $(document).ready(function(){
 		$(".modal").modal("hide")
 		if(distance < 0.5 || distance2 < 0.5){
 			console.log("face match")
-	    	is_face_pay_successful = true;
-	    	$(".btn-open-payment-confirmation").removeClass("d-none")
+	    	is_authentication_successful = true;
+	    	$(".btn-confirm-cash-in").removeClass("d-none")
 
 	    	$("#message_modal").modal("show")
-			$("#message_modal .modal-body").html("<span class='text-primary'>Account Matched. You can now confirm the payment.</span>")
+			$("#message_modal .modal-body").html("<span class='text-primary'>Account Matched. You can now confirm the cash in.</span>")
 	    }
 	    else{
 	    	console.log("face not match")
-	    	is_face_pay_successful = false;
-	    	$(".btn-open-payment-confirmation").addClass("d-none")
+	    	is_authentication_successful = false;
+	    	$(".btn-confirm-cash-in").addClass("d-none")
+
 	    	$("#message_modal").modal("show")
 			$("#message_modal .modal-body").html("<span class='text-danger'>Registered face does not match. Make sure to face the camera properly.</span>")
 	    }
+	})
+
+	$(document).on("keyup", ".cash-amount", function(){
+		var cash_amount = parseFloat($(this).val())
+		$(".cash-amount-warning").empty();
+		if(cash_amount > request_amount){
+			$(".cash-change").val((cash_amount - request_amount).toFixed(2))
+			$(".btn-save-cash-in").prop("disabled", false)
+		}
+		else{
+			$(".cash-change").val("")
+			renderResponse('.cash-amount-warning',"Please enter amount that is equal or greater than "+moneyConvertion(parseFloat(request_amount)), "danger")
+			$(".btn-save-cash-in").prop("disabled", true)
+		}
+	})
+
+	$(".btn-confirm-cash-in").on("click", function(){
+		$("#confirm_cash_in_modal").modal("show")
+	})
+
+	var loading_save_cash_in = false;
+	$(".btn-save-cash-in").on("click", function(){
+		if(!loading_save_cash_in){
+			loading_save_cash_in = true;
+
+			$(".btn-save-cash-in").prop("disabled", true).html("Loading....")
+
+			$(".global-loading").css({
+                "display": "flex"
+            })
+            createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
+
+            $.ajax({
+            	url: base_url + "wallet/confirmCashIn",
+            	type: 'POST',
+            	dataType: 'json',
+            	data:{
+            		cash_in_id: cash_in_id,
+            		cash_amount: $(".cash-amount").val(),
+            		is_authentication_successful: is_authentication_successful
+            	},
+            	success: function(response){
+            		if(response.is_error){
+            			loading_save_cash_in = false;
+            			renderResponse('.cash-amount-warning',response.error_msg, "danger")
+            			$(".global-loading").css({
+	                        "display": "none"
+	                    })
+	                    $(".btn-save-cash-in").prop("disabled", false).html("Submit")
+            		}
+            		else{
+            			window.location.href = base_url + "cash-in-successful/"+cash_in_id;
+            		}
+            	},
+            	error: function(error){
+            		loading_save_cash_in = false;
+        			renderResponse('.cash-amount-warning',"Unable to confirm cash in, please try again.", "danger")
+        			$(".global-loading").css({
+                        "display": "none"
+                    })
+                    $(".btn-save-cash-in").prop("disabled", false).html("Submit")
+            	}
+            })
+		}
 	})
 })

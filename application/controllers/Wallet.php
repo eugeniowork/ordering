@@ -44,8 +44,6 @@ class Wallet extends CI_Controller {
 		$status = $this->input->post("status");
 		$date_today = getTimeStamp();
 
-		$where = "";
-
 		if($this->session->userdata('user_type') == "user"){
 			$where = "user_id = '$user_id' AND status = '$status' AND date_expiration > '$date_today' ";
 			$results = $this->global_model->get("views_cash_in_request", "*",$where, ["column" => "created_date", "type" => "DESC"], "single", []);
@@ -55,9 +53,11 @@ class Wallet extends CI_Controller {
 			}
 		}
 		else{
+			$where = "status = '$status' AND date_expiration > '$date_today' ";
 			$results = $this->global_model->get("views_cash_in_request", "*",$where, ["column" => "created_date", "type" => "DESC"], "multiple", []);
 			foreach ($results as $key => $result) {
 				$results[$key]->{"encrypted_id"} = encryptData($result->id);
+				$results[$key]->{"created_date"} = date("M d, Y h:i a", strtotime($result->created_date));
 			}
 		}
 
@@ -110,7 +110,7 @@ class Wallet extends CI_Controller {
 	        		$bulk_insert_params[] = [
 	        			"receiver"=> $user->id,
 	        			"user_id"=> $user_id,
-	        			"content"=> "Customer #customer_name request Cash In amounting <span>&#8369;</span>{$converted_amount} with Reference No <a href='".base_url()."cash-in-request/".encryptData($insert_id)."'>{$reference_no}</a>.",
+	        			"content"=> "Customer #customer_name request Cash In amounting <span>&#8369;</span>{$converted_amount} with Reference No <a href='".base_url()."cash-in-view/".encryptData($insert_id)."'>{$reference_no}</a>.",
 	        			"type"=> "NEW_ORDER",
 	        			"source_table"=> "cash_in_request",
 	        			"source_id"=>$insert_id,
@@ -150,6 +150,231 @@ class Wallet extends CI_Controller {
 
 
 		session_start();
+		echo json_encode($this->data);
+	}
+
+	public function cashInPage(){
+		$this->data['page_title'] = "Cash In";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('wallet/cash-in');
+		$this->load->view('layouts/footer');
+	}
+
+	public function cashInView($hash_id){
+		$id = decryptData($hash_id);
+
+		$cash_in = $this->global_model->get("views_cash_in_request", "*","id = {$id} ", ["column" => "created_date", "type" => "DESC"], "single", []);
+		$this->data['cash_in'] = $cash_in;
+
+		$user_id = $cash_in['user_id'];
+		$user_details = $this->global_model->get("views_users", "*", "id = '$user_id'", [], "single", []);
+		$this->data['user_details'] = $user_details;
+
+		$this->data['page_title'] = "Cash In";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('wallet/cash-in-view');
+		$this->load->view('layouts/footer');
+	}
+
+	public function sendCashInVerificationCode(){
+		session_write_close();
+
+		$email = $this->input->post("email");
+		$reference_no = $this->input->post("reference_no");
+
+		//UPDATE EXISTING ACTIVE OTP
+        $update_data = [
+            "is_active"=> 0,
+        ];
+        $this->global_model->update("otp", "email = '$email' AND is_active = 1 AND module = 'cash_in_verification'", $update_data);
+
+        $code = rand(100000, 999999);
+        $otp_params = [
+            'email'=> $email,
+            'code'=> $code,
+            'is_active'=> 1,
+            'module'=> 'cash_in_verification',
+            //plus 20 mins
+            // 20 * 60 = 1200
+            'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),
+            'created_date'=> getTimeStamp()
+        ];
+        $this->global_model->insert("otp", $otp_params);
+
+        // Load PHPMailer library
+        $this->load->library('PHPmailer_lib');
+
+        // PHPMailer object
+        $mail = $this->phpmailer_lib->load();
+        
+        // Add a recipient
+        $mail->addAddress($email);
+        
+        // Email subject
+        $mail->Subject = "[".APPNAME."]Cash In Verification";
+        
+        // Set email format to HTML
+        $mail->isHTML(true);
+        
+        // Email body content
+        $mail->Body = "
+            Good day! <br><br>
+            To verify your cash in with reference no <strong>{$reference_no}</strong>, please use this OTP:<br>
+            <strong>".$code."</strong>
+            <br><br>
+            This is only valid for 20 minutes.
+        ";
+
+        $mail->send();
+
+        session_start();
+
+		echo json_encode($email);
+	}
+
+	public function verifyCashInVerificationCode(){
+		$code = $this->input->post("code");
+		$email = $this->input->post("email");
+
+		$this->form_validation->set_rules('code','code','required|min_length[6]|max_length[6]',array(
+            'required'=> 'Please enter a 6 digit verification code.',
+            'min_length'=> 'Please enter a 6 digit verification code.',
+            'max_length'=> 'Please enter a 6 digit verification code.',
+        ));
+
+        if($this->form_validation->run() == FALSE){
+            $this->data['is_error'] = true;
+            $this->data['error_msg'] = validation_errors();
+        }
+        else{
+        	//GET USER LATEST OTP
+			$db_name = "otp";
+	        $select =  "*";
+	        $where = "email = '$email' AND is_active = 1 AND module = 'cash_in_verification'";
+	        $order = ["column" => "id", "type" => "DESC"];
+	        $otp_details = $this->global_model->get($db_name, $select, $where, $order, "single", []);
+
+	        if($otp_details){
+	        	if($otp_details['code'] != $code){
+	        		$this->data['is_error'] = true;
+	        		$this->data['error_msg'] = "Invalid verification code.";
+	        	}
+	        	else if($otp_details['code'] == $code && strtotime(getTimeStamp()) > strtotime($otp_details['date_expiration']) ){
+	        		$this->data['is_error'] = true;
+	        		$this->data['error_msg'] = "Verification code expired.";
+	        	}
+	        	else{
+	        		//UPDATE EXISTING ACTIVE OTP
+			        $update_data = [
+			            "is_active"=> 0,
+			        ];
+			        $this->global_model->update("otp", "email = '$email' AND is_active = 1", $update_data);
+
+			        //UPDATE OTP TO VERIFIED
+			        $update_data = [
+			            "is_verified"=> 1,
+			        ];
+			        $this->global_model->update("otp", "id = ".$otp_details['id'], $update_data);
+
+	        		$this->data['is_error'] = false;
+	        	}
+	        }
+	        else{
+	        	$this->data['is_error'] = true;
+            	$this->data['error_msg'] = "Invalid verification code.";
+	        }
+        }
+
+        echo json_encode($this->data);
+	}
+
+	public function confirmCashIn(){
+		$cash_in_id = $this->input->post("cash_in_id");
+		$cash_in_id = decryptData($cash_in_id);
+		$cash_amount = $this->input->post("cash_amount");
+		$is_authentication_successful = $this->input->post("is_authentication_successful");
+
+		$this->form_validation->set_rules('cash_amount','cash amount','required',array(
+            'required'=> 'Please enter cash amount'
+        ));
+
+		if($this->form_validation->run() == FALSE){
+            $this->data['is_error'] = true;
+            $this->data['error_msg'] = validation_errors();
+        }
+        else{
+        	if($is_authentication_successful == "false"){
+				$this->data['error_msg'] = "Cash in failed.";
+				$this->data['is_error'] = true;
+			}
+			else{
+				$cash_in_details = $this->global_model->get("views_cash_in_request", "*","id = {$cash_in_id} ",[],"single", []);
+				$customer_id = $cash_in_details['user_id'];
+				$reference_no = $cash_in_details['reference_no'];
+
+				if($cash_amount < $cash_in_details['request_amount']){
+					$this->data['error_msg'] = "Please enter amount that is equal or greater than <span>&#8369;</span>".number_format($cash_in_details['request_amount']);
+					$this->data['is_error'] = true;
+				}
+				else{
+					$user = $this->global_model->get("users", "id, email, facepay_wallet_balance", "id = '$customer_id'", [], "single", []);
+
+					$cash_in_params = [
+						'cash_amount'=> $cash_amount,
+						'user_in_charge'=> $this->session->userdata('user_id'),
+						'status'=> 'DONE',
+						'updated_date'=> getTimeStamp(),
+						'updated_by'=> $this->session->userdata('user_id'),
+					];
+					$this->global_model->update("cash_in_request", "id = '$cash_in_id'", $cash_in_params);
+
+					//UPDATE USER FACEPAY WALLET BALANCE
+					$new_facepay_wallet_balance = $user['facepay_wallet_balance'] + $cash_in_details['request_amount'];
+	        		$user_params = [
+	        			"facepay_wallet_balance"=> $new_facepay_wallet_balance
+	        		];
+	        		$this->global_model->update("users", "id = '$customer_id'", $user_params);
+
+	        		//ADD FACEPAY WALLET ACITIVTY
+	        		$wallet_activity_params = [
+	        			"user_id"=> $customer_id,
+	        			"reference_no"=> $reference_no,
+	        			"description"=> "Cash In",
+	        			"debit"=> $cash_in_details['request_amount'],
+	        			"credit"=> 0,
+	        			"balance" => $new_facepay_wallet_balance,
+	        			"source_table"=> "cash_in_request",
+	        			"source_id"=> $cash_in_id,
+	        			"created_date"=> getTimeStamp(),
+	        			"created_by"=> $this->session->userdata("user_id")
+	        		];
+	        		$this->global_model->insert("wallet_activity", $wallet_activity_params);
+
+	        		//NOTIFY USER/CUSTOMER
+	        		$content = "Cash In successful with Reference No <strong>{$reference_no}</strong>.";
+	        		$notification_params = [
+	        			"receiver"=> $customer_id,
+	        			"user_id"=> $this->session->userdata('user_id'),
+	        			"content"=> $content,
+	        			"type"=> "CASH_IN",
+	        			"source_table"=> "cash_in_request",
+	        			"source_id"=>$cash_in_id,
+	        			"read_status"=> 0,
+	        			"created_date"=> getTimeStamp(),
+	        			"created_by"=> $this->session->userdata('user_id')
+	        		];
+	        		$this->global_model->insert("notifications", $notification_params);
+
+					$this->data['is_error'] = false;
+				}
+			}
+
+        }
+		
 		echo json_encode($this->data);
 	}
 }

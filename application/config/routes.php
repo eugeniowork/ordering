@@ -72,6 +72,8 @@ $route['my-profile'] = 'user/myProfilePage';
 
 //FOR WALLET RELATED
 $route['my-wallet'] = 'wallet/myWalletPage';
+$route['cash-in'] = 'wallet/cashInPage';
+$route['cash-in-view/(:any)'] = 'wallet/cashInView/$1';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

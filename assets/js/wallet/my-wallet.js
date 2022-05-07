@@ -69,7 +69,7 @@ $(document).ready(function(){
 		createProcessLoading('.cash-in-process-loading-container', '', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
 
 		$.ajax({
-			url: base_url + "wallet/getCashInRequest1",
+			url: base_url + "wallet/getCashInRequest",
 			type: 'POST',
 			dataType: 'json',
 			data:{
