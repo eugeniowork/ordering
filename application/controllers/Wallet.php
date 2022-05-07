@@ -12,6 +12,7 @@ class Wallet extends CI_Controller {
 
 		$this->load->helper('date_helper');
 		$this->load->helper('encryption_helper');
+		$this->load->helper('receipt_helper');
 	}
 
 	public function myWalletPage(){
@@ -369,6 +370,21 @@ class Wallet extends CI_Controller {
 	        		];
 	        		$this->global_model->insert("notifications", $notification_params);
 
+	        		$pdf_output = generateCashInReceipt($cash_in_id);
+
+	        		// NOTIFY USER THROUGH EMAIL
+		            $this->load->library('PHPmailer_lib');
+		            $mail = $this->phpmailer_lib->load();
+		            $mail->addAddress($user['email']);
+		            $mail->Subject = "[".APPNAME."] CASH IN SUCCESSFUL";
+		            $mail->isHTML(true);
+		            $mail->Body = "
+		                Good day! <br><br>
+		                $content
+		            ";
+		            $mail->AddStringAttachment($pdf_output,"Receipt.pdf","base64","application/pdf");
+		            $mail->send();
+
 					$this->data['is_error'] = false;
 				}
 			}
@@ -376,5 +392,42 @@ class Wallet extends CI_Controller {
         }
 		
 		echo json_encode($this->data);
+	}
+
+	public function cashInSuccessfulPage($hash_id){
+		$id = decryptData($hash_id);
+
+		$cash_in_details = $this->global_model->get("views_cash_in_request", "*","id = {$id} ",[],"single", []);
+		$this->data['cash_in_details'] = $cash_in_details;
+
+		if($cash_in_details['status'] != "DONE"){
+			redirect("cash-in");
+		}
+
+		$this->data['page_title'] = "Cash In Successful";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_icon_only');
+		$this->load->view('wallet/cash-in-successful');
+		$this->load->view('layouts/footer');
+	}
+
+	public function cashInReceiptPdf($hash_id){
+		$id = decryptData($hash_id);
+
+		$cash_in_details = $this->global_model->get("views_cash_in_request", "*","id = {$id} ",[],"single", []);
+		$this->data['cash_in_details'] = $cash_in_details;
+
+		$user_in_charge_id = $cash_in_details['user_in_charge'];
+		$user_in_charge_details = $this->global_model->get("users", "*", "id = '$user_in_charge_id'", [], "single", []);
+		$this->data['user_in_charge_details'] = $user_in_charge_details;
+
+		if($cash_in_details['status'] != "DONE"){
+			redirect("cash-in");
+		}
+
+		$this->data['page_title'] = "Cash In Receipt";
+
+		$this->load->view('wallet/cash-in-receipt-pdf', $this->data);
 	}
 }

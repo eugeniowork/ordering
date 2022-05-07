@@ -681,4 +681,28 @@ table {
       -moz-opacity: 0.8;
       opacity: 0.8; }
 
+.cash-in-successful-container .container-body {
+  background: #3498db !important; }
+  .cash-in-successful-container .container-body .cash-in-successful-flex {
+    min-height: 90vh;
+    width: 100%;
+    position: relative; }
+    .cash-in-successful-container .container-body .cash-in-successful-flex .cash-in-successful-body {
+      z-index: 1;
+      padding: 20px 30px;
+      background: white;
+      min-height: 400px;
+      height: auto;
+      width: 460px;
+      border-radius: 5px;
+      color: #333; }
+      .cash-in-successful-container .container-body .cash-in-successful-flex .cash-in-successful-body .main-title {
+        text-align: center;
+        font-size: 24px; }
+        .cash-in-successful-container .container-body .cash-in-successful-flex .cash-in-successful-body .main-title span {
+          font-style: italic; }
+      .cash-in-successful-container .container-body .cash-in-successful-flex .cash-in-successful-body img {
+        height: 150px;
+        width: 150px; }
+
 /*# sourceMappingURL=styles.css.map */
