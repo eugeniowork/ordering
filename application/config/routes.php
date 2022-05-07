@@ -77,6 +77,10 @@ $route['cash-in-view/(:any)'] = 'wallet/cashInView/$1';
 $route['cash-in-successful/(:any)'] = 'wallet/cashInSuccessfulPage/$1';
 $route['cash-in-receipt-pdf/(:any)'] = 'wallet/cashInReceiptPdf/$1';
 
+//FOR PRODUCT RELATED
+$route['product'] = 'product/productPage';
+$route['product-add'] = 'product/productAddPage';
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -7,7 +7,7 @@
 <?php else: ?>
 	<div class="page-container order-payment-container">
 		<div class="container-header">
-    		<span class="header-title">Order #<?= $order['order_number'] ?><br>
+    		<span class="header-title">Order #<?= $order['order_number'] ?></span><br>
             <div class="buttons">
                 <a href="<?= base_url();?>ongoing-orders-view/<?= encryptData($order['id']) ?>" class="btn btn-sm btn-primary">Back</a>
                 <?php if ($order['status'] == "FOR PICKUP"): ?>

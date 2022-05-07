@@ -357,4 +357,97 @@ class Product extends CI_Controller {
 
 		echo json_encode($this->data);
 	}
+
+	public function productPage(){
+		$this->data['page_title'] = "Product";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('product/product');
+		$this->load->view('layouts/footer');
+	}
+
+	public function productAddPage(){
+		$this->data['page_title'] = "Product Add";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('product/product-add');
+		$this->load->view('layouts/footer');
+	}
+
+	public function productSave(){
+		$post = $this->input->post();
+
+		$name = $post['name'];
+		$code = $post['code'];
+		$price = $post['price'];
+		$stock = $post['stock'];
+		$category = isset($post['category'])? $post['category']: "";
+
+		$this->form_validation->set_rules('name','name','required|is_unique[products.name]', array(
+			'is_unique'=>"Product name already exist.",
+		));
+
+		$this->form_validation->set_rules('price','price','required');
+
+		$this->form_validation->set_rules('stock','stock','required');
+
+		$this->form_validation->set_rules('category','category','required');
+
+		$is_error = false;
+		$error_msg = "";
+
+		if($this->form_validation->run() == FALSE){
+            $is_error = true;
+            $error_msg .= validation_errors();
+        }
+        else{
+        	if(!is_numeric($price) && !floor($price)){
+        		$is_error = true;
+            	$error_msg .= "<p>Please enter correct price.</p><br>";
+        	}
+        	if(!is_numeric($stock)){
+        		$is_error = true;
+            	$error_msg .= "<p>Please enter correct stock.</p>";
+        	}
+
+        	if(!$is_error){
+        		$target_dir = 'assets/uploads/products';
+	
+				if(!is_dir($target_dir))
+				{
+					mkdir($target_dir,0777,true);
+				}
+
+        		if($_FILES['file']['name']){
+        			$type = $_FILES['file']['type'];
+					$tmp_name =  $_FILES['file']['tmp_name'];
+					$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+					$new_file_name = uniqid().".{$ext}";
+		        	$image_path = $target_dir.'/'.$new_file_name;
+		        	$post['image_path'] = $image_path;
+		        	move_uploaded_file($tmp_name,FCPATH.$image_path);
+		        }
+		        else{
+		        	$post['image_path'] = $target_dir.'/no-image-available.jpg';
+		        }
+
+        		$post['created_date'] = getTimeStamp();
+        		$post['created_by'] = $this->session->userdata('user_id');
+        		$post['category_id'] = $post['category'];
+        		unset($post['category']);
+
+        		$this->global_model->insert("products", $post);
+
+        		$is_error = false;
+        	}
+        }
+
+
+        $this->data['is_error'] = $is_error;
+        $this->data['error_msg'] = $error_msg;
+
+		echo json_encode($this->data);
+	}
 }
