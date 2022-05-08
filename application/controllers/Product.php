@@ -450,4 +450,18 @@ class Product extends CI_Controller {
 
 		echo json_encode($this->data);
 	}
+
+	public function productViewPage($hash_id){
+		$id = decryptData($hash_id);
+
+        $product_details = $this->global_model->get("views_products", "*", "id = {$id}", [], "single", []);
+        $this->data['product_details'] = $product_details;
+
+		$this->data['page_title'] = "Product View";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('product/product-view');
+		$this->load->view('layouts/footer');
+	}
 }

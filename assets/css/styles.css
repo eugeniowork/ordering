@@ -705,4 +705,10 @@ table {
         height: 150px;
         width: 150px; }
 
+.product-view-container img {
+  width: 200px;
+  height: 200px;
+  border: 1px solid lightgrey;
+  border-radius: 5px; }
+
 /*# sourceMappingURL=styles.css.map */
