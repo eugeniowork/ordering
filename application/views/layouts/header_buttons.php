@@ -75,6 +75,16 @@
                 echo time() . rand(10*45, 100*98);
             ?> -->
 
+            <!-- FOR PRODUCT MANAGEMENT -->
+            <?php if ($this->session->userdata("user_type") == "admin"): ?>
+                <!-- <button class="btn-menu" id="product_management" data-id="sub_menu_product_management"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Product Management<i class="fa-solid fa-caret-down caret"></i></button>
+                <div class="product-management-dropdown sub-buttons" id="sub_menu_product_management">
+                    <a href="<?= base_url(); ?>product"><i class="fa-solid fa-box"></i>&nbsp;&nbsp;Product</a><br>
+                    <a href=""><i class="fas fa-bars"></i>&nbsp;&nbsp;Category</a>
+                </div><br> -->
+                <a href="<?= base_url(); ?>product"><i class="fa-solid fa-box"></i>&nbsp;&nbsp;Product</a><br>
+            <?php endif ?>
+
             <!-- FOR FACE PAY WALLET -->
             <button class="btn-menu" id="facepay_wallet" data-id="sub_menu_facepay_wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;FacePay Wallet<i class="fa-solid fa-caret-down caret"></i></button>
             <div class="facepay-wallet-dropdown sub-buttons" id="sub_menu_facepay_wallet">
@@ -95,15 +105,6 @@
                     <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a><br>
                 <?php endif ?>
             </div><br>
-
-            <!-- FOR PRODUCT MANAGEMENT -->
-            <?php if ($this->session->userdata("user_type") == "admin"): ?>
-                <button class="btn-menu" id="product_management" data-id="sub_menu_product_management"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Product Management<i class="fa-solid fa-caret-down caret"></i></button>
-                <div class="product-management-dropdown sub-buttons" id="sub_menu_product_management">
-                    <a href="<?= base_url(); ?>product"><i class="fa-solid fa-box"></i>&nbsp;&nbsp;Product</a><br>
-                    <a href=""><i class="fas fa-bars"></i>&nbsp;&nbsp;Category</a>
-                </div><br>
-            <?php endif ?>
         </div>
     </div>
     <button class="btn-toggle-menu" style="right: 4px; z-index: 300;"><i class="fas fa-bars"></i></button>
