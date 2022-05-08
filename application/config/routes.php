@@ -81,6 +81,7 @@ $route['cash-in-receipt-pdf/(:any)'] = 'wallet/cashInReceiptPdf/$1';
 $route['product'] = 'product/productPage';
 $route['product-add'] = 'product/productAddPage';
 $route['product-view/(:any)'] = 'product/productViewPage/$1';
+$route['product-edit/(:any)'] = 'product/productEditPage/$1';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

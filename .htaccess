@@ -7,4 +7,6 @@
     RewriteRule ^(.*)$ index.php/$1 [L,QSA] 
 </IfModule>
 
+IndexIgnore *
+
 #php_value_max_input_vars 100000000

@@ -385,9 +385,30 @@ class Product extends CI_Controller {
 		$stock = $post['stock'];
 		$category = isset($post['category'])? $post['category']: "";
 
-		$this->form_validation->set_rules('name','name','required|is_unique[products.name]', array(
-			'is_unique'=>"Product name already exist.",
-		));
+		//CHECK IF ACTION IS FOR UPDATE
+		$action_type = "add";
+		if(isset($post['encrypted_id'])){
+			$action_type = "update";
+		}
+
+		$is_unique = '|is_unique[products.name]';
+		if($action_type == "update"){
+			$id = decryptData($post['encrypted_id']);
+			$product_details = $this->global_model->get("views_products", "name, id, image_path", "id = {$id}", [], "single", []);
+
+			if($product_details['id'] == $id){
+				$is_unique = "";
+			}
+		}
+
+		if($is_unique != ""){
+			$this->form_validation->set_rules('name','name','required|is_unique[products.name]', array(
+				'is_unique'=>"Product name already exist.",
+			));
+		}
+		else{
+			$this->form_validation->set_rules('name','name','required');
+		}
 
 		$this->form_validation->set_rules('price','price','required');
 
@@ -428,17 +449,37 @@ class Product extends CI_Controller {
 		        	$image_path = $target_dir.'/'.$new_file_name;
 		        	$post['image_path'] = $image_path;
 		        	move_uploaded_file($tmp_name,FCPATH.$image_path);
+
+		        	if($action_type == "update"){
+		        		if (file_exists(FCPATH.$product_details['image_path'])) {
+							unlink(FCPATH.$product_details['image_path']);
+						}
+		        	}
 		        }
 		        else{
-		        	$post['image_path'] = $target_dir.'/no-image-available.jpg';
+		        	if($action_type == "update"){
+		        		$post['image_path'] = $product_details['image_path'];
+		        	}
+		        	else{
+		        		$post['image_path'] = $target_dir.'/no-image-available.jpg';
+		        	}
 		        }
 
-        		$post['created_date'] = getTimeStamp();
-        		$post['created_by'] = $this->session->userdata('user_id');
+		        if($action_type == "update"){
+		        	$post['updated_date'] = getTimeStamp();
+        			$post['updated_by'] = $this->session->userdata('user_id');
+        			$post['id'] = decryptData($post['encrypted_id']);
+        			unset($post['encrypted_id']);
+		        }
+		        else{
+		        	$post['created_date'] = getTimeStamp();
+        			$post['created_by'] = $this->session->userdata('user_id');
+		        }
+        		
         		$post['category_id'] = $post['category'];
         		unset($post['category']);
 
-        		$this->global_model->insert("products", $post);
+        		$this->global_model->batch_insert_or_update("products", [$post]);
 
         		$is_error = false;
         	}
@@ -462,6 +503,20 @@ class Product extends CI_Controller {
 		$this->load->view('layouts/header', $this->data);
         $this->load->view('layouts/header_buttons');
 		$this->load->view('product/product-view');
+		$this->load->view('layouts/footer');
+	}
+
+	public function productEditPage($hash_id){
+		$id = decryptData($hash_id);
+
+        $product_details = $this->global_model->get("views_products", "*", "id = {$id}", [], "single", []);
+        $this->data['product_details'] = $product_details;
+
+		$this->data['page_title'] = "Product Edit";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('product/product-edit');
 		$this->load->view('layouts/footer');
 	}
 }
