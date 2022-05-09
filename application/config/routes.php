@@ -71,6 +71,9 @@ $route['order-receipt-pdf/(:any)'] = 'order/orderReceiptPdf/$1';
 $route['my-profile'] = 'user/myProfilePage';
 $route['customer'] = 'user/customerPage';
 $route['customer-view/(:any)'] = 'user/customerViewPage/$1';
+$route['employee'] = 'user/employeePage';
+$route['employee-view/(:any)'] = 'user/employeeViewPage/$1';
+$route['employee-add'] = 'user/employeeAddPage';
 
 //FOR WALLET RELATED
 $route['my-wallet'] = 'wallet/myWalletPage';

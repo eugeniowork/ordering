@@ -724,4 +724,17 @@ table {
   border-radius: 50px;
   font-size: 14px; }
 
+.employee-container .status-active {
+  background: #28a745;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 10px; }
+.employee-container .status-inactive {
+  background: #dc3545;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 10px; }
+
 /*# sourceMappingURL=styles.css.map */

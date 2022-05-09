@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends CI_Controller {
 	function __construct(){
 		parent::__construct();
+		if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
 
 		$this->load->model('global_model');
 
@@ -62,6 +65,92 @@ class User extends CI_Controller {
 		$this->load->view('layouts/header_buttons');
 		$this->load->view('user/customer-view', $this->data);
 		$this->load->view('layouts/footer');
+	}
+
+	public function employeePage(){
+		$this->data['page_title'] = "Employee";
+
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_buttons');
+		$this->load->view('user/employee', $this->data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function employeeViewPage($hash_id){
+		$id = decryptData($hash_id);
+
+		$user_details = $this->global_model->get("users", "*", "id = {$id}", [], "single", []);
+		$this->data['user_details'] = $user_details;
+
+		$this->data['page_title'] = "Employee View";
+
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_buttons');
+		$this->load->view('user/employee-view', $this->data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function employeeAddPage(){
+		$this->data['page_title'] = "Employee Add";
+
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_buttons');
+		$this->load->view('user/employee-add', $this->data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function employeeSave(){
+		$post = $this->input->post();
+
+		$lastname = $post['lastname'];
+		$firstname = $post['firstname'];
+		$middlename = $post['middlename'];
+		$phone_number = $post['phone_number'];
+		$user_type = isset($post['user_type'])? $post['user_type']: "";
+		$email = $post['email'];
+		$password = $post['password'];
+		$confirm_password = $post['confirm_password'];
+
+		$this->form_validation->set_rules('lastname','lastname','required');
+        $this->form_validation->set_rules('firstname','firstname','required');
+        $this->form_validation->set_rules('phone_number','phone number','required');
+        $this->form_validation->set_rules('user_type','role','required');
+        $this->form_validation->set_rules('email','email','required|is_unique[users.email]|trim|valid_email',array(
+            'is_unique'=>"Email already exist.",
+            'valid_email'=> "Enter a valid email"
+        ));
+        $this->form_validation->set_rules('password','password','required|min_length[6]',array(
+            'min_length'=> 'Password must be 6 characters long.'
+        ));
+        $this->form_validation->set_rules('confirm_password','confirm password','required|matches[password]',array(
+            'matches'=>"Password does not match.",
+        ));
+
+        $is_error = false;
+        $error_msg = "";
+
+        if($this->form_validation->run() == FALSE){
+            $is_error = true;
+            $error_msg = validation_errors();
+        }
+        else{
+        	unset($post['confirm_password']);
+        	$post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+        	$post['created_date'] = getTimeStamp();
+        	$post['created_by'] = $this->session->userdata('user_id');
+        	$post['is_active'] = 1;
+        	$post['is_verified'] = 1;
+        	$post['profile_path'] = "assets/uploads/profile/default-user-icon.jpg";
+
+        	$this->global_model->batch_insert_or_update("users", [$post]);
+
+        	$is_error = false;
+        }
+
+        $this->data['is_error'] = $is_error;
+        $this->data['error_msg'] = $error_msg;
+
+		echo json_encode($this->data);
 	}
 
 }
