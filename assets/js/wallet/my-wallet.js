@@ -6,7 +6,7 @@ $(document).ready(function(){
 		createProcessLoading('.process-loading-container', '', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
 
 		$.ajax({
-			url: base_url + "wallet/myWalletTransactions",
+			url: base_url + "wallet/walletTransaction",
 			type: 'POST',
 			dataType: 'json',
 			data:{},

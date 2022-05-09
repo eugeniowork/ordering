@@ -27,23 +27,23 @@
             <div class="modal-body">
             	<div class="form-group">
             		<span>Reference No.</span><br>
-            		<span>123654891</span>
+            		<span>#reference_no</span>
             	</div>
             	<div class="form-group">
             		<span>Transaction Date</span><br>
-            		<span>May 03, 2022 10:00 AM</span>
+            		<span>#transaction_date</span>
             	</div>
             	<div class="form-group">
             		<span>Description</span><br>
-            		<span>Cash In</span>
+            		<span>#description</span>
             	</div>
             	<div class="form-group">
             		<span>Amount</span><br>
-            		<span><span>&#8369;</span>900</span>
+            		<span>#amount</span>
             	</div>
             	<div class="form-group">
             		<span>Ending Balance</span><br>
-            		<span><span>&#8369;</span>800</span>
+            		<span>#ending_balance</span>
             	</div>
             </div>
         </div>

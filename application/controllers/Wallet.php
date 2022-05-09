@@ -28,11 +28,18 @@ class Wallet extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
-	public function myWalletTransactions(){
-		$user_id = $this->session->userdata("user_id");
+	public function walletTransaction(){
+		//CREATE OR REPLACE VIEW views_wallet_activity AS SELECT wallet_activity.*, CONCAT(users.firstname," ",users.lastname) as fullname FROM `wallet_activity` LEFT JOIN users ON wallet_activity.user_id = users.id
+		session_write_close();
+		if($this->session->userdata('user_type') == "user"){
+			$user_id = $this->session->userdata("user_id");
+			$this->data['transactions'] = $this->global_model->get("views_wallet_activity", "*", "user_id = '$user_id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+		}
+		else{
+			$this->data['transactions'] = $this->global_model->get("views_wallet_activity", "*", "", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+		}
 
-		$this->data['transactions'] = $this->global_model->get("wallet_activity", "*", "user_id = '$user_id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
-
+		session_start();
 		echo json_encode($this->data);
 	}
 
@@ -429,5 +436,14 @@ class Wallet extends CI_Controller {
 		$this->data['page_title'] = "Cash In Receipt";
 
 		$this->load->view('wallet/cash-in-receipt-pdf', $this->data);
+	}
+
+	public function walletTransactionPage(){
+		$this->data['page_title'] = "Wallet Transaction";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('wallet/wallet-transaction');
+		$this->load->view('layouts/footer');
 	}
 }
