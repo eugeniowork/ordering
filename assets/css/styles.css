@@ -711,4 +711,17 @@ table {
   border: 1px solid lightgrey;
   border-radius: 5px; }
 
+.customer-view-container .verified {
+  background: #28a745;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 14px; }
+.customer-view-container .unverified {
+  background: #dc3545;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 14px; }
+
 /*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,16 @@
+.customer-view-container{
+	.verified{
+		background: #28a745;
+	    color: white;
+	    padding: 5px 15px;
+	    border-radius: 50px;
+	    font-size: 14px;
+	}
+	.unverified{
+		background: #dc3545;
+	    color: white;
+	    padding: 5px 15px;
+	    border-radius: 50px;
+	    font-size: 14px;
+	}
+}

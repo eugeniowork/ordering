@@ -71,17 +71,8 @@
             <img src="<?= base_url().LOGO ?>">
         </div>
         <div class="side-navbar-body">
-            <!-- <?php
-                echo time() . rand(10*45, 100*98);
-            ?> -->
-
             <!-- FOR PRODUCT MANAGEMENT -->
             <?php if ($this->session->userdata("user_type") == "admin"): ?>
-                <!-- <button class="btn-menu" id="product_management" data-id="sub_menu_product_management"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Product Management<i class="fa-solid fa-caret-down caret"></i></button>
-                <div class="product-management-dropdown sub-buttons" id="sub_menu_product_management">
-                    <a href="<?= base_url(); ?>product"><i class="fa-solid fa-box"></i>&nbsp;&nbsp;Product</a><br>
-                    <a href=""><i class="fas fa-bars"></i>&nbsp;&nbsp;Category</a>
-                </div><br> -->
                 <a href="<?= base_url(); ?>product"><i class="fa-solid fa-box"></i>&nbsp;&nbsp;Product</a><br>
             <?php endif ?>
 
@@ -90,9 +81,9 @@
             <div class="facepay-wallet-dropdown sub-buttons" id="sub_menu_facepay_wallet">
                 <?php if ($this->session->userdata("user_type") == "admin"): ?>
                     <a href="<?= base_url();?>cash-in"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;Cash In</a><br>
-                    <a href="<?= base_url();?>wallet-transaction"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;Transaction</a>
+                    <a href="<?= base_url();?>wallet-transaction"><i class="fa-solid fa-repeat"></i>&nbsp;&nbsp;Transaction</a>
                 <?php else: ?>
-                    <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a><br>
+                    <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a>
                 <?php endif ?>
             </div><br>
 
@@ -100,11 +91,19 @@
             <button class="btn-menu" id="order_management" data-id="sub_menu_order_management"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Order Management<i class="fa-solid fa-caret-down caret"></i></button>
             <div class="order-management-dropdown sub-buttons" id="sub_menu_order_management">
                 <?php if ($this->session->userdata("user_type") == "admin"): ?>
-                    <a href="<?= base_url(); ?>ongoing-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;Ongoing Orders</a><br>
+                    <a href="<?= base_url(); ?>ongoing-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;Ongoing Orders</a>
                 <?php else: ?>
                     <a href="<?= base_url(); ?>dashboard"><i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;Add Order</a><br>
-                    <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a><br>
-                <?php endif ?>
+                    <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a>                <?php endif ?>
+            </div><br>
+
+            <?php if ($this->session->userdata("user_type") == "admin"): ?>
+                <!-- FOR USER MANAGEMENT -->
+                <button class="btn-menu" id="user_management" data-id="sub_menu_user_management"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;User Management<i class="fa-solid fa-caret-down caret"></i></button>
+            <?php endif ?>
+            <div class="user-management-dropdown sub-buttons" id="sub_menu_user_management">
+                <a href="<?= base_url(); ?>customer"><i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;Customer</a><br>
+                <a href="<?= base_url(); ?>employee"><i class="fas fa-user-tie"></i>&nbsp;&nbsp;Employee</a>
             </div><br>
         </div>
     </div>

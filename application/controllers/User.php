@@ -28,4 +28,40 @@ class User extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
+	public function customerPage(){
+		$this->data['page_title'] = "Customer";
+
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_buttons');
+		$this->load->view('user/customer', $this->data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function getUsers(){
+		$user_type = $this->input->post("user_type");
+
+		$users = $this->global_model->get("users", "*", "deleted_by = 0 AND FIND_IN_SET(user_type, '$user_type') ", [], "multiple", []);
+		foreach ($users as $key => $user) {
+			$users[$key]->{"encrypted_id"} = encryptData($user->id);
+		}
+
+		$this->data['users'] = $users;
+
+		echo json_encode($this->data);
+	}
+
+	public function customerViewPage($hash_id){
+		$id = decryptData($hash_id);
+
+		$user_details = $this->global_model->get("users", "*", "id = {$id}", [], "single", []);
+		$this->data['user_details'] = $user_details;
+
+		$this->data['page_title'] = "Customer View";
+
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_buttons');
+		$this->load->view('user/customer-view', $this->data);
+		$this->load->view('layouts/footer');
+	}
+
 }

@@ -69,6 +69,8 @@ $route['order-receipt-pdf/(:any)'] = 'order/orderReceiptPdf/$1';
 
 //FOR USER RELATED
 $route['my-profile'] = 'user/myProfilePage';
+$route['customer'] = 'user/customerPage';
+$route['customer-view/(:any)'] = 'user/customerViewPage/$1';
 
 //FOR WALLET RELATED
 $route['my-wallet'] = 'wallet/myWalletPage';
