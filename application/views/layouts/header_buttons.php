@@ -94,7 +94,8 @@
                     <a href="<?= base_url(); ?>ongoing-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;Ongoing Orders</a>
                 <?php else: ?>
                     <a href="<?= base_url(); ?>dashboard"><i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;Add Order</a><br>
-                    <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a>                <?php endif ?>
+                    <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a>                
+                <?php endif ?>
             </div><br>
 
             <?php if ($this->session->userdata("user_type") == "admin"): ?>
@@ -109,7 +110,7 @@
     </div>
     <button class="btn-toggle-menu" style="right: 4px; z-index: 300;"><i class="fas fa-bars"></i></button>
 </div>
-<button class="btn-toggle-menu btn-show-menu" style="z-index: 200; left: 0px"><i class="fas fa-bars"></i></button>
+<button class="btn-toggle-menu btn-show-menu" style="z-index: 200; left: 0px;position: fixed;"><i class="fas fa-bars"></i></button>
 
 <?php endif; ?>
 

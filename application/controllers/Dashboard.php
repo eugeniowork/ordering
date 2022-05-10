@@ -43,10 +43,42 @@ class Dashboard extends CI_Controller {
         	$this->data['revenue'] = $orders['total_amount'];
         	$this->data['orders_this_week'] = $orders['total_quantity'];
 
+        	$customers = $this->global_model->get("users", "count(id) as count", "user_type = 'user' AND deleted_by = 0", [], "single", []);
+        	$this->data['customers'] = $customers['count'];
+
 			$this->load->view('dashboard/admin-dashboard', $this->data);
 		}
 		
 		$this->load->view('layouts/footer');
+	}
+
+	public function salesGraphData(){
+		$months_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    	$list_label_orders = [];
+    	$list_data_orders = [];
+    	$list_label_revenue = [];
+    	$list_data_revenue = [];
+    	for($year = date('Y'); $year <= date('Y'); $year++){
+    		for($month = 1; $month <= 12; $month++){
+    			$first_day_month = date('Y-m-01', strtotime($year."-".$month."-01"));
+    			$last_day_month = date('Y-m-t', strtotime($year."-".$month."-01"));
+
+    			$orders = $this->global_model->get("order_history", "sum(total_quantity) as total_quantity, sum(total_amount) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND created_date >= '$first_day_month' AND created_date <= '$last_day_month'", [], "single", []);
+
+    			$list_label_orders[] = date('M Y',strtotime($first_day_month));
+    			$list_data_orders[] = $orders['total_quantity']? $orders['total_quantity']: "0";
+
+    			$list_label_revenue[] = date('M Y',strtotime($first_day_month));
+    			$list_data_revenue[] = $orders['total_amount']? $orders['total_amount']: "0";
+    		}
+    	}
+
+    	$this->data['list_label_orders'] = $list_label_orders;
+    	$this->data['list_data_orders'] = $list_data_orders;
+    	$this->data['list_label_revenue'] = $list_label_revenue;
+    	$this->data['list_data_revenue'] = $list_data_revenue;
+
+    	echo json_encode($this->data);
 	}
 
 }
