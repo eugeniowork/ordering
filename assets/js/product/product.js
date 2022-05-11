@@ -101,9 +101,8 @@ $(document).ready(function(){
 		    		stock: $(".stock").val()
 		    	},
 		    	success: function(response){
-		    		$(".global-loading").css({"display": "none"})
-
 		    		if(response.is_error){
+		    			$(".global-loading").css({"display": "none"})
 		        		$(".btn-submit-stock").prop("disabled", false)
 		    			loading_submit_stock = false;
 		            	renderResponse('.add-stock-warning',response.error_msg, "danger")

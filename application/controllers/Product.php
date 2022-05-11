@@ -563,4 +563,14 @@ class Product extends CI_Controller {
 
 		echo json_encode($this->data);
 	}
+
+	public function productHistory(){
+		$product_id = $this->input->post("product_id");
+
+		$products = $this->global_model->get("products_history", "*", "product_id = '$product_id'", ["column" => "id", "type" => "DESC"], "multiple", []);
+		$this->data['products'] = $products;
+
+		echo json_encode($this->data);
+
+	}
 }

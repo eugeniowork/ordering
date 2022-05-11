@@ -705,7 +705,7 @@ table {
         height: 150px;
         width: 150px; }
 
-.product-view-container img {
+.product-view-container .product-image {
   width: 200px;
   height: 200px;
   border: 1px solid lightgrey;

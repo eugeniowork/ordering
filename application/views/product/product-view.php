@@ -47,10 +47,34 @@
 				<div class="col-12 col-lg-12">
 					<div class="form-group">
 						<span>Image</span><br>
-						<img src="<?= base_url().$product_details['image_path']?>">
+						<img class="product-image" src="<?= base_url().$product_details['image_path']?>">
 					</div>
 				</div>
+			</div><hr>
+			<div class="history-container">
+				<span style="font-size: 25px;">History</span><br>
+				<div class="table-responsive-sm history-content d-none">
+		            <table class="table table-bordered table-striped history-table">
+		                <thead>
+		                    <tr>
+		                    	<th class="th-description">Description</th>
+		                    	<th class="th-stock">Stock</th>
+		                        <th class="th-new-stock">New Stock</th>
+		                        <th class="th-date">Date</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                </tbody>
+		            </table>
+		        </div>
+				<div class="process-loading-container" style="width: 50px;"></div>
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		var product_id = '<?= $product_details['id'] ?>';
+	</script>
+
+	<script type="text/javascript" src="<?= base_url();?>assets/js/product/product-view.js"></script>
 <?php endif ?>
