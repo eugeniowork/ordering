@@ -53,21 +53,36 @@
             </div>
             <br><br>
             <div class="graph-container">
-                <div class="row grap-content d-none">
+                <div class="row grap-content">
                     <div class="col-12 col-lg-6">
-                        <div class="orders-container">
-                            <center><span>Orders Graph</span></center>
+                        <center>
+                            <span>Orders Graph</span>
+                            <select class="filter-order-graph" style="float:right">
+                                <option value="monthly">Monthly</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </center>
+                        <div class="order-graph-container d-none">
                             <canvas id="order_graph_canvas" ></canvas>
                         </div>
+                        <div class="order-graph-process-loading-container"></div>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <div class="revenue-container">
-                            <center><span>Revenue Graph</span></center>
+                        <center>
+                            <span>Orders Graph</span>
+                            <select class="filter-revenue-graph" style="float:right">
+                                <option value="monthly">Monthly</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </center>
+                        <div class="revenue-graph-container d-none">
                             <canvas id="revenue_graph_canvas" ></canvas>
                         </div>
+                        <div class="revenue-graph-process-loading-container"></div>
                     </div>
                 </div>
-                <div class="process-loading-container"></div>
             </div>
         </div>
     </div>

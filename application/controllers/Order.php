@@ -172,7 +172,7 @@ class Order extends CI_Controller {
 	}
 
 	public function ongoingOrdersList(){
-		//CREATE OR REPLACE VIEW views_order_history AS SELECT order_history.*, CONCAT(users.firstname,' ',users.lastname) AS fullname FROM order_history LEFT JOIN users ON users.id = order_history.user_id
+		//CREATE OR REPLACE VIEW views_order_history AS SELECT order_history.*, DATE_FORMAT(order_history.created_date, "%Y") as year, DATE_FORMAT(order_history.created_date, "%m") as month, DATE_FORMAT(order_history.created_date, "%d") as day, DATE_FORMAT(order_history.created_date, "%u") as week, CONCAT(users.firstname,' ',users.lastname) AS fullname FROM order_history LEFT JOIN users ON users.id = order_history.user_id
 		session_write_close();
 
         $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status = 'FOR PROCESS' OR status = 'FOR PICKUP') ", ["column" => "created_date", "type" => "ASC"], "multiple", []);

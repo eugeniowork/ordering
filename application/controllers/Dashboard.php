@@ -53,30 +53,59 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function salesGraphData(){
-		$months_array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    	$list_label_orders = [];
-    	$list_data_orders = [];
-    	$list_label_revenue = [];
-    	$list_data_revenue = [];
-    	for($year = date('Y'); $year <= date('Y'); $year++){
-    		for($month = 1; $month <= 12; $month++){
-    			$first_day_month = date('Y-m-01', strtotime($year."-".$month."-01"));
-    			$last_day_month = date('Y-m-t', strtotime($year."-".$month."-01"));
+		session_write_close();
 
-    			$orders = $this->global_model->get("order_history", "sum(total_quantity) as total_quantity, sum(total_amount) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND created_date >= '$first_day_month' AND created_date <= '$last_day_month'", [], "single", []);
+		$filter = $this->input->post("filter");
+    	$final_label = [];
+    	$final_data_orders = [];
+    	$final_data_revenue = [];
 
-    			$list_label_orders[] = date('M Y',strtotime($first_day_month));
-    			$list_data_orders[] = $orders['total_quantity']? $orders['total_quantity']: "0";
+    	if($filter == "yearly"){
+    		$start_year = "2020";
+    	}
+    	else{
+    		$start_year = date('Y');
+    	}
+    	
+    	for($year = $start_year; $year <= date('Y'); $year++){
+    		if($filter == "weekly"){
+    			$total_number_of_week = date("W", strtotime($year."-12-28"));
+    			for($week = 0; $week < $total_number_of_week; $week++){
+    				//$start_end = getStartAndEndDate($week + 1,$year);
+    				//$final_label[] = $start_end['week_start']." to ".$start_end['week_end'];
+    				$tmp_week = $week + 1;
+    				$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(total_amount) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year} AND week = {$tmp_week}", [], "single", []);
 
-    			$list_label_revenue[] = date('M Y',strtotime($first_day_month));
-    			$list_data_revenue[] = $orders['total_amount']? $orders['total_amount']: "0";
+    				$final_label[] = "Week ".($week + 1)." ".$year;
+    				$final_data_orders[] = $orders['total_quantity']? $orders['total_quantity']: "0";
+    				$final_data_revenue[] = $orders['total_amount']? $orders['total_amount']: "0";
+
+    			}
+    		}
+    		else if($filter == "monthly"){
+    			for($month = 1; $month <= 12; $month++){
+    				$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(total_amount) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year} AND month = {$month}", [], "single", []);
+
+    				$first_day_month = date('Y-m-01', strtotime($year."-".$month."-01"));
+    				$final_label[] = date('M Y',strtotime($first_day_month));
+    				$final_data_orders[] = $orders['total_quantity']? $orders['total_quantity']: "0";
+    				$final_data_revenue[] = $orders['total_amount']? $orders['total_amount']: "0";
+    			}
+    		}
+    		else if($filter == "yearly"){
+    			$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(total_amount) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year}", [], "single", []);
+
+    			$final_label[] = $year;
+    			$final_data_orders[] = $orders['total_quantity']? $orders['total_quantity']: "0";
+    			$final_data_revenue[] = $orders['total_amount']? $orders['total_amount']: "0";
     		}
     	}
 
-    	$this->data['list_label_orders'] = $list_label_orders;
-    	$this->data['list_data_orders'] = $list_data_orders;
-    	$this->data['list_label_revenue'] = $list_label_revenue;
-    	$this->data['list_data_revenue'] = $list_data_revenue;
+    	$this->data['final_label'] = $final_label;
+    	$this->data['final_data_orders'] = $final_data_orders;
+    	$this->data['final_data_revenue'] = $final_data_revenue;
+
+    	session_start();
 
     	echo json_encode($this->data);
 	}
