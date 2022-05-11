@@ -382,7 +382,7 @@ class Product extends CI_Controller {
 		$name = $post['name'];
 		$code = $post['code'];
 		$price = $post['price'];
-		$stock = $post['stock'];
+		//$stock = $post['stock'];
 		$category = isset($post['category'])? $post['category']: "";
 
 		//CHECK IF ACTION IS FOR UPDATE
@@ -412,7 +412,7 @@ class Product extends CI_Controller {
 
 		$this->form_validation->set_rules('price','price','required');
 
-		$this->form_validation->set_rules('stock','stock','required');
+		//$this->form_validation->set_rules('stock','stock','required');
 
 		$this->form_validation->set_rules('category','category','required');
 
@@ -428,10 +428,10 @@ class Product extends CI_Controller {
         		$is_error = true;
             	$error_msg .= "<p>Please enter correct price.</p><br>";
         	}
-        	if(!is_numeric($stock)){
-        		$is_error = true;
-            	$error_msg .= "<p>Please enter correct stock.</p>";
-        	}
+        	// if(!is_numeric($stock)){
+        	// 	$is_error = true;
+         //    	$error_msg .= "<p>Please enter correct stock.</p>";
+        	// }
 
         	if(!$is_error){
         		$target_dir = 'assets/uploads/products';
@@ -518,5 +518,49 @@ class Product extends CI_Controller {
         $this->load->view('layouts/header_buttons');
 		$this->load->view('product/product-edit');
 		$this->load->view('layouts/footer');
+	}
+
+	public function addStock(){
+		$post = $this->input->post();
+
+		$product_id = $post['product_id'];
+		$stock = $post['stock'];
+
+		$this->form_validation->set_rules('stock','stock','required');
+
+		if($this->form_validation->run() == FALSE){
+            $this->data['is_error'] = true;
+        	$this->data['error_msg'] = validation_errors();
+        }
+        else{
+			if(!is_numeric($stock)){
+        		$this->data['is_error'] = true;
+            	$this->data['error_msg'] = "<p>Please enter correct stock.</p>";
+        	}
+        	else{
+        		$product = $this->global_model->get("products", "id,stock", "id = '$product_id'", [], "single", []);
+        		$new_stock = $product['stock'] + $stock;
+
+        		$products_params[] = [
+        			"id"=> $product['id'],
+			        "stock"=> $new_stock,
+        		];
+        		$this->global_model->batch_insert_or_update("products", $products_params);
+
+        		$products_history_params = [
+        			"product_id"=> $product['id'],
+        			"stock"=> $stock,
+        			"new_stock"=> $new_stock,
+        			"action_type"=> "add",
+        			"created_date"=> getTimeStamp(),
+        			"created_by"=> $this->session->userdata("user_id")
+        		];
+        		$this->global_model->insert("products_history", $products_history_params);
+
+        		$this->data['is_error'] = false;
+        	}
+		}
+
+		echo json_encode($this->data);
 	}
 }

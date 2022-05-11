@@ -5,7 +5,7 @@
 		</div>
 	</div>
 <?php else: ?>
-	<div class="page-container order-payment-container">
+	<div class="page-container product-container">
 		<div class="container-header">
     		<span class="header-title">Product</span>
     		<div class="buttons">
@@ -32,5 +32,35 @@
 	        <div class="process-loading-container"></div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="add_stock_modal" tabindex="-1" role="dialog" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title">Add Stock</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <div class="form-group">
+	                	<span>Product Name</span>
+	                	<input type="text" class="form-control product-name" readonly>
+	                </div>
+	                <div class="form-group">
+	                	<span>Stock&nbsp;<span class='text-danger'>*</span></span>
+	                	<input type="text" class="form-control float-only stock" placeholder="Enter stock">
+	                </div>
+	                <div class="add-stock-warning"></div>
+	            </div>
+	            <div class="modal-footer">
+	            	<button class="btn btn-primary btn-sm btn-submit-stock">Submit</button>
+                    <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">Cancel</button>
+                </div>
+	        </div>
+	    </div>
+	</div>
+
+
 	<script type="text/javascript" src="<?= base_url();?>assets/js/product/product.js"></script>
 <?php endif ?>

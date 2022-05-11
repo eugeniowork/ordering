@@ -44,11 +44,13 @@ $(document).ready(function(){
 				            },
 				            {
 				            	"data":"",
+				            	"className":"action-buttons",
 				                "render": function(data, type, full, meta) {
 				                    var html = "";
-				                    html += '<a href="'+base_url+'product-view/'+full.encrypted_id+'" class="btn btn-sm btn-outline-primary btn-view" title="View"><i class="fas fa-eye"></i></a>'
-				                    html += '&nbsp;<button class="btn btn-sm btn-outline-danger btn-delete" title="Delete"><i class="fas fa-trash"></i></button>'
-				                    html += '&nbsp;<a href="'+base_url+'product-edit/'+full.encrypted_id+'" class="btn btn-sm btn-outline-success" title="Edit"><i class="fas fa-pencil"></i></a>'
+				                    html += '<a href="'+base_url+'product-view/'+full.encrypted_id+'" class="btn btn-sm btn-success btn-view" title="View"><i class="fas fa-eye"></i></a>'
+				                    //html += '&nbsp;<button class="btn btn-sm btn-outline-danger btn-delete" title="Delete"><i class="fas fa-trash"></i></button>'
+				                    html += '&nbsp;<a href="'+base_url+'product-edit/'+full.encrypted_id+'" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-pencil"></i></a>'
+				                    html += '&nbsp;<button class="btn btn-sm btn-success btn-add-stock" title="Add Stock"><i class="fas fa-dolly-flatbed"></i></button>'
 				                    return html;
 				                }
 				            },
@@ -65,4 +67,58 @@ $(document).ready(function(){
 			}
 		})
 	}
+
+	var product_id;
+	$(document).on("click", ".btn-add-stock", function(){
+		$("#add_stock_modal").modal("show")
+		var data = productTable.row( $(this).parents('tr') ).data();
+		console.log(data)
+
+		product_id = data.id;
+		$(".product-name").val(data.name)
+	})
+
+	var loading_submit_stock = false;
+	$(".btn-submit-stock").on("click", function(){
+
+		if(!loading_submit_stock){
+			loading_submit_stock = true;
+
+			$(".btn-submit-stock").prop("disabled", true)
+			$(".add-stock-warning").empty();
+
+			$(".global-loading").css({
+		        "display": "flex"
+		    })
+		    createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
+
+		    $.ajax({
+		    	url: base_url + "product/addStock",
+		    	type: 'POST',
+		    	dataType: 'json',
+		    	data:{
+		    		product_id: product_id,
+		    		stock: $(".stock").val()
+		    	},
+		    	success: function(response){
+		    		$(".global-loading").css({"display": "none"})
+
+		    		if(response.is_error){
+		        		$(".btn-submit-stock").prop("disabled", false)
+		    			loading_submit_stock = false;
+		            	renderResponse('.add-stock-warning',response.error_msg, "danger")
+		    		}
+		    		else{
+		    			window.location.reload();
+		    		}
+		    	},
+		    	error: function(error){
+		    		$(".global-loading").css({"display": "none"})
+	        		$(".btn-submit-stock").prop("disabled", false)
+        			loading_submit_stock = false;
+                	renderResponse('.add-stock-warning',"Unable to add stock, please try again.", "danger")
+		    	}
+		    })
+		}
+	})
 })

@@ -711,6 +711,10 @@ table {
   border: 1px solid lightgrey;
   border-radius: 5px; }
 
+.product-container .product-content .product-table .action-buttons {
+  justify-content: center;
+  display: flex; }
+
 .customer-view-container .verified {
   background: #28a745;
   color: white;
