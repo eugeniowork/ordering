@@ -188,9 +188,9 @@ $(document).ready(function(){
 
 	$(".btn-submit-face").on("click", function(){
 		const distance = faceapi.euclideanDistance(face_descriptor, face1_value);
-		const distance2 = faceapi.euclideanDistance(face_descriptor, face2_value);
+		//const distance2 = faceapi.euclideanDistance(face_descriptor, face2_value);
 		$(".modal").modal("hide")
-		if(distance < 0.5 || distance2 < 0.5){
+		if(distance < 0.5){
 			console.log("face match")
 	    	is_authentication_successful = true;
 	    	$(".btn-confirm-cash-in").removeClass("d-none")
