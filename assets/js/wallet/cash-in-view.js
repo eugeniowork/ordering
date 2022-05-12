@@ -211,7 +211,7 @@ $(document).ready(function(){
 	$(document).on("keyup", ".cash-amount", function(){
 		var cash_amount = parseFloat($(this).val())
 		$(".cash-amount-warning").empty();
-		if(cash_amount > request_amount){
+		if(cash_amount >= request_amount){
 			$(".cash-change").val((cash_amount - request_amount).toFixed(2))
 			$(".btn-save-cash-in").prop("disabled", false)
 		}
