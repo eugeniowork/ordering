@@ -31,8 +31,8 @@ class PHPMailer_Lib
         $mail->SMTPDebug = 0;
         $mail->Host     = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'kenezekiel27.1@gmail.com';
-        $mail->Password = '09129289453';
+        $mail->Username = 'adufacepay@gmail.com';
+        $mail->Password = 'Hello2022';
         $mail->SMTPSecure = 'tsl';
         $mail->Port = 587;
         //live server 25 localhost 587

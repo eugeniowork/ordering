@@ -85,6 +85,6 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 //CONSTANTS
-//defined('APPNAME')  OR define('APPNAME', 'AdU FacePay');
-defined('APPNAME')  OR define('APPNAME', 'SBS');
+defined('APPNAME')  OR define('APPNAME', 'AdU FacePay');
+//defined('APPNAME')  OR define('APPNAME', 'SBS');
 defined('LOGO')  OR define('LOGO', 'assets/uploads/images/logo.png');

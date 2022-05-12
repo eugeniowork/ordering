@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2022 at 01:37 AM
+-- Generation Time: May 12, 2022 at 03:04 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -62,20 +62,6 @@ CREATE TABLE `cash_in_request` (
   `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `cash_in_request`
---
-
-INSERT INTO `cash_in_request` (`id`, `user_id`, `reference_no`, `request_amount`, `cash_amount`, `date_expiration`, `user_in_charge`, `status`, `created_date`, `created_by`, `updated_date`, `updated_by`, `deleted_date`, `deleted_by`) VALUES
-(2, 22, '987654321', '20000.00', '0.00', '2022-05-05 14:00:00', 0, 'CANCELED', '2022-05-05 08:00:00', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(3, 22, '16518065986241', '50000.00', '0.00', '2022-05-06 09:09:58', 0, 'CANCELED', '2022-05-06 11:09:58', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(4, 22, '16518067723271', '50000.00', '0.00', '2022-05-07 11:12:52', 0, 'CANCELED', '2022-05-06 11:12:52', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(5, 22, '16518072514266', '50000.00', '0.00', '2022-05-07 11:20:51', 0, 'CANCELED', '2022-05-06 11:20:51', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(6, 22, '16518074102274', '5000.00', '0.00', '2022-05-07 11:23:30', 0, 'CANCELED', '2022-05-06 11:23:30', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(7, 22, '16518075541227', '50000.00', '0.00', '2022-05-07 11:25:54', 0, 'CANCELED', '2022-05-06 11:25:54', 22, '2022-05-06 17:19:01', 22, '0000-00-00 00:00:00', 0),
-(8, 22, '16518287871784', '80000.00', '0.00', '2022-05-07 17:19:47', 0, 'CANCELED', '2022-05-06 17:19:47', 22, '2022-05-06 17:25:02', 22, '0000-00-00 00:00:00', 0),
-(9, 22, '16518461457138', '100000.00', '150000.00', '2022-05-07 22:09:05', 18, 'DONE', '2022-05-06 22:09:05', 22, '2022-05-07 16:30:39', 18, '0000-00-00 00:00:00', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -120,37 +106,6 @@ CREATE TABLE `notifications` (
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `notifications`
---
-
-INSERT INTO `notifications` (`id`, `receiver`, `user_id`, `content`, `type`, `source_table`, `source_id`, `read_status`, `created_date`, `created_by`, `updated_date`, `updated_by`) VALUES
-(44, 18, 22, 'Customer #customer_name placed an order with Order Number <a href=\'http://localhost/ordering/ongoing-orders-view/2f49685359427376487261356a312f74514e712f6a673d3d\'>1651752370</a>.', 'NEW_ORDER', 'order_history', 13, 1, '2022-05-05 20:06:10', 22, '0000-00-00 00:00:00', 0),
-(45, 19, 22, 'Customer #customer_name placed an order with Order Number <a href=\'http://localhost/ordering/ongoing-orders-view/2f49685359427376487261356a312f74514e712f6a673d3d\'>1651752370</a>.', 'NEW_ORDER', 'order_history', 13, 0, '2022-05-05 20:06:10', 22, '0000-00-00 00:00:00', 0),
-(46, 22, 18, 'Your order with Order Number <strong>1651752370</strong> is now ready to pickup.', 'CHANGE_ORDER_STATUS', 'order_history', 13, 1, '2022-05-05 20:19:57', 18, '0000-00-00 00:00:00', 0),
-(47, 22, 18, 'Payment successful for Order <strong>#1651752370</strong> using FacePay Payment.', 'ORDER_PAYMENT', 'order_history', 13, 1, '2022-05-05 20:22:37', 18, '0000-00-00 00:00:00', 0),
-(48, 18, 22, 'Customer #customer_name placed an order with Order Number <a href=\'http://localhost/ordering/ongoing-orders-view/7043684a4143634e6b62566e65734b704950642b31413d3d\'>1651754899</a>.', 'NEW_ORDER', 'order_history', 14, 1, '2022-05-05 20:48:19', 22, '0000-00-00 00:00:00', 0),
-(49, 19, 22, 'Customer #customer_name placed an order with Order Number <a href=\'http://localhost/ordering/ongoing-orders-view/7043684a4143634e6b62566e65734b704950642b31413d3d\'>1651754899</a>.', 'NEW_ORDER', 'order_history', 14, 0, '2022-05-05 20:48:19', 22, '0000-00-00 00:00:00', 0),
-(50, 22, 18, 'Your order with Order Number <strong>1651754899</strong> is now ready to pickup.', 'CHANGE_ORDER_STATUS', 'order_history', 14, 1, '2022-05-05 20:50:21', 18, '0000-00-00 00:00:00', 0),
-(51, 22, 18, 'Payment successful for Order <strong>#1651754899</strong> using FacePay Payment.', 'ORDER_PAYMENT', 'order_history', 14, 1, '2022-05-05 20:55:31', 18, '0000-00-00 00:00:00', 0),
-(52, 18, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>50,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/566a4268583974326a494979453750723165484c37413d3d\'>16518072514266</a>.', 'NEW_ORDER', 'cash_in_request', 5, 1, '2022-05-06 11:20:51', 22, '0000-00-00 00:00:00', 0),
-(53, 19, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>50,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/566a4268583974326a494979453750723165484c37413d3d\'>16518072514266</a>.', 'NEW_ORDER', 'cash_in_request', 5, 0, '2022-05-06 11:20:51', 22, '0000-00-00 00:00:00', 0),
-(54, 18, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>5,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/48676d2f357674696a7436683746436747764e5949513d3d\'>16518074102274</a>.', 'NEW_ORDER', 'cash_in_request', 6, 1, '2022-05-06 11:23:30', 22, '0000-00-00 00:00:00', 0),
-(55, 19, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>5,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/48676d2f357674696a7436683746436747764e5949513d3d\'>16518074102274</a>.', 'NEW_ORDER', 'cash_in_request', 6, 0, '2022-05-06 11:23:30', 22, '0000-00-00 00:00:00', 0),
-(56, 18, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>50,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/394b4569345435444c4b5a45717265767750533872513d3d\'>16518075541227</a>.', 'NEW_ORDER', 'cash_in_request', 7, 1, '2022-05-06 11:25:54', 22, '0000-00-00 00:00:00', 0),
-(57, 19, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>50,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/394b4569345435444c4b5a45717265767750533872513d3d\'>16518075541227</a>.', 'NEW_ORDER', 'cash_in_request', 7, 0, '2022-05-06 11:25:54', 22, '0000-00-00 00:00:00', 0),
-(58, 18, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>80,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/584a746b3975635a4f356d7a2f7038704f7a63424f413d3d\'>16518287871784</a>.', 'NEW_ORDER', 'cash_in_request', 8, 1, '2022-05-06 17:19:47', 22, '0000-00-00 00:00:00', 0),
-(59, 19, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>80,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/584a746b3975635a4f356d7a2f7038704f7a63424f413d3d\'>16518287871784</a>.', 'NEW_ORDER', 'cash_in_request', 8, 0, '2022-05-06 17:19:47', 22, '0000-00-00 00:00:00', 0),
-(60, 18, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>100,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/7237774956784e344d7a494c757a4a503938346552673d3d\'>16518461457138</a>.', 'NEW_ORDER', 'cash_in_request', 9, 1, '2022-05-06 22:09:05', 22, '0000-00-00 00:00:00', 0),
-(61, 19, 22, 'Customer #customer_name request Cash In amounting <span>&#8369;</span>100,000.00 with Reference No <a href=\'http://localhost/ordering/cash-in-requests/7237774956784e344d7a494c757a4a503938346552673d3d\'>16518461457138</a>.', 'NEW_ORDER', 'cash_in_request', 9, 0, '2022-05-06 22:09:05', 22, '0000-00-00 00:00:00', 0),
-(62, 22, 18, 'Cash In successful with Reference No<strong>16518461457138</strong>.', 'CASH_IN', 'cash_in_request', 9, 1, '2022-05-07 14:23:42', 18, '0000-00-00 00:00:00', 0),
-(63, 22, 18, 'Cash In successful with Reference No <strong>16518461457138</strong>.', 'CASH_IN', 'cash_in_request', 9, 1, '2022-05-07 16:27:16', 18, '0000-00-00 00:00:00', 0),
-(64, 22, 18, 'Cash In successful with Reference No <strong>16518461457138</strong>.', 'CASH_IN', 'cash_in_request', 9, 1, '2022-05-07 16:27:21', 18, '0000-00-00 00:00:00', 0),
-(65, 22, 18, 'Cash In successful with Reference No <strong>16518461457138</strong>.', 'CASH_IN', 'cash_in_request', 9, 1, '2022-05-07 16:28:15', 18, '0000-00-00 00:00:00', 0),
-(66, 22, 18, 'Cash In successful with Reference No <strong>16518461457138</strong>.', 'CASH_IN', 'cash_in_request', 9, 1, '2022-05-07 16:28:29', 18, '0000-00-00 00:00:00', 0),
-(67, 22, 18, 'Cash In successful with Reference No <strong>16518461457138</strong>.', 'CASH_IN', 'cash_in_request', 9, 1, '2022-05-07 16:28:50', 18, '0000-00-00 00:00:00', 0),
-(68, 22, 18, 'Cash In successful with Reference No <strong>16518461457138</strong>.', 'CASH_IN', 'cash_in_request', 9, 1, '2022-05-07 16:30:39', 18, '0000-00-00 00:00:00', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -178,14 +133,6 @@ CREATE TABLE `order_history` (
   `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `order_history`
---
-
-INSERT INTO `order_history` (`id`, `user_id`, `order_number`, `total_quantity`, `total_amount`, `date_pickup`, `actual_date_pickup`, `mode_of_payment`, `status`, `status_remarks`, `cash_payment_amount`, `user_in_charge`, `created_date`, `created_by`, `updated_date`, `updated_by`, `deleted_date`, `deleted_by`) VALUES
-(13, 22, '1651752370', 6, '20414.00', '2022-05-05', '2022-05-05 20:22:37', 'FACE PAY', 'FOR PICKUP', '', '0.00', 18, '2022-05-05 20:06:10', 22, '2022-05-05 20:22:37', 18, '0000-00-00 00:00:00', 0),
-(14, 22, '1651754899', 2, '19900.00', '2022-05-05', '2022-05-05 20:55:31', 'FACE PAY', 'PICKED UP', '', '0.00', 18, '2022-05-05 20:48:19', 22, '2022-05-05 20:55:31', 18, '0000-00-00 00:00:00', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -208,16 +155,6 @@ CREATE TABLE `order_history_products` (
   `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `order_history_products`
---
-
-INSERT INTO `order_history_products` (`id`, `order_history_id`, `product_id`, `name`, `category_name`, `quantity`, `price`, `created_date`, `created_by`, `updated_date`, `updated_by`, `deleted_date`, `deleted_by`) VALUES
-(25, 13, 80, 'Pencil', 'School Supplies', '2', '7.00', '2022-05-05 20:06:10', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(26, 13, 81, 'Bond Paper', 'School Supplies', '2', '250.00', '2022-05-05 20:06:10', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(27, 13, 83, 'TV', 'Appliances', '2', '9950.00', '2022-05-05 20:06:10', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(28, 14, 83, 'TV', 'Appliances', '2', '9950.00', '2022-05-05 20:48:19', 22, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -234,33 +171,6 @@ CREATE TABLE `otp` (
   `date_expiration` datetime DEFAULT NULL,
   `created_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `otp`
---
-
-INSERT INTO `otp` (`id`, `email`, `code`, `is_active`, `is_verified`, `module`, `date_expiration`, `created_date`) VALUES
-(1, 'eugenioderick@gmail.com', '491032', 0, 0, 'order_payment_verification', '2022-05-05 20:40:50', '2022-05-05 20:20:50'),
-(2, 'eugenioderick@gmail.com', '868758', 0, 0, 'order_payment_verification', '2022-05-05 21:05:49', '2022-05-05 20:45:49'),
-(3, 'eugenioderick@gmail.com', '125985', 0, 0, 'order_payment_verification', '2022-05-05 21:06:33', '2022-05-05 20:46:33'),
-(4, 'eugenioderick@gmail.com', '788779', 0, 0, 'order_payment_verification', '2022-05-05 21:07:03', '2022-05-05 20:47:03'),
-(5, 'eugenioderick@gmail.com', '808392', 0, 0, 'order_payment_verification', '2022-05-05 21:11:46', '2022-05-05 20:51:46'),
-(6, 'eugenioderick@gmail.com', '293941', 0, 1, 'order_payment_verification', '2022-05-05 21:12:41', '2022-05-05 20:52:41'),
-(7, 'eugenioderick@gmail.com', '529686', 0, 1, 'order_payment_verification', '2022-05-05 21:14:03', '2022-05-05 20:54:03'),
-(8, 'eugenioderick@gmail.com', '136703', 0, 1, 'order_payment_verification', '2022-05-05 21:14:42', '2022-05-05 20:54:42'),
-(9, 'eugenioderick@gmail.com', '703878', 0, 0, 'cash_in_verification', '2022-05-07 12:19:45', '2022-05-07 11:59:45'),
-(10, 'eugenioderick@gmail.com', '185744', 0, 0, 'cash_in_verification', '2022-05-07 12:23:04', '2022-05-07 12:03:04'),
-(11, 'eugenioderick@gmail.com', '618554', 0, 0, 'cash_in_verification', '2022-05-07 12:23:20', '2022-05-07 12:03:20'),
-(12, 'eugenioderick@gmail.com', '809671', 0, 0, 'cash_in_verification', '2022-05-07 12:27:48', '2022-05-07 12:07:48'),
-(13, 'eugenioderick@gmail.com', '901899', 0, 0, 'cash_in_verification', '2022-05-07 12:43:05', '2022-05-07 12:23:05'),
-(14, 'eugenioderick@gmail.com', '513418', 0, 0, 'cash_in_verification', '2022-05-07 12:52:37', '2022-05-07 12:32:37'),
-(15, 'eugenioderick@gmail.com', '248447', 0, 1, 'cash_in_verification', '2022-05-07 12:52:46', '2022-05-07 12:32:46'),
-(16, 'eugenioderick@gmail.com', '328804', 0, 1, 'cash_in_verification', '2022-05-07 13:28:38', '2022-05-07 13:08:38'),
-(17, 'eugenioderick@gmail.com', '492261', 0, 0, 'cash_in_verification', '2022-05-07 13:29:15', '2022-05-07 13:09:15'),
-(18, 'eugenioderick@gmail.com', '460999', 0, 0, 'cash_in_verification', '2022-05-07 13:40:50', '2022-05-07 13:20:50'),
-(19, 'eugenioderick@gmail.com', '896260', 0, 1, 'cash_in_verification', '2022-05-07 13:52:08', '2022-05-07 13:32:08'),
-(20, 'eugenioderick@gmail.com', '749247', 0, 1, 'cash_in_verification', '2022-05-07 13:53:23', '2022-05-07 13:33:23'),
-(21, 'eugenioderick@gmail.com', '428208', 0, 1, 'cash_in_verification', '2022-05-07 13:53:48', '2022-05-07 13:33:48');
 
 -- --------------------------------------------------------
 
@@ -290,13 +200,49 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `code`, `price`, `stock`, `category_id`, `image_path`, `created_date`, `created_by`, `updated_date`, `updated_by`, `deleted_date`, `deleted_by`) VALUES
 (80, 'Pencil', 'pencil', '7.00', 3, 1, 'assets/uploads/products/pencil.jpg\r\n', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(81, 'Bond Paper', 'bond paper', '250.00', 59, 1, 'assets/uploads/products/bond_paper.jfif\r\n', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(82, 'Electric Fan', 'fan', '950.00', 0, 2, 'assets/uploads/products/fan.jpg\r\n', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
+(81, 'Bond Paper', 'Bond Paper', '2500.00', 200, 2, 'assets/uploads/products/6277e7c80610a.jpg', '0000-00-00 00:00:00', 0, '2022-05-08 23:55:25', 18, '0000-00-00 00:00:00', 0),
+(82, 'Electric Fan2', 'Electric Fan2', '950.00', 0, 2, 'assets/uploads/products/6277e693b2803.jfif', '0000-00-00 00:00:00', 0, '2022-05-08 23:49:39', 18, '0000-00-00 00:00:00', 0),
 (83, 'TV', 'tv', '9950.00', 30, 2, 'assets/uploads/products/tv.jpg\r\n', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
 (84, 'test', '', '500.00', 50, 2, 'assets/uploads/products/627699652b2c9.png', '2022-05-08 00:08:05', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
 (85, 'test', '', '500.00', 1, 2, 'assets/uploads/products/no-image-available.jpg', '2022-05-08 00:08:26', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
 (86, 'product test', 'pt1', '3.00', 123, 2, 'assets/uploads/products/no-image-available.jpg', '2022-05-08 00:11:57', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(87, 'test2', '', '500.00', 25, 2, 'assets/uploads/products/no-image-available.jpg', '2022-05-08 00:14:31', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0);
+(87, 'test2', '', '500.00', 13, 2, 'assets/uploads/products/no-image-available.jpg', '2022-05-08 00:14:31', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
+(88, 'a test', '', '12345.00', 12339, 3, 'assets/uploads/products/no-image-available.jpg', '2022-05-08 23:46:54', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
+(89, 'new', '', '500.00', 500, 2, 'assets/uploads/products/no-image-available.jpg', '2022-05-11 19:39:05', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products_history`
+--
+
+CREATE TABLE `products_history` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `new_stock` int(11) NOT NULL,
+  `action_type` varchar(255) NOT NULL COMMENT 'add, minus',
+  `created_date` datetime NOT NULL,
+  `created_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products_history`
+--
+
+INSERT INTO `products_history` (`id`, `product_id`, `stock`, `new_stock`, `action_type`, `created_date`, `created_by`) VALUES
+(1, 88, 1, 12346, 'add', '2022-05-11 18:58:06', 18),
+(2, 88, 4, 12350, 'add', '2022-05-11 18:58:29', 18),
+(9, 88, 9, 12332, 'minus', '2022-05-11 19:12:46', 18),
+(10, 87, 10, 5, 'minus', '2022-05-11 19:12:46', 18),
+(11, 88, 1, 12339, 'minus', '2022-05-11 19:14:34', 18),
+(12, 87, 1, 13, 'minus', '2022-05-11 19:14:34', 18),
+(13, 88, 1, 12339, 'minus', '2022-05-11 19:17:20', 18),
+(14, 87, 1, 13, 'minus', '2022-05-11 19:17:20', 18),
+(15, 81, 1, 60, 'add', '2022-05-11 19:39:43', 18),
+(16, 81, 40, 100, 'add', '2022-05-11 19:40:12', 18),
+(17, 81, 100, 200, 'add', '2022-05-11 19:40:22', 18),
+(18, 89, 500, 500, 'add', '2022-05-11 19:42:28', 18);
 
 -- --------------------------------------------------------
 
@@ -357,9 +303,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `account_number`, `lastname`, `firstname`, `middlename`, `phone_number`, `email`, `password`, `user_type`, `is_verified`, `is_active`, `profile_path`, `facepay_wallet_balance`, `created_date`, `created_by`, `updated_date`, `updated_by`, `deleted_date`, `deleted_by`) VALUES
-(18, '', 'ADMIN', 'ADMIN', '', '09208823665', 'eugenioderick23@gmail.com', '$2y$10$IXUnWVWGeGndSa/LNzX2A.7CcCeMlrFbZic656lhhN6uqBwGHaVn2', 'admin', 1, 1, 'assets/uploads/profile/default-user-icon.jpg', '0.00', '2022-04-27 22:43:23', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(19, '', 'STAFF', 'STAFF', '', '09208823665', 'eugenioderick2323@gmail.com', '$2y$10$IXUnWVWGeGndSa/LNzX2A.7CcCeMlrFbZic656lhhN6uqBwGHaVn2', 'staff', 1, 1, 'assets/uploads/profile/default-user-icon.jpg', '0.00', '2022-04-27 22:43:23', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
-(22, '', 'EUGENIO', 'DERICK', 'BRUL', '09208823665', 'eugenioderick@gmail.com', '$2y$10$720ZdxkBI/OhwG/dHaeOd.9iO1Mb0QLxeXGxHFJqQNRVAOc.06OLy', 'user', 1, 1, 'assets/uploads/profile/default-user-icon.jpg', '709686.00', '2022-05-03 23:28:05', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0);
+(18, '', 'ADMIN', 'ADMIN', '', '09208823665', 'admin@gmail.com', '$2y$10$IXUnWVWGeGndSa/LNzX2A.7CcCeMlrFbZic656lhhN6uqBwGHaVn2', 'admin', 1, 1, 'assets/uploads/profile/default-user-icon.jpg', '0.00', '2022-04-27 22:43:23', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
+(19, '', 'STAFF', 'STAFF', '', '09208823665', 'staff@gmail.com', '$2y$10$IXUnWVWGeGndSa/LNzX2A.7CcCeMlrFbZic656lhhN6uqBwGHaVn2', 'staff', 1, 1, 'assets/uploads/profile/default-user-icon.jpg', '0.00', '2022-04-27 22:43:23', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
+(22, '', 'EUGENIO', 'DERICK', 'BRUL', '09208823665', 'eugenioderick@gmail.com', '$2y$10$720ZdxkBI/OhwG/dHaeOd.9iO1Mb0QLxeXGxHFJqQNRVAOc.06OLy', 'user', 0, 1, 'assets/uploads/profile/default-user-icon.jpg', '442421.00', '2022-05-03 23:28:05', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
+(26, '', 'EUGENIO', 'DERICK', 'BRUL', '09208823665', 'eugenioderick123@gmail.com', '$2y$10$Sx0vhKNX/iMnTQkWOw1DV.yfq4u6Q.Ed2mfCdE.Me8IxYb48wQ1c.', 'staff', 1, 1, 'assets/uploads/profile/default-user-icon.jpg', '0.00', '2022-05-09 23:39:30', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0),
+(27, '', 'Emplyoee', 'Employee', 'Emplyoee', '09208823665', 'employee@gmail.com', '$2y$10$v1zJukYk9JMT0RGxBg.JY.jGY35lZkWkEKrUMklUdGSpAna3q9Ufu', 'staff', 1, 1, 'assets/uploads/profile/default-user-icon.jpg', '0.00', '2022-05-09 23:40:47', 18, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -458,6 +406,10 @@ CREATE TABLE `views_order_history` (
 ,`updated_by` int(11)
 ,`deleted_date` datetime
 ,`deleted_by` int(11)
+,`year` varchar(4)
+,`month` varchar(2)
+,`day` varchar(2)
+,`week` varchar(2)
 ,`fullname` varchar(511)
 );
 
@@ -516,6 +468,27 @@ CREATE TABLE `views_users` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `views_wallet_activity`
+-- (See below for the actual view)
+--
+CREATE TABLE `views_wallet_activity` (
+`id` int(11)
+,`user_id` int(11)
+,`reference_no` varchar(255)
+,`description` varchar(255)
+,`debit` decimal(8,2)
+,`credit` decimal(8,2)
+,`balance` decimal(8,2)
+,`source_table` varchar(255)
+,`source_id` int(11)
+,`created_date` datetime
+,`created_by` int(11)
+,`fullname` varchar(511)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wallet_activity`
 --
 
@@ -532,21 +505,6 @@ CREATE TABLE `wallet_activity` (
   `created_date` datetime NOT NULL,
   `created_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `wallet_activity`
---
-
-INSERT INTO `wallet_activity` (`id`, `user_id`, `reference_no`, `description`, `debit`, `credit`, `balance`, `source_table`, `source_id`, `created_date`, `created_by`) VALUES
-(8, 22, '16517533578938', 'Order payment', '0.00', '20414.00', '29586.00', 'order_history', 13, '2022-05-05 20:22:37', 18),
-(9, 22, '16517553314968', 'Order payment', '0.00', '19900.00', '9686.00', 'order_history', 14, '2022-05-05 20:55:31', 18),
-(10, 22, '16518461457138', 'Cash In', '100000.00', '0.00', '109686.00', 'cash_in_request', 9, '2022-05-07 14:23:42', 18),
-(11, 22, '16518461457138', 'Cash In', '100000.00', '0.00', '209686.00', 'cash_in_request', 9, '2022-05-07 16:27:16', 18),
-(12, 22, '16518461457138', 'Cash In', '100000.00', '0.00', '309686.00', 'cash_in_request', 9, '2022-05-07 16:27:21', 18),
-(13, 22, '16518461457138', 'Cash In', '100000.00', '0.00', '409686.00', 'cash_in_request', 9, '2022-05-07 16:28:15', 18),
-(14, 22, '16518461457138', 'Cash In', '100000.00', '0.00', '509686.00', 'cash_in_request', 9, '2022-05-07 16:28:29', 18),
-(15, 22, '16518461457138', 'Cash In', '100000.00', '0.00', '609686.00', 'cash_in_request', 9, '2022-05-07 16:28:50', 18),
-(16, 22, '16518461457138', 'Cash In', '100000.00', '0.00', '709686.00', 'cash_in_request', 9, '2022-05-07 16:30:39', 18);
 
 -- --------------------------------------------------------
 
@@ -582,7 +540,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `views_order_history`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `views_order_history`  AS  select `order_history`.`id` AS `id`,`order_history`.`user_id` AS `user_id`,`order_history`.`order_number` AS `order_number`,`order_history`.`total_quantity` AS `total_quantity`,`order_history`.`total_amount` AS `total_amount`,`order_history`.`date_pickup` AS `date_pickup`,`order_history`.`actual_date_pickup` AS `actual_date_pickup`,`order_history`.`mode_of_payment` AS `mode_of_payment`,`order_history`.`status` AS `status`,`order_history`.`status_remarks` AS `status_remarks`,`order_history`.`cash_payment_amount` AS `cash_payment_amount`,`order_history`.`user_in_charge` AS `user_in_charge`,`order_history`.`created_date` AS `created_date`,`order_history`.`created_by` AS `created_by`,`order_history`.`updated_date` AS `updated_date`,`order_history`.`updated_by` AS `updated_by`,`order_history`.`deleted_date` AS `deleted_date`,`order_history`.`deleted_by` AS `deleted_by`,concat(`users`.`firstname`,' ',`users`.`lastname`) AS `fullname` from (`order_history` left join `users` on((`users`.`id` = `order_history`.`user_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `views_order_history`  AS  select `order_history`.`id` AS `id`,`order_history`.`user_id` AS `user_id`,`order_history`.`order_number` AS `order_number`,`order_history`.`total_quantity` AS `total_quantity`,`order_history`.`total_amount` AS `total_amount`,`order_history`.`date_pickup` AS `date_pickup`,`order_history`.`actual_date_pickup` AS `actual_date_pickup`,`order_history`.`mode_of_payment` AS `mode_of_payment`,`order_history`.`status` AS `status`,`order_history`.`status_remarks` AS `status_remarks`,`order_history`.`cash_payment_amount` AS `cash_payment_amount`,`order_history`.`user_in_charge` AS `user_in_charge`,`order_history`.`created_date` AS `created_date`,`order_history`.`created_by` AS `created_by`,`order_history`.`updated_date` AS `updated_date`,`order_history`.`updated_by` AS `updated_by`,`order_history`.`deleted_date` AS `deleted_date`,`order_history`.`deleted_by` AS `deleted_by`,date_format(`order_history`.`created_date`,'%Y') AS `year`,date_format(`order_history`.`created_date`,'%m') AS `month`,date_format(`order_history`.`created_date`,'%d') AS `day`,date_format(`order_history`.`created_date`,'%u') AS `week`,concat(`users`.`firstname`,' ',`users`.`lastname`) AS `fullname` from (`order_history` left join `users` on((`users`.`id` = `order_history`.`user_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -601,6 +559,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `views_users`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `views_users`  AS  select `users`.`id` AS `id`,`users`.`lastname` AS `lastname`,`users`.`firstname` AS `firstname`,`users`.`middlename` AS `middlename`,`users`.`phone_number` AS `phone_number`,`users`.`email` AS `email`,`users`.`password` AS `password`,`users`.`user_type` AS `user_type`,`users`.`is_verified` AS `is_verified`,`users`.`is_active` AS `is_active`,`users`.`profile_path` AS `profile_path`,`users`.`created_date` AS `created_date`,`users`.`created_by` AS `created_by`,`users`.`updated_date` AS `updated_date`,`users`.`updated_by` AS `updated_by`,`users`.`deleted_date` AS `deleted_date`,`users`.`deleted_by` AS `deleted_by`,`faces`.`face1_value` AS `face1_value`,`faces`.`face2_value` AS `face2_value` from (`users` left join `faces` on((`users`.`id` = `faces`.`user_id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `views_wallet_activity`
+--
+DROP TABLE IF EXISTS `views_wallet_activity`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `views_wallet_activity`  AS  select `wallet_activity`.`id` AS `id`,`wallet_activity`.`user_id` AS `user_id`,`wallet_activity`.`reference_no` AS `reference_no`,`wallet_activity`.`description` AS `description`,`wallet_activity`.`debit` AS `debit`,`wallet_activity`.`credit` AS `credit`,`wallet_activity`.`balance` AS `balance`,`wallet_activity`.`source_table` AS `source_table`,`wallet_activity`.`source_id` AS `source_id`,`wallet_activity`.`created_date` AS `created_date`,`wallet_activity`.`created_by` AS `created_by`,concat(`users`.`firstname`,' ',`users`.`lastname`) AS `fullname` from (`wallet_activity` left join `users` on((`wallet_activity`.`user_id` = `users`.`id`))) ;
 
 --
 -- Indexes for dumped tables
@@ -656,6 +623,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `products_history`
+--
+ALTER TABLE `products_history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `product_category`
 --
 ALTER TABLE `product_category`
@@ -687,7 +660,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `cash_in_request`
 --
 ALTER TABLE `cash_in_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `faces`
@@ -699,31 +672,37 @@ ALTER TABLE `faces`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_history`
 --
 ALTER TABLE `order_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_history_products`
 --
 ALTER TABLE `order_history_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+
+--
+-- AUTO_INCREMENT for table `products_history`
+--
+ALTER TABLE `products_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `product_category`
@@ -735,13 +714,13 @@ ALTER TABLE `product_category`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `wallet_activity`
 --
 ALTER TABLE `wallet_activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
