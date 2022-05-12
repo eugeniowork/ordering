@@ -324,7 +324,7 @@ class Wallet extends CI_Controller {
 				$customer_id = $cash_in_details['user_id'];
 				$reference_no = $cash_in_details['reference_no'];
 
-				if($cash_amount <= $cash_in_details['request_amount']){
+				if($cash_amount < $cash_in_details['request_amount']){
 					$this->data['error_msg'] = "Please enter amount that is equal or greater than <span>&#8369;</span>".number_format($cash_in_details['request_amount']);
 					$this->data['is_error'] = true;
 				}
