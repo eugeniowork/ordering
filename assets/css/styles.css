@@ -840,4 +840,13 @@ table {
   border-radius: 50px;
   font-size: 10px; }
 
+.home-container .carousel-container {
+  justify-content: center;
+  display: flex; }
+  .home-container .carousel-container .carousel-inner img {
+    width: 1110px;
+    height: 500px; }
+  .home-container .carousel-container .carousel-inner .carousel-item {
+    float: none !important; }
+
 /*# sourceMappingURL=styles.css.map */
