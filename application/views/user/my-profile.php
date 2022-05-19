@@ -22,10 +22,6 @@
 	                    <input type="text" class="form-control text-only" name="middlename" placeholder="Enter middlename" value="<?= $user_details['middlename'] ?>"/>
 	                </div>
 	                <div class="col-12 col-lg-3">
-	                    <span>Phone number&nbsp;<span class="text-danger">*</span></span>
-	                    <input type="text" class="form-control text-only" name="phone_number" placeholder="Enter phone number" required value="<?= $user_details['phone_number'] ?>"/>
-	                </div>
-	                <div class="col-12 col-lg-3">
 		                <span>Email Address&nbsp;<span class="text-danger">*</span></span>
 		                <input type="text" class="form-control" name="email" placeholder="Enter email" required value="<?= $user_details['email'] ?>"/>
 		            </div>
@@ -33,33 +29,10 @@
 	        </div>
 	        <div class="face-container">
 	        	<div class="row">
-	        		<div class="col-12 col-lg-12">
-	        			<?php 
-	        				$is_wear_glasses = false;
-	        				if($user_faces['face2_value']){
-	        					$is_wear_glasses = true;
-	        				}
-	        			?>
-	        			<span>Do you wear glasses?</span><br>
-	        			<input type="radio" name="with_glasses" id="yes" value="yes" <?= $is_wear_glasses? "checked":"" ?>>
-	        			<label for="yes">Yes</label>
-	        			<input type="radio" name="with_glasses" id="no" value="no" <?= $is_wear_glasses? "":"checked" ?>>
-	        			<label for="no">No</label>
-					</div>
 		            <div class="col-12 col-lg-3">
 		            	<span>Face 1&nbsp;<span class="text-danger">*</span></span><br>
 		            	<img id="img_face" src="<?= base_url().$user_faces['face1_path'];?>"><br>
 		                <button type="button" class="btn btn-sm btn-primary btn-open-camera" data-number="1" style="width: 200px">Update Face</button>
-		            </div>
-		            <div class="col-12 col-lg-3 face2-div <?= $is_wear_glasses? "":"d-none" ?>">
-		            	<span>Face 2&nbsp;<span class="text-danger">*</span></span><br>
-		            	<?php if($is_wear_glasses): ?>
-		            		<img id="img_face2" src="<?= base_url().$user_faces['face2_path'];?>"><br>
-	            		<?php else: ?>
-	            			<img id="img_face2" src="<?= base_url();?>assets/uploads/images/face-recognition-default.jpg"><br>
-	            		<?php endif; ?>
-		            	
-		                <button type="button" class="btn btn-sm btn-primary btn-open-camera" data-number="2" style="width: 200px">Update Face</button>
 		            </div>
 	            </div>
 	        </div>

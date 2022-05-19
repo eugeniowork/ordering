@@ -15,7 +15,6 @@
 	                <thead>
 	                    <tr>
 	                        <th class="th-name">Name</th>
-	                        <th class="th-phone-no">Phone No.</th>
 	                        <th class="th-email">Email</th>
 	                        <th class="th-verified">Verified?</th>
 	                        <th class="th-action">Action</th>

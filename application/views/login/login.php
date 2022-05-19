@@ -1,7 +1,8 @@
 <div class="page-container login-container">
 	<div class="container-body" style="top: 0px;">
 		<div class="d-flex flex-column justify-content-center align-items-center login-flex">
-			<div class="login-body">				<form class="login-form">
+			<div class="login-body">				
+				<form class="login-form">
 					<p class="main-title">Sign in to <strong><?= APPNAME ?></strong></p>
 					<div class="form-group">
 						<span>Email</span>

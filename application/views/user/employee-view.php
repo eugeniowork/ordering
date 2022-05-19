@@ -34,12 +34,6 @@
 				</div>
 				<div class="col-12 col-lg-4">
 					<div class="form-group">
-						<span>Phone No.</span>
-						<input type="text" class="form-control" readonly value="<?= $user_details['phone_number'] ?>">
-					</div>
-				</div>
-				<div class="col-12 col-lg-4">
-					<div class="form-group">
 						<span>Email Address</span>
 						<input type="text" class="form-control" readonly value="<?= $user_details['email'] ?>">
 					</div>

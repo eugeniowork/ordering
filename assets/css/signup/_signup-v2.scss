@@ -1,0 +1,81 @@
+.signup-v2-container{
+	.container-body{
+		background: #3498db !important;
+		.signup-v2-flex{
+			min-height: 90vh;
+		    width: 100%;
+		    //background: rgb(218, 218, 218);
+		    position: relative;
+		    .signup-v2-body{
+		    	z-index: 1;
+		        padding:20px 30px;
+		        background: white;
+		        min-height: 400px;
+		        height: auto;
+		        width: 700px;
+		        border-radius: 5px;
+		        color: #333;
+
+		        .main-title{
+		        	text-align: center;
+		            font-size: 24px;
+		            span{
+		                font-style: italic;
+		            }
+		        }
+
+		        .face-container{
+					img{
+						height: 130px;
+						width: 130px;
+					}
+				}
+		    }
+		}
+	}
+	.webcam-container{
+		canvas {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		video {
+			background: black;
+			width: 100%   !important;
+			height: 425px  !important;
+			margin: 0;
+			border: 0px;
+		}
+
+		padding: 0;
+		.loading{
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 300000;
+			border: white 1px;
+			color: white;
+			padding: 75px 26px;
+			font-size: 17px;
+			margin: auto;
+			width: 200px;
+			height: 200px;
+
+			.spinner-border {
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    width: 200px;
+			    height: 200px;
+			    color: white;
+			    z-index:300000;
+			    filter: alpha(opacity=80);
+			    -moz-opacity: 0.8;
+			    opacity: 0.8;   
+			}
+		}
+	}
+}

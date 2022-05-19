@@ -33,9 +33,6 @@ $(document).ready(function(){
 				                    return html;
 				                }
 				            },
-			                {
-				            	"data":"phone_number",
-				            },
 				            {
 				            	"data":"email",
 				            },

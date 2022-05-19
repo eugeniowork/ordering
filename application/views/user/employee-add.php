@@ -29,10 +29,6 @@
 	                    <input type="text" class="form-control text-only" name="middlename" placeholder="Enter middlename" />
 	                </div>
 	                <div class="col-12 col-lg-3">
-	                    <span>Phone number&nbsp;<span class="text-danger">*</span></span>
-	                    <input type="text" class="form-control text-only" name="phone_number" placeholder="Enter phone number" required/>
-	                </div>
-	                <div class="col-12 col-lg-3">
 	                    <span>Role&nbsp;<span class="text-danger">*</span></span>
 	                    <select class="form-control" name="user_type">
 	                    	<option disabled selected>Please select</option>

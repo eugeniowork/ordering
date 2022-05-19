@@ -18,7 +18,6 @@
 	                <thead>
 	                    <tr>
 	                        <th class="th-name">Name</th>
-	                        <th class="th-phone-no">Phone No.</th>
 	                        <th class="th-email">Email</th>
 	                        <th class="th-role">Role</th>
 	                        <th class="th-status">Status</th>

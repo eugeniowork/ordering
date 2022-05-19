@@ -105,7 +105,6 @@ class User extends CI_Controller {
 		$lastname = $post['lastname'];
 		$firstname = $post['firstname'];
 		$middlename = $post['middlename'];
-		$phone_number = $post['phone_number'];
 		$user_type = isset($post['user_type'])? $post['user_type']: "";
 		$email = $post['email'];
 		$password = $post['password'];
@@ -113,7 +112,6 @@ class User extends CI_Controller {
 
 		$this->form_validation->set_rules('lastname','lastname','required');
         $this->form_validation->set_rules('firstname','firstname','required');
-        $this->form_validation->set_rules('phone_number','phone number','required');
         $this->form_validation->set_rules('user_type','role','required');
         $this->form_validation->set_rules('email','email','required|is_unique[users.email]|trim|valid_email',array(
             'is_unique'=>"Email already exist.",
