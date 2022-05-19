@@ -151,4 +151,34 @@ class User extends CI_Controller {
 		echo json_encode($this->data);
 	}
 
+	public function changeUserStatus(){
+		$status = $this->input->post("status");
+		$user_id = $this->input->post("user_id");
+
+		$this->form_validation->set_rules('status','status','required');
+
+		$is_error = false;
+        $error_msg = "";
+
+		if($this->form_validation->run() == FALSE){
+            $is_error = true;
+            $error_msg = validation_errors();
+        }
+        else{
+        	$params = [
+    			'is_active'=> $status,
+    			'updated_date'=> getTimeStamp(),
+    			'updated_by'=> $this->session->userdata('user_id'),
+    		];
+        	$this->global_model->update("users", "id = '$user_id'", $params);
+
+        	$is_error = false;
+        }
+
+        $this->data['is_error'] = $is_error;
+        $this->data['error_msg'] = $error_msg;
+
+        echo json_encode($this->data);
+	}
+
 }
