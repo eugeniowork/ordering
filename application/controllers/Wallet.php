@@ -446,4 +446,131 @@ class Wallet extends CI_Controller {
 		$this->load->view('wallet/wallet-transaction');
 		$this->load->view('layouts/footer');
 	}
+
+	public function cashInV2Page(){
+		$this->data['page_title'] = "Cash In";
+
+		$users = $this->global_model->get("views_users", "id, firstname, lastname, middlename, email, face1_value", "deleted_by = 0 AND is_verified = 1 AND is_active = 1 AND user_type = 'user'", [], "multiple", []);
+
+		foreach ($users as $key => $user) {
+			$users[$key]->{'face1_value'} = json_decode($user->face1_value);
+		}
+		$this->data['users'] = $users;
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('wallet/cash-in-v2', $this->data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function confirmCashInV2(){
+		session_write_close();
+
+		$user_details = $this->input->post("user_details");
+		$request_amount = $this->input->post("request_amount");
+		$cash_amount = $this->input->post("cash_amount");
+		$is_face_recog_success = $this->input->post("is_face_recog_success");
+
+		$this->form_validation->set_rules('request_amount','request amount','required',array(
+            'required'=> 'Please enter request amount'
+        ));
+
+        $this->form_validation->set_rules('cash_amount','cash amount','required',array(
+            'required'=> 'Please enter cash amount'
+        ));
+
+        if(!$user_details){
+        	$this->data['is_error'] = true;
+	        $this->data['error_msg'] = "<p>Unable to confirm cash in, please try again.</p>";
+        }
+        else{
+	        if($this->form_validation->run() == FALSE){
+	            $this->data['is_error'] = true;
+	            $this->data['error_msg'] = validation_errors();
+	        }
+	        else{
+	        	if($cash_amount < $request_amount){
+					$this->data['error_msg'] = "Please enter amount that is equal or greater than <span>&#8369;</span>".number_format($request_amount);
+					$this->data['is_error'] = true;
+				}
+				else{
+					$customer_id = $user_details['id'];
+					$reference_no = time() . rand(10*45, 100*98);
+					$user = $this->global_model->get("users", "id, email, facepay_wallet_balance", "id = '$customer_id'", [], "single", []);
+
+					$cash_in_params = [
+	        			'user_id'=> $customer_id,
+	        			'user_in_charge'=> $this->session->userdata('user_id'),
+	        			'reference_no'=> $reference_no,
+	        			'request_amount'=> $request_amount,
+	        			'cash_amount'=> $cash_amount,
+	        			'status'=> 'DONE',
+	        			'created_date'=> getTimeStamp(),
+	        			'created_by'=> $this->session->userdata("user_id")
+	        		];
+	        		$insert_id = $this->global_model->insert("cash_in_request", $cash_in_params);
+
+					//UPDATE USER FACEPAY WALLET BALANCE
+					$new_facepay_wallet_balance = $user['facepay_wallet_balance'] + $request_amount;
+	        		$user_params = [
+	        			"facepay_wallet_balance"=> $new_facepay_wallet_balance
+	        		];
+	        		$this->global_model->update("users", "id = '$customer_id'", $user_params);
+
+	        		//ADD FACEPAY WALLET ACITIVTY
+	        		$wallet_activity_params = [
+	        			"user_id"=> $customer_id,
+	        			"reference_no"=> $reference_no,
+	        			"description"=> "Cash In",
+	        			"debit"=> $request_amount,
+	        			"credit"=> 0,
+	        			"balance" => $new_facepay_wallet_balance,
+	        			"source_table"=> "cash_in_request",
+        				"source_id"=> $insert_id,
+	        			"created_date"=> getTimeStamp(),
+	        			"created_by"=> $this->session->userdata("user_id")
+	        		];
+	        		$this->global_model->insert("wallet_activity", $wallet_activity_params);
+
+	        		//NOTIFY USER/CUSTOMER
+	        		$content = "Cash In successful with Reference No <strong>{$reference_no}</strong>.";
+	        		$notification_params = [
+	        			"receiver"=> $customer_id,
+	        			"user_id"=> $this->session->userdata('user_id'),
+	        			"content"=> $content,
+	        			"type"=> "CASH_IN",
+	        			"source_table"=> "cash_in_request",
+        				"source_id"=>$insert_id,
+	        			"read_status"=> 0,
+	        			"created_date"=> getTimeStamp(),
+	        			"created_by"=> $this->session->userdata('user_id')
+	        		];
+	        		$this->global_model->insert("notifications", $notification_params);
+
+	        		$pdf_output = generateCashInReceipt($insert_id);
+
+	        		// NOTIFY USER THROUGH EMAIL
+		            $this->load->library('PHPmailer_lib');
+		            $mail = $this->phpmailer_lib->load();
+		            $mail->addAddress($user['email']);
+		            $mail->Subject = "[".APPNAME."] CASH IN SUCCESSFUL";
+		            $mail->isHTML(true);
+		            $mail->Body = "
+		                Good day! <br><br>
+		                $content
+		            ";
+		            $mail->AddStringAttachment($pdf_output,"Receipt.pdf","base64","application/pdf");
+		            $mail->send();
+
+		            $this->data['cash_in_id'] = encryptData($insert_id);
+					$this->data['is_error'] = false;
+				}
+				
+	        }
+        }
+
+		session_start();
+
+		echo json_encode($this->data);
+	}
 }

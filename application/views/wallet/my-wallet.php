@@ -5,7 +5,7 @@
 	<div class="container-body">
 		<span style="font-size: 20px;">Balance</span><br>
 		<strong><span>&#8369;</span><?= number_format($user_details['facepay_wallet_balance'], 2) ?></strong>
-        <button class="btn btn-link btn-sm btn-cash-in">Cash In</button>
+        <!-- <button class="btn btn-link btn-sm btn-cash-in">Cash In</button> -->
 
 		<br><br>
 		<span style="font-size: 20px;">Recent Transactions</span><br>

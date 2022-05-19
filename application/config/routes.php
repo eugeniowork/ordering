@@ -82,6 +82,7 @@ $route['cash-in-view/(:any)'] = 'wallet/cashInView/$1';
 $route['cash-in-successful/(:any)'] = 'wallet/cashInSuccessfulPage/$1';
 $route['cash-in-receipt-pdf/(:any)'] = 'wallet/cashInReceiptPdf/$1';
 $route['wallet-transaction'] = 'wallet/walletTransactionPage';
+$route['cash-in-v2'] = 'wallet/cashInV2Page';
 
 //FOR PRODUCT RELATED
 $route['product'] = 'product/productPage';

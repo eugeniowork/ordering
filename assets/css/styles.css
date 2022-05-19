@@ -705,6 +705,44 @@ table {
         height: 150px;
         width: 150px; }
 
+.cash-in-v2-container .webcam-container {
+  padding: 0; }
+  .cash-in-v2-container .webcam-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .cash-in-v2-container .webcam-container video {
+    background: black;
+    width: 100%   !important;
+    height: 425px  !important;
+    margin: 0;
+    border: 0px; }
+  .cash-in-v2-container .webcam-container .loading {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 300000;
+    border: white 1px;
+    color: white;
+    padding: 75px 26px;
+    font-size: 17px;
+    margin: auto;
+    width: 200px;
+    height: 200px; }
+    .cash-in-v2-container .webcam-container .loading .spinner-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      color: white;
+      z-index: 300000;
+      filter: alpha(opacity=80);
+      -moz-opacity: 0.8;
+      opacity: 0.8; }
+
 .product-view-container .product-image {
   width: 200px;
   height: 200px;
