@@ -1,5 +1,16 @@
+
+<div class="alert text-center cookiealert" role="alert">
+    <b>Do you like cookies?</b> &#x1F36A; We use cookies to ensure you get the best experience on our website. <a href="https://cookiesandyou.com/" target="_blank">Learn more</a>
+
+    <button type="button" class="btn btn-primary btn-sm acceptcookies">
+        I agree
+    </button>
+</div>
 </body>
 </html>
+
+<script type="text/javascript" src="<?= base_url();?>assets/js/layouts/cookie.js"></script>
+
 <script type="text/javascript">
 	var base_url = '<?= base_url();?>';
 	var session_user_id = '<?= $this->session->userdata('user_id');?>';

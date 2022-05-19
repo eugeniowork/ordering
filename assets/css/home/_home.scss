@@ -1,0 +1,15 @@
+.home-container{
+	.carousel-container{
+		justify-content: center;
+    	display: flex;
+		.carousel-inner{
+			img{
+				width: 1110px;
+				height: 500px;
+			}
+			.carousel-item{
+				float: none !important;
+			}
+		}
+	}
+}
