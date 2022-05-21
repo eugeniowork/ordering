@@ -43,7 +43,8 @@
 			            </div>
 			        </div>
 			        <div class="btn-group pull-right">
-			        	<button class="btn btn-sm btn-primary btn-save-registration">Save</button>
+			        	<button class="btn btn-sm btn-primary btn-save-registration">Save</button>&nbsp;
+			        	<a class="btn btn-sm btn-primary" href="<?= base_url();?>login">Go to Login</a>
 			        </div>
 				</form>
 			</div>
