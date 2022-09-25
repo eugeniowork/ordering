@@ -511,14 +511,14 @@ table {
         font-size: 24px; }
         .login-container .container-body .login-flex .login-body .main-title span {
           font-style: italic; }
-      .login-container .container-body .login-flex .login-body .btn-forgot-password {
+      .login-container .container-body .login-flex .login-body .login-form .btn-forgot-password {
         font-style: italic;
         color: #333;
         text-align: center; }
-      .login-container .container-body .login-flex .login-body input {
+      .login-container .container-body .login-flex .login-body .login-form input {
         background: #ececec;
         padding-left: 40px; }
-      .login-container .container-body .login-flex .login-body i {
+      .login-container .container-body .login-flex .login-body .login-form i {
         position: absolute;
         z-index: 2;
         display: block;
@@ -529,6 +529,8 @@ table {
         color: #333;
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px; }
+      .login-container .container-body .login-flex .login-body .otp-form {
+        display: none; }
 
 .dashboard-container .container-body .row .col-12 {
   margin-bottom: 0px !important; }

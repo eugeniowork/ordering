@@ -24,28 +24,34 @@
 		            }
 		        }
 
-		        .btn-forgot-password{
-		        	font-style: italic;
-		            color:#333;
-		            text-align: center;
-		        }
+		        .login-form{
+			        .btn-forgot-password{
+			        	font-style: italic;
+			            color:#333;
+			            text-align: center;
+			        }
 
-		        input{
-		        	background: #ececec;
-		        	padding-left: 40px;
-		        }
-		        i{
-		        	position: absolute;
-		            z-index: 2;
-		            display: block;
-		            width: 2.375rem;
-		            height: 2.375rem;
-		            padding: 10px 10px;
-		            text-align: center;
-		            color: #333;
-		            border-top-right-radius: 0px;
-		            border-bottom-right-radius: 0px;
-		        }
+			        input{
+			        	background: #ececec;
+			        	padding-left: 40px;
+			        }
+			        i{
+			        	position: absolute;
+			            z-index: 2;
+			            display: block;
+			            width: 2.375rem;
+			            height: 2.375rem;
+			            padding: 10px 10px;
+			            text-align: center;
+			            color: #333;
+			            border-top-right-radius: 0px;
+			            border-bottom-right-radius: 0px;
+			        }
+			    }
+
+			    .otp-form{
+			    	display: none;
+			    }
 		    }
 		}
 	}
