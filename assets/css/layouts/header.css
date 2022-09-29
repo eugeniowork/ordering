@@ -1,7 +1,7 @@
 .header {
   height: 50px;
   width: 100%;
-  background: #3498db;
+  background: #A87824;
   color: white;
   line-height: 50px;
   z-index: 10;
@@ -34,7 +34,7 @@
         float: right; }
     .header .right .header-dropdown-account {
       display: none;
-      background: #3498db;
+      background: #A87824;
       height: auto;
       width: auto;
       margin-top: 50px;
@@ -58,7 +58,7 @@
             text-align: justify;
             cursor: pointer; }
             .header .right .header-dropdown-account ul li button:hover, .header .right .header-dropdown-account ul li a:hover {
-              background: #42a3e4; }
+              background: #b17f29; }
       .header .right .header-dropdown-account ul li {
         float: none; }
     .header .right .header-btn-cart .span-cart-total-product {

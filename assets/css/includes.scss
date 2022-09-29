@@ -1,6 +1,6 @@
 @mixin headerDropdown($width) {
     display: none;
-    background: #3498db;
+    background: #A87824;
     height: auto;
     width: $width;
     margin-top: 50px; //box-shadow: 0 0 10px #a2a2a2;
@@ -24,7 +24,7 @@
                 text-align: justify;
                 cursor: pointer;
                 &:hover {
-                    background: #42a3e4;
+                    background: #b17f29;
                 }
             }
         }

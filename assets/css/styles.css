@@ -114,7 +114,7 @@ table {
 .header {
   height: 50px;
   width: 100%;
-  background: #3498db;
+  background: #A87824;
   color: white;
   line-height: 50px;
   z-index: 10;
@@ -147,7 +147,7 @@ table {
         float: right; }
     .header .right .header-dropdown-account {
       display: none;
-      background: #3498db;
+      background: #A87824;
       height: auto;
       width: auto;
       margin-top: 50px;
@@ -171,7 +171,7 @@ table {
             text-align: justify;
             cursor: pointer; }
             .header .right .header-dropdown-account ul li button:hover, .header .right .header-dropdown-account ul li a:hover {
-              background: #42a3e4; }
+              background: #b17f29; }
       .header .right .header-dropdown-account ul li {
         float: none; }
     .header .right .header-btn-cart .span-cart-total-product {
@@ -407,7 +407,7 @@ table {
       opacity: 0.8; }
 
 .signup-v2-container .container-body {
-  background: #3498db !important; }
+  background: #A87824 !important; }
   .signup-v2-container .container-body .signup-v2-flex {
     min-height: 90vh;
     width: 100%;
@@ -468,7 +468,7 @@ table {
       opacity: 0.8; }
 
 .verify-account-container .container-body {
-  background: #3498db !important; }
+  background: #A87824 !important; }
   .verify-account-container .container-body .verify-account-flex, .verify-account-container .container-body .verified-account-flex {
     min-height: 90vh;
     width: 100%;
@@ -492,7 +492,7 @@ table {
         width: 150px; }
 
 .login-container .container-body {
-  background: #3498db !important; }
+  background: #A87824 !important; }
   .login-container .container-body .login-flex {
     min-height: 90vh;
     width: 100%;
@@ -679,7 +679,7 @@ table {
       opacity: 0.8; }
 
 .order-payment-successful-container .container-body {
-  background: #3498db !important; }
+  background: #A87824 !important; }
   .order-payment-successful-container .container-body .payment-successful-flex {
     min-height: 90vh;
     width: 100%;
@@ -773,7 +773,7 @@ table {
       opacity: 0.8; }
 
 .cash-in-successful-container .container-body {
-  background: #3498db !important; }
+  background: #A87824 !important; }
   .cash-in-successful-container .container-body .cash-in-successful-flex {
     min-height: 90vh;
     width: 100%;
