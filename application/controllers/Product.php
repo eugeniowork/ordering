@@ -50,6 +50,12 @@ class Product extends CI_Controller {
         foreach ($products as $key => $product) {
         	$products[$key]->{"encrypted_id"} = encryptData($product->id);
         	$products[$key]->{"category_name"} = $product->category_name? $product->category_name: 'No category';
+
+        	//CHECK IF PRODUCT IS ALREADY IN WISHLIST
+        	$product_id = $product->id;
+        	$user_id = $this->session->userdata('user_id');
+        	$wishlist = $this->global_model->get("views_wishlist", "id", "user_id = '{$user_id}' AND product_id = '{$product_id}'", "", "single", "");
+        	$products[$key]->{"is_in_wishlist"} = $wishlist? true: false;
         }
 
         $this->data['products'] = $products;
@@ -572,5 +578,92 @@ class Product extends CI_Controller {
 
 		echo json_encode($this->data);
 
+	}
+
+	public function wishListItem(){
+		session_write_close();
+
+		$user_id = $this->session->userdata('user_id');
+
+		//GET CART PRODUCTS
+        $wishlist = $this->global_model->get("views_wishlist", "*", "user_id = '$user_id' AND name != 'null'", "", "multiple", "");
+
+        foreach ($wishlist as $key => $w) {
+        	$wishlist[$key]->{"encrypted_product_id"} = encryptData($w->product_id);
+        	$wishlist[$key]->{"encrypted_wishlist_id"} = encryptData($w->id);
+        }
+
+        $this->data['wishlist'] = $wishlist;
+
+		session_start();
+
+		echo json_encode($this->data);
+	}
+
+	public function wishListTotalItem(){
+		session_write_close();
+		$user_id = $this->session->userdata('user_id');
+
+		//GET CART
+        $wishlist = $this->global_model->get("views_wishlist", "count(*) as total", "user_id = '$user_id' AND name != 'null'", "", "single", "");
+
+        $this->data['total'] = $wishlist['total'];
+
+        session_start();
+
+        echo json_encode($this->data);
+	}
+
+	public function removeToWishList(){
+		session_write_close();
+		$id = $this->input->post('id');
+		$id = decryptData($id);
+
+		$this->global_model->delete('wishlist', "id = '$id'");
+
+		$this->data['success'] = true;
+
+		session_start();
+		echo json_encode($this->data);
+	}
+
+	public function addToWishList(){
+		session_write_close();
+		$id = $this->input->post('id');
+		$id = decryptData($id);
+		$user_id = $this->session->userdata('user_id');
+
+		// //GET PRODUCTS
+        $product = $this->global_model->get("views_products", "id", "deleted_by = 0 AND id = '$id'", "", "single", "");
+
+        //CHECK IF PRODUCT DOES EXIST
+        if(!$product){
+        	$this->data['success'] = false;
+        	$this->data['error_msg'] = "Product does not exist.";
+        }
+        else{
+        	//CHECK IF ALREADY IN CHECKLIST
+        	$wishlist = $this->global_model->get("wishlist", "id", "user_id = '{$user_id}' AND product_id = '$id'", "", "single", "");
+        	if($wishlist){
+        		$this->data['success'] = false;
+        		$this->data['error_msg'] = "Already in wish list.";
+        	}
+        	else{
+        		$params = [
+	    			'user_id'=> $this->session->userdata('user_id'),
+	    			'product_id'=> $id,
+	    			'created_date'=> getTimeStamp(),
+	    			'created_by'=> $this->session->userdata('user_id'),
+	    		];
+
+	    		$insert = $this->global_model->insert('wishlist', $params);
+
+	    		$this->data['success'] = true;
+        	}
+	        
+        }
+		
+		session_start();
+		echo json_encode($this->data);
 	}
 }

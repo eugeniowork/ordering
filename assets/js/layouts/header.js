@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var is_loaded_cart_products = false;
     var is_loaded_notifications = false;
+    var is_loaded_wish_list = false;
 
     $(document).mouseup(function(e) {
         //FOR HEADER ACCOUNT DROPDOWN
@@ -30,6 +31,17 @@ $(document).ready(function(){
             else if (!$(".header-dropdown-cart").is(e.target) && $(".header-dropdown-cart").has(e.target).length === 0) {
                 $(".header-dropdown-cart").hide();
             }
+        }
+
+        //FOR WISHLIST DROPDOWN
+        if ($(".header-btn-wishlist").is(e.target) || $(".header-btn-wishlist i").is(e.target)) {
+            $('.header-dropdown-wishlist').toggle();
+            if(!is_loaded_wish_list){
+                get_wishlist();
+            }
+        }
+        else if (!$(".header-dropdown-wishlist").is(e.target) && $(".header-dropdown-wishlist").has(e.target).length === 0) {
+            $('.header-dropdown-wishlist').hide();
         }
 
         //FOR NOTIFICATIONS DROPDOWN
@@ -77,6 +89,25 @@ $(document).ready(function(){
                     if(response.total > 0){
                         $('.span-cart-total-product').removeClass('d-none')
                         $('.span-cart-total-product').text(response.total)
+                    }
+                },
+                error: function(error){
+
+                }
+            })
+        }
+
+        get_wishlist_total_item();
+        function get_wishlist_total_item(){
+            $.ajax({
+                url: base_url + "product/wishListTotalItem",
+                type: 'POST',
+                dataType: 'json',
+                data:{},
+                success: function(response){
+                    if(response.total > 0){
+                        $('.span-wishlist-total-product').removeClass('d-none')
+                        $('.span-wishlist-total-product').text(response.total)
                     }
                 },
                 error: function(error){
@@ -184,7 +215,7 @@ $(document).ready(function(){
             },
             success: function(response){
                 var cart_total_item = parseInt($('.span-cart-total-product').text());
-                if(cart_total_item > 0){
+                if(cart_total_item > 1){
                     $('.span-cart-total-product').removeClass('d-none')
                     cart_total_item--;
                 }
@@ -334,4 +365,125 @@ $(document).ready(function(){
             }
         })
     }
+
+    //GET WISHLIST
+    function get_wishlist(){
+        is_loaded_wish_list = true;
+        createProcessLoading('.loading-wishlist-container', 'Loading wish list...', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
+
+        $(".wishlist-content").remove()
+
+        $.ajax({
+            url: base_url + "product/wishListItem",
+            type: 'POST',
+            dataType: 'json',
+            data:{},
+            success: function(response){
+                if(response.is_error){
+                    createProcessError('.loading-wishlist-container', 'Unable to load wish list.', "30px", "15px");
+                }
+                else{
+                    $('.loading-wishlist-container').empty();
+
+                    if(response.wishlist.length > 0){
+                        var wishlist_content = $('<div class="wishlist-content"></div>')
+                        $.each(response.wishlist, function(key, data){
+                            var wishlist_product = $('<div class="wishlist-product '+data.encrypted_product_id+' "></div>')
+                            var row_wishlist = $('<div class="row"></div>')
+
+                            row_wishlist.append('<div class="col-12 col-lg-3"><img src="'+base_url+data.image_path+'"></div>')
+                            row_wishlist.append('<div class="col-12 col-lg-5"><span>'+data.name+'</span></div>')
+                            row_wishlist.append('<div class="col-12 col-lg-4">'+moneyConvertion(parseFloat(data.price))+'</div>')
+
+                            var row_wishlist2 = $('<div class="row"></div>')
+                            row_wishlist2.append('<div class="col-12 col-lg-6"><span class="wishlisth-product-stock">Stock: '+data.stock+'</span></div>')
+                            var row_wishlist2_buttons = $('<div class="col-12 col-lg-6 wishlist-buttons"></div>')
+                            if(data.stock > 0){
+                                row_wishlist2_buttons.append('<button class="btn btn-success btn-sm btn-add-to-cart" data-id="'+data.encrypted_product_id+'" title="Add to cart"><i class="fas fa-cart-plus"></i></button>')
+                            }
+                            row_wishlist2_buttons.append('&nbsp;<button class="btn btn-danger btn-sm btn-remove-to-wishlist" data-id="'+data.encrypted_wishlist_id+'" title="Remove to wishlist"><i class="fas fa-trash-alt"></i></button>')
+                            row_wishlist2.append(row_wishlist2_buttons);
+
+                            wishlist_product.append(row_wishlist)
+                            wishlist_product.append(row_wishlist2)
+                            wishlist_content.append(wishlist_product)
+                            wishlist_content.append('<hr>')
+
+                            $(".header-dropdown-wishlist").append(wishlist_content)
+                        })
+                    }
+                    else{
+                        $(".header-dropdown-wishlist").append("<span>No item(s) on wishlist yet.</span>")
+                    }
+
+                }
+            },
+            error: function(error){
+                createProcessError('.loading-wishlist-container', 'Unable to load wish list.', "30px", "15px");
+            }
+        })
+    }
+
+    $(document).on("click", ".btn-remove-to-wishlist", function(e){
+        var id = $(this).data("id");
+
+        $.ajax({
+            url: base_url + "product/removeToWishList",
+            type: 'POST',
+            dataType: 'json',
+            data:{
+                id: id,
+            },
+            success: function(response){
+                var wishlist_total_item = parseInt($('.span-wishlist-total-product').text());
+                if(wishlist_total_item > 1){
+                    $('.span-wishlist-total-product').removeClass('d-none')
+                    wishlist_total_item--;
+                }
+                else{
+                    $('.span-wishlist-total-product').addClass('d-none')
+                    wishlist_total_item = 0;
+                }
+                $('.span-wishlist-total-product').text(wishlist_total_item)
+
+                get_wishlist();
+            },
+            error: function(error){
+
+            }
+        })
+    });
+
+    $(document).on("click", ".btn-add-to-wishlist", function(){
+        var id = $(this).data("id");
+        $.ajax({
+            url: base_url + "product/addToWishList",
+            type: 'POST',
+            dataType: 'json',
+            data:{
+                id: id,
+            },
+            beforeSend: function(){
+                $(".fa-heart-"+id).addClass("active-on-wishlist")
+            },
+            success: function(response){
+                if(!response.success){
+                    toastOptions(4000);
+                    toastr.warning(response.error_msg);
+                }
+                else{
+                    var wishlist_total_item = parseInt($('.span-wishlist-total-product').text());
+                    wishlist_total_item++;
+                    if(wishlist_total_item > 0){
+                        $('.span-wishlist-total-product').removeClass('d-none')
+                    }
+                    $('.span-wishlist-total-product').text(wishlist_total_item)
+                    get_wishlist();
+                }
+            },
+            error: function(error){
+
+            }
+        })
+    })
 })

@@ -106,9 +106,17 @@ $(document).ready(function(){
 		$.each(products, function(key, data){
 			var col_lg_3 = $('<div class="col-12 col-lg-3"></div>')
 			var item_container = $('<div class="item-container"></div>')
+			var btn_add_to_wishlist_top_px = data.stock > 0? '43px': '10px';
+			if(data.is_in_wishlist){
+				item_container.append('<button class="btn btn-sm btn-primary" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 36px; top: '+btn_add_to_wishlist_top_px+'"><i class="fa fa-heart active-on-wishlist"></i></button>')
+			}
+			else{
+				item_container.append('<button class="btn btn-sm btn-primary btn-add-to-wishlist" title="Add to Wishlist" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 36px; top: '+btn_add_to_wishlist_top_px+'"><i class="fa fa-heart fa-heart-'+data.encrypted_id+'"></i></button>')
+			}
+			
 			if(data.stock > 0){
 				if (session_user_type == "user") {
-					item_container.append('<button class="btn btn-sm btn-success btn-add-to-cart" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 35px;"><i class="fa fa-plus-circle"></i></button>')
+					item_container.append('<button class="btn btn-sm btn-success btn-add-to-cart" title="Add to Cart" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 35px;"><i class="fa fa-plus-circle"></i></button>')
 				}
 			}
 			else{

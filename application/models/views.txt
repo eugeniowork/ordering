@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW views_wishlist AS
+SELECT wishlist.*, products.name, products.code, products.price, products.stock, products.category_name, products.image_path
+FROM `wishlist`
+LEFT JOIN views_products AS products 
+ON products.id = wishlist.product_id

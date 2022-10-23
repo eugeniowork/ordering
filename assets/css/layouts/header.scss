@@ -8,7 +8,7 @@
     z-index: 10;
     position: fixed;
     z-index: 10;
-    .header-btn-cart, .header-btn-account, .header-btn-notifications{
+    .header-btn-cart, .header-btn-account, .header-btn-notifications, .header-btn-wishlist{
         float: right;
     }
     a{
@@ -99,6 +99,65 @@
             }
         }
 
+        .header-btn-wishlist{
+            .span-wishlist-total-product{
+                background: red;
+                padding: 0.2em 0.3em 0.3em;
+                font-size: 10px;
+                border-radius: 2px;
+            }
+        }
+
+        .header-dropdown-wishlist{
+            @include headerDropdown2(92vh, 370px, 0px, white);
+
+            .bold-title{
+                color: #7d7d7d;
+                font-weight: 600;
+                font-size: 20px;
+            }
+
+            .wishlist-content{
+                height: auto;
+                overflow-x: hidden;
+                overflow-y: auto;
+                .wishlist-product{
+                    line-height: 20px;
+                    font-size: 13px;
+                    font-size: 15px !important;
+                    color: #333;
+                    margin-bottom: 10px;
+                    .wishlist-product-stock{
+                        bottom: 0;
+                        position: absolute;
+                    }
+                    img{
+                        height: 60px;
+                        width: 60px;
+                        border-radius: 5px;
+                    }
+                    .wishlist-buttons{
+                        text-align-last: right;
+                    }
+                    // button{
+                    //     border: none;
+                    //     background: none;
+                    //     font-weight: 600;
+                    //     font-size: 12px;
+                    // }
+                    .btn-add-to-cart, .btn-remove-to-wishlist{
+                        //position: absolute;
+                        //right: 0;
+                        //top: -15px;
+                    }
+                    .wishlisth-product-stock{
+                        position: relative;
+                        top: 15px;
+                    }
+                }
+            }
+        }
+
         .header-btn-notifications{
             .span-total-notif{
                 background: red;
@@ -107,7 +166,6 @@
                 border-radius: 2px;
             }
         }
-
 
         .header-dropdown-notifications{
             @include headerDropdown2(70%, 465px, 100px, white);
