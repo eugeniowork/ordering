@@ -19,6 +19,17 @@
                             <div class="loading-cart-product-container"></div>
                         </div>
                     </li>
+
+                    <li>
+                        <a class="header-btn-wishlist">
+                            <i class="fa fa-heart"></i>
+                            <span class="span-wishlist-total-product d-none">0</span>
+                        </a>
+                        <div class="header-dropdown-wishlist">
+                            <span class="bold-title">My Wishlist</span>
+                            <div class="loading-wishlist-container"></div>
+                        </div>
+                    </li>
                 <?php endif ?>
                 <li>
                     <a class="header-btn-account">
