@@ -55,6 +55,8 @@ $route['verify-account/(:any)'] = 'verification/verifyAccountPage/$1';
 
 //FOR LOGIN RELATED
 $route['login'] = 'login/loginPage';
+$route['forgot-password'] = 'login/forgotPasswordPage';
+$route['change-password/(:any)'] = 'login/changePasswordPage/$1';
 
 //FOR DASHBOARD RELATED
 $route['dashboard'] = 'dashboard/dashboardPage';

@@ -106,4 +106,8 @@ $(document).ready(function(){
 			}
 		})
 	});
+
+	$(".btn-forgot-password").on("click", function(){
+		window.location.href = base_url + 'forgot-password';
+	});
 })

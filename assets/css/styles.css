@@ -532,6 +532,48 @@ table {
       .login-container .container-body .login-flex .login-body .otp-form {
         display: none; }
 
+.forgot-password-container .container-body {
+  background: #A87824 !important; }
+  .forgot-password-container .container-body .forgot-password-flex {
+    min-height: 90vh;
+    width: 100%;
+    position: relative; }
+    .forgot-password-container .container-body .forgot-password-flex .forgot-password-body {
+      z-index: 1;
+      padding: 20px 30px;
+      background: white;
+      min-height: 400px;
+      height: auto;
+      width: 430px;
+      border-radius: 5px;
+      color: #333; }
+      .forgot-password-container .container-body .forgot-password-flex .forgot-password-body .main-title {
+        text-align: center;
+        font-size: 24px; }
+        .forgot-password-container .container-body .forgot-password-flex .forgot-password-body .main-title span {
+          font-style: italic; }
+
+.change-password-container .container-body {
+  background: #A87824 !important; }
+  .change-password-container .container-body .change-password-flex {
+    min-height: 90vh;
+    width: 100%;
+    position: relative; }
+    .change-password-container .container-body .change-password-flex .change-password-body {
+      z-index: 1;
+      padding: 20px 30px;
+      background: white;
+      min-height: 400px;
+      height: auto;
+      width: 430px;
+      border-radius: 5px;
+      color: #333; }
+      .change-password-container .container-body .change-password-flex .change-password-body .main-title {
+        text-align: center;
+        font-size: 24px; }
+        .change-password-container .container-body .change-password-flex .change-password-body .main-title span {
+          font-style: italic; }
+
 .dashboard-container .container-body .row .col-12 {
   margin-bottom: 0px !important; }
 .dashboard-container .container-body .products-container {

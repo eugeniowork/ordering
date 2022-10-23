@@ -282,4 +282,146 @@ class Login extends CI_Controller {
         echo json_encode($email);
 	}
 
+	public function forgotPasswordPage(){
+		$this->data['page_title'] = "Forgot Password";
+
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_icon_only');
+		$this->load->view('login/forgot-password');
+		$this->load->view('layouts/footer');
+	}
+
+	public function sendPasswordCode(){
+		$email = $this->input->post("email");
+
+		$result = [];
+		$success = true;
+		$msg = "";
+
+		$this->form_validation->set_rules('email','email','required',array(
+            'required'=> 'Please enter email.'
+        ));
+
+        if($this->form_validation->run() == FALSE){
+            $success = false;
+            $msg = validation_errors();
+        }
+
+		if($success){
+			//CHECK IF EMAIL EXISTS
+	        $user_details = $this->global_model->get("users", "*", "email = '{$email}'", [], "single", []);
+	        if($user_details){
+		        // Load PHPMailer library
+		        $this->load->library('PHPmailer_lib');
+
+		        // PHPMailer object
+		        $mail = $this->phpmailer_lib->load();
+		        
+		        // Add a recipient
+		        $mail->addAddress($email);
+		        
+		        // Email subject
+		        $mail->Subject = "[".APPNAME."]For changing of Password";
+		        
+		        $link_params = encryptData(json_encode(['email'=> $email,'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200)]));
+		        $generated_link = base_url()."change-password/".$link_params;
+
+		        // Email body content
+		        $mail->Body = "
+		            Good day! <br><br>
+		            If you've lost your <strong>".APPNAME."</strong> password or wish to reset it, use the link below to get started.
+		            <br><br>
+		            <a style='background-color: #007bff;color: white;border-color: #007bff;padding: 10px 10px;border-radius: 5px;text-decoration: none;' href='".$generated_link."'>Reset your password</a>
+
+		            <br><br>
+		            If you did not request a password reset, you can safely ignore this email. Only a person with access to you email can reset your account password.
+		            <br><br>
+		        ";
+		        // Set email format to HTML
+		        $mail->isHTML(true);
+
+		        $mail->send();
+		    }
+		    else{
+		    	$success = false;
+		    	$msg = "Email address does not exist";
+		    }
+		}
+
+	    $result = [
+	    	"email"=> $email,
+	    	"success"=> $success,
+	    	"msg"=> $msg
+	    ];
+        echo json_encode($result);
+	}
+
+	public function changePasswordPage($params){
+		$this->data['page_title'] = "Change Password";
+
+		$params = decryptData($params);
+		$params = json_decode($params);
+		$date_expiration = $params->date_expiration;
+		$email = $params->email;
+		//VALIDATE IF LINK EXPIRED
+		if(strtotime(getTimeStamp()) > strtotime($date_expiration)){
+			redirect("");
+		}
+
+		$this->data['email'] = $email;
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_icon_only');
+		$this->load->view('login/change-password');
+		$this->load->view('layouts/footer');
+	}
+
+	public function changePasswordSave(){
+		$email = $this->input->post("email");
+		$password = $this->input->post("password");
+		$confirm_password = $this->input->post("confirm_password");
+
+		$result = [];
+		$success = true;
+		$msg = "";
+
+		$this->form_validation->set_rules('password','password','required|min_length[6]',array(
+            'required'=> 'Password is required',
+            'min_length'=> 'Password must be 6 characters long.'
+        ));
+        $this->form_validation->set_rules('confirm_password','confirm_password','required|matches[password]',array(
+            'required'=> 'Confirm password is required',
+            'matches'=>"Password does not match.",
+        ));
+
+        if($this->form_validation->run() == FALSE){
+            $this->data['status'] = "error";
+            $success = false;
+            $msg = validation_errors();
+        }
+
+        if($success){
+        	//EXTRA VALIDATION FOR EMAIL
+        	$user_details = $this->global_model->get("users", "*", "email = '{$email}'", [], "single", []);
+			if($user_details){
+				$params = [
+					"password"=> password_hash($password, PASSWORD_DEFAULT),
+					'updated_date'=> getTimeStamp(),
+					'updated_by'=> $user_details['id']
+				];
+				$this->global_model->update("users", "email = '{$email}'", $params);
+			}
+			else{
+		    	$success = false;
+		    	$msg = "Something went wrong, please try again.";
+		    }
+        }
+
+        $result = [
+	    	"email"=> $email,
+	    	"success"=> $success,
+	    	"msg"=> $msg,
+	    	'post'=> $this->input->post()
+	    ];
+        echo json_encode($result);
+	}
 }
