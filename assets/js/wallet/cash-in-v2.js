@@ -6,6 +6,7 @@ $(document).ready(function(){
 	var display_size, face_detection, canvas, face_descriptor;
 	var user_details = {};
 	var is_face_recog_success = false;
+	var no_face_detected;
 
 	$(".btn-scan-face").on("click", function(){
 		$(".cash-in-details-container").addClass("d-none")
@@ -15,7 +16,7 @@ $(document).ready(function(){
 		$(".cutomer-email-val").text("N/A")
 		is_face_recog_success = false;
 		init_web_cam();
-	}).click();
+	});
 	
 
 	//FOR FACIAL RECOGNITION
@@ -23,6 +24,9 @@ $(document).ready(function(){
 		camera_stopped();
 		
 		console.log("webcam stopped");
+
+		//STOP INTERVAL FOR NO FACE DETECTED
+		clearInterval(no_face_detected);
 	});
 
 	$("#webcam").bind("loadedmetadata", function () {
@@ -43,7 +47,6 @@ $(document).ready(function(){
 
 	function camera_started(){
 		$("#error_msg").addClass("d-none");
-		$(".btn-submit-face").prop("disabled", true)
 		
 		if( webcam.webcamList.length >= 1){
 			$(".loading").removeClass('d-none');
@@ -57,6 +60,9 @@ $(document).ready(function(){
 				start_detection();
 			})
 		}
+
+		//REMOVE PREVIOUS INTERVAL ON NO FACE DETECTED
+		no_face_detected = null;
 	}
 
 	function camera_stopped(){
@@ -90,23 +96,43 @@ $(document).ready(function(){
 	function start_detection(){
 		face_detection = setInterval(async () => {
 			const detections = await faceapi.detectSingleFace(webcam_element, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks(true).withFaceDescriptor()
-			const resized_detections = faceapi.resizeResults(detections, display_size)
-			canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+			if(detections){
+				const resized_detections = faceapi.resizeResults(detections, display_size)
+				canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
 
-			faceapi.draw.drawDetections(canvas, resized_detections)
-			faceapi.draw.drawFaceLandmarks(canvas, resized_detections)
+				faceapi.draw.drawDetections(canvas, resized_detections)
+				faceapi.draw.drawFaceLandmarks(canvas, resized_detections)
 
-			face_descriptor = detections.descriptor
+				face_descriptor = detections.descriptor
 
-			if(face_descriptor){
-				camera_stopped();
-				$("#face_modal").modal("hide")
-				verify_face();
+				if(face_descriptor){
+					camera_stopped();
+					$("#face_modal").modal("hide")
+					verify_face();
+
+					console.log('face detected')
+					//STOP INTERVAL FOR NO FACE DETECTED
+					clearInterval(no_face_detected);
+					//REMOVE PREVIOUS INTERVAL ON NO FACE DETECTED
+					no_face_detected = null;
+				}
+
+				if(!$(".loading").hasClass('d-none')){
+					$(".loading").addClass('d-none')
+			    }
 			}
+			else{
+				$(".btn-submit-face").prop("disabled", true)
 
-			if(!$(".loading").hasClass('d-none')){
-				$(".loading").addClass('d-none')
-		    }
+				//CHECK IF INTERVAL IS ALREADY SET
+				if(!no_face_detected){
+					no_face_detected = setInterval(function() { 
+				        generate_error();
+				        //13000 = 13 sec
+				    }, 13000);
+				}
+			}
+			
 		}, 300)
 	}
 
@@ -210,4 +236,40 @@ $(document).ready(function(){
             })
 		}
 	})
+
+	function generate_error(){
+		console.log("no face detected")
+        $("#face_modal").modal("hide")
+        $("#message_modal").modal("show")
+		$("#message_modal .modal-body").html("<span class='text-danger'>No face detected, please make sure to face the camera properly.</span>")
+        camera_stopped();
+        $(".btn-submit-face").prop("disabled", true)
+
+		//STOP INTERVAL FOR NO FACE DETECTED
+		clearInterval(no_face_detected);
+	}
+
+    prepare_face_detector();
+	function prepare_face_detector() {
+		Promise.all([
+			faceapi.nets.tinyFaceDetector.load(model_path),
+			faceapi.nets.faceLandmark68TinyNet.load(model_path),
+			faceapi.nets.faceRecognitionNet.load(model_path)
+		]).then(function(){
+			let base_image = new Image();
+			base_image.src = model_path+'/face.jpg';
+			base_image.onload = function() {
+				const useTinyModel = true;
+				const fullFaceDescription = faceapi
+				.detectSingleFace(base_image, new faceapi.TinyFaceDetectorOptions())
+				.withFaceLandmarks(useTinyModel)
+				.withFaceDescriptor()
+				.run()
+				.then(res => {
+					//console.log("--------> " + JSON.stringify(res));
+					$(".btn-scan-face").click();
+				});
+			};
+		})
+	}
 })
