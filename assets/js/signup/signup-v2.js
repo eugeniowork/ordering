@@ -245,4 +245,26 @@ $(document).ready(function(){
 			};
 		})
 	}
+
+	//PASSWORD CHECKER REQUIREMENT
+	$("input[name=password]").on("keyup", function(){
+		$(".password-requirement-container").show();
+
+		var password = $(this).val();
+		$.ajax({
+			url: base_url + "signup/checkPassword",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				password: password
+			},
+			success: function(response){
+				$(".one-lower").css({"color": (response.lower_case? "green": "#333")})
+				$(".one-upper").css({"color": (response.upper_case? "green": "#333")})
+				$(".one-number").css({"color": (response.number? "green": "#333")})
+				$(".six-char-long").css({"color": (response.six_char_long? "green": "#333")})
+				$(".one-special-char").css({"color": (response.special_chars? "green": "#333")})
+			}
+		})
+	})
 })

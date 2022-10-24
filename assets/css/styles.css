@@ -479,6 +479,9 @@ table {
       .signup-v2-container .container-body .signup-v2-flex .signup-v2-body .face-container img {
         height: 130px;
         width: 130px; }
+      .signup-v2-container .container-body .signup-v2-flex .signup-v2-body .password-requirement-container {
+        font-size: 12px;
+        display: none; }
 .signup-v2-container .webcam-container {
   padding: 0; }
   .signup-v2-container .webcam-container canvas {
@@ -623,6 +626,9 @@ table {
         font-size: 24px; }
         .change-password-container .container-body .change-password-flex .change-password-body .main-title span {
           font-style: italic; }
+      .change-password-container .container-body .change-password-flex .change-password-body .password-requirement-container {
+        font-size: 12px;
+        display: none; }
 
 .dashboard-container .container-body .row .col-12 {
   margin-bottom: 0px !important; }

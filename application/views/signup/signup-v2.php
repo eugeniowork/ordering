@@ -26,6 +26,13 @@
 				            <div class="col-12 col-lg-6">
 				                <span>Password&nbsp;<span class="text-danger">*</span></span>
 				                <input type="password" class="form-control" name="password" placeholder="Enter password" required/>
+				                <div class="password-requirement-container">
+				                	<div class="one-upper"><i class="fa fa-check-circle"></i>&nbsp;Must contain at least one uppercase letter.</div>
+				                	<div class="one-lower"><i class="fa fa-check-circle"></i>&nbsp;Must contain at least one uppercase letter.</div>
+				                	<div class="one-number"><i class="fa fa-check-circle"></i>&nbsp;Must contain at least one number.</div>
+				                	<div class="one-special-char"><i class="fa fa-check-circle"></i>&nbsp;Must contain at least one special character.</div>
+				                	<div class="six-char-long"><i class="fa fa-check-circle"></i>&nbsp;Must be at least 6 characters in length.</div>
+				                </div>
 				            </div>
 				            <div class="col-12 col-lg-6">
 				                <span>Confirm Password&nbsp;<span class="text-danger">*</span></span>

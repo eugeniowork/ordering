@@ -399,6 +399,19 @@ class Login extends CI_Controller {
             $msg = validation_errors();
         }
 
+        //VALIDATE PASSWORD
+        if($password != ""){
+            // Validate password strength
+            $uppercase = preg_match('@[A-Z]@', $password);
+            $lowercase = preg_match('@[a-z]@', $password);
+            $number    = preg_match('@[0-9]@', $password);
+            $specialChars = preg_match('@[^\w]@', $password);
+            if(!$uppercase || !$lowercase || !$number || !$specialChars || mb_strlen($password) < 6) {
+                $success = false;
+                $msg = 'Password should be at least 6 characters in length and must contain at least one upper case letter, one lower case letter, one number, and one special character.';
+            }
+        }
+
         if($success){
         	//EXTRA VALIDATION FOR EMAIL
         	$user_details = $this->global_model->get("users", "*", "email = '{$email}'", [], "single", []);

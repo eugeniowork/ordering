@@ -240,6 +240,19 @@ class Signup extends CI_Controller {
             $error_msg .= validation_errors();
         }
 
+        //VALIDATE PASSWORD
+        if($password != ""){
+            // Validate password strength
+            $uppercase = preg_match('@[A-Z]@', $password);
+            $lowercase = preg_match('@[a-z]@', $password);
+            $number    = preg_match('@[0-9]@', $password);
+            $specialChars = preg_match('@[^\w]@', $password);
+            if(!$uppercase || !$lowercase || !$number || !$specialChars || mb_strlen($password) < 6) {
+                $error_count += 1;
+                $error_msg .= 'Password should be at least 6 characters in length and must contain at least one upper case letter, one lower case letter, one number, and one special character.';
+            }
+        }
+
         if($error_count == 0){
             $target_dir = 'assets/uploads/faces';
             //CREATE DIRECTORY IF NOT EXIST
@@ -340,6 +353,25 @@ class Signup extends CI_Controller {
         else{
             $this->data['is_exist'] = false;
         }
+
+        echo json_encode($this->data);
+    }
+
+    public function checkPassword(){
+        $password = $this->input->post('password');
+
+        // Validate password strength
+        $upper_case = preg_match('@[A-Z]@', $password);
+        $lower_case = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $special_chars = preg_match('@[^\w]@', $password);
+        $six_char_long = mb_strlen($password) < 6? false: true;
+
+        $this->data['upper_case'] = $upper_case;
+        $this->data['lower_case'] = $lower_case;
+        $this->data['number'] = $number;
+        $this->data['special_chars'] = $special_chars;
+        $this->data['six_char_long'] = $six_char_long;
 
         echo json_encode($this->data);
     }
