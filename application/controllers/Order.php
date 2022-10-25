@@ -95,15 +95,15 @@ class Order extends CI_Controller {
 		        $this->global_model->batch_insert_or_update("products", $products_params);
 	    	}
 
+	    	$order_details = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+    		$customer_id = $order_details['user_id'];
+    		$order_number = $order_details['order_number'];
+
 	    	//SEND EMAIL NOTIFICATION AND SYSTEM NOTIFICATION
         	if($user_type == "user"){
 
         	}
         	else{
-        		$order_details = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
-        		$customer_id = $order_details['user_id'];
-        		$order_number = $order_details['order_number'];
-        		
 	        	$user = $this->global_model->get("users", "id, email", "id = '$customer_id'", [], "single", []);
 	        	$content = "";
 
@@ -154,6 +154,21 @@ class Order extends CI_Controller {
         	}
 
 	    	$this->data['is_error'] = false;
+
+	    	//CREATE AUDIT TRAIL
+	    	$order_history_products = $this->global_model->get("order_history_products", "*", "order_history_id = {$order_id}", "", "multiple", "");
+			$audit_details = [
+				'details'=> $order_details,
+				'items'=> $order_history_products
+			];
+	        $params = [
+	            'user_id'=> $user_id,
+	            'code'=> 'ORDER',
+	            'description'=> "Changed status of Order Number <strong>{$order_number}</strong> to <strong>{$status}</strong>",
+	            'new_details'=> json_encode($audit_details, JSON_PRETTY_PRINT),
+	            'created_date'=> getTimeStamp()
+	        ];
+	        $this->global_model->insert("audit_trail", $params);
         }
 
 		
