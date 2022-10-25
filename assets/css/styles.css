@@ -982,6 +982,13 @@ table {
   padding: 5px 15px;
   border-radius: 50px;
   font-size: 10px; }
+.customer-container .title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: underline; }
+.customer-container table {
+  text-align: center; }
 
 .change-my-password-container .password-requirement-container {
   font-size: 12px;

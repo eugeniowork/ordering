@@ -11,7 +11,8 @@ $(document).ready(function(){
 			type: 'POST',
 			dataType: 'json',
 			data:{
-				user_type: 'user'
+				user_type: 'user',
+				approval_status: 'APPROVED'
 			},
 			success: function(response){
 				$('.process-loading-container').empty();

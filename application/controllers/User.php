@@ -42,8 +42,13 @@ class User extends CI_Controller {
 
 	public function getUsers(){
 		$user_type = $this->input->post("user_type");
+		$approval_status = $this->input->post("approval_status");
 
-		$users = $this->global_model->get("users", "*", "deleted_by = 0 AND FIND_IN_SET(user_type, '$user_type') ", [], "multiple", []);
+		$where = "deleted_by = 0 AND FIND_IN_SET(user_type, '$user_type')";
+		if($approval_status){
+			$where .= "AND FIND_IN_SET(approval_status, '$approval_status')";
+		}
+		$users = $this->global_model->get("users", "*", $where, [], "multiple", []);
 		foreach ($users as $key => $user) {
 			$users[$key]->{"encrypted_id"} = encryptData($user->id);
 		}
@@ -51,6 +56,86 @@ class User extends CI_Controller {
 		$this->data['users'] = $users;
 
 		echo json_encode($this->data);
+	}
+
+	public function customerApproval(){
+		$user_id = $this->input->post("user_id");
+		$approval_status = $this->input->post("approval_status");
+		$approval_remarks = $this->input->post("approval_remarks");
+
+		$result = [];
+		$success = true;
+		$msg = "";
+
+		//VALIDATE USER
+    	$user_details = $this->global_model->get("users", "*", "id = '{$user_id}'", [], "single", []);
+		if(!$user_details){
+			$success = false;
+			$msg = "User does not exist.";
+		}
+
+		//VALIDATE STATUS
+		if(!in_array($approval_status, ['APPROVED','DISAPPROVED'])){
+			$success = false;
+			$msg = "Unable to approve/disapprove customer.";
+		}
+
+		if($success){
+			$params = [
+				'approval_status'=> strtoupper($approval_status),
+			];
+			$this->global_model->update("users", "id = '{$user_id}'", $params);
+
+			//INSERT TO USER HISTORY
+            $this->global_model->insert("users_approval_history", [
+                'user_id'=> $user_id,
+                'approval_status'=> $approval_status,
+                'description'=> $approval_remarks,
+                'created_date'=> getTimeStamp(),
+                'created_by'=> $this->session->userdata('user_id')
+            ]);
+
+            $msg = "Successfully ".strtolower($approval_status)." customer";
+            $customer_name = $user_details['firstname']." ".$user_details['lastname'];
+
+            //EMAIL NOTIF
+	        $this->load->library('PHPmailer_lib');
+	        // PHPMailer object
+	        $mail = $this->phpmailer_lib->load();
+	        // Add a recipient
+	        $mail->addAddress($user_details['email']);
+	        // Email subject
+	        $mail->Subject = "[".APPNAME."] ACCOUNT ".($approval_status == "DISAPPROVED"? "DISAPPROVAL": "APPROVAL");
+
+	        $link = base_url()."login";
+	        // Email body content
+	        if($approval_status == "DISAPPROVED"){
+	        	$mail->Body = "
+		           Dear {$customer_name}, <br><br>
+		           Thank you for registering at our website.<br>
+		           Unfortunately, we are unable to approve your account.<br>
+		        ";
+	        }
+	        else{
+	        	$mail->Body = "
+		           Dear {$customer_name}, <br><br>
+		           Thank you for registering at our website.<br>
+		           We're happy to let you know that your <strong>".APPNAME."</strong> account has been approved.<br>
+		           You can now login your account <a href='".$link."'>here</a>
+		        ";
+	        }
+	        
+	        // Set email format to HTML
+	        $mail->isHTML(true);
+
+	        $mail->send();
+		}
+
+		$result = [
+	    	"success"=> $success,
+	    	"msg"=> $msg
+	    ];
+        echo json_encode($result);
 	}
 
 	public function customerViewPage($hash_id){

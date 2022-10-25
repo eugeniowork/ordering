@@ -270,7 +270,7 @@ class Signup extends CI_Controller {
                 "password"=> password_hash($password, PASSWORD_DEFAULT),
                 "user_type"=> "user",
                 "is_verified"=> 0,
-                "is_active"=> 0,
+                "is_active"=> 1,
                 "profile_path"=> "assets/uploads/profile/default-user-icon.jpg",
                 'created_date'=> getTimeStamp(),
                 'approval_status'=> 'FOR APPROVAL'
@@ -281,9 +281,29 @@ class Signup extends CI_Controller {
             $this->global_model->insert("users_approval_history", [
                 'user_id'=> $user_id,
                 'approval_status'=> 'FOR APPROVAL',
+                'description'=> 'Signup',
                 'created_date'=> getTimeStamp(),
                 'created_by'=> $user_id
             ]);
+
+            //NOTIFY ADMIN AND STAFF
+            $bulk_insert_params = [];
+            $users = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", ["column" => "id", "type" => "ASC"], "multiple", []);
+            foreach ($users as $key => $user) {
+                $bulk_insert_params[] = [
+                    "receiver"=> $user->id,
+                    "user_id"=> $user_id,
+                    "content"=> "A new account has just been registered with the following details: <br> <strong>Name</strong>: {$firstname} {$lastname} <br> <strong>Email</strong>: {$email}.",
+                    "type"=> "SIGNUP",
+                    "source_table"=> "users",
+                    "source_id"=>$user_id,
+                    "read_status"=> 0,
+                    "created_date"=> getTimeStamp(),
+                    "created_by"=> $user_id
+                ];
+            }
+
+            $this->global_model->batch_insert_or_update("notifications", $bulk_insert_params);
 
             $faces_params = [
                 'user_id' => $user_id,
