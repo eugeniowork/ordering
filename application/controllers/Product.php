@@ -88,7 +88,7 @@ class Product extends CI_Controller {
 
 		// //GET PRODUCTS
 		$db_name = "views_products";
-        $select =  "id, stock";
+        $select =  "id, stock, name";
         $where = "deleted_by = 0 AND id = '$id'";
         $product = $this->global_model->get($db_name, $select, $where, "", "single", "");
 
@@ -146,6 +146,15 @@ class Product extends CI_Controller {
 	        		$insert = $this->global_model->insert('cart', $params);
 
 	        		$this->data['is_error'] = false;
+
+	        		//CREATE AUDIT TRAIL
+			        $params = [
+			            'user_id'=> $this->session->userdata('user_id'),
+			            'code'=> 'CART',
+			            'description'=> "Added product <strong>".$product['name']."</strong> to cart",
+			            'created_date'=> getTimeStamp()
+			        ];
+			        $this->global_model->insert("audit_trail", $params);
 		        }
         	}
         }
@@ -160,7 +169,7 @@ class Product extends CI_Controller {
 		$id = decryptData($id);
 
 		$db_name = "views_cart";
-        $select =  "id, quantity, stock";
+        $select =  "id, quantity, stock, name";
         $where = "product_id = '$id'";
         $product_on_cart = $this->global_model->get($db_name, $select, $where, "", "single", "");
 
@@ -178,6 +187,15 @@ class Product extends CI_Controller {
 		    //IF QUANTITY REACHES 0 OR BELOW, REMOVE PRODUCT ON CART
 		    if($new_quantity <= 0){
 		    	$this->global_model->delete('cart', "id = '$cart_id'");
+
+		    	//CREATE AUDIT TRAIL
+		        $params = [
+		            'user_id'=> $this->session->userdata('user_id'),
+		            'code'=> 'CART',
+		            'description'=> "Removed product <strong>".$product_on_cart['name']."</strong> from cart",
+		            'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
 		    }
 		    else{
 		    	$params = [
@@ -630,7 +648,7 @@ class Product extends CI_Controller {
 		        $params = [
 		            'user_id'=> $this->session->userdata('user_id'),
 		            'code'=> 'WISHLIST',
-		            'description'=> "Removed <strong>".$product['name']."</strong> from wishlist",
+		            'description'=> "Removed product <strong>".$product['name']."</strong> from wishlist",
 		            'created_date'=> getTimeStamp()
 		        ];
 		        $this->global_model->insert("audit_trail", $params);
@@ -682,7 +700,7 @@ class Product extends CI_Controller {
 		        $params = [
 		            'user_id'=> $user_id,
 		            'code'=> 'WISHLIST',
-		            'description'=> "Added <strong>".$product['name']."</strong> to wishlist",
+		            'description'=> "Added product <strong>".$product['name']."</strong> to wishlist",
 		            'created_date'=> getTimeStamp()
 		        ];
 		        $this->global_model->insert("audit_trail", $params);
