@@ -2,7 +2,7 @@
 	<div class="container-body" style="top: 0px;">
 		<div class="d-flex flex-column justify-content-center align-items-center forgot-password-flex">
 			<div class="forgot-password-body">
-				<p class="main-title">Rest Password</p>
+				<p class="main-title">Reset Password</p>
 				<div class="form-group">
 					<p>Email address.</p>
 					<input type="text" class="form-control email" placeholder="Enter email">

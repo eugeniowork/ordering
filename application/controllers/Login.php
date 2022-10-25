@@ -324,7 +324,7 @@ class Login extends CI_Controller {
 
 		if($success){
 			//CHECK IF EMAIL EXISTS
-	        $user_details = $this->global_model->get("users", "*", "email = '{$email}'", [], "single", []);
+	        $user_details = $this->global_model->get("users", "id", "email = '{$email}'", [], "single", []);
 	        if($user_details){
 		        // Load PHPMailer library
 		        $this->load->library('PHPmailer_lib');
@@ -356,6 +356,15 @@ class Login extends CI_Controller {
 		        $mail->isHTML(true);
 
 		        $mail->send();
+
+		        //CREATE AUDIT TRAIL
+		        $params = [
+		            'user_id'=> $user_details['id'],
+		            'code'=> 'ACCOUNT',
+		            'description'=> 'Generate forgot password link',
+		            'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
 		    }
 		    else{
 		    	$success = false;
@@ -437,6 +446,15 @@ class Login extends CI_Controller {
 					'updated_by'=> $user_details['id']
 				];
 				$this->global_model->update("users", "email = '{$email}'", $params);
+
+				//CREATE AUDIT TRAIL
+		        $params = [
+		            'user_id'=> $user_details['id'],
+		            'code'=> 'ACCOUNT',
+		            'description'=> 'Changed password',
+		            'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
 			}
 			else{
 		    	$success = false;

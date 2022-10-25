@@ -351,6 +351,15 @@ class User extends CI_Controller {
 					'updated_by'=> $user_details['id']
 				];
 				$this->global_model->update("users", "id = '{$id}'", $params);
+
+				//CREATE AUDIT TRAIL
+		        $params = [
+		            'user_id'=> $user_details['id'],
+		            'code'=> 'ACCOUNT',
+		            'description'=> 'Changed password',
+		            'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
         	}
         	else{
 				$success = false;
