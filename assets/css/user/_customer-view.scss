@@ -1,38 +1,94 @@
 .customer-view-container{
-	.verified{
-		background: #28a745;
-	    color: white;
-	    padding: 5px 15px;
-	    border-radius: 50px;
-	    font-size: 14px;
-	}
-	.unverified{
-		background: #dc3545;
-	    color: white;
-	    padding: 5px 15px;
-	    border-radius: 50px;
-	    font-size: 14px;
-	}
+	// .verified{
+	// 	background: #28a745;
+	//     color: white;
+	//     padding: 5px 15px;
+	//     border-radius: 50px;
+	//     font-size: 14px;
+	// }
+	// .unverified{
+	// 	background: #dc3545;
+	//     color: white;
+	//     padding: 5px 15px;
+	//     border-radius: 50px;
+	//     font-size: 14px;
+	// }
+
+	// .for-approval{
+	// 	background: #545b62;
+	//     color: white;
+	//     padding: 5px 15px;
+	//     border-radius: 50px;
+	//     font-size: 14px;
+	// }
+	// .approved{
+	// 	background: #0069d9;
+	//     color: white;
+	//     padding: 5px 15px;
+	//     border-radius: 50px;
+	//     font-size: 14px;
+	// }
+	// .disapproved{
+	// 	background: #dc3545;
+	//     color: white;
+	//     padding: 5px 15px;
+	//     border-radius: 50px;
+	//     font-size: 14px;
+	// }
 
 	.for-approval{
-		background: #545b62;
-	    color: white;
+		background: #bdfce9;
+	    color: #1bb092;
 	    padding: 5px 15px;
 	    border-radius: 50px;
 	    font-size: 14px;
+	    font-weight: 600;
 	}
 	.approved{
-		background: #0069d9;
-	    color: white;
+		background: #bdfce9;
+	    color: #1bb092;
 	    padding: 5px 15px;
 	    border-radius: 50px;
 	    font-size: 14px;
+	    font-weight: 600;
 	}
 	.disapproved{
-		background: #dc3545;
-	    color: white;
+		background: #ffbfbf;
+	    color: #ff3b3b;
 	    padding: 5px 15px;
 	    border-radius: 50px;
 	    font-size: 14px;
+	    font-weight: 600;
+	}
+
+
+
+	.approval-status-label{
+		background: #bdfce9;
+	    color: #1bb092;
+	    padding: 5px 15px;
+	    border-radius: 50px;
+	    font-size: 14px;
+	    font-weight: 600;
+	}
+	.verified-label{
+		background: #bdfce9;
+	    color: #1bb092;
+	    padding: 2px 5px;
+	    border-radius: 50px;
+	    font-size: 10px;
+	    position: relative;
+	    top: -3px;
+	    font-weight: 600;
+	}
+	.unverified-label{
+		background: #ffbfbf;
+	    color: #ff3b3b;
+	    padding: 2px 5px;
+	    border-radius: 50px;
+	    font-size: 10px;
+	    position: relative;
+	    top: -3px;
+	    font-weight: 600;
 	}
 }

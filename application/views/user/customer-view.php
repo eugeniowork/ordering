@@ -18,21 +18,13 @@
 		</div>
 		<div class="container-body">
 			<div class="row">
-				<div class="col-12 col-lg-1">
-					<?php if ($user_details['is_verified']): ?>
-						<span class="verified">Verified</span>
-					<?php else: ?>
-						<span class="unverified">Unverified</span>
-					<?php endif ?>
-				</div>
-
 				<div class="col-12 col-lg-2">
 					<?php if ($user_details['approval_status'] == "FOR APPROVAL"): ?>
-						<span class="for-approval">For Approval</span>
+						<span class="for-approval"><?= $user_details['approval_status']; ?></span>
 					<?php elseif($user_details['approval_status'] == "APPROVED"): ?>
-						<span class="approved">Approved</span>
+						<span class="approved"><?= $user_details['approval_status']; ?></span>
 					<?php elseif($user_details['approval_status'] == "DISAPPROVED"): ?>
-						<span class="disapproved">Disapproved</span>
+						<span class="disapproved"><?= $user_details['approval_status']; ?></span>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -57,7 +49,13 @@
 				</div>
 				<div class="col-12 col-lg-4">
 					<div class="form-group">
-						<span>Email Address</span>
+						<span>Email Address 
+							<?php if ($user_details['is_verified']): ?>
+								<span class="verified-label">VERIFIED</span>
+							<?php else: ?>
+								<span class="unverified-label">UNVERIFIED</span>
+							<?php endif ?>
+						</span>
 						<input type="text" class="form-control" readonly value="<?= $user_details['email'] ?>">
 					</div>
 				</div>
@@ -133,7 +131,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body" style="text-align: center;">
-                    <p style="font-size: 80px;"><i class="text-success fas fa-check-circle"></i></p>
+                    <p style="font-size: 80px;" class="success-icon-container"><i class="text-success fas fa-check-circle"></i></p>
                     <p style="font-weight: 600;" class="success-msg"></p>
                     <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Okay</button>
                 </div>
