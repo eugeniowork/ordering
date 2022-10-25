@@ -15,6 +15,15 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function logout(){
+        //CREATE AUDIT TRAIL
+        $params = [
+            'user_id'=> $this->session->userdata('user_id'),
+            'code'=> 'ACCOUNT',
+            'description'=> 'Logged out',
+            'created_date'=> getTimeStamp()
+        ];
+        $this->global_model->insert("audit_trail", $params);
+
 		if($this->session->userdata('user_id')){
             session_destroy();
             $this->session->unset_userdata('user_id');

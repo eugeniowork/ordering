@@ -223,6 +223,15 @@ class Login extends CI_Controller {
 		        	$this->session->set_userdata('user_type', $user_details['user_type']);
 
 	        		$this->data['is_error'] = false;
+
+	        		//CREATE AUDIT TRAIL
+			        $params = [
+			        	'user_id'=> $user_details['id'],
+			        	'code'=> 'ACCOUNT',
+			        	'description'=> 'Logged in',
+			        	'created_date'=> getTimeStamp()
+			        ];
+			        $this->global_model->insert("audit_trail", $params);
 	        	}
 	        	
 	        	$this->data['otp_details'] = $otp_details;

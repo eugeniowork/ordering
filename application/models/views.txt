@@ -6,3 +6,9 @@ ON products.id = wishlist.product_id
 
 ------------------------------
 CREATE OR REPLACE VIEW view_users_approval_history AS SELECT uah.*, users.firstname, users.lastname, users.middlename FROM `users_approval_history` AS uah LEFT JOIN users ON users.id = uah.created_by
+
+-------------------------------
+CREATE OR REPLACE VIEW views_audit_trail AS SELECT audit_trail.*, users.lastname, users.firstname, users.middlename, users.email 
+FROM `audit_trail`
+LEFT JOIN users
+ON users.id = audit_trail.user_id
