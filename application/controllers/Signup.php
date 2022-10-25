@@ -272,9 +272,18 @@ class Signup extends CI_Controller {
                 "is_verified"=> 0,
                 "is_active"=> 0,
                 "profile_path"=> "assets/uploads/profile/default-user-icon.jpg",
-                'created_date'=> getTimeStamp()
+                'created_date'=> getTimeStamp(),
+                'approval_status'=> 'FOR APPROVAL'
             ];
             $user_id = $this->global_model->insert("users", $users_params);
+
+            //INSERT TO USER HISTORY
+            $this->global_model->insert("users_approval_history", [
+                'user_id'=> $user_id,
+                'approval_status'=> 'FOR APPROVAL',
+                'created_date'=> getTimeStamp(),
+                'created_by'=> $user_id
+            ]);
 
             $faces_params = [
                 'user_id' => $user_id,

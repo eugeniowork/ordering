@@ -138,6 +138,7 @@ class User extends CI_Controller {
         	$post['created_by'] = $this->session->userdata('user_id');
         	$post['is_active'] = 1;
         	$post['is_verified'] = 1;
+        	$post['approval_status'] = 'N/A';
         	$post['profile_path'] = "assets/uploads/profile/default-user-icon.jpg";
 
         	$this->global_model->batch_insert_or_update("users", [$post]);
