@@ -619,6 +619,24 @@ class Product extends CI_Controller {
 		$id = $this->input->post('id');
 		$id = decryptData($id);
 
+		//GET WISHLIST DETAILS
+		$wishlist = $this->global_model->get("wishlist", "id,product_id", "id = '{$id}'", "", "single", "");
+		if($wishlist){
+			//GET PRODUCTS
+			$product_id = $wishlist['product_id'];
+	        $product = $this->global_model->get("views_products", "id,name", "id = {$product_id}", "", "single", "");
+	        if($product){
+	        	//CREATE AUDIT TRAIL
+		        $params = [
+		            'user_id'=> $this->session->userdata('user_id'),
+		            'code'=> 'WISHLIST',
+		            'description'=> "Removed <strong>".$product['name']."</strong> from wishlist",
+		            'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
+	        }
+	    }
+
 		$this->global_model->delete('wishlist', "id = '$id'");
 
 		$this->data['success'] = true;
@@ -634,7 +652,7 @@ class Product extends CI_Controller {
 		$user_id = $this->session->userdata('user_id');
 
 		// //GET PRODUCTS
-        $product = $this->global_model->get("views_products", "id", "deleted_by = 0 AND id = '$id'", "", "single", "");
+        $product = $this->global_model->get("views_products", "id,name", "deleted_by = 0 AND id = '$id'", "", "single", "");
 
         //CHECK IF PRODUCT DOES EXIST
         if(!$product){
@@ -659,8 +677,16 @@ class Product extends CI_Controller {
 	    		$insert = $this->global_model->insert('wishlist', $params);
 
 	    		$this->data['success'] = true;
-        	}
-	        
+
+	    		//CREATE AUDIT TRAIL
+		        $params = [
+		            'user_id'=> $user_id,
+		            'code'=> 'WISHLIST',
+		            'description'=> "Added <strong>".$product['name']."</strong> to wishlist",
+		            'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
+        	}   
         }
 		
 		session_start();
