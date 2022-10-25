@@ -3,3 +3,6 @@ SELECT wishlist.*, products.name, products.code, products.price, products.stock,
 FROM `wishlist`
 LEFT JOIN views_products AS products 
 ON products.id = wishlist.product_id
+
+------------------------------
+CREATE OR REPLACE VIEW view_users_approval_history AS SELECT uah.*, users.firstname, users.lastname, users.middlename FROM `users_approval_history` AS uah LEFT JOIN users ON users.id = uah.created_by

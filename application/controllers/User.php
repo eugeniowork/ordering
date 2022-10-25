@@ -141,8 +141,13 @@ class User extends CI_Controller {
 	public function customerViewPage($hash_id){
 		$id = decryptData($hash_id);
 
+		//CREATE OR REPLACE VIEW view_users_approval_history AS SELECT uah.*, users.firstname, users.lastname, users.middlename FROM `users_approval_history` AS uah LEFT JOIN users ON users.id = uah.created_by
 		$user_details = $this->global_model->get("users", "*", "id = {$id}", [], "single", []);
 		$this->data['user_details'] = $user_details;
+
+		//get approval history
+		$approval_history = $this->global_model->get("view_users_approval_history", "*", "user_id = {$id}", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+		$this->data['approval_history'] = $approval_history;
 
 		$this->data['page_title'] = "Customer View";
 

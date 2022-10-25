@@ -9,19 +9,34 @@
 		<div class="container-header">
 			<span class="header-title">Customer Details</span><br>
 			<div class="buttons">
+				<?php if($user_details['approval_status'] == "FOR APPROVAL"): ?>
+	            	<button class="btn btn-sm btn-success btn-approve" data-name="APPROVED">Approve</button>
+	            	<button class="btn btn-sm btn-danger btn-disapprove" data-name="DISAPPROVED">Disapprove</button>
+	        	<?php endif; ?>
 	            <a href="<?= base_url();?>customer" class="btn btn-sm btn-primary">Back</a>
 	        </div>
 		</div>
 		<div class="container-body">
 			<div class="row">
-				<div class="col-12 col-lg-12">
+				<div class="col-12 col-lg-1">
 					<?php if ($user_details['is_verified']): ?>
 						<span class="verified">Verified</span>
 					<?php else: ?>
 						<span class="unverified">Unverified</span>
 					<?php endif ?>
-					
 				</div>
+
+				<div class="col-12 col-lg-2">
+					<?php if ($user_details['approval_status'] == "FOR APPROVAL"): ?>
+						<span class="for-approval">For Approval</span>
+					<?php elseif($user_details['approval_status'] == "APPROVED"): ?>
+						<span class="approved">Approved</span>
+					<?php elseif($user_details['approval_status'] == "DISAPPROVED"): ?>
+						<span class="disapproved">Disapproved</span>
+					<?php endif; ?>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-12 col-lg-4">
 					<div class="form-group">
 						<span>Lastname</span>
@@ -47,6 +62,87 @@
 					</div>
 				</div>
 			</div>
+			<hr>
+			<span style="font-size: 15px;font-weight: 600;color: #333;text-decoration: underline;">HISTORY</span>
+			<table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Date and Time</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($approval_history as $key => $history): ?>
+                        <tr>
+                            <td><?= date('F d, Y h:i A', strtotime($history->created_date)) ?></td>
+                            <td><?= $history->firstname." ".$history->lastname ?></td>
+                            <td><?= $history->description; ?></td>
+                            <td><?= $history->approval_status ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
 		</div>
 	</div>
+
+	<div class="modal fade" id="message_modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal" aria-label="Close">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div class="modal fade customer-approval-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Approval</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span>Remarks</span>
+                        <input type="text" class="approval-remarks form-control" placeholder="Add remarks">
+                    </div>
+                    <div class="warning text-danger"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm btn-submit-approval">Submit</button>
+                    <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal success-modal modal-theme" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="text-align: center;">
+                    <p style="font-size: 80px;"><i class="text-success fas fa-check-circle"></i></p>
+                    <p style="font-weight: 600;" class="success-msg"></p>
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    	var user_id = '<?= $user_details['id'] ?>';
+    </script>
+    <script type="text/javascript" src="<?= base_url();?>assets/js/user/customer-view.js"></script>
 <?php endif ?>

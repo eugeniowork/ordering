@@ -956,6 +956,24 @@ table {
   padding: 5px 15px;
   border-radius: 50px;
   font-size: 14px; }
+.customer-view-container .for-approval {
+  background: #545b62;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 14px; }
+.customer-view-container .approved {
+  background: #0069d9;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 14px; }
+.customer-view-container .disapproved {
+  background: #dc3545;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 14px; }
 
 .employee-container .status-active {
   background: #28a745;
