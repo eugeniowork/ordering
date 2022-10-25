@@ -87,6 +87,17 @@ class Verification extends CI_Controller {
 			        $this->global_model->update("users", "email = '$email'", $update_data);
 
 	        		$this->data['is_error'] = false;
+
+	        		//GET USER INFORMATION
+			        $user_details = $this->global_model->get("users", "id", "email = '$email'", [], "single", []);
+	        		//CREATE AUDIT TRAIL
+			        $params = [
+			            'user_id'=> $user_details['id'],
+			            'code'=> 'ACCOUNT',
+			            'description'=> 'Verify Account',
+			            'created_date'=> getTimeStamp()
+			        ];
+			        $this->global_model->insert("audit_trail", $params);
 	        	}
 	        	
 	        	$this->data['otp_details'] = $otp_details;

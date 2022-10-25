@@ -286,6 +286,15 @@ class Signup extends CI_Controller {
                 'created_by'=> $user_id
             ]);
 
+            //CREATE AUDIT TRAIL
+            $params = [
+                'user_id'=> $user_id,
+                'code'=> 'ACCOUNT',
+                'description'=> 'Signup',
+                'created_date'=> getTimeStamp()
+            ];
+            $this->global_model->insert("audit_trail", $params);
+
             //NOTIFY ADMIN AND STAFF
             $bulk_insert_params = [];
             $users = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", ["column" => "id", "type" => "ASC"], "multiple", []);
