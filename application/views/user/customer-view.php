@@ -77,7 +77,15 @@
                             <td><?= date('F d, Y h:i A', strtotime($history->created_date)) ?></td>
                             <td><?= $history->firstname." ".$history->lastname ?></td>
                             <td><?= $history->description; ?></td>
-                            <td><?= $history->approval_status ?></td>
+                            <td>
+                            	<?php if ($history->approval_status == "FOR APPROVAL"): ?>
+									<span class="for-approval"><?= $history->approval_status; ?></span>
+								<?php elseif($history->approval_status == "APPROVED"): ?>
+									<span class="approved"><?= $history->approval_status; ?></span>
+								<?php elseif($history->approval_status == "DISAPPROVED"): ?>
+									<span class="disapproved"><?= $history->approval_status; ?></span>
+								<?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
