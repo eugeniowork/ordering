@@ -368,6 +368,21 @@ class Product extends CI_Controller {
 
 					$this->data['is_error'] = false;
 
+					//CREATE AUDIT TRAIL
+					$order_history_params['id'] = $insert_id;
+					$order_history_products = $this->global_model->get("order_history_products", "*", "order_history_id = {$insert_id}", "", "multiple", "");
+					$audit_details = [
+						'details'=> $order_history_params,
+						'items'=> $order_history_products
+					];
+			        $params = [
+			        	'user_id'=> $user_id,
+			        	'code'=> 'ORDER',
+			        	'description'=> "Placed an order with Order Number <strong>{$order_number}</strong>",
+			        	'new_details'=> json_encode($audit_details, JSON_PRETTY_PRINT),
+			        	'created_date'=> getTimeStamp()
+			        ];
+			        $this->global_model->insert("audit_trail", $params);
 				}
 				else{
 					$this->data['is_error'] = true;
