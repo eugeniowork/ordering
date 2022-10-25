@@ -983,6 +983,10 @@ table {
   border-radius: 50px;
   font-size: 10px; }
 
+.change-my-password-container .password-requirement-container {
+  font-size: 12px;
+  display: none; }
+
 .home-container .carousel-container {
   justify-content: center;
   display: flex; }

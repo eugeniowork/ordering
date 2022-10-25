@@ -181,4 +181,96 @@ class User extends CI_Controller {
         echo json_encode($this->data);
 	}
 
+	public function changePasswordPage(){
+		$this->data['page_title'] = "Change Password";
+
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_buttons');
+		$this->load->view('user/change-password', $this->data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function checkPassword(){
+        $password = $this->input->post('password');
+
+        // Validate password strength
+        $upper_case = preg_match('@[A-Z]@', $password);
+        $lower_case = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $special_chars = preg_match('@[^\w]@', $password);
+        $six_char_long = mb_strlen($password) < 6? false: true;
+
+        $this->data['upper_case'] = $upper_case;
+        $this->data['lower_case'] = $lower_case;
+        $this->data['number'] = $number;
+        $this->data['special_chars'] = $special_chars;
+        $this->data['six_char_long'] = $six_char_long;
+
+        echo json_encode($this->data);
+    }
+
+    public function changePasswordSave(){
+    	$id = $this->session->userdata('user_id');
+		$email = $this->input->post("email");
+		$old_password = $this->input->post("old_password");
+		$new_password = $this->input->post("new_password");
+		$confirm_password = $this->input->post("confirm_password");
+
+		$result = [];
+		$success = true;
+		$msg = "";
+
+        $this->form_validation->set_rules('old_password','old_password','required',array(
+            'required'=> 'Old password is required'
+        ));
+
+		$this->form_validation->set_rules('new_password','new_password','required|min_length[6]',array(
+            'required'=> 'New password is required'
+        ));
+        $this->form_validation->set_rules('confirm_password','confirm_password','required|matches[new_password]',array(
+            'required'=> 'Confirm password is required',
+            'matches'=>"Password does not match.",
+        ));
+
+        if($this->form_validation->run() == FALSE){
+            $this->data['status'] = "error";
+            $success = false;
+            $msg = validation_errors();
+        }
+
+        //VALIDATE PASSWORD
+        if($new_password != ""){
+            // Validate password strength
+            $uppercase = preg_match('@[A-Z]@', $new_password);
+            $lowercase = preg_match('@[a-z]@', $new_password);
+            $number    = preg_match('@[0-9]@', $new_password);
+            $specialChars = preg_match('@[^\w]@', $new_password);
+            if(!$uppercase || !$lowercase || !$number || !$specialChars || mb_strlen($new_password) < 6) {
+                $success = false;
+                $msg = 'Password should be at least 6 characters in length and must contain at least one upper case letter, one lower case letter, one number, and one special character.';
+            }
+        }
+
+        if($success){
+        	$user_details = $this->global_model->get("users", "*", "id = '{$id}'", [], "single", []);
+        	if($user_details && password_verify($old_password, $user_details['password'])){
+        		$params = [
+					"password"=> password_hash($new_password, PASSWORD_DEFAULT),
+					'updated_date'=> getTimeStamp(),
+					'updated_by'=> $user_details['id']
+				];
+				$this->global_model->update("users", "id = '{$id}'", $params);
+        	}
+        	else{
+				$success = false;
+                $msg = 'Old password does not match.';
+        	}
+        }
+
+        $result = [
+	    	"success"=> $success,
+	    	"msg"=> $msg
+	    ];
+        echo json_encode($result);
+	}
 }

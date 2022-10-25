@@ -290,6 +290,10 @@ $(document).ready(function(){
         window.location.href = base_url + "my-profile";
     })
 
+    $(".btn-change-password").on("click", function(){
+        window.location.href = base_url + "change-my-password";
+    })
+
     get_total_unread_notifications();
     function get_total_unread_notifications(){
         $.ajax({

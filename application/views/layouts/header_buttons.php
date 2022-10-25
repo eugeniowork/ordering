@@ -43,6 +43,9 @@
                                 <button class="btn btn-primary btn-my-profile"><i class="fas fa-address-card"></i>&nbsp;My Profile</button>
                             </li>
                             <li>
+                                <button class="btn btn-primary btn-change-password"><i class="fas fa-lock"></i>&nbsp;Change Password</button>
+                            </li>
+                            <li>
                                 <button class="btn btn-primary btn-logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</button>
                             </li>
                         </ul>
