@@ -433,7 +433,7 @@ class Product extends CI_Controller {
 		$is_unique = '|is_unique[products.name]';
 		if($action_type == "update"){
 			$id = decryptData($post['encrypted_id']);
-			$product_details = $this->global_model->get("views_products", "name, id, image_path", "id = {$id}", [], "single", []);
+			$product_details = $this->global_model->get("views_products", "*", "id = {$id}", [], "single", []);
 
 			if($product_details['id'] == $id){
 				$is_unique = "";
@@ -504,21 +504,32 @@ class Product extends CI_Controller {
 		        	}
 		        }
 
+		        $post['category_id'] = $post['category'];
+        		unset($post['category']);
+
 		        if($action_type == "update"){
 		        	$post['updated_date'] = getTimeStamp();
         			$post['updated_by'] = $this->session->userdata('user_id');
-        			$post['id'] = decryptData($post['encrypted_id']);
+        			$product_id = decryptData($post['encrypted_id']);
         			unset($post['encrypted_id']);
+        			$this->global_model->update("products", "id = {$id}" ,$post);
 		        }
 		        else{
 		        	$post['created_date'] = getTimeStamp();
         			$post['created_by'] = $this->session->userdata('user_id');
-		        }
-        		
-        		$post['category_id'] = $post['category'];
-        		unset($post['category']);
+        			$insert_id = $this->global_model->insert("products", $post);
 
-        		$this->global_model->batch_insert_or_update("products", [$post]);
+        			//CREATE AUDIT TRAIL
+		            $new_details = $this->global_model->get("views_products", "*", "id = {$insert_id}", [], "single", []);
+		            $params = [
+		                'user_id'=> $this->session->userdata('user_id'),
+		                'code'=> 'PRODUCT',
+		                'description'=> "Added new product <strong>".$post['name']."</strong>",
+		                'new_details'=> json_encode($new_details, JSON_PRETTY_PRINT),
+		                'created_date'=> getTimeStamp()
+		            ];
+		            $this->global_model->insert("audit_trail", $params);
+		        }
 
         		$is_error = false;
         	}
