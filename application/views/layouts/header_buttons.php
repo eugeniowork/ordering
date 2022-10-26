@@ -87,6 +87,7 @@
         <div class="side-navbar-body">
             <!-- FOR PRODUCT MANAGEMENT -->
             <?php if ($this->session->userdata("user_type") == "admin"): ?>
+                <a href="<?= base_url(); ?>audit-trail"><i class="fa-solid fa-list"></i>&nbsp;&nbsp;Audit Trail</a><br>
                 <a href="<?= base_url(); ?>product"><i class="fa-solid fa-box"></i>&nbsp;&nbsp;Product</a><br>
             <?php endif ?>
 

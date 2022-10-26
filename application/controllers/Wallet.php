@@ -570,7 +570,7 @@ class Wallet extends CI_Controller {
 			        $params = [
 			            'user_id'=> $this->session->userdata('user_id'),
 			            'code'=> 'WALLET',
-			            'description'=> "Cash in <strong><span>&#8369;</span>".number_format($request_amount, 2)."<strong> with Reference No <strong>{$reference_no}</strong>",
+			            'description'=> "Cash in <strong><span>&#8369;</span>".number_format($request_amount, 2)."</strong> with Reference No <strong>{$reference_no}</strong>",
 			            'new_details'=> json_encode($cash_in_params, JSON_PRETTY_PRINT),
 			            'created_date'=> getTimeStamp()
 			        ];

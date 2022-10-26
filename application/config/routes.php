@@ -93,6 +93,9 @@ $route['product-add'] = 'product/productAddPage';
 $route['product-view/(:any)'] = 'product/productViewPage/$1';
 $route['product-edit/(:any)'] = 'product/productEditPage/$1';
 
+//FOR AUDIT RELATED
+$route['audit-trail'] = 'audit/auditTrailPage';
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
