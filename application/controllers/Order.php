@@ -264,7 +264,7 @@ class Order extends CI_Controller {
         	}
         	else{
         		$products_history_params = [];
-        		$ordered_products = $this->global_model->get("order_history_products", "product_id, quantity", "order_history_id = '$order_id'", [], "multiple", []);
+        		$ordered_products = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
 		        foreach ($ordered_products as $key => $product) {
 		        	$product_id = $product->product_id;
 		        	$product_details = $this->global_model->get("products", "stock", "id = '$product_id'", [], "single", []);
@@ -325,6 +325,20 @@ class Order extends CI_Controller {
 	            $mail->send();
 
 				$this->data['is_error'] = false;
+
+				//CREATE AUDIT TRAIL
+				$audit_details = [
+					'details'=> $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []),
+					'items'=> $ordered_products
+				];
+		        $params = [
+		        	'user_id'=> $this->session->userdata('user_id'),
+		        	'code'=> 'ORDER',
+		        	'description'=> "Picked up order with Order Number <strong>{$order_number}</strong> using cash payment",
+		        	'new_details'=> json_encode($audit_details, JSON_PRETTY_PRINT),
+		        	'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
         	}
         }
 
@@ -353,7 +367,7 @@ class Order extends CI_Controller {
         	}
         	else{
         		$products_history_params = [];
-        		$ordered_products = $this->global_model->get("order_history_products", "product_id, quantity", "order_history_id = '$order_id'", [], "multiple", []);
+        		$ordered_products = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
 		        foreach ($ordered_products as $key => $product) {
 		        	$product_id = $product->product_id;
 		        	$product_details = $this->global_model->get("products", "stock", "id = '$product_id'", [], "single", []);
@@ -433,6 +447,20 @@ class Order extends CI_Controller {
 	            $mail->send();
 
         		$this->data['is_error'] = false;
+
+        		//CREATE AUDIT TRAIL
+				$audit_details = [
+					'details'=> $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []),
+					'items'=> $ordered_products
+				];
+		        $params = [
+		        	'user_id'=> $this->session->userdata('user_id'),
+		        	'code'=> 'ORDER',
+		        	'description'=> "Picked up order with Order Number <strong>{$order_number}</strong> using FacePay payment",
+		        	'new_details'=> json_encode($audit_details, JSON_PRETTY_PRINT),
+		        	'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
         	}
 			
 		}
