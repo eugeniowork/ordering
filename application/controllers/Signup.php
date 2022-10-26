@@ -286,15 +286,6 @@ class Signup extends CI_Controller {
                 'created_by'=> $user_id
             ]);
 
-            //CREATE AUDIT TRAIL
-            $params = [
-                'user_id'=> $user_id,
-                'code'=> 'ACCOUNT',
-                'description'=> 'Signup',
-                'created_date'=> getTimeStamp()
-            ];
-            $this->global_model->insert("audit_trail", $params);
-
             //NOTIFY ADMIN AND STAFF
             $bulk_insert_params = [];
             $users = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", ["column" => "id", "type" => "ASC"], "multiple", []);
@@ -372,6 +363,17 @@ class Signup extends CI_Controller {
 
             $this->data['encrypted_user_id'] = encryptData($user_id);
             $this->data['is_error'] = false;
+
+             //CREATE AUDIT TRAIL
+            $new_details = $this->global_model->get("views_users", "*", "id = '{$user_id}'", [], "single", []);
+            $params = [
+                'user_id'=> $user_id,
+                'code'=> 'ACCOUNT',
+                'description'=> 'Signup',
+                'new_details'=> json_encode($new_details, JSON_PRETTY_PRINT),
+                'created_date'=> getTimeStamp()
+            ];
+            $this->global_model->insert("audit_trail", $params);
         }
         else{
             $this->data['is_error'] = true;
