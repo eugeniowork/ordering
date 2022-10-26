@@ -129,6 +129,15 @@ class User extends CI_Controller {
 	        $mail->isHTML(true);
 
 	        $mail->send();
+
+	        //CREATE AUDIT TRAIL
+	        $params = [
+	        	'user_id'=> $this->session->userdata('user_id'),
+	        	'code'=> 'ACCOUNT',
+	        	'description'=> ucfirst(strtolower($approval_status))." customer <strong>{$customer_name}</strong>",
+	        	'created_date'=> getTimeStamp()
+	        ];
+	        $this->global_model->insert("audit_trail", $params);
 		}
 
 		$result = [
