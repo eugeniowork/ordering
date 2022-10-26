@@ -253,16 +253,18 @@ class User extends CI_Controller {
         	$post['approval_status'] = 'N/A';
         	$post['profile_path'] = "assets/uploads/profile/default-user-icon.jpg";
 
-        	$this->global_model->batch_insert_or_update("users", [$post]);
+        	$insert_id = $this->global_model->insert("users", $post);
 
         	$is_error = false;
 
         	//CREATE AUDIT TRAIL
         	$customer_name = $post['firstname']." ".$post['lastname'];
+        	$new_details = $this->global_model->get("views_users", "*", "id = '{$insert_id}'", [], "single", []);
 	        $params = [
 	        	'user_id'=> $this->session->userdata('user_id'),
 	        	'code'=> 'ACCOUNT',
 	        	'description'=> "Added employee <strong>{$customer_name}</strong>",
+	        	'new_details'=> json_encode($new_details, JSON_PRETTY_PRINT),
 	        	'created_date'=> getTimeStamp()
 	        ];
 	        $this->global_model->insert("audit_trail", $params);
