@@ -1028,6 +1028,10 @@ table {
   font-size: 12px;
   display: none; }
 
+.employee-add-container .password-requirement-container {
+  font-size: 12px;
+  display: none; }
+
 .home-container .carousel-container {
   justify-content: center;
   display: flex; }

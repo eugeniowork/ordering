@@ -230,7 +230,20 @@ class User extends CI_Controller {
             $is_error = true;
             $error_msg = validation_errors();
         }
-        else{
+        //VALIDATE PASSWORD
+        if($password != ""){
+            // Validate password strength
+            $uppercase = preg_match('@[A-Z]@', $password);
+            $lowercase = preg_match('@[a-z]@', $password);
+            $number    = preg_match('@[0-9]@', $password);
+            $specialChars = preg_match('@[^\w]@', $password);
+            if(!$uppercase || !$lowercase || !$number || !$specialChars || mb_strlen($password) < 6) {
+                $is_error = true;
+                $error_msg = 'Password should be at least 6 characters in length and must contain at least one upper case letter, one lower case letter, one number, and one special character.';
+            }
+        }
+
+        if(!$is_error){
         	unset($post['confirm_password']);
         	$post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
         	$post['created_date'] = getTimeStamp();
