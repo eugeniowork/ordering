@@ -513,6 +513,42 @@ class Product extends CI_Controller {
         			$product_id = decryptData($post['encrypted_id']);
         			unset($post['encrypted_id']);
         			$this->global_model->update("products", "id = {$id}" ,$post);
+
+        			//CHECK CHANGES
+        			$changes = [];
+        			$fields = ["name", "code", "price", "category_id"];
+                    foreach ($fields as $field) {
+                        if($product_details[$field] != $post[$field]){
+                            if($field == "category_id"){
+                            	$category_details = $this->global_model->get("product_category", "name", "id = ".$post[$field], [], "single", []);
+                                $current_value = empty($product_details['category_name'])? 'no value': $product_details['category_name'];
+                                $new_value = $category_details['name'];
+                                $field = 'category name';
+                            }
+                            else{
+                                $current_value = empty($product_details[$field])? 'no value': $product_details[$field];
+                                $new_value = $post[$field];
+                            }
+
+                            $changes[] = "<span style='text-decoration:underline;'>".(ucwords($field))."</span>: <strong>(from)</strong> ".$current_value." <strong>(to)</strong> ".$new_value;
+                        }
+                    }
+
+                    if($changes){
+                        $changes_in_text = "Changes made on the following fields: \r<br>".implode("\r<br>", $changes);
+
+	        			//CREATE AUDIT TRAIL
+	        			$new_details = $this->global_model->get("views_products", "*", "id = {$id}", [], "single", []);
+			            $params = [
+			                'user_id'=> $this->session->userdata('user_id'),
+			                'code'=> 'PRODUCT',
+			                'description'=> "Updated product <strong>".$product_details['name']."</strong> <br> {$changes_in_text}",
+			                'old_details'=> json_encode($product_details, JSON_PRETTY_PRINT),
+			                'new_details'=> json_encode($new_details, JSON_PRETTY_PRINT),
+			                'created_date'=> getTimeStamp()
+			            ];
+			            $this->global_model->insert("audit_trail", $params);
+			        }
 		        }
 		        else{
 		        	$post['created_date'] = getTimeStamp();
