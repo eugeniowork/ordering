@@ -624,7 +624,7 @@ class Product extends CI_Controller {
             	$this->data['error_msg'] = "<p>Please enter correct stock.</p>";
         	}
         	else{
-        		$product = $this->global_model->get("products", "id,stock", "id = '$product_id'", [], "single", []);
+        		$product = $this->global_model->get("products", "id,stock,name", "id = '$product_id'", [], "single", []);
         		$new_stock = $product['stock'] + $stock;
 
         		$products_params[] = [
@@ -644,6 +644,15 @@ class Product extends CI_Controller {
         		$this->global_model->insert("products_history", $products_history_params);
 
         		$this->data['is_error'] = false;
+
+        		//CREATE AUDIT TRAIL
+        		$params = [
+		        	'user_id'=> $this->session->userdata('user_id'),
+		        	'code'=> 'PRODUCT',
+		        	'description'=> "Added {$stock} stock(s) on product <strong>".$product['name']."</strong>",
+		        	'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
         	}
 		}
 
