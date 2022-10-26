@@ -423,4 +423,28 @@ class User extends CI_Controller {
 	    ];
         echo json_encode($result);
 	}
+
+	public function activityLogPage(){
+		$this->data['page_title'] = "User Activity Log";
+
+		$this->load->view('layouts/header', $this->data);
+		$this->load->view('layouts/header_buttons');
+		$this->load->view('user/user-activity-log', $this->data);
+		$this->load->view('layouts/footer');
+	}
+
+	public function getUserActivityLog(){
+		$date_from = $this->input->post('date_from')." 00:00:00";
+		$date_to = $this->input->post('date_to')." 23:59:59";
+		$user_id = $this->session->userdata('user_id');
+
+		$activity_log_list = $this->global_model->get("views_audit_trail", "*", "user_id = {$user_id} AND created_date >= '{$date_from}' AND created_date <= '{$date_to}'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+
+		foreach ($activity_log_list as $key => $audit) {
+			$activity_log_list[$key]->{"created_date_text"} = date("F d, Y h:i a", strtotime($audit->created_date));
+		}
+
+		$this->data['activity_log_list'] = $activity_log_list;
+		echo json_encode($this->data);
+	}
 }

@@ -46,6 +46,9 @@
                                 <button class="btn btn-primary btn-change-password"><i class="fas fa-lock"></i>&nbsp;Change Password</button>
                             </li>
                             <li>
+                                <button class="btn btn-primary btn-activity-log"><i class="fa-solid fa-list"></i>&nbsp;Activity Log</button>
+                            </li>
+                            <li>
                                 <button class="btn btn-primary btn-logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</button>
                             </li>
                         </ul>

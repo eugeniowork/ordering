@@ -77,6 +77,7 @@ $route['employee'] = 'user/employeePage';
 $route['employee-view/(:any)'] = 'user/employeeViewPage/$1';
 $route['employee-add'] = 'user/employeeAddPage';
 $route['change-my-password'] = 'user/changePasswordPage';
+$route['user-activity-log'] = 'user/activityLogPage';
 
 //FOR WALLET RELATED
 $route['my-wallet'] = 'wallet/myWalletPage';

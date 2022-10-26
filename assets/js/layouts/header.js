@@ -294,6 +294,10 @@ $(document).ready(function(){
         window.location.href = base_url + "change-my-password";
     })
 
+    $(".btn-activity-log").on("click", function(){
+        window.location.href = base_url + "user-activity-log";
+    })
+
     get_total_unread_notifications();
     function get_total_unread_notifications(){
         $.ajax({

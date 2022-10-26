@@ -28,7 +28,7 @@
 	            <table class="table table-bordered table-striped audit-trail-table">
 	                <thead>
 	                    <tr>
-	                    	<th>Audit ID</th>
+	                    	<th>ID</th>
 	                        <th>Date and Time</th>
 	                        <th>Name</th>
 	                        <th>Description</th>
