@@ -48,9 +48,9 @@ $(document).ready(function(){
 				                "render": function(data, type, full, meta) {
 				                    var html = "";
 				                    html += '<a href="'+base_url+'product-view/'+full.encrypted_id+'" class="btn btn-sm btn-success btn-view" title="View"><i class="fas fa-eye"></i></a>'
-				                    //html += '&nbsp;<button class="btn btn-sm btn-outline-danger btn-delete" title="Delete"><i class="fas fa-trash"></i></button>'
 				                    html += '&nbsp;<a href="'+base_url+'product-edit/'+full.encrypted_id+'" class="btn btn-sm btn-success" title="Edit"><i class="fas fa-pencil"></i></a>'
 				                    html += '&nbsp;<button class="btn btn-sm btn-success btn-add-stock" title="Add Stock"><i class="fas fa-dolly-flatbed"></i></button>'
+				                    html += '&nbsp;<button class="btn btn-sm btn-success btn-remove" title="Remove"><i class="fas fa-trash"></i></button>'
 				                    return html;
 				                }
 				            },
@@ -120,4 +120,55 @@ $(document).ready(function(){
 		    })
 		}
 	})
+
+	var product_id_remove;
+	$(document).on("click", ".btn-remove", function(){
+		var data = productTable.row( $(this).parents('tr') ).data();
+		console.log(data)
+		product_id_remove = data.id;
+
+		$("#confirm_remove_modal").modal("show")
+		$("#confirm_remove_modal .product-name").text(data.name)
+	});
+
+	var loading_remove_product = false;
+	$(".btn-confirm-remove-product").on("click", function(){
+		if(!loading_remove_product){
+			loading_remove_product = true;
+
+			$(".btn-confirm-remove-product").prop("disabled", true)
+
+			$(".global-loading").css({
+		        "display": "flex"
+		    })
+		    createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
+
+		    $.ajax({
+		    	url: base_url + "product/removeProduct",
+		    	type: 'POST',
+		    	dataType: 'json',
+		    	data:{
+		    		product_id: product_id_remove
+		    	},
+		    	success: function(response){
+		    		$(".global-loading").css({"display": "none"})
+		    		$("#confirm_remove_modal").modal("hide")
+		    		if(response.success){
+		    			$(".success-modal").modal("show")
+						$(".success-msg").html("Successfully removed product.");
+		    		}
+		    		else{
+		        		$(".btn-confirm-remove-product").prop("disabled", false)
+		    			loading_remove_product = false;
+		    		}
+		    	},
+		    	error: function(error){
+		    	}
+		    })
+		}
+	});
+
+	$(".success-modal").on("hidden.bs.modal", function(){
+		window.location.reload()
+	});
 })

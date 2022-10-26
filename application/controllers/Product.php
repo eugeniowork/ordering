@@ -781,4 +781,38 @@ class Product extends CI_Controller {
 		session_start();
 		echo json_encode($this->data);
 	}
+
+	public function removeProduct(){
+		$product_id = $this->input->post('product_id');
+		$user_id = $this->session->userdata('user_id');
+
+		$result = [];
+		$success = true;
+		$msg = "";
+
+		$params = [
+			"deleted_by"=> $user_id,
+			'deleted_date'=> getTimeStamp()
+		];
+		$this->global_model->update("products", "id = '{$product_id}'", $params);
+
+		//GET PRODUCT DETAILS
+		$product_details = $this->global_model->get("views_products", "*", "id = {$product_id}", [], "single", []);
+
+		//CREATE AUDIT TRAIL
+        $params = [
+            'user_id'=> $this->session->userdata('user_id'),
+            'code'=> 'PRODUCT',
+            'description'=> "Removed product <strong>".$product_details['name']."</strong>",
+            'new_details'=> json_encode($product_details, JSON_PRETTY_PRINT),
+            'created_date'=> getTimeStamp()
+        ];
+        $this->global_model->insert("audit_trail", $params);
+
+		$result = [
+			'success'=> $success,
+			'msg'=> $msg
+		];
+		echo json_encode($result);
+	}
 }
