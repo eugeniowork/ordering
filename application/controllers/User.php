@@ -265,6 +265,9 @@ class User extends CI_Controller {
             $error_msg = validation_errors();
         }
         else{
+        	//GET USER DETAILS
+        	$user_details = $this->global_model->get("users", "*", "id = '{$user_id}'", [], "single", []);
+
         	$params = [
     			'is_active'=> $status,
     			'updated_date'=> getTimeStamp(),
@@ -273,6 +276,19 @@ class User extends CI_Controller {
         	$this->global_model->update("users", "id = '$user_id'", $params);
 
         	$is_error = false;
+
+        	//CHECK FIRST IF THERE'S REALLY A CHANGES
+        	if($user_details['is_active'] != $status){
+        		//CREATE AUDIT TRAIL
+	        	$customer_name = $user_details['firstname']." ".$user_details['lastname'];
+		        $params = [
+		        	'user_id'=> $this->session->userdata('user_id'),
+		        	'code'=> 'ACCOUNT',
+		        	'description'=> "Changed status of ".($user_details['user_type'] == 'user'? 'customer': 'employee')." <strong>{$customer_name}</strong> to ".($status? '<strong>active</strong>': '<strong>inactive</strong>'),
+		        	'created_date'=> getTimeStamp()
+		        ];
+		        $this->global_model->insert("audit_trail", $params);
+        	}
         }
 
         $this->data['is_error'] = $is_error;
