@@ -243,6 +243,16 @@ class User extends CI_Controller {
         	$this->global_model->batch_insert_or_update("users", [$post]);
 
         	$is_error = false;
+
+        	//CREATE AUDIT TRAIL
+        	$customer_name = $post['firstname']." ".$post['lastname'];
+	        $params = [
+	        	'user_id'=> $this->session->userdata('user_id'),
+	        	'code'=> 'ACCOUNT',
+	        	'description'=> "Added employee <strong>{$customer_name}</strong>",
+	        	'created_date'=> getTimeStamp()
+	        ];
+	        $this->global_model->insert("audit_trail", $params);
         }
 
         $this->data['is_error'] = $is_error;
