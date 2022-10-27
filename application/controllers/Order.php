@@ -194,7 +194,7 @@ class Order extends CI_Controller {
         foreach ($orders as $key => $order) {
         	$orders[$key]->{"encrypted_id"} = encryptData($order->id);
         	$orders[$key]->{"date_pickup"} = date("M d, Y", strtotime($order->date_pickup));
-        	$orders[$key]->{"created_date"} = date("M d, Y", strtotime($order->created_date));
+        	$orders[$key]->{"created_date"} = date("M d, Y h:i A", strtotime($order->created_date));
         }
         $this->data['orders'] = $orders;
 
@@ -617,5 +617,50 @@ class Order extends CI_Controller {
 		}
 
 		$this->load->view('order/order-receipt-pdf', $this->data);
+	}
+
+	public function ordersHistoryPage(){
+		$this->data['page_title'] = "Orders History";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('order/orders-history');
+		$this->load->view('layouts/footer');
+	}
+
+	public function ordersHistoryList(){
+		session_write_close();
+
+		$date_from = $this->input->post('date_from');
+		$date_to = $this->input->post('date_to');
+
+        $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status != 'FOR PROCESS' OR status != 'FOR PICKUP') ", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+        foreach ($orders as $key => $order) {
+        	$orders[$key]->{"encrypted_id"} = encryptData($order->id);
+        	$orders[$key]->{"date_pickup"} = date("M d, Y", strtotime($order->date_pickup));
+        	$orders[$key]->{"created_date"} = date("M d, Y h:i A", strtotime($order->created_date));
+        	$orders[$key]->{"actual_date_pickup"} = date("M d, Y h:i A", strtotime($order->actual_date_pickup));
+        }
+        $this->data['orders'] = $orders;
+
+		session_start();
+		echo json_encode($this->data);
+	}
+
+	public function ordersHistoryView($hash_id){
+		$order_id = decryptData($hash_id);
+
+		$order = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+		$this->data['order'] = $order;
+
+		$order_items = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
+		$this->data['order_items'] = $order_items;
+
+		$this->data['page_title'] = "Orders History";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('order/orders-history-view');
+		$this->load->view('layouts/footer');
 	}
 }

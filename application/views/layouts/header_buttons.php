@@ -109,7 +109,8 @@
             <button class="btn-menu" id="order_management" data-id="sub_menu_order_management"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Order Management<i class="fa-solid fa-caret-down caret"></i></button>
             <div class="order-management-dropdown sub-buttons" id="sub_menu_order_management">
                 <?php if ($this->session->userdata("user_type") == "admin"): ?>
-                    <a href="<?= base_url(); ?>ongoing-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;Ongoing Orders</a>
+                    <a href="<?= base_url(); ?>ongoing-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;Ongoing Orders</a><br>
+                    <a href="<?= base_url(); ?>orders-history"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;Orders History</a>
                 <?php else: ?>
                     <a href="<?= base_url(); ?>dashboard"><i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;Add Order</a><br>
                     <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a>                

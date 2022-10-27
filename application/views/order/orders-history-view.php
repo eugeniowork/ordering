@@ -9,10 +9,7 @@
     	<div class="container-header">
     		<span class="header-title">Order #<?= $order['order_number'] ?></span><br>
             <div class="buttons">
-                <a href="<?= base_url();?>ongoing-orders" class="btn btn-sm btn-primary">Back</a>
-                <?php if ($order['status'] == "FOR PICKUP"): ?>
-                    <a href="<?= base_url();?>order-payment/<?= encryptData($order['id']) ?>" class="btn btn-sm btn-primary">Proceed to Payment</a>
-                <?php endif ?>
+                <a href="<?= base_url();?>orders-history" class="btn btn-sm btn-primary">Back</a>
             </div>
     	</div>
     	<div class="container-body">
@@ -64,6 +61,14 @@
                 <div class="col-12 col-lg-10">
                     <span><?= date("M d, Y", strtotime($order['date_pickup'])); ?></span>
                 </div>
+                <?php if($order['status'] == 'PICKED UP'): ?>
+                    <div class="col-12 col-lg-2">
+                        <strong>Actual Date Pickup:</strong>
+                    </div>
+                    <div class="col-12 col-lg-10">
+                        <span><?= date("M d, Y h:i A", strtotime($order['actual_date_pickup'])); ?></span>
+                    </div>
+                <?php endif; ?>
                 <div class="col-12 col-lg-12">
                     <strong>Items:</strong>
                 </div>
@@ -90,45 +95,4 @@
             </table>
     	</div>
     </div>
-    <?php if ($order['status'] == "FOR PROCESS"): ?>
-        <div class="modal fade" id="change_order_status_modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Change Order Status</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <span>Status&nbsp;<span class="text-danger">*</span></span>
-                            <select class="form-control status">
-                                <option disabled selected>Select status</option>
-                                <option value="FOR PICKUP">FOR PICKUP</option>
-                                <option value="CANCELED">CANCEL</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <span>Remarks</span>
-                            <textarea rows="3" class="form-control remarks" placeholder="Enter remarks"></textarea>
-                        </div>
-                        <div class="warning text-danger"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary btn-sm btn-confirm-change-order-status">Submit</button>
-                        <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endif ?>
-
-    <script>
-        var order_id = '<?= encryptData($order['id']); ?>'
-        var user_type = '<?= $this->session->userdata('user_type'); ?>'
-    </script>
-
-    <script type="text/javascript" src="<?= base_url();?>assets/js/order/ongoing-orders-view.js"></script>
-
 <?php endif ?>
