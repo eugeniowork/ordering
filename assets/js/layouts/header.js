@@ -338,29 +338,17 @@ $(document).ready(function(){
 
                     if(response.notifications.length > 0){
                         $.each(response.notifications, function(key, data) {
-                            // var row = $("<div class='row'>")
-                            // row.append('<div class="col-12 col-lg-2"><img src="'+data.customer_profile_path+'"></div>')
-                            // row.append('<div class="col-12 col-lg-10"><span class="description">'+data.content+'</span></div>')
-                            // row.append('<div class="col-12 col-lg-2"></div>');
-                            // row.append('<div class="col-12 col-lg-10 date"><span>'+data.created_date+'</span></div>')
+                            var notification_data = $("<div class='notification-data'>");
+                            var flex1 = $("<div class='d-flex flex-row'>");
+                            flex1.append('<img src="'+data.customer_profile_path+'">')
+                            flex1.append('<div class="notification-data-description"><span>'+data.content+'</span></div>')
+                            notification_data.append(flex1)
 
-                            var append = "";
-                            append += '<div class="notification-data">'
-                                append += '<div class="d-flex flex-row">'
-                                    append += '<img src="'+data.customer_profile_path+'">'
-                                    append += '<div class="notification-data-description">'
-                                        append += '<span>'+data.content+'</span>'
-                                    append += '</div>'
-                                append += '</div>'
+                            var flex2 = $("<div class='d-flex flex-row'>");
+                            flex2.append('<div class="notification-data-date"><span>'+data.created_date+'</span></div>')
+                            notification_data.append(flex2);
 
-                                append += '<div class="d-flex flex-row">'
-                                    append += '<div class="notification-data-date">'
-                                        append += '<span>'+data.created_date+'</span>'
-                                    append += '</div>'
-                                append += '</div>'
-                            append += '</div>';
-
-                            $(".header-dropdown-notifications .notification-body .notification-list").append(append)
+                            $(".header-dropdown-notifications .notification-body .notification-list").append(notification_data)
                         });
 
                     }
