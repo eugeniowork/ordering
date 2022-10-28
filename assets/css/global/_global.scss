@@ -133,3 +133,20 @@ table{
         hyphens: auto !important;
     }
 }
+
+@media screen and (max-width : 950px){
+    .modal{
+        .modal-dialog{
+            margin: 0px;
+            max-width: 100%;
+            .modal-content{
+                height: 100vh;
+
+                .modal-header{
+                    border-top-left-radius:0px;
+                    border-top-right-radius:0px;
+                }
+            }
+        }   
+    }
+}
