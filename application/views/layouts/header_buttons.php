@@ -15,11 +15,11 @@
                             <span class="span-cart-total-product d-none">0</span>
                         </a>
                         <div class="header-dropdown-cart">
-                            <span class="bold-title">My Order</span>
+                            <span class="bold-title">My Cart</span>
                             <div class="loading-cart-product-container"></div>
                         </div>
                     </li>
-
+                    
                     <li>
                         <a class="header-btn-wishlist">
                             <i class="fa fa-heart"></i>
@@ -56,23 +56,6 @@
                 </li>
                 <li>
                     <a class="header-btn-notifications"><i class="fa fa-bell"></i>&nbsp;<span class="header-btn-notifications-label">Notifications</span><span class="span-total-notif d-none">9+</span></a>
-                    <!-- <div class="header-dropdown-notifications">
-                        <span class="bold-title">Notification(s)</span>
-                        <div class="notification-content" style="line-height: 23px">
-                            <div class="notification-content-body">
-                            </div>
-                        </div>
-                        <div class="loading-notifications-container"></div>
-                    </div> -->
-                    <!-- <div class="header-dropdown-notifications">
-                        <span class="bold-title">Notification(s)</span>
-                        <div class="notification-content" style="line-height: 23px">
-                            <div class="notification-content-body">
-                            </div>
-                        </div>
-                        <div class="loading-notifications-container"></div>
-                    </div> -->
-
                     <div class="header-dropdown-notifications">
                         <div class="notification-head">
                             <strong>Notification(s)</strong>
