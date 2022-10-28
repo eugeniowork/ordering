@@ -168,7 +168,18 @@
         }
 
         .header-dropdown-notifications{
-            @include headerDropdown2(70%, 465px, 100px, white);
+            width: 500px;
+            background:white;
+            position:absolute;
+            margin-top: 50px;
+            right:100px;
+            -webkit-box-shadow: 10px 10px 112px -7px rgba(0,0,0,0.75);
+            -moz-box-shadow: 10px 10px 112px -7px rgba(0,0,0,0.75);
+            box-shadow: 10px 10px 112px -7px rgba(0,0,0,0.75);
+            border-radius:5px;
+            color:#686565;
+            display: none;
+            font-family: sans-serif;
             a{
                 color: #007bff;
                 padding: 0;
@@ -182,22 +193,59 @@
                 font-weight: 500;
                 font-size: 16px;
             }
-            .notification-content{
-                .notification-content-body{
+            .notification-head{
+                height: 20px;
+                padding-left: 10px;
+            }
+            .notification-body{
+                .notification-list{
+                    overflow: auto;
+                    overflow-x: hidden;
+                    max-height: 400px;
+                    padding:10px 10px;
                     img{
                         height: 60px;
                         width: 60px;
-                        border-radius: 5px;
                     }
-                    .date{
-                        font-size: 12px;
-                        font-style: italic;
-                    }
-                    .description{
-                        font-size: 15px;
+
+                    .notification-data{
+                        padding:5px 5px;
+                        border-bottom:1px solid gray;
+                        .notification-data-description{
+                            line-height: 20px;
+                            padding-left:30px;
+                            font-size: 13px;
+                            font-size: 15px !important;
+                            color:#333;
+                        }
+                        .notification-data-date{
+                            line-height: 20px;
+                            padding-left: 90px;
+                            font-size: 13px;
+                            span{
+                                font-style: italic;
+                            }
+                        }
                     }
                 }
             }
+            // .notification-content{
+            //     .notification-content-body{
+            //         // img{
+            //         //     height: 60px;
+            //         //     width: 60px;
+            //         //     border-radius: 5px;
+            //         // }
+            //         // .date{
+            //         //     font-size: 12px;
+            //         //     font-style: italic;
+            //         // }
+            //         // .description{
+            //         //     font-size: 15px;
+            //         // }
+
+            //     }
+            // }
         }
     }
 }
@@ -294,12 +342,35 @@
     }
 }
 
-@media screen and (max-width : 768px){
+@media screen and (max-width : 950px){
     .header{
         .right{
             .header-btn-notifications{
                 .header-btn-notifications-label{
                     display: none;
+                }
+            }
+
+            .header-dropdown-notifications{
+                // width: 100%;
+                // right: 0px;
+                // height: 100vh;
+                // .notification-content{
+                //     margin-bottom: 80px;
+                // }
+                width: 100%;
+                right: 0px;
+                border-radius: 0px;
+                height: 100vh;
+                z-index: 1111;
+                overflow-x: hidden;
+                overflow: scroll;
+                .notification-body{
+                    padding-bottom: 70px;
+                    .notification-list{
+                        height: 100%;
+                        max-height: 100vh;
+                    }
                 }
             }
 

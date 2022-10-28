@@ -45,7 +45,7 @@ $(document).ready(function(){
         }
 
         //FOR NOTIFICATIONS DROPDOWN
-        if ($(".header-btn-notifications").is(e.target) || $(".header-btn-notifications i").is(e.target)) {
+        if ($(".header-btn-notifications").is(e.target) || $(".header-btn-notifications i").is(e.target) || $(".header-btn-notifications span").is(e.target)) {
             $('.header-dropdown-notifications').toggle();
             if(!is_loaded_notifications){
                 get_nofitications();
@@ -321,7 +321,8 @@ $(document).ready(function(){
     function get_nofitications(){
         is_loaded_notifications = true;
         createProcessLoading('.loading-notifications-container', 'Loading notifcations...', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
-        $(".notification-content-body").empty();
+        //$(".notification-content-body").empty();
+        $(".header-dropdown-notifications .notification-body .notification-list").empty();
 
         $.ajax({
             url: base_url + "notification/getNotifications",
@@ -337,14 +338,29 @@ $(document).ready(function(){
 
                     if(response.notifications.length > 0){
                         $.each(response.notifications, function(key, data) {
-                            var row = $("<div class='row'>")
-                            row.append('<div class="col-12 col-lg-2"><img src="'+data.customer_profile_path+'"></div>')
-                            row.append('<div class="col-12 col-lg-10"><span class="description">'+data.content+'</span></div>')
-                            row.append('<div class="col-12 col-lg-2"></div>');
-                            row.append('<div class="col-12 col-lg-10 date"><span>'+data.created_date+'</span></div>')
+                            // var row = $("<div class='row'>")
+                            // row.append('<div class="col-12 col-lg-2"><img src="'+data.customer_profile_path+'"></div>')
+                            // row.append('<div class="col-12 col-lg-10"><span class="description">'+data.content+'</span></div>')
+                            // row.append('<div class="col-12 col-lg-2"></div>');
+                            // row.append('<div class="col-12 col-lg-10 date"><span>'+data.created_date+'</span></div>')
 
-                            $(".notification-content-body").append('<hr>')
-                            $(".notification-content-body").append(row)
+                            var append = "";
+                            append += '<div class="notification-data">'
+                                append += '<div class="d-flex flex-row">'
+                                    append += '<img src="'+data.customer_profile_path+'">'
+                                    append += '<div class="notification-data-description">'
+                                        append += '<span>'+data.content+'</span>'
+                                    append += '</div>'
+                                append += '</div>'
+
+                                append += '<div class="d-flex flex-row">'
+                                    append += '<div class="notification-data-date">'
+                                        append += '<span>'+data.created_date+'</span>'
+                                    append += '</div>'
+                                append += '</div>'
+                            append += '</div>';
+
+                            $(".header-dropdown-notifications .notification-body .notification-list").append(append)
                         });
 
                     }

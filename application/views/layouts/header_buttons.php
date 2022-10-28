@@ -56,13 +56,34 @@
                 </li>
                 <li>
                     <a class="header-btn-notifications"><i class="fa fa-bell"></i>&nbsp;<span class="header-btn-notifications-label">Notifications</span><span class="span-total-notif d-none">9+</span></a>
-                    <div class="header-dropdown-notifications">
+                    <!-- <div class="header-dropdown-notifications">
                         <span class="bold-title">Notification(s)</span>
                         <div class="notification-content" style="line-height: 23px">
                             <div class="notification-content-body">
                             </div>
                         </div>
                         <div class="loading-notifications-container"></div>
+                    </div> -->
+                    <!-- <div class="header-dropdown-notifications">
+                        <span class="bold-title">Notification(s)</span>
+                        <div class="notification-content" style="line-height: 23px">
+                            <div class="notification-content-body">
+                            </div>
+                        </div>
+                        <div class="loading-notifications-container"></div>
+                    </div> -->
+
+                    <div class="header-dropdown-notifications">
+                        <div class="notification-head">
+                            <strong>Notification(s)</strong>
+                        </div>
+                        <hr>
+                        <div class="loading-notifications-container"></div>
+                        <div class="notification-body">
+                            <div class="notification-list">
+                                
+                            </div>
+                        </div>
                     </div>
                 </li>
             <?php else: ?>
