@@ -147,9 +147,9 @@ $(document).ready(function(){
                             var total_product_price = parseInt(quantity) * parseFloat(data.price);
 
                             total_cart_product_amount += total_product_price;
-                            row_cart.append('<div class="col-12 col-lg-3"><img src="'+base_url+data.image_path+'"></div>')
-                            row_cart.append('<div class="col-12 col-lg-5"><span>'+data.name+'</span></div>')
-                            row_cart.append('<div class="col-12 col-lg-4">'+moneyConvertion(parseFloat(total_product_price))+'</div>')
+                            row_cart.append('<div class="col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3"><img src="'+base_url+data.image_path+'"></div>')
+                            row_cart.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>'+data.name+'</span></div>')
+                            row_cart.append('<div class="col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4">'+moneyConvertion(parseFloat(total_product_price))+'</div>')
                             row_cart.append('<div class="col-12 col-lg-12"><button class="btn-remove-to-cart" data-id="'+data.encrypted_product_id+'"><i class="fa fa-minus"></i></button><span class="cart-product-quantity">'+quantity+'</span><button class="btn-add-to-cart" data-id="'+data.encrypted_product_id+'"><i class="fa fa-plus"></i></button></div>')
                            
                             cart_product.append(row_cart)
@@ -157,8 +157,8 @@ $(document).ready(function(){
                             $(".header-dropdown-cart").append(cart_content)
                         })
                         var row_checkout = $('<div class="row cart-footer"></div>')
-                        row_checkout.append('<div class="col-12 col-lg-5"><span>Total Amount</span></div>')
-                        row_checkout.append('<div class="col-12 col-lg-7"><span class="bold-title pull-right">'+moneyConvertion(parseFloat(total_cart_product_amount))+'</span></div>')
+                        row_checkout.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>Total Amount</span></div>')
+                        row_checkout.append('<div class="col-12 col-lg-7 col-xs-7 col-md-7 col-sm-7"><span class="bold-title pull-right">'+moneyConvertion(parseFloat(total_cart_product_amount))+'</span></div>')
                         row_checkout.append('<div class="col-12 col-lg-12"><button class="btn btn-success btn-checkout-cart" style="width: 100%">CHECKOUT</button></div>')
                         $(".header-dropdown-cart").append(row_checkout)
                     }

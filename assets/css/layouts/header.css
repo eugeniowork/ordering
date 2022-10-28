@@ -305,6 +305,10 @@
         max-height: 100vh; }
   .header .right .header-btn-account {
     display: none; }
+  .header .right .header-dropdown-cart {
+    width: 100%; }
+    .header .right .header-dropdown-cart .cart-content {
+      height: 85vh; }
 
   .side-navbar-container {
     min-width: 450px; }
