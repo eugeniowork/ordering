@@ -272,6 +272,9 @@
                 margin-left: 20px;
                 line-height: 37px;
             }
+            .mobile-view-buttons-container{
+                display: none;
+            }
         }
     }
 }
@@ -280,7 +283,7 @@
     position: absolute;
     top: 11px;
     border: 1px solid lightgrey;
-    font-size: 14px;
+    font-size: 20px;
     background: white;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
@@ -288,5 +291,34 @@
     &:focus {
         outline: 0 !important;
         //box-shadow: none;
+    }
+}
+
+@media screen and (max-width : 768px){
+    .header{
+        .right{
+            .header-btn-notifications{
+                .header-btn-notifications-label{
+                    display: none;
+                }
+            }
+
+            .header-btn-account{
+                display: none;
+            }
+        }
+    }
+    .side-navbar-container{
+        .side-navbar-content{
+            .side-navbar-body{
+                .mobile-view-buttons-container{
+                    display: block;
+                }
+                button, a{
+                    font-size: 20px;
+                }
+            }
+        }
+        min-width: 450px;
     }
 }

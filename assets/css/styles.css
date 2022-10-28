@@ -374,12 +374,14 @@ table {
       display: none;
       margin-left: 20px;
       line-height: 37px; }
+    .side-navbar-container .side-navbar-content .side-navbar-body .mobile-view-buttons-container {
+      display: none; }
 
 .btn-toggle-menu {
   position: absolute;
   top: 11px;
   border: 1px solid lightgrey;
-  font-size: 14px;
+  font-size: 20px;
   background: white;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
@@ -387,6 +389,18 @@ table {
   .btn-toggle-menu:focus {
     outline: 0 !important; }
 
+@media screen and (max-width: 768px) {
+  .header .right .header-btn-notifications .header-btn-notifications-label {
+    display: none; }
+  .header .right .header-btn-account {
+    display: none; }
+
+  .side-navbar-container {
+    min-width: 450px; }
+    .side-navbar-container .side-navbar-content .side-navbar-body .mobile-view-buttons-container {
+      display: block; }
+    .side-navbar-container .side-navbar-content .side-navbar-body button, .side-navbar-container .side-navbar-content .side-navbar-body a {
+      font-size: 20px; } }
 .cookiealert {
   position: fixed;
   bottom: 0;
@@ -667,6 +681,14 @@ table {
   font-size: 14px;
   color: #7d7d7d; }
 
+@media screen and (max-width: 768px) {
+  .summary-numbers-container .row {
+    text-align: center !important; } }
+/* Large Devices, Wide Screens */
+/* Medium Devices, Desktops */
+/* Small Devices, Tablets */
+/* Extra Small Devices, Phones */
+/* Custom, iPhone Retina */
 .my-orders-container .active-orders-container .title, .my-orders-container .past-orders-container .title {
   color: #7d7d7d;
   font-weight: 600;

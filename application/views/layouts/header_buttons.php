@@ -55,7 +55,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="header-btn-notifications"><i class="fa fa-bell"></i>&nbsp;Notifications<span class="span-total-notif d-none">9+</span></a>
+                    <a class="header-btn-notifications"><i class="fa fa-bell"></i>&nbsp;<span class="header-btn-notifications-label">Notifications</span><span class="span-total-notif d-none">9+</span></a>
                     <div class="header-dropdown-notifications">
                         <span class="bold-title">Notification(s)</span>
                         <div class="notification-content" style="line-height: 23px">
@@ -115,19 +115,27 @@
                     <a href="<?= base_url(); ?>dashboard"><i class="fa-solid fa-cart-plus"></i>&nbsp;&nbsp;Add Order</a><br>
                     <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a>                
                 <?php endif ?>
-            </div><br>
-
+            </div>
+            <br>
             <?php if ($this->session->userdata("user_type") == "admin"): ?>
                 <!-- FOR USER MANAGEMENT -->
                 <button class="btn-menu" id="user_management" data-id="sub_menu_user_management"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;User Management<i class="fa-solid fa-caret-down caret"></i></button>
+            
+                <div class="user-management-dropdown sub-buttons" id="sub_menu_user_management">
+                    <a href="<?= base_url(); ?>customer"><i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;Customer</a><br>
+                    <a href="<?= base_url(); ?>employee"><i class="fas fa-user-tie"></i>&nbsp;&nbsp;Employee</a>
+                </div><br>
             <?php endif ?>
-            <div class="user-management-dropdown sub-buttons" id="sub_menu_user_management">
-                <a href="<?= base_url(); ?>customer"><i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;Customer</a><br>
-                <a href="<?= base_url(); ?>employee"><i class="fas fa-user-tie"></i>&nbsp;&nbsp;Employee</a>
-            </div><br>
+
+            <div class="mobile-view-buttons-container">
+                <button class="btn btn-primary btn-my-profile"><i class="fas fa-address-card"></i>&nbsp;My Profile</button><br>
+                <button class="btn btn-primary btn-change-password"><i class="fas fa-lock"></i>&nbsp;Change Password</button><br>
+                <button class="btn btn-primary btn-activity-log"><i class="fa-solid fa-list"></i>&nbsp;Activity Log</button><br>
+                <button class="btn btn-primary btn-logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</button>
+            </div>
         </div>
     </div>
-    <button class="btn-toggle-menu" style="right: 4px; z-index: 300;"><i class="fas fa-bars"></i></button>
+    <button class="btn-toggle-menu" style="right: 0px; z-index: 300;"><i class="fas fa-bars"></i></button>
 </div>
 <button class="btn-toggle-menu btn-show-menu" style="z-index: 200; left: 0px;position: fixed;"><i class="fas fa-bars"></i></button>
 

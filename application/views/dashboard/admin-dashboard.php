@@ -6,7 +6,7 @@
         <br>
         <div class="summary-numbers-container">
             <div class="row">
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-lg-3 col-xs-3 col-md-6 col-sm-6">
                     <div class="row">
                         <div class="col-lg-4">
                            <h1><span style="color: #A87824 !important; border-color: #A87824 !important;" class="fas text-primary fa-box py-3 px-4 rounded-circle border border-primary"></span></h1>
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-lg-3 col-xs-3 col-md-6 col-sm-6">
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <h1><span style="color: #A87824 !important; border-color: #A87824 !important;" class="fa text-primary fa-chart-bar py-3 px-4 rounded-circle border border-primary"></span></h1>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-lg-3 col-xs-3 col-md-6 col-sm-6">
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <h1><span style="color: #A87824 !important; border-color: #A87824 !important;" class="fa text-primary fa-clipboard-check py-3 px-4 rounded-circle border border-primary"></span></h1>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-lg-3 col-xs-3 col-md-6 col-sm-6">
                     <div class="row">
                         <div class="col-12 col-lg-4">
                             <h1><span style="color: #A87824 !important; border-color: #A87824 !important;" class="text-primary fa-solid fa-users-line py-3 px-3 rounded-circle border border-primary"></span></h1>
