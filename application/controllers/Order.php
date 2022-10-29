@@ -263,22 +263,7 @@ class Order extends CI_Controller {
             	$this->data['error_msg'] = "Please enter amount that is equal or greater than <span>&#8369;</span>".number_format($order_details['total_amount'], 2);
         	}
         	else{
-        		$products_history_params = [];
         		$ordered_products = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
-		        foreach ($ordered_products as $key => $product) {
-		        	$product_id = $product->product_id;
-		        	$product_details = $this->global_model->get("products", "stock", "id = '$product_id'", [], "single", []);
-
-		        	$products_history_params[] = [
-	        			"product_id"=> $product_id,
-	        			"stock"=> $product->quantity,
-	        			"new_stock"=> $product_details['stock'],
-	        			"action_type"=> "minus",
-	        			"created_date"=> getTimeStamp(),
-	        			"created_by"=> $this->session->userdata("user_id")
-	        		];
-		        }
-		        $this->global_model->batch_insert_or_update("products_history", $products_history_params);
         		
         		//UPDATE ORDER
         		$order_params = [
@@ -366,22 +351,7 @@ class Order extends CI_Controller {
         		$this->data['is_error'] = true;
         	}
         	else{
-        		$products_history_params = [];
         		$ordered_products = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
-		        foreach ($ordered_products as $key => $product) {
-		        	$product_id = $product->product_id;
-		        	$product_details = $this->global_model->get("products", "stock", "id = '$product_id'", [], "single", []);
-
-		        	$products_history_params[] = [
-	        			"product_id"=> $product_id,
-	        			"stock"=> $product->quantity,
-	        			"new_stock"=> $product_details['stock'],
-	        			"action_type"=> "minus",
-	        			"created_date"=> getTimeStamp(),
-	        			"created_by"=> $this->session->userdata("user_id")
-	        		];
-		        }
-		        $this->global_model->batch_insert_or_update("products_history", $products_history_params);
 
         		//UPDATE ORDER
         		$order_params = [

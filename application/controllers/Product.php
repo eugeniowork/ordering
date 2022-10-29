@@ -310,6 +310,7 @@ class Product extends CI_Controller {
 			        $total_amount = 0;
 			        $order_history_products_params = [];
 			        $products_params = [];
+			        $products_history_params = [];
 			        //INSERT EACH PRODUCT ON ORDER HISTORY PRODUCTS
 			        foreach ($products as $key => $product) {
 			        	if($product->quantity <= $product->stock){
@@ -330,9 +331,21 @@ class Product extends CI_Controller {
 			        			"id"=> $product->product_id,
 			        			"stock"=> $product->stock - $product->quantity,
 			        		];
+
+			        		//ADD TO HISTORY/LOGS OF PRODUCT
+			        		$products_history_params[] = [
+			        			"product_id"=> $product->product_id,
+			        			"stock"=> $product->quantity,
+			        			"new_stock"=> $product->stock - $product->quantity,
+			        			"action_type"=> "minus",
+			        			"description"=> "Stock(s) deducted.<br> Order Number <strong>{$order_number}</strong>",
+			        			"created_date"=> getTimeStamp(),
+			        			"created_by"=> $this->session->userdata("user_id")
+			        		];
 			        	}
 			        }
 			        $this->global_model->batch_insert_or_update("order_history_products", $order_history_products_params);
+			        $this->global_model->batch_insert_or_update("products_history", $products_history_params);
 			        	
 			        //UPDATE ORDER HISTORY TOTAL AMOUNT AND TOTAL QUANTITY
 			        $update_order_history_params = [
@@ -638,6 +651,7 @@ class Product extends CI_Controller {
         			"stock"=> $stock,
         			"new_stock"=> $new_stock,
         			"action_type"=> "add",
+        			"description"=> "Stock(s) added.",
         			"created_date"=> getTimeStamp(),
         			"created_by"=> $this->session->userdata("user_id")
         		];

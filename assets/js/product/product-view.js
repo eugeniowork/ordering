@@ -19,17 +19,7 @@ $(document).ready(function(){
 						"data": response.products,
 						"columns": [
 							{
-				            	"data":"",
-				                "render": function(data, type, full, meta) {
-				                    var html = "";
-				                    if(full.action_type == "add"){
-				                    	html = "Stock added";
-				                    }
-				                    else{
-				                    	html = "Stock deducted";
-				                    }
-				                    return html;
-				                }
+				            	"data":"description",
 				            },
 				            {
 				            	"data":"",
