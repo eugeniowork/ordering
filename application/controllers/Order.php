@@ -77,10 +77,14 @@ class Order extends CI_Controller {
 	    	];
 	    	$this->global_model->update("order_history", "id = '$order_id'", $params);
 
+	    	$order_details = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+    		$customer_id = $order_details['user_id'];
+    		$order_number = $order_details['order_number'];
 
 	    	if($status == "CANCELED"){
 	    		//GET ORDERED PRODUCTS
         		$products_params = [];
+        		$products_history_params = [];
 		        $ordered_products = $this->global_model->get("order_history_products", "product_id, quantity", "order_history_id = '$order_id'", [], "multiple", []);
 		        foreach ($ordered_products as $key => $product) {
 		        	$product_id = $product->product_id;
@@ -90,14 +94,22 @@ class Order extends CI_Controller {
 	        			"id"=> $product->product_id,
 	        			"stock"=> $product_details['stock'] + $product->quantity,
 	        		];
+
+	        		//ADD TO HISTORY/LOGS OF PRODUCT
+	        		$products_history_params[] = [
+	        			"product_id"=> $product->product_id,
+	        			"stock"=> $product->quantity,
+	        			"new_stock"=> $product_details['stock'] + $product->quantity,
+	        			"action_type"=> "add",
+	        			"description"=> "Stock(s) returned.<br> Order Number <strong>{$order_number}</strong>",
+	        			"created_date"=> getTimeStamp(),
+	        			"created_by"=> $this->session->userdata("user_id")
+	        		];
 		        }
 		        //RETURN STOCK
 		        $this->global_model->batch_insert_or_update("products", $products_params);
+		        $this->global_model->batch_insert_or_update("products_history", $products_history_params);
 	    	}
-
-	    	$order_details = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
-    		$customer_id = $order_details['user_id'];
-    		$order_number = $order_details['order_number'];
 
 	    	//SEND EMAIL NOTIFICATION AND SYSTEM NOTIFICATION
         	if($user_type == "user"){
