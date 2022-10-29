@@ -156,8 +156,8 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <span>Date Pickup <span class="text-danger">*</span></span>
-                    <input type="date" class="form-control date-pickup" value="<?= date('Y-m-d') ?>">
+                    <span>Date/Time Pickup <span class="text-danger">*</span></span>
+                    <input type="datetime-local" class="form-control date-pickup" value="<?= date('Y-m-d') ?>">
                 </div>
                 <div class="warning text-danger"></div>
             </div>

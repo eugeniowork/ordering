@@ -94,7 +94,7 @@ class Verification extends CI_Controller {
 			        $params = [
 			            'user_id'=> $user_details['id'],
 			            'code'=> 'ACCOUNT',
-			            'description'=> 'Verify Account',
+			            'description'=> 'Verified Account',
 			            'created_date'=> getTimeStamp()
 			        ];
 			        $this->global_model->insert("audit_trail", $params);

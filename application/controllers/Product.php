@@ -299,7 +299,7 @@ class Product extends CI_Controller {
 			        	"order_number"=> $order_number,
 			        	// "total_items"=> $total_items,
 			        	// "total_amount"=> $total_amount,
-			        	"date_pickup"=> $date_pickup,
+			        	"date_pickup"=> date('Y-m-d H:i:s', strtotime($date_pickup)),
 			        	"status"=> "FOR PROCESS",
 			        	"created_date"=> getTimeStamp(),
 			        	"created_by"=> $user_id
