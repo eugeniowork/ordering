@@ -109,7 +109,8 @@
         }
 
         .header-dropdown-wishlist{
-            @include headerDropdown2(92vh, 370px, 0px, white);
+            @include headerDropdown2(100vh, 370px, 0px, white);
+            padding-bottom: 70px;
 
             .bold-title{
                 color: #7d7d7d;
@@ -383,6 +384,10 @@
                 .cart-content{
                     height: 85vh;
                 }
+            }
+
+            .header-dropdown-wishlist{
+                width: 100%;
             }
         }
     }

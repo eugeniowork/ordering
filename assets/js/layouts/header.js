@@ -403,13 +403,13 @@ $(document).ready(function(){
                             var wishlist_product = $('<div class="wishlist-product '+data.encrypted_product_id+' "></div>')
                             var row_wishlist = $('<div class="row"></div>')
 
-                            row_wishlist.append('<div class="col-12 col-lg-3"><img src="'+base_url+data.image_path+'"></div>')
-                            row_wishlist.append('<div class="col-12 col-lg-5"><span>'+data.name+'</span></div>')
-                            row_wishlist.append('<div class="col-12 col-lg-4">'+moneyConvertion(parseFloat(data.price))+'</div>')
+                            row_wishlist.append('<div class="col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3"><img src="'+base_url+data.image_path+'"></div>')
+                            row_wishlist.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>'+data.name+'</span></div>')
+                            row_wishlist.append('<div class="col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4">'+moneyConvertion(parseFloat(data.price))+'</div>')
 
                             var row_wishlist2 = $('<div class="row"></div>')
-                            row_wishlist2.append('<div class="col-12 col-lg-6"><span class="wishlisth-product-stock">Stock: '+data.stock+'</span></div>')
-                            var row_wishlist2_buttons = $('<div class="col-12 col-lg-6 wishlist-buttons"></div>')
+                            row_wishlist2.append('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6"><span class="wishlisth-product-stock">Stock: '+data.stock+'</span></div>')
+                            var row_wishlist2_buttons = $('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6 wishlist-buttons"></div>')
                             if(data.stock > 0){
                                 row_wishlist2_buttons.append('<button class="btn btn-success btn-sm btn-add-to-cart" data-id="'+data.encrypted_product_id+'" title="Add to cart"><i class="fas fa-cart-plus"></i></button>')
                             }
