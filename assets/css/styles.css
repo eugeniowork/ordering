@@ -574,6 +574,14 @@ table {
       -moz-opacity: 0.8;
       opacity: 0.8; }
 
+@media screen and (max-width: 950px) {
+  .signup-v2-container .container-body {
+    padding: 0px 0px; }
+    .signup-v2-container .container-body .signup-v2-flex .signup-v2-body {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      border-radius: 0px; } }
 .verify-account-container .container-body {
   background: #A87824 !important; }
   .verify-account-container .container-body .verify-account-flex, .verify-account-container .container-body .verified-account-flex {

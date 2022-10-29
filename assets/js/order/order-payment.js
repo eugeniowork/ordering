@@ -327,6 +327,11 @@ $(document).ready(function(){
 	    	$("#message_modal").modal("show")
 			$("#message_modal .modal-body").html("<span class='text-danger'>Registered face does not match. Make sure to face the camera properly.</span>")
 	    }
+
+	    //STOP INTERVAL FOR NO FACE DETECTED
+		clearInterval(no_face_detected);
+		//REMOVE PREVIOUS INTERVAL ON NO FACE DETECTED
+		no_face_detected = null;
 	})
 
 	function generate_error(){

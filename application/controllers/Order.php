@@ -190,7 +190,7 @@ class Order extends CI_Controller {
 		//CREATE OR REPLACE VIEW views_order_history AS SELECT order_history.*, DATE_FORMAT(order_history.created_date, "%Y") as year, DATE_FORMAT(order_history.created_date, "%m") as month, DATE_FORMAT(order_history.created_date, "%d") as day, DATE_FORMAT(order_history.created_date, "%u") as week, CONCAT(users.firstname,' ',users.lastname) AS fullname FROM order_history LEFT JOIN users ON users.id = order_history.user_id
 		session_write_close();
 
-        $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status = 'FOR PROCESS' OR status = 'FOR PICKUP') ", ["column" => "created_date", "type" => "ASC"], "multiple", []);
+        $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status = 'FOR PROCESS' OR status = 'FOR PICKUP') AND fullname IS NOT NULL", ["column" => "created_date", "type" => "ASC"], "multiple", []);
         foreach ($orders as $key => $order) {
         	$orders[$key]->{"encrypted_id"} = encryptData($order->id);
         	$orders[$key]->{"date_pickup"} = date("M d, Y", strtotime($order->date_pickup));

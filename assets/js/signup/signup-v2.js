@@ -158,6 +158,11 @@ $(document).ready(function(){
 		face_value = face_descriptor
 		face_value_base64 = picture
 		$("#img_face").attr('src', picture)
+
+		//STOP INTERVAL FOR NO FACE DETECTED
+		clearInterval(no_face_detected);
+		//REMOVE PREVIOUS INTERVAL ON NO FACE DETECTED
+		no_face_detected = null;
 	})
 
 	var loading_save_registration = false;

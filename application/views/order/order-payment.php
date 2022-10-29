@@ -172,14 +172,6 @@
 	                        </button>
 	                    </div>
 	                    <div class="modal-body">
-	                    	<?php
-	                    		$email = "";
-	                    		$mail_part1 = explode("@", $user_details['email']);
-        						$mail_part2 = substr($mail_part1[0],4); // Sub string after fourth character.
-        						$email = substr($mail_part1[0],0,4); // Add first four character part.
-						        $email .= str_repeat("*", strlen($mail_part2))."@"; // Replace *. And add @
-						        $email .= $mail_part1[1]; // Add last part.
-	                    	?>
 	                    	<span>A 6 digit verification code was sent to customer's email address.</span><br><br>
 	                    	<div class="form-group">
 	                    		<input type="text" class="form-control code" placeholder="Enter code">
@@ -199,7 +191,8 @@
 	    		var order_id = '<?= encryptData($order['id']) ?>';
 	    		var order_number = '<?= $order['order_number'] ?>';
 	    		var face1_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face1_value'] ?>')));
-	    		var face2_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face2_value'] ?>')));
+	    		//var face2_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face2_value'] ?>')));
+	    		var face2_value = [];
 	    		var customer_email = '<?= $user_details['email'] ?>';
 	    	</script>
 	    	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>

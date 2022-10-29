@@ -84,3 +84,19 @@
 		}
 	}
 }
+
+@media screen and (max-width : 950px){
+	.signup-v2-container{
+		.container-body{
+			padding: 0px 0px;
+			.signup-v2-flex{
+				.signup-v2-body{
+					width: 100%;
+				    height: auto;
+				    min-height: 100vh;
+				    border-radius: 0px;
+				}
+			}
+		}
+	}
+}
