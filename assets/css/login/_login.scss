@@ -56,3 +56,19 @@
 		}
 	}
 }
+
+@media screen and (max-width : 950px){
+	.login-container{
+		.container-body{
+			padding: 0px 0px;
+			.login-flex{
+				.login-body{
+					width: 100%;
+				    height: auto;
+				    min-height: 100vh;
+				    border-radius: 0px;
+				}
+			}
+		}
+	}
+}

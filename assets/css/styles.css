@@ -639,6 +639,14 @@ table {
       .login-container .container-body .login-flex .login-body .otp-form {
         display: none; }
 
+@media screen and (max-width: 950px) {
+  .login-container .container-body {
+    padding: 0px 0px; }
+    .login-container .container-body .login-flex .login-body {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      border-radius: 0px; } }
 .forgot-password-container .container-body {
   background: #A87824 !important; }
   .forgot-password-container .container-body .forgot-password-flex {
@@ -660,6 +668,14 @@ table {
         .forgot-password-container .container-body .forgot-password-flex .forgot-password-body .main-title span {
           font-style: italic; }
 
+@media screen and (max-width: 950px) {
+  .forgot-password-container .container-body {
+    padding: 0px 0px; }
+    .forgot-password-container .container-body .forgot-password-flex .forgot-password-body {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      border-radius: 0px; } }
 .change-password-container .container-body {
   background: #A87824 !important; }
   .change-password-container .container-body .change-password-flex {
@@ -684,6 +700,14 @@ table {
         font-size: 12px;
         display: none; }
 
+@media screen and (max-width: 950px) {
+  .change-password-container .container-body {
+    padding: 0px 0px; }
+    .change-password-container .container-body .change-password-flex .change-password-body {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      border-radius: 0px; } }
 .dashboard-container .container-body .row .col-12 {
   margin-bottom: 0px !important; }
 .dashboard-container .container-body .products-container {
