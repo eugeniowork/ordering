@@ -20,9 +20,9 @@ $(document).ready(function(){
 
 					$.each(response.orders, function(key, data){
 						var row = $("<div class='row'>")
-						var col_12_order_details = $("<div class='col-12 col-lg-3'>")
-						var col_12_order_amount = $("<div class='col-12 col-lg-3'>")
-						var col_12_order_status = $("<div class='col-12 col-lg-6'>")
+						var col_12_order_details = $("<div class='col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3'>")
+						var col_12_order_amount = $("<div class='col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3'>")
+						var col_12_order_status = $("<div class='col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6'>")
 
 						col_12_order_details.append('<br><small style="font-style: italic">'+data.created_date+'</small><br>')
 
@@ -42,28 +42,28 @@ $(document).ready(function(){
 						var col_12_order_status_row = $("<br><div class='row'>");
 
 						if(data.status == "FOR PROCESS"){
-							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container status-container-active"><span>For Process</span></div></div>')
+							col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container status-container-active"><span>For Process</span></div></div>')
 						}
 						else{
-							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container"><span>For Process</span></div></div>')
+							col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container"><span>For Process</span></div></div>')
 						}
 
 						if(data.status == "FOR PICKUP"){
-							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container status-container-active"><span>For Pickup</span></div></div>')
+							col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container status-container-active"><span>For Pickup</span></div></div>')
 						}
 						else{
-							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container"><span>For Pickup</span></div></div>')
+							col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container"><span>For Pickup</span></div></div>')
 						}
 
 						if(data.status == "CANCELED"){
-							col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container status-container-active"><span>Canceled</span></div></div>')
+							col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container status-container-active"><span>Canceled</span></div></div>')
 						}
 						else{
 							if(data.status == "PICKED UP"){
-								col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container status-container-active"><span>Picked Up</span></div></div>')
+								col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container status-container-active"><span>Picked Up</span></div></div>')
 							}
 							else{
-								col_12_order_status_row.append('<div class="col-12 col-lg-2"><div class="status-container"><span>Picked Up</span></div></div>')
+								col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container"><span>Picked Up</span></div></div>')
 							}
 						}
 						

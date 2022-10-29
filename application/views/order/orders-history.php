@@ -10,7 +10,7 @@
 			<span class="header-title">Orders History</span><br>
 		</div>
 		<div class="container-body">
-			<div class="table-responsive-sm orders-history-content d-none">
+			<div class="table-responsive-sm orders-history-content d-none" style="overflow-y: auto;">
 	            <table class="table table-bordered table-striped orders-history-table">
 	                <thead>
 	                    <tr>
