@@ -31,3 +31,19 @@
 		}
 	}
 }
+
+@media screen and (max-width : 950px){
+	.verify-account-container{
+		.container-body{
+			padding: 0px 0px;
+			.verify-account-flex, .verified-account-flex{
+				.verify-account-body, .verified-account-body{
+					width: 100%;
+				    height: auto;
+				    min-height: 100vh;
+				    border-radius: 0px;
+				}
+			}
+		}
+	}
+}

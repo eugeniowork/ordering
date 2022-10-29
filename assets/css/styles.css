@@ -598,6 +598,14 @@ table {
         height: 150px;
         width: 150px; }
 
+@media screen and (max-width: 950px) {
+  .verify-account-container .container-body {
+    padding: 0px 0px; }
+    .verify-account-container .container-body .verify-account-flex .verify-account-body, .verify-account-container .container-body .verify-account-flex .verified-account-body, .verify-account-container .container-body .verified-account-flex .verify-account-body, .verify-account-container .container-body .verified-account-flex .verified-account-body {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      border-radius: 0px; } }
 .login-container .container-body {
   background: #A87824 !important; }
   .login-container .container-body .login-flex {
