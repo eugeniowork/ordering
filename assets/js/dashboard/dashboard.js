@@ -71,6 +71,7 @@ $(document).ready(function(){
 		is_reached_product_end = false;
 		product_limit_start = 0;
 		get_products("search");
+		$("#filter_modal").modal("hide")
 	})
 
 	$(".input-search-name").on("keyup", function(){
@@ -104,30 +105,30 @@ $(document).ready(function(){
 	function display_product(products){
 		var products_container_row = $(".products-container-row");
 		$.each(products, function(key, data){
-			var col_lg_3 = $('<div class="col-12 col-lg-3"></div>')
+			var col_lg_3 = $('<div class="col-12 col-lg-3 col-xs-6 col-md-6 col-sm-6"></div>')
 			var item_container = $('<div class="item-container"></div>')
 			var btn_add_to_wishlist_top_px = data.stock > 0? '43px': '10px';
 			if(data.is_in_wishlist){
-				item_container.append('<button class="btn btn-sm btn-primary" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 36px; top: '+btn_add_to_wishlist_top_px+'"><i class="fa fa-heart active-on-wishlist"></i></button>')
+				item_container.append('<button class="btn btn-sm btn-primary" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 20px; top: '+btn_add_to_wishlist_top_px+'"><i class="fa fa-heart active-on-wishlist"></i></button>')
 			}
 			else{
-				item_container.append('<button class="btn btn-sm btn-primary btn-add-to-wishlist" title="Add to Wishlist" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 36px; top: '+btn_add_to_wishlist_top_px+'"><i class="fa fa-heart fa-heart-'+data.encrypted_id+'"></i></button>')
+				item_container.append('<button class="btn btn-sm btn-primary btn-add-to-wishlist" title="Add to Wishlist" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 20px; top: '+btn_add_to_wishlist_top_px+'"><i class="fa fa-heart fa-heart-'+data.encrypted_id+'"></i></button>')
 			}
 			
 			if(data.stock > 0){
 				if (session_user_type == "user") {
-					item_container.append('<button class="btn btn-sm btn-success btn-add-to-cart" title="Add to Cart" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 35px;"><i class="fa fa-plus-circle"></i></button>')
+					item_container.append('<button class="btn btn-sm btn-success btn-add-to-cart" title="Add to Cart" data-id="'+data.encrypted_id+'" style="position: absolute;z-index: 2;right: 20px;"><i class="fa fa-plus-circle"></i></button>')
 				}
 			}
 			else{
 				item_container.append('<div class="out-of-stock"><span>Out of Stock</span></div>')
 			}
-			var opacity = data.stock > 0? 1: 0.4;
+			var opacity = data.stock > 0? 1: 0.2;
 			
 			item_container.append('<div class="row"><div class="col-12 col-lg-12 image-container"><img style="opacity:'+opacity+'" src="'+base_url+data.image_path+'"></div></div><br>')
 			item_container.append('<div class="row product-name-container"><div class="col-12 col-lg-12"><strong>'+data.name+'</strong></div></div>')
 			item_container.append('<div class="row product-category-container"><div class="col-12 col-lg-12"><small>'+data.category_name+'</small></div></div>')
-			item_container.append('<div class="row additional-product-details-container"><div class="col-12 col-lg-6">'+moneyConvertion(parseFloat(data.price))+'</div><div class="col-12 col-lg-6">Stock: '+data.stock+'</div></div>')
+			item_container.append('<div class="row additional-product-details-container"><div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6">'+moneyConvertion(parseFloat(data.price))+'</div><div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6">Stock: '+data.stock+'</div></div>')
 			
 			col_lg_3.append(item_container)
 			products_container_row.append(col_lg_3)

@@ -24,11 +24,13 @@
 			    .image-container{
 			    	display: flex;
 			    	justify-content: center;
+			    	border-radius: 10px;
+				    border: 1px solid lightgrey;
 			    	img{
 				    	width: 100%;
 				    	height: 200px;
-				    	border-radius: 10px;
-				    	border: 1px solid lightgrey;
+				    	// border-radius: 10px;
+				    	// border: 1px solid lightgrey;
 				    }
 			    }
 			    .out-of-stock{
@@ -38,9 +40,29 @@
 				    font-weight: 600;
 				    font-size: 20px;
 				    color: black;
+				    width: 100%;
+				    text-align: center;
+				    right: 0px;
+				    z-index: 1;
+				    span{
+				    	background: #c02221;
+					    padding: 5px 30px;
+					    border-radius: 5px;
+					    color: white;
+				    }
 			    }
 			}
 		}
 	}
 	
+}
+
+@media screen and (max-width : 950px){
+	.dashboard-container{
+		.container-body{
+			.products-container{
+				//padding: 0px 120px;
+			}
+		}
+	}
 }
