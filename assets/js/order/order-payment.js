@@ -287,6 +287,8 @@ $(document).ready(function(){
 					clearInterval(no_face_detected);
 					//REMOVE PREVIOUS INTERVAL ON NO FACE DETECTED
 					no_face_detected = null;
+
+					$("#face_modal canvas").show()
 				}
 
 				if(!$(".loading").hasClass('d-none')){
@@ -303,6 +305,8 @@ $(document).ready(function(){
 				        //13000 = 13 sec
 				    }, 13000);
 				}
+
+				$("#face_modal canvas").hide()
 			}
 		}, 300)
 	}
