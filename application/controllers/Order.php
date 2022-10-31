@@ -205,7 +205,7 @@ class Order extends CI_Controller {
         $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status = 'FOR PROCESS' OR status = 'FOR PICKUP') AND fullname IS NOT NULL", ["column" => "created_date", "type" => "ASC"], "multiple", []);
         foreach ($orders as $key => $order) {
         	$orders[$key]->{"encrypted_id"} = encryptData($order->id);
-        	$orders[$key]->{"date_pickup"} = date("M d, Y", strtotime($order->date_pickup));
+        	$orders[$key]->{"date_pickup"} = date("M d, Y h:i A", strtotime($order->date_pickup));
         	$orders[$key]->{"created_date"} = date("M d, Y h:i A", strtotime($order->created_date));
         }
         $this->data['orders'] = $orders;
@@ -616,12 +616,17 @@ class Order extends CI_Controller {
 		$date_from = $this->input->post('date_from');
 		$date_to = $this->input->post('date_to');
 
-        $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status != 'FOR PROCESS' OR status != 'FOR PICKUP') ", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+        $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status != 'FOR PROCESS' AND status != 'FOR PICKUP') ", ["column" => "created_date", "type" => "DESC"], "multiple", []);
         foreach ($orders as $key => $order) {
         	$orders[$key]->{"encrypted_id"} = encryptData($order->id);
-        	$orders[$key]->{"date_pickup"} = date("M d, Y", strtotime($order->date_pickup));
+        	$orders[$key]->{"date_pickup"} = date("M d, Y h:i A", strtotime($order->date_pickup));
         	$orders[$key]->{"created_date"} = date("M d, Y h:i A", strtotime($order->created_date));
-        	$orders[$key]->{"actual_date_pickup"} = date("M d, Y h:i A", strtotime($order->actual_date_pickup));
+        	if($order->status == "CANCELED"){
+        		$orders[$key]->{"actual_date_pickup"} = "N/A";
+        	}
+        	else{
+        		$orders[$key]->{"actual_date_pickup"} = date("M d, Y h:i A", strtotime($order->actual_date_pickup));
+        	}
         }
         $this->data['orders'] = $orders;
 

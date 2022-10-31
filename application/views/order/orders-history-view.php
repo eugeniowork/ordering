@@ -18,12 +18,7 @@
                     <strong>Status:</strong>
                 </div>
                 <div class="col-12 col-lg-10">
-                    <span>
-                        <?= $order['status'] ?>&nbsp;
-                        <?php if ($order['status'] == "FOR PROCESS"): ?>
-                            <button class="btn btn-sm btn-link btn-edit-status">Edit</button>
-                        <?php endif ?>
-                    </span>
+                    <span><?= $order['status'] ?></span>
                 </div>
                 <div class="col-12 col-lg-2">
                     <strong>Customer Name:</strong>
@@ -59,7 +54,7 @@
                     <strong>Scheduled Date Pickup:</strong>
                 </div>
                 <div class="col-12 col-lg-10">
-                    <span><?= date("M d, Y", strtotime($order['date_pickup'])); ?></span>
+                    <span><?= date("M d, Y h:i A", strtotime($order['date_pickup'])); ?></span>
                 </div>
                 <?php if($order['status'] == 'PICKED UP'): ?>
                     <div class="col-12 col-lg-2">

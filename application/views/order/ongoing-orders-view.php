@@ -62,7 +62,7 @@
                     <strong>Scheduled Date Pickup:</strong>
                 </div>
                 <div class="col-12 col-lg-10">
-                    <span><?= date("M d, Y", strtotime($order['date_pickup'])); ?></span>
+                    <span><?= date("M d, Y h:i A", strtotime($order['date_pickup'])); ?></span>
                 </div>
                 <div class="col-12 col-lg-12">
                     <strong>Items:</strong>
