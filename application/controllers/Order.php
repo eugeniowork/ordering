@@ -231,6 +231,10 @@ class Order extends CI_Controller {
 		$order_items = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
 		$this->data['order_items'] = $order_items;
 
+		//GET LOGS
+		$order_logs = $this->global_model->get("views_order_history_logs", "*", "order_history_id = '$order_id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+		$this->data['order_logs'] = $order_logs;
+
 		$this->data['page_title'] = "Customer Order";
 
 		$this->load->view('layouts/header', $this->data);
@@ -670,6 +674,10 @@ class Order extends CI_Controller {
 
 		$order_items = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
 		$this->data['order_items'] = $order_items;
+
+		//GET LOGS
+		$order_logs = $this->global_model->get("views_order_history_logs", "*", "order_history_id = '$order_id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+		$this->data['order_logs'] = $order_logs;
 
 		$this->data['page_title'] = "Orders History";
 

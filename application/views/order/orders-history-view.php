@@ -94,6 +94,31 @@
                         </tr>
                     <?php endforeach ?>
                 </tbody>
+            </table><hr>
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <strong>History:</strong>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Date and Time</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($order_logs as $key => $log): ?>
+                        <tr>
+                            <td><?= date('F d, Y h:i A', strtotime($log->created_date)) ?></td>
+                            <td><?= $log->firstname." ".$log->lastname ?></td>
+                            <td><?= $log->description; ?></td>
+                            <td><?= $log->status ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
             </table>
     	</div>
     </div>
