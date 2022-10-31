@@ -2,3 +2,6 @@
 ALTER TABLE `users`  ADD `approval_status` VARCHAR(255) NOT NULL COMMENT 'FOR APPROVAL, APPROVED, DISAPPROVED, N/A'  AFTER `facepay_wallet_balance`;
 
 users_approval_history
+
+2022-10-31
+order_history_logs

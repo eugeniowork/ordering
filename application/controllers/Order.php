@@ -181,9 +181,17 @@ class Order extends CI_Controller {
 	            'created_date'=> getTimeStamp()
 	        ];
 	        $this->global_model->insert("audit_trail", $params);
-        }
 
-		
+	        //INSERT LOGS
+	        $params = [
+	        	'order_history_id'=> $order_id,
+	        	'status'=> $status,
+	        	'description'=> $remarks,
+	        	'created_date'=> getTimeStamp(),
+	        	"created_by"=> $user_id
+	        ];
+	        $this->global_model->insert("order_history_logs", $params);
+        }
 
 		session_start();
 		echo json_encode($this->data);
@@ -336,6 +344,16 @@ class Order extends CI_Controller {
 		        	'created_date'=> getTimeStamp()
 		        ];
 		        $this->global_model->insert("audit_trail", $params);
+
+		        //INSERT LOGS
+		        $params = [
+		        	'order_history_id'=> $order_id,
+		        	'status'=> 'PICKED UP',
+		        	'description'=> "Order picked up",
+		        	'created_date'=> getTimeStamp(),
+		        	"created_by"=> $this->session->userdata('user_id')
+		        ];
+		        $this->global_model->insert("order_history_logs", $params);
         	}
         }
 
@@ -443,6 +461,16 @@ class Order extends CI_Controller {
 		        	'created_date'=> getTimeStamp()
 		        ];
 		        $this->global_model->insert("audit_trail", $params);
+
+		        //INSERT LOGS
+		        $params = [
+		        	'order_history_id'=> $order_id,
+		        	'status'=> 'PICKED UP',
+		        	'description'=> "Order picked up",
+		        	'created_date'=> getTimeStamp(),
+		        	"created_by"=> $this->session->userdata('user_id')
+		        ];
+		        $this->global_model->insert("order_history_logs", $params);
         	}
 			
 		}

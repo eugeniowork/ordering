@@ -309,6 +309,16 @@ class Product extends CI_Controller {
 			        ];
 			        $insert_id = $this->global_model->insert("order_history", $order_history_params);
 
+			        //INSERT LOGS
+			        $params = [
+			        	'order_history_id'=> $insert_id,
+			        	'status'=> 'FOR PROCESS',
+			        	'description'=> 'Placed order',
+			        	'created_date'=> getTimeStamp(),
+			        	"created_by"=> $user_id
+			        ];
+			        $this->global_model->insert("order_history_logs", $params);
+
 			        $total_quantity = 0;
 			        $total_amount = 0;
 			        $order_history_products_params = [];
