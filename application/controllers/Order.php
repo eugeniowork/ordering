@@ -40,7 +40,7 @@ class Order extends CI_Controller {
 	        $products = $this->global_model->get($db_name, $select, $where, "", "multiple", "");
 
 	        $orders[$key]->{"products"} = $products;
-	        $orders[$key]->{"created_date"} = date('M d, Y', strtotime($order->created_date));
+	        $orders[$key]->{"created_date"} = date('M d, Y h:i A', strtotime($order->created_date));
 	        $orders[$key]->{"encrypted_id"} = encryptData($order->id);
         }
 
