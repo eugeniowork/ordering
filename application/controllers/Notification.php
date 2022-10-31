@@ -36,7 +36,7 @@ class Notification extends CI_Controller {
 		//GET NOTIFICATIONS
         $notifications = $this->global_model->get("views_notifications", "*", "receiver = '$user_id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
         foreach ($notifications as $key => $notification) {
-        	$notifications[$key]->{"created_date"} = date('M d, Y H:i a', strtotime($notification->created_date));
+        	$notifications[$key]->{"created_date"} = date('M d, Y h:i a', strtotime($notification->created_date));
         	$notifications[$key]->{"content"} = str_replace("#customer_name", "<strong>".$notification->customer_name."</strong>", $notification->content);
         	$notifications[$key]->{"customer_profile_path"} = base_url().$notification->customer_profile_path;
         }

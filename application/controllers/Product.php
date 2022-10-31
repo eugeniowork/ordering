@@ -291,6 +291,9 @@ class Product extends CI_Controller {
 		        $where = "user_id = '$user_id' AND name != 'null'";
 		        $products = $this->global_model->get($db_name, $select, $where, "", "multiple", "");
 
+		        //GET ADMIN AND STAFF
+		        $admins = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", ["column" => "id", "type" => "ASC"], "multiple", []);
+
 		        if($products){
 		        	$order_number = time();
 			        //INSERT ORDER HISTORY
@@ -311,6 +314,7 @@ class Product extends CI_Controller {
 			        $order_history_products_params = [];
 			        $products_params = [];
 			        $products_history_params = [];
+			        $bulk_admin_notifs_params = [];
 			        //INSERT EACH PRODUCT ON ORDER HISTORY PRODUCTS
 			        foreach ($products as $key => $product) {
 			        	if($product->quantity <= $product->stock){
@@ -342,10 +346,30 @@ class Product extends CI_Controller {
 			        			"created_date"=> getTimeStamp(),
 			        			"created_by"=> $this->session->userdata("user_id")
 			        		];
+
+			        		//IF OUT OF STOCK NOTIFY ADMIN
+			        		if(($product->stock - $product->quantity) <= 0){
+			        			foreach ($admins as $key => $user) {
+					                $bulk_admin_notifs_params[] = [
+					                    "receiver"=> $user->id,
+					                    "user_id"=> $user_id,
+					                    "content"=> "Product <strong>{$product->name}</strong> is now out of stock.",
+					                    "type"=> "PRODUCT",
+					                    "source_table"=> "products",
+					                    "source_id"=> $product->product_id,
+					                    "read_status"=> 0,
+					                    "created_date"=> getTimeStamp(),
+					                    "created_by"=> $user_id
+					                ];
+					            }
+			        		}
 			        	}
 			        }
 			        $this->global_model->batch_insert_or_update("order_history_products", $order_history_products_params);
 			        $this->global_model->batch_insert_or_update("products_history", $products_history_params);
+			        if($bulk_admin_notifs_params){
+			        	$this->global_model->batch_insert_or_update("notifications", $bulk_admin_notifs_params);
+			        }
 			        	
 			        //UPDATE ORDER HISTORY TOTAL AMOUNT AND TOTAL QUANTITY
 			        $update_order_history_params = [
