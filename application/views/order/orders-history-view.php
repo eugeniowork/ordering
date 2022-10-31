@@ -63,6 +63,13 @@
                     <div class="col-12 col-lg-10">
                         <span><?= date("M d, Y h:i A", strtotime($order['actual_date_pickup'])); ?></span>
                     </div>
+
+                    <div class="col-12 col-lg-2">
+                        <strong>Payment method:</strong>
+                    </div>
+                    <div class="col-12 col-lg-10">
+                        <span><?= $order['mode_of_payment'] ?></span>
+                    </div>
                 <?php endif; ?>
                 <div class="col-12 col-lg-12">
                     <strong>Items:</strong>
