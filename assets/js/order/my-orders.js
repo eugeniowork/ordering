@@ -24,9 +24,7 @@ $(document).ready(function(){
 						var col_12_order_amount = $("<div class='col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3'>")
 						var col_12_order_status = $("<div class='col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6'>")
 
-						col_12_order_details.append('<br><small style="font-style: italic">'+data.created_date+'</small><br>')
-
-						col_12_order_details.append('<span style="font-weight: 600; color: #333" class="order-number">Order #'+data.order_number+'</span>')
+						col_12_order_details.append('<span style="font-weight: 600; color: #333" class="order-number">Order #'+data.order_number+'<button data-id="'+data.encrypted_id+'" class="btn btn-sm btn-link btn-order-view-details">View details</button></span>')
 
 						if(data.status == "FOR PROCESS"){
 							col_12_order_details.append('<button class="btn btn-sm btn-cancel-order" data-id="'+data.encrypted_id+'">Cancel Order</button>')
@@ -36,10 +34,10 @@ $(document).ready(function(){
 							col_12_order_details.append('<div class=""><span>'+data_products.quantity+'</span>x&nbsp;<span>'+data_products.name+'</span></div>')
 						})
 
-						col_12_order_amount.append('<br><br><strong>'+moneyConvertion(parseFloat(data.total_amount))+'</strong>')
+						col_12_order_amount.append('<strong>'+moneyConvertion(parseFloat(data.total_amount))+'</strong>')
 
 						//col_12_order_status.append('<br><br><span style="font-weight: 600;">'+data.status+'</span>')
-						var col_12_order_status_row = $("<br><div class='row'>");
+						var col_12_order_status_row = $("<div class='row'>");
 
 						if(data.status == "FOR PROCESS"){
 							col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container status-container-active"><span>For Process</span></div></div>')
@@ -139,5 +137,54 @@ $(document).ready(function(){
 				}
 			})
 		}
+	})
+
+	$(document).on("click", ".btn-order-view-details", function(){
+		order_id = $(this).data("id");
+		$("#details_modal").modal("show")
+
+		$.ajax({
+			url: base_url + "order/myOrderDetails",
+			type: 'POST',
+			dataType: 'json',
+			data:{
+				order_id: order_id
+			},
+			beforeSend: function(){
+				createProcessLoading('.order-details-loading-container', '', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
+				$(".order-details-container").empty();
+				$(".order-history-container").hide();
+				$(".order-history-table tbody").empty();
+			},
+			success: function(response){
+				$(".order-details-loading-container").empty();
+
+				$("#details_modal .order-number-title").html(response.order_number)
+				var row = $("<div class='row'>")
+				row.append("<div class='col-12 col-lg-12'><span><span style='font-weight: 600'>Date Ordered</span>: "+response.created_date+"</span></div>")
+				row.append("<div class='col-12 col-lg-12'><span style='font-weight: 600'>Scheduled Date Pickup</span>: "+response.date_pickup+"</div>")
+				if(response.order_status == "PICKED UP"){
+					row.append("<div class='col-12 col-lg-12'><span style='font-weight: 600'>Actual Date Pickup</span>: "+response.actual_date_pickup+"</div>")
+				}
+
+				$(".order-details-container").append(row)
+
+				$(".order-history-container").show();
+				if(response.order_logs.length > 0){
+					$.each(response.order_logs, function(){
+						var tr = $("<tr>");
+						tr.append('<td>'+this.created_date+'</td>')
+						tr.append('<td>'+this.name+'</td>')
+						tr.append('<td>'+this.description+'</td>')
+						tr.append('<td>'+this.status+'</td>')
+
+						$(".order-history-container tbody").append(tr)
+					})
+				}
+			},
+			error: function(error){
+
+			}
+		})
 	})
 })

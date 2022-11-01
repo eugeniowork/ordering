@@ -33,4 +33,37 @@
     </div>
 </div>
 
+<div class="modal fade" id="details_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Order #<span class="order-number-title"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="order-details-loading-container" style="width: 100%;"></div>
+                <div class="order-details-container"></div>
+                <div class="order-history-container" style="display: none;">
+                    <hr>
+                    <strong>History:</strong>
+                    <table class="table table-bordered table-striped order-history-table">
+                        <thead>
+                            <tr>
+                                <th>Date and Time</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="<?= base_url();?>assets/js/order/my-orders.js"></script>
