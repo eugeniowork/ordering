@@ -1,22 +1,29 @@
 $(document).ready(function(){
 	var ordersHistoryTable;
 
-	get_orders_history();
+	$(".btn-filter").on("click", function(){
+		get_orders_history();
+	}).click();
+
 	function get_orders_history(){
 		createProcessLoading('.process-loading-container', 'Getting orders...', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
+		$(".orders-history-content").hide();
 
 		$.ajax({
 			url: base_url + "order/ordersHistoryList",
 			type: 'POST',
 			dataType: 'json',
-			data:{},
+			data:{
+				date_from: $(".date-from").val(),
+				date_to: $(".date-to").val()
+			},
 			success: function(response){
 				$('.process-loading-container').empty();
 				if(response.is_error){
 					createProcessError('.process-loading-container', 'Unable to load orders.', "30px", "15px");
 				}
 				else{
-					$(".orders-history-content").removeClass('d-none')
+					$(".orders-history-content").show()
 					ordersHistoryTable = $('.orders-history-table').DataTable({
 						"data": response.orders,
 						"columns": [

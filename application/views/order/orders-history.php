@@ -10,7 +10,21 @@
 			<span class="header-title">Orders History</span><br>
 		</div>
 		<div class="container-body">
-			<div class="table-responsive-sm orders-history-content d-none" style="overflow-y: auto;">
+			<div class="form-group">
+				<div class="row">
+					<div class="col-12 col-lg-3">
+						<span>Date Ordered From</span>
+						<input type="date" class="form-control date-from" value="<?= date('Y-m-d', strtotime('-7 days')) ?>">
+					</div>
+					<div class="col-12 col-lg-3">
+						<span>Date Ordered To</span>
+						<input type="date" class="form-control date-to" value="<?= date('Y-m-d') ?>">
+					</div>
+				</div>
+				<button class="btn btn-primary btn-filter">Filter</button>
+			</div>
+			<hr>
+			<div class="table-responsive-sm orders-history-content" style="overflow-y: auto; display: none;">
 	            <table class="table table-bordered table-striped orders-history-table">
 	                <thead>
 	                    <tr>
