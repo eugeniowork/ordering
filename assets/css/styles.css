@@ -1140,12 +1140,18 @@ table {
   display: none; }
 
 .home-container .carousel-container {
-  justify-content: center;
   display: flex; }
+  .home-container .carousel-container #carousel-example-2 {
+    z-index: 0;
+    width: 100%; }
   .home-container .carousel-container .carousel-inner img {
-    width: 1110px;
+    width: 100%;
     height: 500px; }
-  .home-container .carousel-container .carousel-inner .carousel-item {
-    float: none !important; }
+
+@media screen and (max-width: 950px) {
+  .home-container .container-body {
+    padding: 0px; }
+    .home-container .container-body .carousel-container #carousel-example-2 {
+      width: 100%; } }
 
 /*# sourceMappingURL=styles.css.map */
