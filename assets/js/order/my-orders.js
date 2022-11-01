@@ -20,13 +20,14 @@ $(document).ready(function(){
 
 					$.each(response.orders, function(key, data){
 						var row = $("<div class='row'>")
-						var col_12_order_buttons = $("<div class='col-12 col-lg-12' style='margin-bottom: -20px !important;z-index:1'>")
+						var col_12_order_buttons = $("<div class='col-12 col-lg-12' style='margin-bottom: -10px !important;z-index:1'>")
 						var col_12_order_details = $("<div class='col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4'>")
 						var col_12_order_amount = $("<div class='col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3'>")
 						var col_12_order_status = $("<div class='col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5'>")
 
 						if(data.status == "FOR PROCESS"){
-							col_12_order_buttons.append('<button class="btn btn-sm btn-cancel-order" data-id="'+data.encrypted_id+'">Cancel Order</button>')
+							col_12_order_buttons.append('<br><button class="btn btn-sm btn-resched-pickup btn-outline-success" data-id="'+data.encrypted_id+'" data-date-pickup="'+data.date_pickup+'">Resched pickup</button>')
+							col_12_order_buttons.append('&nbsp;<button class="btn btn-sm btn-cancel-order btn-outline-danger" data-id="'+data.encrypted_id+'">Cancel Order</button>')
 						}
 
 						col_12_order_details.append('<br><span style="font-weight: 600; color: #333" class="order-number">Order <a href="#" data-id="'+data.encrypted_id+'" style="font-style:italic;" class="btn-order-view-details">#'+data.order_number+'</a></span>')
@@ -118,7 +119,7 @@ $(document).ready(function(){
 				success: function(response){
 					if(response.is_error){
 						loading_cancel_order = false;
-						$(".warning").html(response.error_msg)
+						$("#cancel_order_modal .warning").html(response.error_msg)
 						$(".global-loading").css({
                             "display": "none"
                         })
@@ -130,7 +131,7 @@ $(document).ready(function(){
 				},
 				error: function(error){
 					loading_cancel_order = false;
-					$(".warning").html("Unable to cancel order, please try again.")
+					$("#cancel_order_modal .warning").html("Unable to cancel order, please try again.")
 					$(".global-loading").css({
                         "display": "none"
                     })
@@ -187,5 +188,64 @@ $(document).ready(function(){
 
 			}
 		})
+	})
+
+	var date_pickup = "";
+	$(document).on("click", ".btn-resched-pickup", function(){
+		order_id = $(this).data("id");
+		date_pickup = $(this).data("date-pickup");
+		$(".resched-date-pickup").val(date_pickup)
+		$("#resched_pickup_modal").modal("show");
+	});
+
+	$("#resched_pickup_modal").on("hidden.bs.modal", function(){
+		date_pickup = "";
+		order_id = "";
+	});
+
+	var loading_resched_pickup = false;
+	$(".btn-confirm-resched").on("click", function(){
+		console.log($(".resched-date-pickup").val())
+		if(!loading_resched_pickup){
+			loading_resched_pickup = true
+		
+			$(".btn-confirm-resched").prop("disabled", true).html("Loading...")
+
+			$(".global-loading").css({
+                "display": "flex"
+            })
+            createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
+
+			$.ajax({
+				url: base_url + "order/reschedOrderPickup",
+				type: 'POST',
+				dataType: 'json',
+				data:{
+					order_id: order_id,
+					date_pickup: $(".resched-date-pickup").val()
+				},
+				success: function(response){
+					if(response.success){
+						window.location.reload();
+					}
+					else{
+						loading_resched_pickup = false;
+						$(".resched_pickup_modal .warning").html(response.error_msg)
+						$(".global-loading").css({
+                            "display": "none"
+                        })
+                        $(".btn-confirm-resched").prop("disabled", false).html("Submit")
+					}
+				},
+				error: function(error){
+					loading_resched_pickup = false;
+					$(".resched_pickup_modal .warning").html("Something went wrong, please try again.")
+					$(".global-loading").css({
+                        "display": "none"
+                    })
+                    $(".btn-confirm-resched").prop("disabled", false).html("Submit")
+				}
+			})
+		}
 	})
 })

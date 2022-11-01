@@ -788,10 +788,6 @@ table {
   width: 100px;
   border-radius: 5px;
   border: 1px solid lightgrey; }
-.my-orders-container .active-orders-container .btn-cancel-order, .my-orders-container .past-orders-container .btn-cancel-order {
-  color: red; }
-  .my-orders-container .active-orders-container .btn-cancel-order:hover, .my-orders-container .past-orders-container .btn-cancel-order:hover {
-    text-decoration: underline; }
 .my-orders-container .active-orders-container .order-number, .my-orders-container .past-orders-container .order-number {
   color: white;
   padding: 3px 3px;

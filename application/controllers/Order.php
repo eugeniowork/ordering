@@ -708,4 +708,101 @@ class Order extends CI_Controller {
 		$this->data['success'] = true;
 		echo json_encode($this->data);
 	}
+
+	public function reschedOrderPickup(){
+		session_write_close();
+
+		$order_id = $this->input->post("order_id");
+		$order_id = decryptData($order_id);
+		$date_pickup = $this->input->post("date_pickup");
+		$user_id = $this->session->userdata('user_id');
+
+		$result = [];
+		$msg = "";
+		$success = true;
+		$this->form_validation->set_rules('date_pickup','date_pickup','required',array(
+	        'required'=> 'Date is required'
+	    ));
+
+	    if($this->form_validation->run() == FALSE){
+	        $success = false;
+	        $msg = validation_errors();
+	    }
+
+	    if($success){
+	    	//CHECK IF RECORD EXIST
+	    	$order_details = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+	    	$order_history_products = $this->global_model->get("order_history_products", "*", "order_history_id = {$order_id}", "", "multiple", "");
+	    	if($order_details){
+	    		$success = true;
+	    		//CHECK IF THERE ARE CHANGES
+	    		if(strtotime($order_details['date_pickup']) != strtotime($date_pickup)){
+	    			$params = [
+		    			'date_pickup'=> $date_pickup,
+		    			'updated_date'=> getTimeStamp(),
+		    			'updated_by'=> $this->session->userdata('user_id'),
+		    		];
+
+		    		$this->global_model->update("order_history", "id = '$order_id'", $params);
+
+	    			//GET ADMIN AND STAFF AND NOTIFY THEM
+	    			$bulk_insert_params = [];
+		        	$admins = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", ["column" => "id", "type" => "ASC"], "multiple", []);
+		        	foreach ($admins as $key => $admin) {
+		        		$bulk_insert_params[] = [
+		        			"receiver"=> $admin->id,
+		        			"user_id"=> $order_details['user_id'],
+		        			"content"=> "Customer #customer_name resched pickup date of Order Number <a href='".base_url()."ongoing-orders-view/".encryptData($order_id)."'>{$order_details['order_number']}</a>.",
+		        			"type"=> "RESCHED_PICKUP",
+		        			"source_table"=> "order_history",
+		        			"source_id"=>$order_id,
+		        			"read_status"=> 0,
+		        			"created_date"=> getTimeStamp(),
+		        			"created_by"=> $user_id
+		        		];
+		        	}
+
+		        	if($bulk_insert_params){
+		        		$this->global_model->batch_insert_or_update("notifications", $bulk_insert_params);
+		        	}
+
+		        	//CREATE AUDIT TRAIL
+					$audit_details = [
+						'details'=> $order_details,
+						'items'=> $order_history_products
+					];
+			        $params = [
+			        	'user_id'=> $user_id,
+			        	'code'=> 'ORDER',
+			        	'description'=> "Resched pickup date of Order Number <strong>{$order_details['order_number']}</strong> from <strong>".date('F d, Y h:i A', strtotime($order_details['date_pickup']))."</strong> to <strong>".date('F d, Y h:i A', strtotime($date_pickup))."</strong>",
+			        	'new_details'=> json_encode($audit_details, JSON_PRETTY_PRINT),
+			        	'created_date'=> getTimeStamp()
+			        ];
+			        $this->global_model->insert("audit_trail", $params);
+
+			        //INSERT LOGS
+			        $params = [
+			        	'order_history_id'=> $order_id,
+			        	'status'=> $order_details['status'],
+			        	'description'=> "Resched pickup date from <strong>".date('F d, Y h:i A', strtotime($order_details['date_pickup']))."</strong> to <strong>".date('F d, Y h:i A', strtotime($date_pickup))."</strong>",
+			        	'created_date'=> getTimeStamp(),
+			        	"created_by"=> $user_id
+			        ];
+			        $this->global_model->insert("order_history_logs", $params);
+	    		}
+	    	}
+	    	else{
+	    		$success = false;
+	    		$msg = "Something went wrong, please try again.";
+	    	}
+	    }
+
+	    $result = [
+	    	'success'=> $success,
+	    	'msg'=> $msg,
+	    	'post'=> $this->input->post(),
+	    ];
+		session_start();
+		echo json_encode($result);
+	}
 }

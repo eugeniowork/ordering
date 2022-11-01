@@ -66,4 +66,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="resched_pickup_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Resched Pickup</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <span>Date: </span>
+                    <input type="datetime-local" class="form-control resched-date-pickup">
+                </div>
+                <div class="warning text-danger"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-confirm-resched">Submit</button>
+                <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="<?= base_url();?>assets/js/order/my-orders.js"></script>
