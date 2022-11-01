@@ -24,14 +24,14 @@ $(document).ready(function(){
 						var col_12_order_amount = $("<div class='col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3'>")
 						var col_12_order_status = $("<div class='col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6'>")
 
-						col_12_order_details.append('<span style="font-weight: 600; color: #333" class="order-number">Order #'+data.order_number+'<button data-id="'+data.encrypted_id+'" class="btn btn-sm btn-link btn-order-view-details">View details</button></span>')
+						col_12_order_details.append('<span style="font-weight: 600; color: #333" class="order-number">Order <a href="#" data-id="'+data.encrypted_id+'" style="font-style:italic;" class="btn-order-view-details">#'+data.order_number+'</a></span>')
 
 						if(data.status == "FOR PROCESS"){
 							col_12_order_details.append('<button class="btn btn-sm btn-cancel-order" data-id="'+data.encrypted_id+'">Cancel Order</button>')
 						}
 						
 						$.each(data.products, function(key, data_products){
-							col_12_order_details.append('<div class=""><span>'+data_products.quantity+'</span>x&nbsp;<span>'+data_products.name+'</span></div>')
+							col_12_order_details.append('<div class="" style="position:relative;right: -5px;"><span>'+data_products.quantity+'</span>x&nbsp;<span>'+data_products.name+'</span></div>')
 						})
 
 						col_12_order_amount.append('<strong>'+moneyConvertion(parseFloat(data.total_amount))+'</strong>')
