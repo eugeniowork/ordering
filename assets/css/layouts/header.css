@@ -229,7 +229,7 @@
   .side-navbar-container .side-navbar-content {
     background: white;
     height: 100vh;
-    min-width: 200px;
+    min-width: 80%;
     width: auto;
     padding-bottom: 20px;
     box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);

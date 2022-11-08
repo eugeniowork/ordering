@@ -1,0 +1,118 @@
+#tracking {
+	margin-bottom:1rem;
+
+	// [class*=tracking-status-] p {
+	// 	margin:0;
+	// 	font-size:1.1rem;
+	// 	color:#fff;
+	// 	text-transform:uppercase;
+	// 	text-align:center
+	// }
+	// [class*=tracking-status-] {
+	// 	padding:1.6rem 0
+	// }
+
+	// .tracking-status-current {
+	// 	background-color:#65aee0
+	// }
+
+	.tracking-list {
+		border:1px solid #e5e5e5;
+		padding: 10px 0px;
+		.tracking-item {
+			border-left:1px solid #e5e5e5;
+			position:relative;
+			//padding:2rem 1.5rem .5rem 2.5rem;
+			padding:2rem 1.5rem .5rem 1.5rem;
+			font-size:.9rem;
+			margin-left:50px;
+			min-height:5rem;
+
+			.tracking-content {
+				padding:.5rem .8rem;
+				//background-color:#f4f4f4;
+				border-radius:.5rem;
+				span {
+					display:block;
+					color:#333;
+					font-size:85%;
+				}
+				.tracking-content-title{
+					font-weight: 600;
+    				font-size: 105%;
+				}
+				.tracking-content-name, .tracking-content-date{
+					font-style: italic;
+				}
+			}
+
+			// .tracking-icon {
+			// 	//line-height:2.6rem;
+			// 	line-height:2rem;
+			// 	position:absolute;
+			// 	//left:-1.3rem;
+			// 	left:-1.1rem;
+			// 	// width:2.6rem;
+			// 	// height:2.6rem;
+			// 	width:2rem;
+			// 	height:2rem;
+			// 	text-align:center;
+			// 	border-radius:50%;
+			// 	font-size:1.1rem;
+			// 	background-color:#fff;
+			// 	color:#fff;
+			// }
+
+			.tracking-status-previous {
+				background: lightgrey;
+				color:#e5e5e5;
+				border:1px solid #e5e5e5;
+				font-size:.6rem;
+
+				line-height:2rem;
+				position:absolute;
+				left:-1.1rem;
+				width:2rem;
+				height:2rem;
+				text-align:center;
+				border-radius:50%;
+			}
+
+			.tracking-status-current {
+				background: #333;
+				color:#e5e5e5;
+				border:1px solid #e5e5e5;
+				font-size:.6rem;
+
+				line-height:2.6rem;
+				position:absolute;
+				left:-1.3rem;
+				width:2.6rem;
+				height:2.6rem;
+				text-align:center;
+				border-radius:50%;
+			}
+		}
+		.tracking-item:last-child {
+			padding-bottom:4rem;
+		}
+	}
+}
+// @media(min-width:992px) {
+//  .tracking-item {
+//   margin-left:10rem
+//  }
+//  .tracking-item .tracking-date {
+//   position:absolute;
+//   left:-10rem;
+//   width:7.5rem;
+//   text-align:right
+//  }
+//  .tracking-item .tracking-date span {
+//   display:block
+//  }
+//  .tracking-item .tracking-content {
+//   padding:0;
+//   background-color:transparent
+//  }
+// }

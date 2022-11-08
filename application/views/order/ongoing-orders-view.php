@@ -89,31 +89,8 @@
                 </tbody>
             </table>
             <hr>
-            <div class="row">
-                <div class="col-12 col-lg-12">
-                    <strong>History:</strong>
-                </div>
-            </div>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Date and Time</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($order_logs as $key => $log): ?>
-                        <tr>
-                            <td><?= date('F d, Y h:i A', strtotime($log->created_date)) ?></td>
-                            <td><?= $log->firstname." ".$log->lastname ?></td>
-                            <td><?= $log->description; ?></td>
-                            <td><?= $log->status ?></td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+            <span style="color: #7d7d7d;font-weight: 600;font-size: 20px;">Order Status Updates</span>
+            <div class="order-tracking-widget-container"></div>
     	</div>
     </div>
     <?php if ($order['status'] == "FOR PROCESS"): ?>
@@ -152,7 +129,7 @@
 
     <script>
         var order_id = '<?= encryptData($order['id']); ?>'
-        var user_type = '<?= $this->session->userdata('user_type'); ?>'
+        var user_type = '<?= $this->session->userdata('user_type'); ?>';
     </script>
 
     <script type="text/javascript" src="<?= base_url();?>assets/js/order/ongoing-orders-view.js"></script>

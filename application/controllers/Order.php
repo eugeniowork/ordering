@@ -231,16 +231,24 @@ class Order extends CI_Controller {
 		$order_items = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
 		$this->data['order_items'] = $order_items;
 
-		//GET LOGS
-		$order_logs = $this->global_model->get("views_order_history_logs", "*", "order_history_id = '$order_id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
-		$this->data['order_logs'] = $order_logs;
-
 		$this->data['page_title'] = "Customer Order";
-
 		$this->load->view('layouts/header', $this->data);
         $this->load->view('layouts/header_buttons');
 		$this->load->view('order/ongoing-orders-view');
 		$this->load->view('layouts/footer');
+	}
+
+	public function orderTrackingWidget(){
+		$order_id = decryptData($_POST['id']);
+
+		$order = $this->global_model->get("views_order_history", "*", "id = '$order_id'", [], "single", []);
+		$this->data['order'] = $order;
+
+		//GET LOGS
+		$order_logs = $this->global_model->get("views_order_history_logs", "*", "order_history_id = '$order_id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+		$this->data['order_logs'] = $order_logs;
+
+		$this->load->view('order/order-tracking-widget', $this->data);
 	}
 
 	public function orderPaymentPage($hash_id){

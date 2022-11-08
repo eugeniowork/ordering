@@ -59,6 +59,32 @@ function createProcessLoading(div_name, loading_text, image_path, height, width,
     })
 }
 
+function createProcessLoadingV2(params) {
+    var div_name = params.div_name? params.div_name: '';
+    var loading_text = params.loading_text? params.loading_text: '';
+    var height = params.height? params.height: '40px';
+    var width = params.width? params.width: '40px';
+    var font_size = params.font_size? params.font_size: '14px';
+    var font_weight = params.font_weight? params.font_weight: 0;
+    var position = params.position? params.position: 'center';
+
+    $(div_name).empty();
+    $(div_name).append(
+        '<div class="d-flex flex-column justify-content-center align-items-'+position+'">' +
+            '<img class="process-loading-image" src=' + base_url + 'assets/uploads/preloader/preloader_logo.gif' + '></img>' +
+            '<p class="process-loading-text">' + loading_text + '</p>' +
+        '</div>'
+    );
+    $('.process-loading-image').css({
+        'height': height,
+        'width': width
+    })
+    $('.process-loading-text').css({
+        'font-size': font_size,
+        'font-weight': font_weight
+    })
+}
+
 function createProcessError(div_name, error_text, icon_size, text_size) {
     $(div_name).empty();
     $(div_name).append(
