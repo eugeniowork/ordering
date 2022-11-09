@@ -186,6 +186,7 @@ class Order extends CI_Controller {
 	        $params = [
 	        	'order_history_id'=> $order_id,
 	        	'status'=> $status,
+	        	'title'=> ucwords(strtolower($status)),
 	        	'description'=> $remarks,
 	        	'created_date'=> getTimeStamp(),
 	        	"created_by"=> $user_id
@@ -361,7 +362,8 @@ class Order extends CI_Controller {
 		        $params = [
 		        	'order_history_id'=> $order_id,
 		        	'status'=> 'PICKED UP',
-		        	'description'=> "Order picked up",
+		        	'title'=> 'Picked Up',
+		        	'description'=> "Order picked up using cash payment",
 		        	'created_date'=> getTimeStamp(),
 		        	"created_by"=> $this->session->userdata('user_id')
 		        ];
@@ -478,7 +480,8 @@ class Order extends CI_Controller {
 		        $params = [
 		        	'order_history_id'=> $order_id,
 		        	'status'=> 'PICKED UP',
-		        	'description'=> "Order picked up",
+		        	'title'=> 'Picked Up',
+		        	'description'=> "Order picked up using FacePay payment",
 		        	'created_date'=> getTimeStamp(),
 		        	"created_by"=> $this->session->userdata('user_id')
 		        ];
@@ -784,6 +787,7 @@ class Order extends CI_Controller {
 			        $params = [
 			        	'order_history_id'=> $order_id,
 			        	'status'=> $order_details['status'],
+			        	'title'=> 'Rescheduled',
 			        	'description'=> "Resched pickup date from <strong>".date('F d, Y h:i A', strtotime($order_details['date_pickup']))."</strong> to <strong>".date('F d, Y h:i A', strtotime($date_pickup))."</strong>",
 			        	'created_date'=> getTimeStamp(),
 			        	"created_by"=> $user_id
