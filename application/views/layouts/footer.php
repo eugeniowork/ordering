@@ -1,10 +1,21 @@
 
-<div class="alert text-center cookiealert" role="alert">
+<!-- <div class="alert text-center cookiealert" role="alert">
     <b>Do you like cookies?</b> &#x1F36A; We use cookies to ensure you get the best experience on our website. <a href="https://cookiesandyou.com/" target="_blank">Learn more</a>
 
     <button type="button" class="btn btn-primary btn-sm acceptcookies">
         I agree
     </button>
+</div> -->
+
+<div class="cookies-container">
+	<div class="d-flex justify-content-center mt-5 h-100">
+	    <div class="d-flex align-items-center align-self-center card p-3 text-center cookies">
+	    	<span style="font-size: 30px;">&#x1F36A;</span>
+	    	<span class="mt-2">This website uses cookies and similar technologies (together "cookies") that are essential for the operations of this website and its core functions. Other cookies will only be placed with your consent.</span>
+	    	<a class="d-flex align-items-center" href="https://cookiesandyou.com/" target="_blank">Learn more<i class="fa fa-angle-right ml-2"></i></a>
+	    	<button class="btn btn-primary mt-3 px-4 btn-accept-cookies" type="button">Okay</button>
+	    </div>
+	</div>
 </div>
 
 <footer class="footer">
