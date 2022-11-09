@@ -186,7 +186,7 @@ class Order extends CI_Controller {
 	        $params = [
 	        	'order_history_id'=> $order_id,
 	        	'status'=> $status,
-	        	'title'=> ucwords(strtolower($status)),
+	        	'title'=> ucfirst(strtolower($status)),
 	        	'description'=> $remarks,
 	        	'created_date'=> getTimeStamp(),
 	        	"created_by"=> $user_id
@@ -362,7 +362,7 @@ class Order extends CI_Controller {
 		        $params = [
 		        	'order_history_id'=> $order_id,
 		        	'status'=> 'PICKED UP',
-		        	'title'=> 'Picked Up',
+		        	'title'=> 'Picked up',
 		        	'description'=> "Order picked up using cash payment",
 		        	'created_date'=> getTimeStamp(),
 		        	"created_by"=> $this->session->userdata('user_id')
@@ -480,7 +480,7 @@ class Order extends CI_Controller {
 		        $params = [
 		        	'order_history_id'=> $order_id,
 		        	'status'=> 'PICKED UP',
-		        	'title'=> 'Picked Up',
+		        	'title'=> 'Picked up',
 		        	'description'=> "Order picked up using FacePay payment",
 		        	'created_date'=> getTimeStamp(),
 		        	"created_by"=> $this->session->userdata('user_id')

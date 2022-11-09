@@ -313,8 +313,8 @@ class Product extends CI_Controller {
 			        $params = [
 			        	'order_history_id'=> $insert_id,
 			        	'status'=> 'FOR PROCESS',
-			        	'title'=> 'Placed Order',
-			        	'description'=> 'Placed order',
+			        	'title'=> 'Order placed',
+			        	'description'=> 'Order was placed',
 			        	'created_date'=> getTimeStamp(),
 			        	"created_by"=> $user_id
 			        ];
