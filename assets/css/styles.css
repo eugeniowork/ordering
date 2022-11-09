@@ -1243,5 +1243,14 @@ table {
     padding: 0px; }
     .home-container .container-body .carousel-container #carousel-example-2 {
       width: 100%; } }
+.terms-and-condition-container .terms-and-condition-content {
+  padding: 0px 100px;
+  color: #7d7d7d; }
+  .terms-and-condition-container .terms-and-condition-content .title {
+    text-decoration: underline; }
+
+@media screen and (max-width: 950px) {
+  .terms-and-condition-container .terms-and-condition-content {
+    padding: 0px 0px; } }
 
 /*# sourceMappingURL=styles.css.map */

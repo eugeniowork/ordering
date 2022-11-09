@@ -1,0 +1,17 @@
+.terms-and-condition-container{
+	.terms-and-condition-content{
+		padding: 0px 100px; 
+		color: #7d7d7d;
+		.title{
+			text-decoration: underline;
+		}
+	}
+}
+
+@media screen and (max-width : 950px){
+	.terms-and-condition-container{
+		.terms-and-condition-content{
+			padding: 0px 0px;
+		}
+	}
+}
