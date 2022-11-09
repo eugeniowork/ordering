@@ -1,5 +1,5 @@
 <div class="page-container verify-account-container">
-	<div class="container-body" style="top: 0px;">
+	<div class="container-body" style="padding-top: 10px;">
 		<div class="verify-account-div">
 			<div class="d-flex flex-column justify-content-center align-items-center verify-account-flex">
 				<div class="verify-account-body">

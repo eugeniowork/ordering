@@ -9,6 +9,8 @@ body {
 .page-container{
 	top: 50px;
     position: relative;
+    //min-height: 60vh;
+    min-height: 100vh;
 	button,
     input {
         &:focus {
@@ -70,9 +72,10 @@ body {
 	    background: white; //margin-top: 5px;
 	    padding-left: 25px;
 	    padding-right: 25px;
-	    padding-top: 10px;
+	    //padding-top: 10px;
+        padding-top: 70px;
 	    padding-bottom: 30px;
-	    top: 60px;
+	    //top: 60px;
 	    position: relative;
 	    .row{
 	    	.col-12{
@@ -135,6 +138,9 @@ table{
 }
 
 @media screen and (max-width : 950px){
+    .page-container{
+        min-height: 90vh;
+    }
     .modal{
         .modal-dialog{
             margin: 0px;

@@ -1,5 +1,5 @@
 <div class="page-container forgot-password-container">
-	<div class="container-body" style="top: 0px;">
+	<div class="container-body" style="padding-top: 10px;">
 		<div class="d-flex flex-column justify-content-center align-items-center forgot-password-flex">
 			<div class="forgot-password-body">
 				<p class="main-title">Reset Password</p>

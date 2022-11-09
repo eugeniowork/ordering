@@ -6,6 +6,30 @@
         I agree
     </button>
 </div>
+
+<footer class="footer">
+	<br/>
+	<div class="row m-0">
+		<div class="col-sm-8">
+			<div class="row">
+				<div class="col-12 col-sm-10"><strong>COMPANY</strong></div>
+			</div>
+			<a href="<?= base_url(); ?>about-us" class="about">About Us</a><br/>
+			<a href="<?= base_url(); ?>terms-and-condition">Terms and Condition</a>
+		</div>
+		<div class="col-sm-4">
+			<div class="row">
+				<div class="col-12 col-sm-10"><strong>FOLLOW US</strong></div>
+			</div>
+			<a href="https://facebook.com" target="_blank" class="social-media facebook fab fa-facebook-f"></a>
+			<a href="https://instagram.com" target="_blank" class="social-media instagram fab fa-instagram"></a>
+			<a href="https://twitter.com" target="_blank" class="social-media twitter fab fa-twitter"></a>
+			<a href="https://linkedin.com" target="_blank" class="social-media linkedin fab fa-linkedin"></a>
+		</div>
+	</div>
+	<br/>
+	<div class="footer-all-rights-container">© <?= date('Y').' '.APPNAME; ?>. All rights reserved.</div>
+</footer>
 </body>
 </html>
 

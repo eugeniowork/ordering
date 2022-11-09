@@ -29,3 +29,56 @@
     margin-left: 10px;
     vertical-align: baseline;
 }
+
+.footer{
+    position: relative;
+    top: 100px;
+    width: 100%;    
+    //background-color: #A87824;
+    overflow: auto;
+    padding: 5px 0 5px 0;
+    // color: #F2F2F2;
+    //color: #333;
+    //border-top: 5px solid #A87824;
+    //background: #fff;
+    padding: 10px 50px;
+    //NEW STYLE
+    background: #444349;
+    color: #fff;
+
+
+    .footer-all-rights-container{
+        width: 100%;
+        padding: 5px 10px;
+        border-top: 0.5px solid #cccc;
+    }
+
+    a{
+        color: #fff;
+    }
+
+    .social-media{
+        font-size: 17px;
+        width: 30px;
+        text-align: center;
+        text-decoration: none;
+        margin: 5px 2px;
+        padding: 10px 5px;
+    }
+    .facebook{
+        background: #3B5998;
+        color: white;
+    }
+    .instagram{
+        background: #125688;
+        color: white;
+    }
+    .twitter{
+        background: #55ACEE;
+        color: white;
+    }
+    .linkedin{
+        background: #007bb5;
+        color: white;
+    }
+}

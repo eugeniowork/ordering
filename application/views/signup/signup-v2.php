@@ -1,5 +1,5 @@
 <div class="page-container signup-v2-container">
-	<div class="container-body" style="top: 0px;">
+	<div class="container-body" style="padding-top: 10px;">
 		<div class="d-flex flex-column justify-content-center align-items-center signup-v2-flex">
 			<div class="signup-v2-body">
 				<form id="form" enctype="multipart/form-data" autocomplete="off">

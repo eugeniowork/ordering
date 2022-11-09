@@ -76,9 +76,6 @@
                 <li>
                     <a href="<?= base_url();?>signup">Signup</a>
                 </li>
-                <li>
-                    <a href="#">About Us</a>
-                </li>
             <?php endif ?>
         </ul>
 	</div>

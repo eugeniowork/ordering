@@ -1,5 +1,5 @@
 <div class="page-container home-container">
-	<div class="container-body" style="top: 0px;">
+	<div class="container-body" style="padding-top: 10px;">
 		<div class="carousel-container">
 	        <div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
 	        	<ol class="carousel-indicators">

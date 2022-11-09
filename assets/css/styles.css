@@ -7,7 +7,8 @@ body {
 
 .page-container {
   top: 50px;
-  position: relative; }
+  position: relative;
+  min-height: 100vh; }
   .page-container button:focus,
   .page-container input:focus {
     outline: 0 !important;
@@ -58,9 +59,8 @@ body {
     background: white;
     padding-left: 25px;
     padding-right: 25px;
-    padding-top: 10px;
+    padding-top: 70px;
     padding-bottom: 30px;
-    top: 60px;
     position: relative; }
     .page-container .container-body .row .col-12 {
       margin-bottom: 15px !important; }
@@ -96,6 +96,9 @@ table {
     hyphens: auto !important; }
 
 @media screen and (max-width: 950px) {
+  .page-container {
+    min-height: 90vh; }
+
   .modal .modal-dialog {
     margin: 0px;
     max-width: 100%; }
@@ -469,6 +472,41 @@ table {
 .cookiealert .acceptcookies {
   margin-left: 10px;
   vertical-align: baseline; }
+
+.footer {
+  position: relative;
+  top: 100px;
+  width: 100%;
+  overflow: auto;
+  padding: 5px 0 5px 0;
+  padding: 10px 50px;
+  background: #444349;
+  color: #fff; }
+  .footer .footer-all-rights-container {
+    width: 100%;
+    padding: 5px 10px;
+    border-top: 0.5px solid #cccc; }
+  .footer a {
+    color: #fff; }
+  .footer .social-media {
+    font-size: 17px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    padding: 10px 5px; }
+  .footer .facebook {
+    background: #3B5998;
+    color: white; }
+  .footer .instagram {
+    background: #125688;
+    color: white; }
+  .footer .twitter {
+    background: #55ACEE;
+    color: white; }
+  .footer .linkedin {
+    background: #007bb5;
+    color: white; }
 
 .signup-container .face-container img {
   height: 200px;
