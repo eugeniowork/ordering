@@ -1,56 +1,54 @@
-/*
- * Bootstrap Cookie Alert by Wruczek
- * https://github.com/Wruczek/Bootstrap-Cookie-Alert
- * Released under MIT license
- */
-(function () {
-    "use strict";
+$(document).ready(function(){
+    $(".btn-accept-cookies").on("click", function(){
+        acceptCookieConsent();
+    })
 
-    var cookieAlert = document.querySelector(".cookiealert");
-    var acceptCookies = document.querySelector(".acceptcookies");
-
-    if (!cookieAlert) {
-       return;
-    }
-
-    cookieAlert.offsetHeight; // Force browser to trigger reflow (https://stackoverflow.com/a/39451131)
-
-    // Show the alert if we cant find the "acceptCookies" cookie
-    if (!getCookie("acceptCookies")) {
-        cookieAlert.classList.add("show");
-    }
-
-    // When clicking on the agree button, create a 1 year
-    // cookie to remember user's choice and close the banner
-    acceptCookies.addEventListener("click", function () {
-        setCookie("acceptCookies", true, 365);
-        cookieAlert.classList.remove("show");
-
-        // dispatch the accept event
-        window.dispatchEvent(new Event("cookieAlertAccept"))
-    });
-
-    // Cookie functions from w3schools
+    // Create cookie
     function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
+    // Delete cookie
+    function deleteCookie(cname) {
+        const d = new Date();
+        d.setTime(d.getTime() + (24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=;" + expires + ";path=/";
+    }
+
+    // Read cookie
     function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) === ' ') {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
                 c = c.substring(1);
             }
-            if (c.indexOf(name) === 0) {
+            if (c.indexOf(name) == 0) {
                 return c.substring(name.length, c.length);
             }
         }
         return "";
     }
-})();
+
+    // Set cookie consent
+    function acceptCookieConsent(){
+        deleteCookie('user_cookie_consent');
+        setCookie('user_cookie_consent', 1, 30);
+        $(".cookies-container").hide();
+    }
+
+    let cookie_consent = getCookie("user_cookie_consent");
+    if(cookie_consent != ""){
+        $(".cookies-container").hide();
+        console.log("hide")
+    }else{
+        $(".cookies-container").show();
+        console.log("show")
+    }
+})
