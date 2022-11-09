@@ -100,7 +100,8 @@ table {
     margin: 0px;
     max-width: 100%; }
     .modal .modal-dialog .modal-content {
-      height: 100vh; }
+      height: auto;
+      min-height: 100vh; }
       .modal .modal-dialog .modal-content .modal-header {
         border-top-left-radius: 0px;
         border-top-right-radius: 0px; } }

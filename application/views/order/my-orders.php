@@ -45,22 +45,9 @@
             <div class="modal-body">
                 <div class="order-details-loading-container" style="width: 100%;"></div>
                 <div class="order-details-container"></div>
-                <div class="order-history-container" style="display: none;">
-                    <hr>
-                    <strong>History:</strong>
-                    <table class="table table-bordered table-striped order-history-table">
-                        <thead>
-                            <tr>
-                                <th>Date and Time</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+                <hr>
+                <span style="color: #7d7d7d;font-weight: 600;font-size: 20px;">Order Status Updates</span>
+                <div class="order-tracking-widget-container"></div>
             </div>
         </div>
     </div>

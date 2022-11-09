@@ -705,14 +705,6 @@ class Order extends CI_Controller {
 		$this->data['actual_date_pickup'] = date('F d, Y h:i A', strtotime($order_details['actual_date_pickup']));
 		$this->data['order_status'] = $order_details['status'];
 
-		//GET LOGS
-		$order_logs = $this->global_model->get("views_order_history_logs", "*", "order_history_id = '$order_id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
-		foreach($order_logs as $key => $log){
-			$order_logs[$key]->{"created_date"} = date('F d, Y h:i A', strtotime($log->created_date));
-			$order_logs[$key]->{"name"} = $log->firstname." ".$log->lastname;
-		}
-		$this->data['order_logs'] = $order_logs;
-
 		$this->data['success'] = true;
 		echo json_encode($this->data);
 	}

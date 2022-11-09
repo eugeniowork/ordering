@@ -155,8 +155,6 @@ $(document).ready(function(){
 			beforeSend: function(){
 				createProcessLoading('.order-details-loading-container', '', base_url + 'assets/uploads/preloader/preloader_logo.gif', '40px', '40px', '14px')
 				$(".order-details-container").empty();
-				$(".order-history-container").hide();
-				$(".order-history-table tbody").empty();
 			},
 			success: function(response){
 				$(".order-details-loading-container").empty();
@@ -170,24 +168,13 @@ $(document).ready(function(){
 				}
 
 				$(".order-details-container").append(row)
-
-				$(".order-history-container").show();
-				if(response.order_logs.length > 0){
-					$.each(response.order_logs, function(){
-						var tr = $("<tr>");
-						tr.append('<td>'+this.created_date+'</td>')
-						tr.append('<td>'+this.name+'</td>')
-						tr.append('<td>'+this.description+'</td>')
-						tr.append('<td>'+this.status+'</td>')
-
-						$(".order-history-container tbody").append(tr)
-					})
-				}
 			},
 			error: function(error){
 
 			}
 		})
+
+		get_order_tracking();
 	})
 
 	var date_pickup = "";
@@ -248,4 +235,18 @@ $(document).ready(function(){
 			})
 		}
 	})
+
+	function get_order_tracking(){
+		createProcessLoadingV2({"div_name": ".order-tracking-widget-container", "loading_text": " ", "position": "left", "font_size": "13px", "font_weight": "600", "height": "30px", "width": "30px"});
+		$.ajax({
+			url: base_url + "order/orderTrackingWidget",
+			type: 'POST',
+			data:{
+				id: order_id
+			},
+			success: function(data){
+				$(".order-tracking-widget-container").html(data);
+			}
+		})
+	}
 })
