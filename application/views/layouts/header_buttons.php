@@ -91,8 +91,7 @@
         <div class="side-navbar-body">
             <!-- FOR PRODUCT MANAGEMENT -->
             <?php if ($this->session->userdata("user_type") == "admin"): ?>
-                <a href="<?= base_url(); ?>audit-trail"><i class="fa-solid fa-list"></i>&nbsp;&nbsp;Audit Trail</a><br>
-                <a href="<?= base_url(); ?>product"><i class="fa-solid fa-box"></i>&nbsp;&nbsp;Product</a><br>
+                <a href="<?= base_url(); ?>product" class="btn"><i class="fa-solid fa-box"></i>&nbsp;&nbsp;Product</a><br>
             <?php endif ?>
 
             <!-- FOR FACE PAY WALLET -->
@@ -104,7 +103,7 @@
                 <?php else: ?>
                     <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a>
                 <?php endif ?>
-            </div><br>
+            </div>
 
             <!-- FOR ORDER MANAGEMENT -->
             <button class="btn-menu" id="order_management" data-id="sub_menu_order_management"><i class="fa-solid fa-bars-progress"></i>&nbsp;&nbsp;Order Management<i class="fa-solid fa-caret-down caret"></i></button>
@@ -117,7 +116,6 @@
                     <a href="<?= base_url(); ?>my-orders"><i class="fas fa-clipboard-check"></i>&nbsp;&nbsp;My Orders</a>                
                 <?php endif ?>
             </div>
-            <br>
             <?php if ($this->session->userdata("user_type") == "admin"): ?>
                 <!-- FOR USER MANAGEMENT -->
                 <button class="btn-menu" id="user_management" data-id="sub_menu_user_management"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;User Management<i class="fa-solid fa-caret-down caret"></i></button>
@@ -125,7 +123,12 @@
                 <div class="user-management-dropdown sub-buttons" id="sub_menu_user_management">
                     <a href="<?= base_url(); ?>customer"><i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;Customer</a><br>
                     <a href="<?= base_url(); ?>employee"><i class="fas fa-user-tie"></i>&nbsp;&nbsp;Employee</a>
-                </div><br>
+                </div>
+            <?php endif ?>
+
+            <?php if ($this->session->userdata("user_type") == "admin"): ?>
+                <a href="<?= base_url(); ?>audit-trail" class="btn"><i class="fa-solid fa-list"></i>&nbsp;&nbsp;Audit Trail</a><br>
+                <a href="<?= base_url(); ?>discounts" class="btn"><i class="fa fa-percent"></i>&nbsp;&nbsp;Discounts</a><br>
             <?php endif ?>
 
             <div class="mobile-view-buttons-container">

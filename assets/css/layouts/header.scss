@@ -264,8 +264,8 @@
     .side-navbar-content{
         background: white;
         height: 100vh;
-        min-width: 80%;
-        width: auto;
+        //min-width: 80%;
+        width: 300px;
         // padding: 0px 5px;
         padding-bottom: 20px;
         // height: 100vh;
@@ -306,7 +306,7 @@
                     text-decoration: none;
                 }
                 width: 100%;
-                text-align: justify;
+                text-align: left;
                 padding: 5px 10px;
                 border: none;
                 background: white;
@@ -393,15 +393,15 @@
     }
     .side-navbar-container{
         .side-navbar-content{
+            width: 500px;
             .side-navbar-body{
                 .mobile-view-buttons-container{
                     display: block;
                 }
                 button, a{
-                    font-size: 20px;
+                    //font-size: 20px;
                 }
             }
         }
-        min-width: 450px;
     }
 }

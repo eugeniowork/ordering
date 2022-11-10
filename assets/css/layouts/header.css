@@ -229,8 +229,7 @@
   .side-navbar-container .side-navbar-content {
     background: white;
     height: 100vh;
-    min-width: 80%;
-    width: auto;
+    width: 300px;
     padding-bottom: 20px;
     box-shadow: 0px 0px 10px 0px rgba(40, 40, 40, 0.75);
     overflow-x: hidden;
@@ -256,7 +255,7 @@
         height: 150px; }
     .side-navbar-container .side-navbar-content .side-navbar-body button, .side-navbar-container .side-navbar-content .side-navbar-body a {
       width: 100%;
-      text-align: justify;
+      text-align: left;
       padding: 5px 10px;
       border: none;
       background: white;
@@ -313,11 +312,9 @@
   .header .right .header-dropdown-wishlist {
     width: 100%; }
 
-  .side-navbar-container {
-    min-width: 450px; }
+  .side-navbar-container .side-navbar-content {
+    width: 500px; }
     .side-navbar-container .side-navbar-content .side-navbar-body .mobile-view-buttons-container {
-      display: block; }
-    .side-navbar-container .side-navbar-content .side-navbar-body button, .side-navbar-container .side-navbar-content .side-navbar-body a {
-      font-size: 20px; } }
+      display: block; } }
 
 /*# sourceMappingURL=header.css.map */
