@@ -1249,5 +1249,8 @@ table {
 @media screen and (max-width: 950px) {
   .terms-and-condition-container .terms-and-condition-content {
     padding: 0px 0px; } }
+.discount-container .discount-content .discount-table .action-buttons {
+  justify-content: center;
+  display: flex; }
 
 /*# sourceMappingURL=styles.css.map */
