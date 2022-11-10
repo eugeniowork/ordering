@@ -1,5 +1,10 @@
+<style type="text/css">
+	.footer{
+		top: 0px !important;
+	}
+</style>
 <div class="page-container change-password-container">
-	<div class="container-body" style="padding-top: 10px;">
+	<div class="container-body" style="padding-top: 0px;">
 		<div class="d-flex flex-column justify-content-center align-items-center change-password-flex">
 			<div class="change-password-body">
 				<p class="main-title">Change Password</p>

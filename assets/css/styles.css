@@ -696,7 +696,7 @@ table {
 
 @media screen and (max-width: 950px) {
   .login-container .container-body {
-    padding: 0px 0px; }
+    padding: 0px 0px !important; }
     .login-container .container-body .login-flex .login-body {
       width: 100%;
       height: auto;

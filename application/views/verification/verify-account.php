@@ -1,5 +1,10 @@
+<style type="text/css">
+	.footer{
+		top: 0px !important;
+	}
+</style>
 <div class="page-container verify-account-container">
-	<div class="container-body" style="padding-top: 10px;">
+	<div class="container-body" style="padding-top: 0px;">
 		<div class="verify-account-div">
 			<div class="d-flex flex-column justify-content-center align-items-center verify-account-flex">
 				<div class="verify-account-body">
