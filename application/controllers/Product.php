@@ -472,29 +472,33 @@ class Product extends CI_Controller {
 		//$stock = $post['stock'];
 		$category = isset($post['category'])? $post['category']: "";
 
+		$is_error = false;
+		$error_msg = "";
+
 		//CHECK IF ACTION IS FOR UPDATE
 		$action_type = "add";
 		if(isset($post['encrypted_id'])){
 			$action_type = "update";
 		}
 
-		$is_unique = '|is_unique[products.name]';
 		if($action_type == "update"){
 			$id = decryptData($post['encrypted_id']);
 			$product_details = $this->global_model->get("views_products", "*", "id = {$id}", [], "single", []);
 
-			if($product_details['id'] == $id){
-				$is_unique = "";
-			}
-		}
+			//IF PRODUCT EXISTS
+			$check_product_exists = $this->global_model->get("views_products", "id", "name = '{$name}'", [], "single", []);
 
-		if($is_unique != ""){
+			if($check_product_exists && $check_product_exists['id'] != $id){
+				$is_error = true;
+            	$error_msg .= "<p>Product already exist.</p>";
+			}
+
+			$this->form_validation->set_rules('name','name','required');
+		}
+		else{
 			$this->form_validation->set_rules('name','name','required|is_unique[products.name]', array(
 				'is_unique'=>"Product name already exist.",
 			));
-		}
-		else{
-			$this->form_validation->set_rules('name','name','required');
 		}
 
 		$this->form_validation->set_rules('price','price','required');
@@ -503,9 +507,6 @@ class Product extends CI_Controller {
 
 		$this->form_validation->set_rules('category','category','required');
 
-		$is_error = false;
-		$error_msg = "";
-
 		if($this->form_validation->run() == FALSE){
             $is_error = true;
             $error_msg .= validation_errors();
@@ -513,7 +514,7 @@ class Product extends CI_Controller {
         else{
         	if(!is_numeric($price) && !floor($price)){
         		$is_error = true;
-            	$error_msg .= "<p>Please enter correct price.</p><br>";
+            	$error_msg .= "<p>Please enter correct price.</p>";
         	}
         	// if(!is_numeric($stock)){
         	// 	$is_error = true;

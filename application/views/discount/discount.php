@@ -8,6 +8,9 @@
 	<div class="page-container discount-container">
 		<div class="container-header">
 			<span class="header-title">Discount</span>
+			<div class="buttons">
+	            <a href="<?= base_url();?>discount/discount-add" class="btn btn-sm btn-primary">Add New</a>
+	        </div>
 		</div>
 		<div class="container-body">
 			<div class="table-responsive-sm discount-content d-none">
