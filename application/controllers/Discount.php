@@ -25,7 +25,7 @@ class Discount extends CI_Controller {
 
 	public function get_discounts(){
 
-		$discounts = $this->global_model->get("discounts", "*", "", [], "multiple", []);
+		$discounts = $this->global_model->get("discounts", "*", "deleted_by = 0", "", "multiple", []);
 		foreach ($discounts as $key => $discount) {
 			$discounts[$key]->{"percentage"} = $discount->percentage."%";
 			$discounts[$key]->{"encrypted_id"} = encryptData($discount->id);
@@ -193,5 +193,39 @@ class Discount extends CI_Controller {
 	    	"msg"=> $msg
 	    ];
         echo json_encode($result);
+	}
+
+	public function remove_discount(){
+		$discount_id = $this->input->post('discount_id');
+		$user_id = $this->session->userdata('user_id');
+
+		$result = [];
+		$success = true;
+		$msg = "";
+
+		$params = [
+			"deleted_by"=> $user_id,
+			'deleted_date'=> getTimeStamp()
+		];
+		$this->global_model->update("discounts", "id = '{$discount_id}'", $params);
+
+		//GET PRODUCT DETAILS
+		$discount_details = $this->global_model->get("discounts", "*", "id = {$discount_id}", [], "single", []);
+
+		//CREATE AUDIT TRAIL
+        $params = [
+            'user_id'=> $this->session->userdata('user_id'),
+            'code'=> 'DISCOUNT',
+            'description'=> "Removed discount <strong>".$discount_details['name']."</strong>",
+            'new_details'=> json_encode($discount_details, JSON_PRETTY_PRINT),
+            'created_date'=> getTimeStamp()
+        ];
+        $this->global_model->insert("audit_trail", $params);
+
+		$result = [
+			'success'=> $success,
+			'msg'=> $msg
+		];
+		echo json_encode($result);
 	}
 }

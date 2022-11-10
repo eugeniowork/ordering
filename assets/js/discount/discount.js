@@ -52,4 +52,55 @@ $(document).ready(function(){
 			}
 		})
 	}
+
+	var discount_id_remove;
+	$(document).on("click", ".btn-remove", function(){
+		var data = discountsTable.row( $(this).parents('tr') ).data();
+		console.log(data)
+		discount_id_remove = data.id;
+
+		$("#confirm_remove_modal").modal("show")
+		$("#confirm_remove_modal .discount-name").text(data.name)
+	});
+
+	var loading_remove_discount = false;
+	$(".btn-confirm-remove-discount").on("click", function(){
+		if(!loading_remove_discount){
+			loading_remove_discount = true;
+
+			$(".btn-confirm-remove-discount").prop("disabled", true)
+
+			$(".global-loading").css({
+		        "display": "flex"
+		    })
+		    createProcessLoading('.global-loading', '<span style="color:white;">Loading...</span>', base_url + 'assets/uploads/preloader/preloader_logo.gif', '80px', '80px', '24px')
+
+		    $.ajax({
+		    	url: base_url + "discount/remove-discount",
+		    	type: 'POST',
+		    	dataType: 'json',
+		    	data:{
+		    		discount_id: discount_id_remove
+		    	},
+		    	success: function(response){
+		    		$(".global-loading").css({"display": "none"})
+		    		$("#confirm_remove_modal").modal("hide")
+		    		if(response.success){
+		    			$(".success-modal").modal("show")
+						$(".success-msg").html("Successfully removed discount.");
+		    		}
+		    		else{
+		        		$(".btn-confirm-remove-discount").prop("disabled", false)
+		    			loading_remove_discount = false;
+		    		}
+		    	},
+		    	error: function(error){
+		    	}
+		    })
+		}
+	});
+
+	$(".success-modal").on("hidden.bs.modal", function(){
+		window.location.reload()
+	});
 });
