@@ -42,6 +42,7 @@
 						<div class="form-group">
 							<span>Percentage&nbsp;<span class="text-danger">*</span></span>
 							<input type="text" name="value" class="form-control float-only" placeholder="Enter value" value="<?= $discount_details['value'] ?>">
+							<span class="value-warning"></span>
 						</div>
 					</div>
 				</div>

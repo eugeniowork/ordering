@@ -42,6 +42,7 @@
 						<div class="form-group">
 							<span>Value&nbsp;<span class="text-danger">*</span></span>
 							<input type="text" name="value" class="form-control float-only" placeholder="Enter value">
+							<span class="value-warning"></span>
 						</div>
 					</div>
 				</div>

@@ -54,4 +54,21 @@ $(document).ready(function(){
             $(".btn-update").click();
         }
     });
+
+    $("select[name=type]").on("change", function(){
+        if($(this).val() == "Percentage" && $("input[name=value]").val() > 100){
+            $("input[name=value]").val(100)
+        }
+    });
+    $("input[name=value]").on("keyup", function(){
+        var type = $('select[name=type] option:selected').val();
+        var value = $(this).val();
+        $(".value-warning").html("");
+        if(type == "Percentage"){
+            if(value > 100){
+                $("input[name=value]").val(100)
+                $(".value-warning").html("<small class='text-danger'>Maximum of 100 only.</small>")
+            }
+        }
+    })
 });
