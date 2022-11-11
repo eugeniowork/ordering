@@ -19,7 +19,8 @@
 	                    <tr>
 	                    	<th>Name</th>
 	                        <th>Code</th>
-	                        <th>Percentage</th>
+	                        <th>Type</th>
+	                        <th>Value</th>
 	                        <th>Action</th>
 	                    </tr>
 	                </thead>

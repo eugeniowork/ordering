@@ -27,7 +27,10 @@ $(document).ready(function(){
 				            	"data":"code"
 				            },
 				            {
-				            	"data":"percentage",
+				            	"data": "type",
+				            },
+				            {
+				            	"data":"value",
 				            },
 				            {
 				            	"data":"",

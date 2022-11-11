@@ -27,7 +27,7 @@ class Discount extends CI_Controller {
 
 		$discounts = $this->global_model->get("discounts", "*", "deleted_by = 0", "", "multiple", []);
 		foreach ($discounts as $key => $discount) {
-			$discounts[$key]->{"percentage"} = $discount->percentage."%";
+			$discounts[$key]->{"value"} = $discount->type == "Amount"? "&#8369;".$discount->value: $discount->value."%";
 			$discounts[$key]->{"encrypted_id"} = encryptData($discount->id);
 		}
 		$this->data['discounts'] = $discounts;
@@ -77,7 +77,8 @@ class Discount extends CI_Controller {
 
 		$name = $post['name'];
 		$code = $post['code'];
-		$percentage = $post['percentage'];
+		$value = $post['value'];
+		$type = $post['type'];
 
 		$result = [];
 		$success = true;
@@ -121,7 +122,8 @@ class Discount extends CI_Controller {
 			));
 		}
 		
-		$this->form_validation->set_rules('percentage','percentage','required');
+		$this->form_validation->set_rules('value','value','required');
+		$this->form_validation->set_rules('type','type','required');
 
 		if($this->form_validation->run() == FALSE){
             $success = false;
@@ -129,9 +131,16 @@ class Discount extends CI_Controller {
         }
 
         if($success){
-        	if(!is_numeric($percentage) && !floor($percentage)){
+        	if(!is_numeric($value) && !floor($value)){
         		$success = false;
-            	$msg .= "<p>Please enter correct percentage.</p>";
+            	$msg .= "<p>Please enter correct value.</p>";
+        	}
+        }
+
+        if($success){
+        	if(!in_array($type, ['Amount','Percentage'])){
+        		$success = false;
+        		$msg .= "Invalid type.";
         	}
         }
 
@@ -144,7 +153,7 @@ class Discount extends CI_Controller {
 
     			//CHECK CHANGES
     			$changes = [];
-    			$fields = ["name", "code", "percentage"];
+    			$fields = ["name", "code", "type", "value"];
                 foreach ($fields as $field) {
                     if($discount_details[$field] != $post[$field]){
                         $current_value = empty($discount_details[$field])? 'no value': $discount_details[$field];

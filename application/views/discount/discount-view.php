@@ -14,22 +14,28 @@
     	</div>
 		<div class="container-body">
 			<div class="row">
-				<div class="col-12 col-lg-4">
+				<div class="col-12 col-lg-6">
 					<div class="form-group">
 						<span>Name</span>
 						<input type="text" class="form-control" readonly value="<?= $discount_details['name'] ?>">
 					</div>
 				</div>
-				<div class="col-12 col-lg-4">
+				<div class="col-12 col-lg-6">
 					<div class="form-group">
 						<span>Code</span>
 						<input type="text" class="form-control" readonly value="<?= $discount_details['code'] ?>">
 					</div>
 				</div>
-				<div class="col-12 col-lg-4">
+				<div class="col-12 col-lg-6">
 					<div class="form-group">
-						<span>Percentage</span>
-						<input type="text" class="form-control" readonly value="Php <?= $discount_details['percentage'] ?>">
+						<span>Type</span>
+						<input type="text" class="form-control" readonly value="<?= $discount_details['type'] ?>">
+					</div>
+				</div>
+				<div class="col-12 col-lg-6">
+					<div class="form-group">
+						<span>Value</span>
+						<input type="text" class="form-control" readonly value="<?= $discount_details['value'] ?>">
 					</div>
 				</div>
 			</div>

@@ -16,22 +16,32 @@
 		<div class="container-body">
 			<form id="form">
 				<div class="row">
-					<div class="col-12 col-lg-4">
+					<div class="col-12 col-lg-6">
 						<div class="form-group">
 							<span>Name&nbsp;<span class="text-danger">*</span></span>
 							<input type="text" name="name" class="form-control" placeholder="Enter name" value="<?= $discount_details['name'] ?>">
 						</div>
 					</div>
-					<div class="col-12 col-lg-4">
+					<div class="col-12 col-lg-6">
 						<div class="form-group">
 							<span>Code&nbsp;<span class="text-danger">*</span></span>
 							<input type="text" name="code" class="form-control" placeholder="Enter code" value="<?= $discount_details['code'] ?>">
 						</div>
 					</div>
-					<div class="col-12 col-lg-4">
+					<div class="col-12 col-lg-6">
+						<div class="form-group">
+							<span>Type&nbsp;<span class="text-danger">*</span></span>
+							<select class="form-control" name="type">
+		                    	<option value="">Please select</option>
+		                    	<option value="Percentage" <?= $discount_details['type'] == "Percentage"? 'selected': '';?>>Percentage</option>
+		                    	<option value="Amount" <?= $discount_details['type'] == "Amount"? 'selected': '';?>>Amount</option>
+		                    </select>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6">
 						<div class="form-group">
 							<span>Percentage&nbsp;<span class="text-danger">*</span></span>
-							<input type="text" name="percentage" class="form-control float-only" placeholder="Enter percentage" value="<?= $discount_details['percentage'] ?>">
+							<input type="text" name="value" class="form-control float-only" placeholder="Enter value" value="<?= $discount_details['value'] ?>">
 						</div>
 					</div>
 				</div>
