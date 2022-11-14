@@ -265,6 +265,12 @@ class Order extends CI_Controller {
 		$user_details = $this->global_model->get("views_users", "*", "id = '$user_id'", [], "single", []);
 		$this->data['user_details'] = $user_details;
 
+		$discounts = $this->global_model->get("discounts", "id,name,type,value", "deleted_by = 0", "", "multiple", []);
+		foreach($discounts as $key => $discount){
+			$discounts[$key]->{"encrypted_id"} = encryptData($discount->id);
+		}
+		$this->data['discounts'] = $discounts;
+
 		$this->data['page_title'] = "Order Payment";
 
 		$this->load->view('layouts/header', $this->data);

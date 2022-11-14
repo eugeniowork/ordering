@@ -9,10 +9,11 @@
 		<div class="container-header">
     		<span class="header-title">Order #<?= $order['order_number'] ?></span><br>
             <div class="buttons">
-                <a href="<?= base_url();?>ongoing-orders-view/<?= encryptData($order['id']) ?>" class="btn btn-sm btn-primary">Back</a>
+                <button class="btn btn-sm btn-primary btn-add-discount">Add Discount</button>
                 <?php if ($order['status'] == "FOR PICKUP"): ?>
                 	<button class="btn btn-primary btn-sm btn-open-payment-confirmation d-none">Confirm Payment</button>
                 <?php endif ?>
+                <a href="<?= base_url();?>ongoing-orders-view/<?= encryptData($order['id']) ?>" class="btn btn-sm btn-primary">Back</a>
             </div>
     	</div>
 		<div class="container-body">
@@ -66,17 +67,38 @@
 						
 					</div>
 					<div class="col-12 col-lg-6">
-						<div class="order-details-container">
-							<p style="font-size: 22px;">Order Details</p>
-							<?php foreach ($order_items as $key => $item): ?>
-								<div class="order-details-content">
-									<div class="name-container"><?= $item->quantity ?> x <?= $item->name; ?></div>
-									<div class="price-container"><span>&#8369;</span><?= number_format($item->price * $item->quantity, 2); ?></div>
+						<div class="summary-container">
+							<div class="order-details-container">
+								<p style="font-size: 22px;">Order Details</p>
+								<?php foreach ($order_items as $key => $item): ?>
+									<div class="order-details-content">
+										<div class="name-container"><?= $item->quantity ?> x <?= $item->name; ?></div>
+										<div class="price-container"><span>&#8369;</span><?= number_format($item->price * $item->quantity, 2); ?></div>
+									</div>
+								<?php endforeach ?>
+							</div>
+							<hr>
+							<p style="font-size: 22px;">Discount(s)</p>
+							<div class="discounts-container">
+								<div class="discounts-details-content">
+									<div class="name-container">No discount</div>
+									<div class="price-container"></div>
 								</div>
-							<?php endforeach ?>
-							<div class="order-details-content">
-								<div class="name-container"><strong>Total Amount</strong></div>
-								<div class="price-container"><strong><span>&#8369;</span><?= number_format($order['total_amount'],2) ?></strong></div>
+							</div>
+							<hr>
+							<div class="totals-container">
+								<div class="totals-details-content">
+									<div class="name-container"><strong>Sub Total</strong></div>
+									<div class="price-container"><strong class="sub-total"></strong></div>
+								</div>
+								<div class="totals-details-content">
+									<div class="name-container"><strong>Discount</strong></div>
+									<div class="price-container"><strong class="discount-total"></strong></div>
+								</div>
+								<div class="totals-details-content">
+									<div class="name-container"><strong>Grand Total</strong></div>
+									<div class="price-container"><strong class="grand-total"></strong></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -186,6 +208,35 @@
 	            </div>
 	        </div>
 
+	        <div class="modal fade" id="add_discount_modal" tabindex="-1" role="dialog" aria-hidden="true">
+	            <div class="modal-dialog modal-dialog-centered" role="document">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h5 class="modal-title">Add Discount</h5>
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                        </button>
+	                    </div>
+	                    <div class="modal-body">
+	                    	<div class="form-group">
+	                    		<span>Discounts</span>
+	                    		<select class="form-control discount-type">
+	                    			<option value="">Please select</option>
+	                    			<!-- <?php foreach($discounts as $key => $discount): ?>
+	                    				<option value="<?= encryptData($discount->id); ?>"><?= $discount->name." (".($discount->type == "Amount"? "&#8369;".$discount->value: $discount->value."%").")"; ?></option>
+	                    			<?php endforeach; ?> -->
+	                    		</select>
+	                    	</div>
+	                    	<div class="discount-warning text-danger"></div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button class="btn btn-primary btn-sm btn-submit-discount">Submit</button>
+	                        <button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">Cancel</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
 	    	<script type="text/javascript">
 	    		var total_order_amount = '<?= $order['total_amount'] ?>';
 	    		var order_id = '<?= encryptData($order['id']) ?>';
@@ -194,6 +245,8 @@
 	    		//var face2_value = new Float32Array(Object.values(JSON.parse('<?= $user_details['face2_value'] ?>')));
 	    		var face2_value = [];
 	    		var customer_email = '<?= $user_details['email'] ?>';
+	    		//var discounts = '<?= json_encode($discounts); ?>'
+	    		var discounts = JSON.parse('<?= json_encode($discounts); ?>')
 	    	</script>
 	    	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 			<script type="text/javascript" src="<?= base_url();?>assets/js/external/face-api.min.js"></script>

@@ -237,4 +237,36 @@ class Discount extends CI_Controller {
 		];
 		echo json_encode($result);
 	}
+
+	public function calculate_discount(){
+		$discount_id = decryptData($this->input->post("discount_id"));
+		$amount = $this->input->post('amount');
+
+		$success = true;
+		$msg = "";
+        $discount_details = $this->global_model->get("discounts", "*", "id = {$discount_id}", [], "single", []);
+       
+        if($discount_details){
+        	//IF DISCOUNT IF PERCENTAGE - CALCULATE TOTAL
+        	if($discount_details['type'] == "Percentage"){
+        		$this->data['discount_amount'] = $amount * ($discount_details['value'] / 100);
+        	}
+        	else{
+        		$this->data['discount_amount'] = $discount_details['value'];
+        	}
+        	$this->data['discount_name'] = $discount_details['name'];
+	        $this->data['discount_value'] = $discount_details['value'];
+	        $this->data['discount_type'] = $discount_details['type'];
+	        $this->data['discount_id'] = $discount_id;
+        }
+        else{
+        	$success = false;
+        	$msg = "Invalid discount";
+        }
+        
+        $this->data['success'] = $success;
+        $this->data['msg'] = $msg;
+
+        echo json_encode($this->data);
+	}
 }

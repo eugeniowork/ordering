@@ -311,7 +311,6 @@ $(document).ready(function(){
 		}, 300)
 	}
 
-	console.log(face1_value)
 	$(".btn-submit-face").on("click", function(){
 		const distance = faceapi.euclideanDistance(face_descriptor, face1_value);
 		//const distance2 = faceapi.euclideanDistance(face_descriptor, face2_value);
@@ -371,5 +370,115 @@ $(document).ready(function(){
 				});
 			};
 		})
+	}
+
+	$(".btn-add-discount").on("click", function(){
+		$("#add_discount_modal").modal("show")
+	});
+
+	var added_discount = [];
+	$(".btn-submit-discount").on("click", function(){
+		var discount_id = $(".discount-type").val();
+		$(".discount-warning").html("");
+
+		var success = true;
+		var msg = "";
+
+		if(discount_id == ""){
+			success = false;
+			msg = "Please select discount.";
+		}
+
+		if(success){
+			if(added_discount.length == 0){
+				$(".discounts-container").empty();
+			}
+
+			$.ajax({
+				url: base_url + "discount/calculate-discount",
+				type: 'POST',
+				dataType: 'json',
+				data:{
+					discount_id: discount_id,
+					amount: total_order_amount
+				},
+				beforeSend: function(){
+					$(".discounts-container").append("<div class='discount-loading'>")
+					createProcessLoadingV2({"div_name": ".discount-loading", "loading_text": "", "position": "left", "font_size": "13px", "font_weight": "600", "height": "30px", "width": "30px"});
+				},
+				success: function(response){
+					if(response.success){
+						$("#add_discount_modal").modal("hide")
+						var params = {
+							'name': response.discount_name,
+							'value': response.discount_value,
+							'amount': response.discount_amount,
+							'type': response.discount_type,
+							'id': response.discount_id
+						}
+						added_discount.push(params)
+						create_discount_container(params);
+						discount_dropdown();
+					}
+					else{
+						$(".discount-loading").remove();
+						$(".discount-warning").html(response.msg);
+					}
+				},
+				error: function(error){
+
+				}
+			})
+		}
+		else{
+			$(".discount-warning").html(msg);
+		}
+	});
+
+	function create_discount_container(params){
+		$(".discount-loading").remove();
+
+		var discount_details_content = $("<div class='discounts-details-content' id='"+params.id+"'>")
+		discount_details_content.append('<div class="name-container"><button style="color: red;" class="btn btn-sm btn-remove-discount" data-id="'+params['id']+'" title="Remove"><i class="fa fa-minus-circle"></i></button><strong>'+params['name']+'</strong></div>')
+		discount_details_content.append('<div class="price-container"><strong>'+moneyConvertion(params['amount'])+'</strong></div>')
+		if(params['type'] == "Percentage"){
+			discount_details_content.append('<div class="discount-value-container"><strong>'+params['value']+'%</strong></div>')
+		}
+		
+		$(".discounts-container").append(discount_details_content)
+	}
+
+	$(document).on("click", ".btn-remove-discount", function(){
+		var id = $(this).data("id");
+			
+		//REMOVE IN ARRAY added_discount
+		const x = added_discount.findIndex(function(item, i) {
+		 	return item.id == id
+		});
+		added_discount.splice(x, 1);
+
+		//REMOVE DISCOUNT CONTAINER
+		$("#"+id).remove();
+
+		//RE-INIT DISCOUNT DROPDOWN
+		discount_dropdown();
+	});
+
+	discount_dropdown();
+	function discount_dropdown(){
+		$(".discount-type").empty();
+		$(".discount-type").append('<option value="">Please select</option>')
+		$.each(discounts, function(){
+			//CHECK IF DISCOUNT IS NOT YET ADDED
+			if(!in_array(added_discount, this.id)){
+				var val = this.type == "Amount"? moneyConvertion(this.value): this.value+"%";
+				$(".discount-type").append('<option value="'+this.encrypted_id+'">'+this.name+' ('+val+')</option>')
+			}
+		})
+	}
+
+	function in_array(arr, discount_id) {
+		const found = arr.some(el => el.id === discount_id);
+		return found;
 	}
 })

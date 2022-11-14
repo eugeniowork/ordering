@@ -35,29 +35,117 @@
 		}
 	}
 
-	.order-details-container{
+	// .order-details-container{
+	// 	border: 1px solid #f3f3f3;
+ //    	padding: 10px 10px;
+ //    	-webkit-box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
+	//     -moz-box-shadow:0px 0px 10px 0px rgba(193,193,193,0.75);
+	//     box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
+	// 	.order-details-content{
+	// 		display: inline-flex;
+	// 	    justify-content: space-between;
+	// 	    word-break: break-word;
+	// 	    // .quantity-container{
+	// 	    // 	width: 100px;
+	// 	    // 	padding: 5px 10px;
+	// 	    // }
+	// 	    .name-container{
+	// 	    	width: 250px;
+	// 	    	padding: 5px 10px;
+	// 	    } 
+	// 	    .price-container{
+	// 	    	width: 250px;
+	// 	    	padding: 5px 10px;
+	// 	    }
+	// 	}
+
+	// 	.discount-details-content{
+	// 		display: inline-flex;
+	// 	    justify-content: space-between;
+	// 	    word-break: break-word;
+	// 	    .name-container{
+	// 	    	width: 250px;
+	// 	    	padding: 5px 10px;
+	// 	    } 
+	// 	    .price-container{
+	// 	    	width: 250px;
+	// 	    	padding: 5px 10px;
+	// 	    }
+	// 	}
+
+	// 	.grand-total-content{
+	// 		display: inline-flex;
+	// 	    justify-content: space-between;
+	// 	    word-break: break-word;
+	// 	    .name-container{
+	// 	    	width: 250px;
+	// 	    	padding: 5px 10px;
+	// 	    } 
+	// 	    .price-container{
+	// 	    	width: 250px;
+	// 	    	padding: 5px 10px;
+	// 	    }
+	// 	}
+	// }
+
+	.summary-container{
 		border: 1px solid #f3f3f3;
-    	padding: 10px 10px;
+    	padding: 10px 20px;
     	-webkit-box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
 	    -moz-box-shadow:0px 0px 10px 0px rgba(193,193,193,0.75);
 	    box-shadow: 0px 0px 10px 0px rgba(193,193,193,0.75);
-		.order-details-content{
-			display: inline-flex;
-		    justify-content: space-between;
-		    word-break: break-word;
-		    // .quantity-container{
-		    // 	width: 100px;
-		    // 	padding: 5px 10px;
-		    // }
-		    .name-container{
-		    	width: 250px;
-		    	padding: 5px 10px;
-		    } 
-		    .price-container{
-		    	width: 250px;
-		    	padding: 5px 10px;
-		    }
-		}
+
+	    .order-details-container{
+	    	.order-details-content{
+				display: inline-flex;
+			    justify-content: space-between;
+			    word-break: break-word;
+			    .name-container{
+			    	width: 250px;
+			    	padding: 5px 10px;
+			    } 
+			    .price-container{
+			    	width: 250px;
+			    	padding: 5px 10px;
+			    }
+			}
+	    }
+
+	    .discounts-container{
+	    	.discounts-details-content{
+				display: inline-flex;
+			    justify-content: space-between;
+			    word-break: break-word;
+			    .name-container{
+			    	width: 250px;
+			    	padding: 5px 10px;
+			    } 
+			    .price-container{
+			    	width: 250px;
+			    	padding: 5px 10px;
+			    }
+			    .discount-value-container{
+			    	width: 250px;
+			    	padding: 5px 10px;
+			    }
+			}
+	    }
+
+	    .totals-container{
+	    	.totals-details-content{
+				display: inline-flex;
+			    justify-content: space-between;
+			    word-break: break-word;
+			    .name-container{
+			    	width: 250px;
+			    	padding: 5px 10px;
+			    } 
+			    .price-container{
+			    	width: 250px;
+			    	padding: 5px 10px;
+			    }
+			}
+	    }
 	}
 
 	.webcam-container{
