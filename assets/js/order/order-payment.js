@@ -29,15 +29,15 @@ $(document).ready(function(){
 
 	$(".cash-amount").on("keyup", function(){
 		var cash_amount = parseFloat($(this).val())
-		if(cash_amount >= total_order_amount){
+		if(cash_amount >= grand_total){
 			$(".btn-open-payment-confirmation").removeClass("d-none")
-			$(".cash-change").text((cash_amount - total_order_amount).toFixed(2))
+			$(".cash-change").text((cash_amount - grand_total).toFixed(2))
 			$(".cash-amount-warning").html("")
 		}
 		else{
 			$(".btn-open-payment-confirmation").addClass("d-none")
 			$(".cash-change").text("")
-			$(".cash-amount-warning").html("<small class='text-danger'>Please enter amount that is equal or greater than "+moneyConvertion(parseFloat(total_order_amount))+".</small>")
+			$(".cash-amount-warning").html("<small class='text-danger'>Please enter amount that is equal or greater than "+moneyConvertion(parseFloat(grand_total))+".</small>")
 		}
 	})
 
@@ -349,7 +349,7 @@ $(document).ready(function(){
 		clearInterval(no_face_detected);
 	}
 
-    prepare_face_detector();
+    //prepare_face_detector();
 	function prepare_face_detector() {
 		Promise.all([
 			faceapi.nets.tinyFaceDetector.load(model_path),
@@ -372,11 +372,14 @@ $(document).ready(function(){
 		})
 	}
 
+	var added_discount = [];
+	var discount_total = 0;
+	var grand_total = total_order_amount;
+
 	$(".btn-add-discount").on("click", function(){
 		$("#add_discount_modal").modal("show")
 	});
 
-	var added_discount = [];
 	$(".btn-submit-discount").on("click", function(){
 		var discount_id = $(".discount-type").val();
 		$(".discount-warning").html("");
@@ -409,6 +412,7 @@ $(document).ready(function(){
 				success: function(response){
 					if(response.success){
 						$("#add_discount_modal").modal("hide")
+
 						var params = {
 							'name': response.discount_name,
 							'value': response.discount_value,
@@ -417,8 +421,17 @@ $(document).ready(function(){
 							'id': response.discount_id
 						}
 						added_discount.push(params)
+
+						//GET TOTALS
+						calculate_totals();
+
+						//DISPLAY DISCOUNT
 						create_discount_container(params);
+
+						//RE-INIT DISCOUNT DROPDOWN
 						discount_dropdown();
+
+						$(".cash-amount").keyup();
 					}
 					else{
 						$(".discount-loading").remove();
@@ -456,12 +469,20 @@ $(document).ready(function(){
 		 	return item.id == id
 		});
 		added_discount.splice(x, 1);
+		if(added_discount.length > 0){
+			
+		}
 
 		//REMOVE DISCOUNT CONTAINER
 		$("#"+id).remove();
 
+		//GET TOTALS
+		calculate_totals();
+
 		//RE-INIT DISCOUNT DROPDOWN
 		discount_dropdown();
+
+		$(".cash-amount").keyup();
 	});
 
 	discount_dropdown();
@@ -480,5 +501,20 @@ $(document).ready(function(){
 	function in_array(arr, discount_id) {
 		const found = arr.some(el => el.id === discount_id);
 		return found;
+	}
+
+	function calculate_totals(){
+		discount_total = 0;
+		grand_total = parseFloat(total_order_amount);
+		$.each(added_discount, function(){
+			discount_total += parseFloat(this.amount);
+			grand_total -= parseFloat(this.amount);
+		})
+						
+		$(".discount-total").text("")
+		$(".discount-total").text(moneyConvertion(discount_total))
+
+		$(".grand-total").text("")
+		$(".grand-total").text(moneyConvertion(grand_total))
 	}
 })

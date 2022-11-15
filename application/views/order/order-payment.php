@@ -89,15 +89,15 @@
 							<div class="totals-container">
 								<div class="totals-details-content">
 									<div class="name-container"><strong>Sub Total</strong></div>
-									<div class="price-container"><strong class="sub-total"></strong></div>
+									<div class="price-container"><strong>&#8369;<?= number_format($order['total_amount'], 2); ?></strong></div>
 								</div>
 								<div class="totals-details-content">
 									<div class="name-container"><strong>Discount</strong></div>
-									<div class="price-container"><strong class="discount-total"></strong></div>
+									<div class="price-container"><strong class="discount-total">&#8369;0.00</strong></div>
 								</div>
 								<div class="totals-details-content">
 									<div class="name-container"><strong>Grand Total</strong></div>
-									<div class="price-container"><strong class="grand-total"></strong></div>
+									<div class="price-container"><strong class="grand-total">&#8369;<?= number_format($order['total_amount'], 2); ?></strong></div>
 								</div>
 							</div>
 						</div>

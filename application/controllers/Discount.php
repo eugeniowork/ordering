@@ -249,7 +249,7 @@ class Discount extends CI_Controller {
         if($discount_details){
         	//IF DISCOUNT IF PERCENTAGE - CALCULATE TOTAL
         	if($discount_details['type'] == "Percentage"){
-        		$this->data['discount_amount'] = $amount * ($discount_details['value'] / 100);
+        		$this->data['discount_amount'] = round($amount * ($discount_details['value'] / 100), 2);
         	}
         	else{
         		$this->data['discount_amount'] = $discount_details['value'];
