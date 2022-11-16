@@ -9,8 +9,8 @@
 		<div class="container-header">
     		<span class="header-title">Order #<?= $order['order_number'] ?></span><br>
             <div class="buttons">
-                <button class="btn btn-sm btn-primary btn-add-discount">Add Discount</button>
                 <?php if ($order['status'] == "FOR PICKUP"): ?>
+                	<button class="btn btn-sm btn-primary btn-add-discount">Add Discount</button>
                 	<button class="btn btn-primary btn-sm btn-open-payment-confirmation d-none">Confirm Payment</button>
                 <?php endif ?>
                 <a href="<?= base_url();?>ongoing-orders-view/<?= encryptData($order['id']) ?>" class="btn btn-sm btn-primary">Back</a>
