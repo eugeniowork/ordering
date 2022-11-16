@@ -37,7 +37,7 @@ $(document).ready(function(){
 				            	"data":"",
 				                "render": function(data, type, full, meta) {
 				                    var html = "";
-				                    html = moneyConvertion(parseFloat(full.total_amount), "PHP")
+				                    html = moneyConvertion(parseFloat(full.grand_total), "PHP")
 				                    return html;
 				                }
 				            },

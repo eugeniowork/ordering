@@ -30,7 +30,7 @@
 	                    <tr>
 	                        <th class="th-customer">Customer Name</th>
 	                        <th class="th-order-number">Order Number</th>
-	                        <th class="th-total-amount">Amount</th>
+	                        <th class="th-total-amount">Grand Total</th>
 	                        <th class="th-status">Status</th>
 	                        <th class="th-date-pickup">Scheduled Date Pickup</th>
 	                        <th class="th-date-pickup">Actual Date Pickup</th>

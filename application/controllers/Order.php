@@ -698,8 +698,8 @@ class Order extends CI_Controller {
 	public function ordersHistoryList(){
 		session_write_close();
 
-		$date_from = $this->input->post('date_from');
-		$date_to = $this->input->post('date_to');
+		$date_from = $this->input->post('date_from').' 00:00:00';
+		$date_to = $this->input->post('date_to').' 23:59:59';
 
         $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status != 'FOR PROCESS' AND status != 'FOR PICKUP') AND created_date >= '{$date_from}' AND created_date <= '{$date_to}'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
         foreach ($orders as $key => $order) {
