@@ -12,14 +12,16 @@
     $for_cash = "";
     if($order['mode_of_payment'] == "CASH"){
     	$for_cash .= "
-    		<tr>
-				<th>Cash Amount</th>
-				<th><span>Php </span>".number_format($order['cash_payment_amount'],2)."</th>
-			</tr>
-			<tr>
-				<th>Change</th>
-				<th><span>Php </span>".number_format($order['cash_payment_amount'] - $order['total_amount'],2)."</th>
-			</tr>
+    		<tfoot style='border-top:1px solid #333'>
+	    		<tr>
+					<th>Cash Amount</th>
+					<th><span>Php </span>".number_format($order['cash_payment_amount'],2)."</th>
+				</tr>
+				<tr>
+					<th>Change</th>
+					<th><span>Php </span>".number_format($order['cash_payment_amount'] - $order['grand_total'],2)."</th>
+				</tr>
+			</tfoot>
     	";
     }
 
@@ -46,13 +48,21 @@
 				<tbody>
 					'.$products_list.'
 				</tbody>
-				<tfoot>
+				<tfoot style="border-top:1px solid #333">
 					<tr>
-						<th>Total Amount</th>
+						<th>Sub Total</th>
 						<th><span>Php </span>'.number_format($order['total_amount'],2).'</th>
 					</tr>
-					'.$for_cash.'
+					<tr>
+						<th>Discount</th>
+						<th><span>Php </span>'.number_format($order['discount_total'],2).'</th>
+					</tr>
+					<tr>
+						<th>Grand Total</th>
+						<th><span>Php </span>'.number_format($order['grand_total'],2).'</th>
+					</tr>
 				</tfoot>
+				'.$for_cash.'
 			</table>
 		</div>
     ';
