@@ -41,16 +41,16 @@
                     <span><?= $order['order_number'] ?></span>
                 </div>
                 <div class="col-12 col-lg-2">
-                    <strong>Amount:</strong>
-                </div>
-                <div class="col-12 col-lg-10">
-                    <span><span>&#8369;</span><?= number_format($order['total_amount'], 2) ?></span>
-                </div>
-                <div class="col-12 col-lg-2">
                     <strong>Total Items:</strong>
                 </div>
                 <div class="col-12 col-lg-10">
                     <span><?= $order['total_quantity'] ?></span>
+                </div>
+                <div class="col-12 col-lg-2">
+                    <strong>Amount:</strong>
+                </div>
+                <div class="col-12 col-lg-10">
+                    <span><span>&#8369;</span><?= number_format($order['total_amount'], 2) ?></span>
                 </div>
                 <div class="col-12 col-lg-2">
                     <strong>Date Ordered:</strong>
