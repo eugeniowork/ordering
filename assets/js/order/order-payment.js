@@ -151,7 +151,10 @@ $(document).ready(function(){
             	data:{
             		order_id: order_id,
             		cash_amount: $(".cash-amount").val(),
-            		is_face_pay_successful: is_face_pay_successful
+            		is_face_pay_successful: is_face_pay_successful,
+            		discount_total: discount_total,
+            		grand_total: grand_total,
+            		discounts: added_discount
             	},
             	success: function(response){
             		if(response.is_error){
@@ -418,6 +421,7 @@ $(document).ready(function(){
 							'value': response.discount_value,
 							'amount': response.discount_amount,
 							'type': response.discount_type,
+							'code': response.discount_code,
 							'id': response.discount_id
 						}
 						added_discount.push(params)

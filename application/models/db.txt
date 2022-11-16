@@ -5,3 +5,6 @@ users_approval_history
 
 2022-10-31
 order_history_logs
+
+2022-11-16
+order_history_discounts

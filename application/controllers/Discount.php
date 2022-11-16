@@ -257,6 +257,7 @@ class Discount extends CI_Controller {
         	$this->data['discount_name'] = $discount_details['name'];
 	        $this->data['discount_value'] = $discount_details['value'];
 	        $this->data['discount_type'] = $discount_details['type'];
+	        $this->data['discount_code'] = $discount_details['code'];
 	        $this->data['discount_id'] = $discount_id;
         }
         else{

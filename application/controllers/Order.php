@@ -283,6 +283,9 @@ class Order extends CI_Controller {
 		$order_id = $this->input->post("order_id");
 		$order_id = decryptData($order_id);
 		$cash_amount = $this->input->post("cash_amount");
+		$discount_total = $this->input->post("discount_total");
+		$grand_total = $this->input->post("grand_total");
+		$discounts = $this->input->post("discounts");
 
 		$this->form_validation->set_rules('cash_amount','cash amount','required',array(
             'required'=> 'Please enter cash amount'
@@ -297,15 +300,17 @@ class Order extends CI_Controller {
         	$customer_id = $order_details['user_id'];
         	$order_number = $order_details['order_number'];
 
-        	if($cash_amount < $order_details['total_amount']){
+        	if($cash_amount < $grand_total){
         		$this->data['is_error'] = true;
-            	$this->data['error_msg'] = "Please enter amount that is equal or greater than <span>&#8369;</span>".number_format($order_details['total_amount'], 2);
+            	$this->data['error_msg'] = "Please enter amount that is equal or greater than <span>&#8369;</span>".number_format($grand_total, 2);
         	}
         	else{
         		$ordered_products = $this->global_model->get("order_history_products", "*", "order_history_id = '$order_id'", [], "multiple", []);
         		
         		//UPDATE ORDER
         		$order_params = [
+        			'discount_total'=> $discount_total,
+        			'grand_total'=> $grand_total,
         			'status'=> 'PICKED UP',
         			'mode_of_payment'=> 'CASH',
         			'actual_date_pickup'=> getTimeStamp(),
@@ -315,6 +320,19 @@ class Order extends CI_Controller {
         			'updated_by'=> $this->session->userdata('user_id'),
         		];
         		$this->global_model->update("order_history", "id = '$order_id'", $order_params);
+
+        		foreach($discounts as $discount){
+			        $this->global_model->insert("order_history_discounts", [
+			        	'order_history_id'=> $order_id,
+			        	'amount'=> $discount['amount'],
+			        	'name'=> $discount['name'],
+			        	'code'=> $discount['code'],
+			        	'type'=> $discount['type'],
+			        	'value'=> $discount['value'],
+			        	'created_date'=> getTimeStamp(),
+			        	'created_by'=> $this->session->userdata('user_id')
+			        ]);
+	        	}
 
         		$user = $this->global_model->get("users", "id, email", "id = '$customer_id'", [], "single", []);
 
