@@ -385,7 +385,8 @@ class Product extends CI_Controller {
 			        //UPDATE ORDER HISTORY TOTAL AMOUNT AND TOTAL QUANTITY
 			        $update_order_history_params = [
 			        	'total_quantity'=> $total_quantity,
-			        	'total_amount'=> $total_amount
+			        	'total_amount'=> $total_amount,
+			        	'grand_total'=> $total_amount
 			        ];
 			        $this->global_model->update("order_history", "id = '$insert_id'", $update_order_history_params);
 
