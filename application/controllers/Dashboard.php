@@ -47,7 +47,7 @@ class Dashboard extends CI_Controller {
 			$products = $this->global_model->get("products", "sum(stock) as total_stocks", "deleted_by = 0", [], "single", []);
         	$this->data['total_stocks'] = $products['total_stocks'];
 
-        	$orders = $this->global_model->get("order_history", "sum(total_amount) as total_amount, sum(total_quantity) as total_quantity", "status = 'PICKED UP' AND deleted_by = 0 AND created_date >= '$first_day_this_month' AND created_date <= '$last_day_this_month'", [], "single", []);
+        	$orders = $this->global_model->get("order_history", "sum(grand_total) as total_amount, sum(total_quantity) as total_quantity", "status = 'PICKED UP' AND deleted_by = 0 AND created_date >= '$first_day_this_month' AND created_date <= '$last_day_this_month'", [], "single", []);
 
         	$this->data['revenue'] = $orders['total_amount'];
         	$this->data['orders_this_week'] = $orders['total_quantity'];
@@ -83,7 +83,7 @@ class Dashboard extends CI_Controller {
     				//$start_end = getStartAndEndDate($week + 1,$year);
     				//$final_label[] = $start_end['week_start']." to ".$start_end['week_end'];
     				$tmp_week = $week + 1;
-    				$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(total_amount) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year} AND week = {$tmp_week}", [], "single", []);
+    				$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(grand_total) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year} AND week = {$tmp_week}", [], "single", []);
 
     				$final_label[] = "Week ".($week + 1)." ".$year;
     				$final_data_orders[] = $orders['total_quantity']? $orders['total_quantity']: "0";
@@ -93,7 +93,7 @@ class Dashboard extends CI_Controller {
     		}
     		else if($filter == "monthly"){
     			for($month = 1; $month <= 12; $month++){
-    				$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(total_amount) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year} AND month = {$month}", [], "single", []);
+    				$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(grand_total) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year} AND month = {$month}", [], "single", []);
 
     				$first_day_month = date('Y-m-01', strtotime($year."-".$month."-01"));
     				$final_label[] = date('M Y',strtotime($first_day_month));
@@ -102,7 +102,7 @@ class Dashboard extends CI_Controller {
     			}
     		}
     		else if($filter == "yearly"){
-    			$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(total_amount) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year}", [], "single", []);
+    			$orders = $this->global_model->get("views_order_history", "sum(total_quantity) as total_quantity, sum(grand_total) as total_amount", "status = 'PICKED UP' AND deleted_by = 0 AND year = {$year}", [], "single", []);
 
     			$final_label[] = $year;
     			$final_data_orders[] = $orders['total_quantity']? $orders['total_quantity']: "0";
