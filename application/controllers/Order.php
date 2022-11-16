@@ -402,6 +402,9 @@ class Order extends CI_Controller {
 		$order_id = $this->input->post("order_id");
 		$order_id = decryptData($order_id);
 		$is_face_pay_successful = $this->input->post("is_face_pay_successful");
+		$discount_total = $this->input->post("discount_total");
+		$grand_total = $this->input->post("grand_total");
+		$discounts = $this->input->post("discounts");
 
 		if($is_face_pay_successful == "false"){
 			$this->data['error_msg'] = "FacePay payment method failed.";
@@ -414,7 +417,7 @@ class Order extends CI_Controller {
         	$order_number = $order_details['order_number'];
 
         	$user = $this->global_model->get("users", "id, email, facepay_wallet_balance", "id = '$customer_id'", [], "single", []);
-        	if($user['facepay_wallet_balance'] < $order_amount){
+        	if($user['facepay_wallet_balance'] < $grand_total){
         		$this->data['error_msg'] = "Not enough FacePay wallet balance.<br> Balance: <strong><span>&#8369;</span>".number_format($user['facepay_wallet_balance'], 2)."</strong>";
         		$this->data['is_error'] = true;
         	}
@@ -423,6 +426,8 @@ class Order extends CI_Controller {
 
         		//UPDATE ORDER
         		$order_params = [
+        			'discount_total'=> $discount_total,
+    				'grand_total'=> $grand_total,
         			'status'=> 'PICKED UP',
         			'mode_of_payment'=> 'FACE PAY',
         			'actual_date_pickup'=> getTimeStamp(),
@@ -432,7 +437,20 @@ class Order extends CI_Controller {
         		];
         		$this->global_model->update("order_history", "id = '$order_id'", $order_params);
 
-        		$new_facepay_wallet_balance = $user['facepay_wallet_balance'] - $order_amount;
+        		foreach($discounts as $discount){
+			        $this->global_model->insert("order_history_discounts", [
+			        	'order_history_id'=> $order_id,
+			        	'amount'=> $discount['amount'],
+			        	'name'=> $discount['name'],
+			        	'code'=> $discount['code'],
+			        	'type'=> $discount['type'],
+			        	'value'=> $discount['value'],
+			        	'created_date'=> getTimeStamp(),
+			        	'created_by'=> $this->session->userdata('user_id')
+			        ]);
+	        	}
+
+        		$new_facepay_wallet_balance = $user['facepay_wallet_balance'] - $grand_total;
         		//UPDATE USER FACEPAY WALLET BALANCE
         		$user_params = [
         			"facepay_wallet_balance"=> $new_facepay_wallet_balance
@@ -445,7 +463,7 @@ class Order extends CI_Controller {
         			"reference_no"=> time() . rand(10*45, 100*98),
         			"description"=> "Order payment",
         			"debit"=> 0,
-        			"credit"=> $order_amount,
+        			"credit"=> $grand_total,
         			"balance" => $new_facepay_wallet_balance,
         			"source_table"=> "order_history",
         			"source_id"=> $order_id,
