@@ -36,7 +36,7 @@ $(document).ready(function(){
 							col_12_order_details.append('<div class="" style="position:relative;right: -5px;"><span>'+data_products.quantity+'</span>x&nbsp;<span>'+data_products.name+'</span></div>')
 						})
 
-						col_12_order_amount.append('<br><strong>'+moneyConvertion(parseFloat(data.total_amount))+'</strong>')
+						col_12_order_amount.append('<br><strong>'+moneyConvertion(parseFloat(data.grand_total))+'</strong>')
 
 						//col_12_order_status.append('<br><br><span style="font-weight: 600;">'+data.status+'</span>')
 						var col_12_order_status_row = $("<div class='row'>");
