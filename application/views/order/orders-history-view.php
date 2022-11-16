@@ -9,6 +9,9 @@
     	<div class="container-header">
     		<span class="header-title">Order #<?= $order['order_number'] ?></span><br>
             <div class="buttons">
+                <?php if ($order['status'] == "PICKED UP"): ?>
+                    <a href="<?= base_url()."order-receipt-pdf/".encryptData($order['id']);?>" target="_blank" class="btn btn-sm btn-primary">Print Receipt</a>
+                <?php endif ?>
                 <a href="<?= base_url();?>orders-history" class="btn btn-sm btn-primary">Back</a>
             </div>
     	</div>
