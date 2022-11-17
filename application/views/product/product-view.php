@@ -28,7 +28,13 @@
 				</div>
 				<div class="col-12 col-lg-4">
 					<div class="form-group">
-						<span>Price</span>
+						<span>Price w/out vat</span>
+						<input type="text" class="form-control" readonly value="Php <?= $product_details['price_without_vat'] ?>">
+					</div>
+				</div>
+				<div class="col-12 col-lg-4">
+					<div class="form-group">
+						<span>Price with vat</span>
 						<input type="text" class="form-control" readonly value="Php <?= $product_details['price'] ?>">
 					</div>
 				</div>
