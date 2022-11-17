@@ -29,7 +29,13 @@
 					</div>
 					<div class="col-12 col-lg-4">
 						<div class="form-group">
-							<span>Price&nbsp;<span class="text-danger">*</span></span>
+							<span>Price w/out vat&nbsp;<span class="text-danger">*</span></span>
+							<input type="text" name="price_without_vat" class="form-control float-only" placeholder="Enter price">
+						</div>
+					</div>
+					<div class="col-12 col-lg-4">
+						<div class="form-group">
+							<span>Price with vat&nbsp;<span class="text-danger">*</span></span>
 							<input type="text" name="price" class="form-control float-only" placeholder="Enter price">
 						</div>
 					</div>

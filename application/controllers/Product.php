@@ -470,6 +470,7 @@ class Product extends CI_Controller {
 		$name = $post['name'];
 		$code = $post['code'];
 		$price = $post['price'];
+		$price_without_vat = $post['price_without_vat'];
 		//$stock = $post['stock'];
 		$category = isset($post['category'])? $post['category']: "";
 
@@ -503,9 +504,7 @@ class Product extends CI_Controller {
 		}
 
 		$this->form_validation->set_rules('price','price','required');
-
-		//$this->form_validation->set_rules('stock','stock','required');
-
+		$this->form_validation->set_rules('price_without_vat','price_without_vat','required');
 		$this->form_validation->set_rules('category','category','required');
 
 		if($this->form_validation->run() == FALSE){
@@ -515,12 +514,13 @@ class Product extends CI_Controller {
         else{
         	if(!is_numeric($price) && !floor($price)){
         		$is_error = true;
-            	$error_msg .= "<p>Please enter correct price.</p>";
+            	$error_msg .= "<p>Please enter correct price with vat.</p>";
         	}
-        	// if(!is_numeric($stock)){
-        	// 	$is_error = true;
-         //    	$error_msg .= "<p>Please enter correct stock.</p>";
-        	// }
+
+        	if(!is_numeric($price_without_vat) && !floor($price_without_vat)){
+        		$is_error = true;
+            	$error_msg .= "<p>Please enter correct price without vat.</p>";
+        	}
 
         	if(!$is_error){
         		$target_dir = 'assets/uploads/products';
@@ -566,7 +566,7 @@ class Product extends CI_Controller {
 
         			//CHECK CHANGES
         			$changes = [];
-        			$fields = ["name", "code", "price", "category_id"];
+        			$fields = ["name", "code", "price", "price_without_vat", "category_id"];
                     foreach ($fields as $field) {
                         if($product_details[$field] != $post[$field]){
                             if($field == "category_id"){
