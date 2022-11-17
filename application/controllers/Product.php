@@ -243,7 +243,7 @@ class Product extends CI_Controller {
 	}
 
 	public function cartItemList(){
-		//CREATE OR REPLACE VIEW views_cart AS SELECT cart.*, products.name, products.code, products.price, products.stock, products.category_name, products.image_path FROM `cart` LEFT JOIN views_products AS products ON cart.product_id = products.id
+		//CREATE OR REPLACE VIEW views_cart AS SELECT cart.*, products.name, products.code, products.price, products.price_without_vat, products.stock, products.category_name, products.image_path FROM `cart` LEFT JOIN views_products AS products ON cart.product_id = products.id
 		session_write_close();
 
 		$user_id = $this->session->userdata('user_id');
@@ -335,9 +335,11 @@ class Product extends CI_Controller {
 			        			"order_history_id"=> $insert_id,
 			        			"product_id"=> $product->product_id,
 			        			"name"=> $product->name,
+			        			"code"=> $product->code,
 			        			"category_name"=> $product->category_name,
 			        			"quantity"=> $product->quantity,
 			        			"price"=> $product->price,
+			        			"price_without_vat"=> $product->price_without_vat,
 			        			"created_date"=> getTimeStamp(),
 			        			"created_by"=> $user_id
 			        		];

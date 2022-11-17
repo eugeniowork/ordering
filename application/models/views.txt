@@ -1,3 +1,7 @@
+CREATE OR REPLACE VIEW views_cart AS SELECT cart.*, products.name, products.code, products.price, products.price_without_vat, products.stock, products.category_name, products.image_path FROM `cart` LEFT JOIN views_products AS products ON cart.product_id = products.id
+
+---------------------
+
 CREATE OR REPLACE VIEW views_wishlist AS
 SELECT wishlist.*, products.name, products.code, products.price, products.stock, products.category_name, products.image_path
 FROM `wishlist`
