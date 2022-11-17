@@ -470,7 +470,6 @@ class Product extends CI_Controller {
 		$post = $this->input->post();
 
 		$name = $post['name'];
-		$code = $post['code'];
 		$price = $post['price'];
 		$price_without_vat = $post['price_without_vat'];
 		//$stock = $post['stock'];
@@ -568,7 +567,7 @@ class Product extends CI_Controller {
 
         			//CHECK CHANGES
         			$changes = [];
-        			$fields = ["name", "code", "price", "price_without_vat", "category_id"];
+        			$fields = ["name", "price", "price_without_vat", "category_id"];
                     foreach ($fields as $field) {
                         if($product_details[$field] != $post[$field]){
                             if($field == "category_id"){
@@ -603,6 +602,7 @@ class Product extends CI_Controller {
 			        }
 		        }
 		        else{
+		        	$post['code'] = rand(100,100000).time();
 		        	$post['created_date'] = getTimeStamp();
         			$post['created_by'] = $this->session->userdata('user_id');
         			$insert_id = $this->global_model->insert("products", $post);

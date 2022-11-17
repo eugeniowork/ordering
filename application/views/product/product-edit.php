@@ -24,12 +24,6 @@
 					</div>
 					<div class="col-12 col-lg-4">
 						<div class="form-group">
-							<span>Code</span>
-							<input type="text" name="code" class="form-control" placeholder="Enter code" value="<?= $product_details['code'] ?>">
-						</div>
-					</div>
-					<div class="col-12 col-lg-4">
-						<div class="form-group">
 							<span>Price w/out vat&nbsp;<span class="text-danger">*</span></span>
 							<input type="text" name="price_without_vat" class="form-control float-only" placeholder="Enter price" value="<?= $product_details['price_without_vat'] ?>">
 						</div>
