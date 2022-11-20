@@ -730,8 +730,10 @@ class Order extends CI_Controller {
 
 		$date_from = $this->input->post('date_from').' 00:00:00';
 		$date_to = $this->input->post('date_to').' 23:59:59';
+		$status = $this->input->post('status');
 
-        $orders = $this->global_model->get("views_order_history", "*", "deleted_by = 0 AND (status != 'FOR PROCESS' AND status != 'FOR PICKUP') AND created_date >= '{$date_from}' AND created_date <= '{$date_to}'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+		$where = "deleted_by = 0 AND status = '{$status}' AND created_date >= '{$date_from}' AND created_date <= '{$date_to}'";
+        $orders = $this->global_model->get("views_order_history", "*", $where, ["column" => "created_date", "type" => "DESC"], "multiple", []);
         foreach ($orders as $key => $order) {
         	$orders[$key]->{"encrypted_id"} = encryptData($order->id);
         	$orders[$key]->{"date_pickup"} = date("M d, Y h:i A", strtotime($order->date_pickup));

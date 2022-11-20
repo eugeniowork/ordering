@@ -14,6 +14,7 @@ $(document).ready(function(){
 			type: 'POST',
 			dataType: 'json',
 			data:{
+				status: $(".status").val(),
 				date_from: $(".date-from").val(),
 				date_to: $(".date-to").val()
 			},

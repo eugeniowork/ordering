@@ -12,6 +12,13 @@
 		<div class="container-body">
 			<div class="form-group">
 				<div class="row">
+					<div class="col12 col-lg-3">
+						<span>Status</span>
+						<select class="form-control status">
+							<option value="PICKED UP">Picked Up</option>
+							<option value="CANCELED">Canceled</option>
+						</select>
+					</div>
 					<div class="col-12 col-lg-3">
 						<span>Date Ordered From</span>
 						<input type="date" class="form-control date-from" value="<?= date('Y-m-d', strtotime('-7 days')) ?>">
