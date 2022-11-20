@@ -26,7 +26,7 @@
 			        </div>
 			        <div class="btn-group d-flex p-2 justify-content-center">
 			        	<a href="<?= base_url();?>cash-in-v2" class="btn btn-primary">Done</a>&nbsp;
-			        	<a href="<?= base_url()."cash-in-receipt-pdf/".encryptData($cash_in_details['id']);?>" target="_blank" class="btn btn-primary">Print Receipt</a>
+			        	<a href="<?= base_url()."cash-in-receipt-pdf/".encryptData($cash_in_details['id']);?>" target="_blank" class="btn btn-primary">View Receipt</a>
 			        </div>
 				</div>
 			</div> 
