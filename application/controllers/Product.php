@@ -295,7 +295,7 @@ class Product extends CI_Controller {
 		        $admins = $this->global_model->get("users", "id", "(user_type = 'admin' OR user_type = 'staff') AND is_active = 1 AND deleted_by = 0", ["column" => "id", "type" => "ASC"], "multiple", []);
 
 		        if($products){
-		        	$order_number = time();
+		        	$order_number = time() . rand(10*45, 100*98);
 			        //INSERT ORDER HISTORY
 			        $order_history_params = [
 			        	"user_id"=> $user_id,
@@ -602,7 +602,7 @@ class Product extends CI_Controller {
 			        }
 		        }
 		        else{
-		        	$post['code'] = rand(100,100000).time();
+		        	$post['code'] = time() . rand(10*45, 100*98);
 		        	$post['created_date'] = getTimeStamp();
         			$post['created_by'] = $this->session->userdata('user_id');
         			$insert_id = $this->global_model->insert("products", $post);
