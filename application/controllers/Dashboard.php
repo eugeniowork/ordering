@@ -12,6 +12,8 @@ class Dashboard extends CI_Controller {
 
 		$this->load->helper('date_helper');
 		$this->load->helper('encryption_helper');
+
+        date_default_timezone_set("Asia/Manila");
 	}
 
 	public function logout(){

@@ -353,7 +353,7 @@ $(document).ready(function(){
 
                     }
                     else{
-                        $(".notification-content-body").append("<span>No notification(s) yet.</span>")
+                        $(".header-dropdown-notifications .notification-body .notification-list").append("<center><span>No notification(s) yet.</span></center>")
                     }
                 }
             },

@@ -280,9 +280,9 @@ class Product extends CI_Controller {
             $this->data['error_msg'] = validation_errors();
         }
         else{
-        	if(strtotime($date_pickup) < strtotime(date('Y-m-d'))){
+        	if(strtotime($date_pickup) < strtotime(getTimeStamp())){
         		$this->data['is_error'] = true;
-            	$this->data['error_msg'] = 'Please select date pickup from today onwards only.';
+            	$this->data['error_msg'] = "You can't select previous date/time.";
         	}
         	else{
         		//GET CART PRODUCTS
