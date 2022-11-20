@@ -55,6 +55,31 @@ class Order extends CI_Controller {
 		echo json_encode($this->data);
 	}
 
+	public function myOrdersView($hash_id = null){
+		$id = decryptData($hash_id);
+
+		$order = $this->global_model->get("views_order_history", "*", "id = '$id'", [], "single", []);
+		$this->data['order'] = $order;
+
+		$order_items = $this->global_model->get("order_history_products", "*", "order_history_id = '$id'", [], "multiple", []);
+		$this->data['order_items'] = $order_items;
+
+		//GET DISCOUNTS
+		$order_discounts = $this->global_model->get("order_history_discounts", "*", "order_history_id = '$id'", [], "multiple", []);
+		$this->data['order_discounts'] = $order_discounts;
+
+		//GET LOGS
+		$order_logs = $this->global_model->get("views_order_history_logs", "*", "order_history_id = '$id'", ["column" => "created_date", "type" => "DESC"], "multiple", []);
+		$this->data['order_logs'] = $order_logs;
+
+		$this->data['page_title'] = "My Orders";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('order/my-orders-view');
+		$this->load->view('layouts/footer');
+	}
+
 	public function updateOrderStatus(){
 		session_write_close();
 

@@ -63,6 +63,7 @@ $route['dashboard'] = 'dashboard/dashboardPage';
 
 //FOR ORDERS RELATED
 $route['my-orders'] = 'order/myOrdersPage';
+$route['my-orders-view/(:any)'] = 'order/myOrdersView/$1';
 $route['ongoing-orders'] = 'order/ongoingOrdersPage';
 $route['ongoing-orders-view/(:any)'] = 'order/ongoingOrdersView/$1';
 $route['order-payment/(:any)'] = 'order/orderPaymentPage/$1';

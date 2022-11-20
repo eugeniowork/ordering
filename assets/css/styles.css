@@ -1033,6 +1033,29 @@ table {
     #tracking .tracking-list .tracking-item:last-child {
       padding-bottom: 4rem; }
 
+.my-orders-view-container .title {
+  color: #7d7d7d;
+  font-weight: 600;
+  font-size: 20px; }
+.my-orders-view-container .order-details {
+  padding: 0px 10px; }
+.my-orders-view-container .order-items {
+  padding: 0px 10px;
+  width: 100%; }
+  .my-orders-view-container .order-items .items-content {
+    display: inline-flex;
+    word-break: break-word;
+    width: 100%; }
+    .my-orders-view-container .order-items .items-content .name-container {
+      width: 35%;
+      padding: 5px 10px; }
+    .my-orders-view-container .order-items .items-content .qty-container {
+      width: 3%;
+      padding: 5px 10px; }
+    .my-orders-view-container .order-items .items-content .price-container {
+      width: 20%;
+      padding: 5px 10px; }
+
 .my-wallet-container .transaction-container .transaction-details-container {
   display: inline-flex;
   justify-content: space-between;

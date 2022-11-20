@@ -1,0 +1,33 @@
+.my-orders-view-container{
+	.title{
+		color: #7d7d7d;
+		font-weight: 600;
+		font-size: 20px;
+	}
+	.order-details{
+		padding: 0px 10px;
+	}
+	.order-items{
+		padding: 0px 10px;
+		width: 100%;
+    	.items-content{
+			display: inline-flex;
+		    //justify-content: space-between;
+		    word-break: break-word;
+		    width: 100%;
+		    .name-container{
+		    	// width: 250px;
+		    	width: 35%;
+		    	padding: 5px 10px;
+		    } 
+		    .qty-container{
+		    	width: 3%;
+		    	padding: 5px 10px;
+		    } 
+		    .price-container{
+		    	width: 20%;
+		    	padding: 5px 10px;
+		    }
+		}
+    }
+}
