@@ -71,6 +71,7 @@ $route['order-payment-successful/(:any)'] = 'order/orderPaymentSuccessfulPage/$1
 $route['order-receipt-pdf/(:any)'] = 'order/orderReceiptPdf/$1';
 $route['orders-history'] = 'order/ordersHistoryPage';
 $route['orders-history-view/(:any)'] = 'order/ordersHistoryView/$1';
+$route['order-view/(:any)'] = 'order/orderView/$1';
 
 //FOR USER RELATED
 $route['my-profile'] = 'user/myProfilePage';

@@ -47,7 +47,7 @@ $(document).ready(function(){
 				            	"data":"",
 				                "render": function(data, type, full, meta) {
 				                    var html = "";
-				                    html = '<a href="'+base_url+'ongoing-orders-view/'+full.encrypted_id+'" class="btn btn-sm btn-outline-success btn-view" title="View"><i class="fas fa-eye"></i></a>'
+				                    html = '<a href="'+base_url+'order-view/'+full.encrypted_id+'" class="btn btn-sm btn-outline-success btn-view" title="View"><i class="fas fa-eye"></i></a>'
 				                    return html;
 				                }
 				            },

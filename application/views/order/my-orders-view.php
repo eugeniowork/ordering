@@ -3,7 +3,7 @@
         <span class="header-title">Order #<?= $order['order_number'] ?></span><br>
         <div class="buttons">
             <?php if ($order['status'] == "PICKED UP"): ?>
-                <a href="<?= base_url()."order-receipt-pdf/".encryptData($order['id']);?>" target="_blank" class="btn btn-sm btn-primary">Print Receipt</a>
+                <a href="<?= base_url()."order-receipt-pdf/".encryptData($order['id']);?>" target="_blank" class="btn btn-sm btn-primary">View Receipt</a>
             <?php endif ?>
 
             <?php if ($order['status'] == "FOR PROCESS"): ?>
