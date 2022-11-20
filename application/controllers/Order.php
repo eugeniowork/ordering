@@ -20,7 +20,7 @@ class Order extends CI_Controller {
 
 		$this->load->view('layouts/header', $this->data);
         $this->load->view('layouts/header_buttons');
-		$this->load->view('order/my-orders');
+		$this->load->view('order/my-ordersv2');
 		$this->load->view('layouts/footer');
 	}
 
@@ -28,9 +28,14 @@ class Order extends CI_Controller {
 		session_write_close();
 
 		$user_id = $this->session->userdata('user_id');
+		$status = $this->input->post('status');
+		$where = "user_id = '$user_id' AND deleted_by = 0";
+		if($status != "ALL"){
+			$where .= " AND status = '{$status}'";
+		}
 
 		//GET ORDERS
-        $orders = $this->global_model->get("order_history", "*", "user_id = '$user_id' AND deleted_by = 0", ["column" => "id", "type" => "DESC"], "multiple", "");
+        $orders = $this->global_model->get("order_history", "*", $where, ["column" => "id", "type" => "DESC"], "multiple", "");
 
         foreach ($orders as $key => $order) {
         	$order_history_id = $order->id;

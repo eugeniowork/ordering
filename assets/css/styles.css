@@ -814,6 +814,20 @@ table {
 /* Small Devices, Tablets */
 /* Extra Small Devices, Phones */
 /* Custom, iPhone Retina */
+.my-orders-container .btn-status {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  background: white; }
+  .my-orders-container .btn-status button {
+    padding: 18px 10px;
+    width: 180px;
+    border: none;
+    background: none; }
+    .my-orders-container .btn-status button:hover {
+      color: #A87824; }
+  .my-orders-container .btn-status .btn-active {
+    border-bottom: 3px solid #A87824; }
 .my-orders-container .active-orders-container .title, .my-orders-container .past-orders-container .title {
   color: #7d7d7d;
   font-weight: 600;
