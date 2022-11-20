@@ -1050,7 +1050,7 @@ table {
       width: 35%;
       padding: 5px 10px; }
     .my-orders-view-container .order-items .items-content .qty-container {
-      width: 3%;
+      width: 50px;
       padding: 5px 10px; }
     .my-orders-view-container .order-items .items-content .price-container {
       width: 20%;
