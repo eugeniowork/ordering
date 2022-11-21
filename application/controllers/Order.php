@@ -381,7 +381,7 @@ class Order extends CI_Controller {
         		];
         		$this->global_model->insert("notifications", $notification_params);
 
-				$pdf_output = generateOrderReceipt($order_id);
+				$pdf_output = generateOrderReceiptV2($order_id);
 
         		// NOTIFY USER THROUGH EMAIL
 	            $this->load->library('PHPmailer_lib');
@@ -519,7 +519,7 @@ class Order extends CI_Controller {
         		];
         		$this->global_model->insert("notifications", $notification_params);
 
-				$pdf_output = generateOrderReceipt($order_id);
+				$pdf_output = generateOrderReceiptV2($order_id);
 
         		// NOTIFY USER THROUGH EMAIL
 	            $this->load->library('PHPmailer_lib');
