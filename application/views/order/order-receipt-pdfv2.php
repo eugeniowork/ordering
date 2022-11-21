@@ -76,13 +76,9 @@
 		</div><br>
 
 		<div style="font-size: 13px; padding: 0px 0px;">
-			<span>Receipt No.: #0001</span><br>
+			<span>Receipt No.: '.$order['order_number'].'</span><br>
 			<span>Cashier Name: '.$user_in_charge_details['firstname']." ".$user_in_charge_details['lastname'].'</span><br>
 		</div><br>
-
-		<div style="font-size: 13px; padding: 0px 0px;">
-			<<<span>Dine - In</span>>>
-		</div>
 
 		<div style="font-size: 13px; padding: 0px 0px;">
 			<table width="100%" cellspacing="0" cellpadding="3">
