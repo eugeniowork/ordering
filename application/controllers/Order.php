@@ -351,18 +351,20 @@ class Order extends CI_Controller {
         		];
         		$this->global_model->update("order_history", "id = '$order_id'", $order_params);
 
-        		foreach($discounts as $discount){
-			        $this->global_model->insert("order_history_discounts", [
-			        	'order_history_id'=> $order_id,
-			        	'amount'=> $discount['amount'],
-			        	'name'=> $discount['name'],
-			        	'code'=> $discount['code'],
-			        	'type'=> $discount['type'],
-			        	'value'=> $discount['value'],
-			        	'created_date'=> getTimeStamp(),
-			        	'created_by'=> $this->session->userdata('user_id')
-			        ]);
-	        	}
+        		if($discounts){
+        			foreach($discounts as $discount){
+				        $this->global_model->insert("order_history_discounts", [
+				        	'order_history_id'=> $order_id,
+				        	'amount'=> $discount['amount'],
+				        	'name'=> $discount['name'],
+				        	'code'=> $discount['code'],
+				        	'type'=> $discount['type'],
+				        	'value'=> $discount['value'],
+				        	'created_date'=> getTimeStamp(),
+				        	'created_by'=> $this->session->userdata('user_id')
+				        ]);
+		        	}
+        		}
 
         		$user = $this->global_model->get("users", "id, email", "id = '$customer_id'", [], "single", []);
 
