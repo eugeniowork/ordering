@@ -11,6 +11,7 @@ $(document).ready(function(){
 	$(".btn-scan-face").on("click", function(){
 		init_web_cam();
 		reset_cashin();
+		$("#face_modal").modal("show")
 	});
 	
 
@@ -22,6 +23,8 @@ $(document).ready(function(){
 
 		//STOP INTERVAL FOR NO FACE DETECTED
 		clearInterval(no_face_detected);
+		no_face_detected = null;
+
 	});
 
 	$("#webcam").bind("loadedmetadata", function () {
@@ -64,6 +67,7 @@ $(document).ready(function(){
 		$("#error_msg").addClass("d-none");
 
 		clearInterval(face_detection);
+		face_detection = null;
 		webcam.stop();
 		if(typeof canvas !== "undefined"){
 			setTimeout(function() {
@@ -258,7 +262,6 @@ $(document).ready(function(){
         $(".btn-confirm-cash-in").addClass("d-none")
 
 		$(".cash-in-details-container").addClass("d-none")
-		$("#face_modal").modal("show")
 		user_details = {};
 		$(".cutomer-name-val").text("N/A")
 		$(".cutomer-email-val").text("N/A")
