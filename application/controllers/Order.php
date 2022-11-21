@@ -467,19 +467,21 @@ class Order extends CI_Controller {
         		];
         		$this->global_model->update("order_history", "id = '$order_id'", $order_params);
 
-        		foreach($discounts as $discount){
-			        $this->global_model->insert("order_history_discounts", [
-			        	'order_history_id'=> $order_id,
-			        	'amount'=> $discount['amount'],
-			        	'name'=> $discount['name'],
-			        	'code'=> $discount['code'],
-			        	'type'=> $discount['type'],
-			        	'value'=> $discount['value'],
-			        	'created_date'=> getTimeStamp(),
-			        	'created_by'=> $this->session->userdata('user_id')
-			        ]);
-	        	}
-
+        		if($discounts){
+	        		foreach($discounts as $discount){
+				        $this->global_model->insert("order_history_discounts", [
+				        	'order_history_id'=> $order_id,
+				        	'amount'=> $discount['amount'],
+				        	'name'=> $discount['name'],
+				        	'code'=> $discount['code'],
+				        	'type'=> $discount['type'],
+				        	'value'=> $discount['value'],
+				        	'created_date'=> getTimeStamp(),
+				        	'created_by'=> $this->session->userdata('user_id')
+				        ]);
+		        	}
+		        }
+		        
         		$new_facepay_wallet_balance = $user['facepay_wallet_balance'] - $grand_total;
         		//UPDATE USER FACEPAY WALLET BALANCE
         		$user_params = [

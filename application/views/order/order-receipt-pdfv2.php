@@ -53,7 +53,7 @@
     $html = '
     	<style>
     		body{
-    			color: #333;
+    			color: black;
     			borders: 1px solid black;
     		}
 		    @page {
@@ -97,6 +97,14 @@
 				<tbody>
 					'.$products_list.'
 				</tbody>
+
+				<tfoot style="border:2px dashed #c9c5c5; border-right: none; border-left: none; font-size: 17px;">
+					<tr>
+						<td style="text-align: center;" colspan="3">Total</td>
+						<td style="text-align: right;"><b>P'.number_format($order['total_amount'],2).'</b></td>
+					</tr>
+				</tfoot>
+
 				<tfoot style="border-top:2px dashed #c9c5c5;">
 					<tr>
 						<td style="text-align: left;" colspan="3"><b>Sub Total</b></td>
