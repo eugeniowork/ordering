@@ -705,6 +705,10 @@ class Order extends CI_Controller {
 		$products = $this->global_model->get("order_history_products", "*", "order_history_id = '$id'", [], "multiple", []);
 		$this->data['products'] = $products;
 
+		//GET DISCOUNTS
+		$order_discounts = $this->global_model->get("order_history_discounts", "*", "order_history_id = '$id'", [], "multiple", []);
+		$this->data['order_discounts'] = $order_discounts;
+
 		$user_in_charge_id = $order['user_in_charge'];
 		$user_in_charge_details = $this->global_model->get("users", "*", "id = '$user_in_charge_id'", [], "single", []);
 		$this->data['user_in_charge_details'] = $user_in_charge_details;
@@ -713,7 +717,7 @@ class Order extends CI_Controller {
 			redirect("ongoing-orders");
 		}
 
-		$this->load->view('order/order-receipt-pdf', $this->data);
+		$this->load->view('order/order-receipt-pdfv2', $this->data);
 	}
 
 	public function ordersHistoryPage(){
@@ -829,7 +833,7 @@ class Order extends CI_Controller {
 		        		$bulk_insert_params[] = [
 		        			"receiver"=> $admin->id,
 		        			"user_id"=> $order_details['user_id'],
-		        			"content"=> "Customer #customer_name resched pickup date of Order Number <a href='".base_url()."ongoing-orders-view/".encryptData($order_id)."'>{$order_details['order_number']}</a>.",
+		        			"content"=> "Customer #customer_name resched pickup date of Order Number <a href='".base_url()."order-view/".encryptData($order_id)."'>{$order_details['order_number']}</a>.",
 		        			"type"=> "RESCHED_PICKUP",
 		        			"source_table"=> "order_history",
 		        			"source_id"=>$order_id,

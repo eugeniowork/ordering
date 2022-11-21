@@ -405,7 +405,7 @@ class Product extends CI_Controller {
 		        		$bulk_insert_params[] = [
 		        			"receiver"=> $user->id,
 		        			"user_id"=> $user_id,
-		        			"content"=> "Customer #customer_name placed an order with Order Number <a href='".base_url()."ongoing-orders-view/".encryptData($insert_id)."'>{$order_number}</a>.",
+		        			"content"=> "Customer #customer_name placed an order with Order Number <a href='".base_url()."order-view/".encryptData($insert_id)."'>{$order_number}</a>.",
 		        			"type"=> "NEW_ORDER",
 		        			"source_table"=> "order_history",
 		        			"source_id"=>$insert_id,

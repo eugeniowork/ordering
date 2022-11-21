@@ -13,7 +13,7 @@
                 	<button class="btn btn-sm btn-primary btn-add-discount">Add Discount</button>
                 	<button class="btn btn-primary btn-sm btn-open-payment-confirmation d-none">Confirm Payment</button>
                 <?php endif ?>
-                <a href="<?= base_url();?>ongoing-orders-view/<?= encryptData($order['id']) ?>" class="btn btn-sm btn-primary">Back</a>
+                <a href="<?= base_url();?>order-view/<?= encryptData($order['id']) ?>" class="btn btn-sm btn-primary">Back</a>
             </div>
     	</div>
 		<div class="container-body">
