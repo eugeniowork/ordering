@@ -9,13 +9,8 @@ $(document).ready(function(){
 	var no_face_detected;
 
 	$(".btn-scan-face").on("click", function(){
-		$(".cash-in-details-container").addClass("d-none")
-		$("#face_modal").modal("show")
-		user_details = {};
-		$(".cutomer-name-val").text("N/A")
-		$(".cutomer-email-val").text("N/A")
-		is_face_recog_success = false;
 		init_web_cam();
+		reset_cashin();
 	});
 	
 
@@ -221,7 +216,11 @@ $(document).ready(function(){
 	                    $(".btn-save-cash-in").prop("disabled", false).html("Yes")
             		}
             		else{
-            			window.location.href = base_url + "cash-in-successful/"+response.cash_in_id;
+            			// window.location.href = base_url + "cash-in-successful/"+response.cash_in_id;
+            			$("#message_modal").modal("show")
+						$("#message_modal .modal-body").html("<span class='text-primary'>Cash in successful</span>")
+
+            			reset_cashin();
             		}
             	},
             	error: function(error){
@@ -243,10 +242,31 @@ $(document).ready(function(){
         $("#message_modal").modal("show")
 		$("#message_modal .modal-body").html("<span class='text-danger'>No face detected, please make sure to face the camera properly.</span>")
         camera_stopped();
+        reset_cashin();
         $(".btn-submit-face").prop("disabled", true)
 
 		//STOP INTERVAL FOR NO FACE DETECTED
 		clearInterval(no_face_detected);
+	}
+
+	function reset_cashin(){
+		loading_save_cash_in = false;
+		$(".global-loading").css({
+            "display": "none"
+        })
+        $(".btn-save-cash-in").prop("disabled", false).html("Yes")
+        $(".btn-confirm-cash-in").addClass("d-none")
+
+		$(".cash-in-details-container").addClass("d-none")
+		$("#face_modal").modal("show")
+		user_details = {};
+		$(".cutomer-name-val").text("N/A")
+		$(".cutomer-email-val").text("N/A")
+		is_face_recog_success = false;
+
+		$(".request-amount").val("");
+		$(".cash-amount").val("");
+		$(".cash-amount").val("");
 	}
 
     prepare_face_detector();
