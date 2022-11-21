@@ -523,6 +523,11 @@ class Product extends CI_Controller {
             	$error_msg .= "<p>Please enter correct price without vat.</p>";
         	}
 
+        	if($price_without_vat > $price){
+        		$is_error = true;
+            	$error_msg .= "<p>Price without vat should not be greater than price with vat.</p>";
+        	}
+
         	if(!$is_error){
         		$target_dir = 'assets/uploads/products';
 	
