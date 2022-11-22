@@ -1325,12 +1325,22 @@ table {
       width: 100%; } }
 .terms-and-condition-container .terms-and-condition-content {
   padding: 0px 100px;
-  color: #7d7d7d; }
+  color: #333; }
   .terms-and-condition-container .terms-and-condition-content .title {
     text-decoration: underline; }
 
 @media screen and (max-width: 950px) {
   .terms-and-condition-container .terms-and-condition-content {
+    padding: 0px 0px; } }
+.about-us-container .about-us-content {
+  padding: 0px 100px;
+  color: #333; }
+  .about-us-container .about-us-content img {
+    max-width: 100%;
+    height: auto; }
+
+@media screen and (max-width: 950px) {
+  .about-us-container .about-us-content {
     padding: 0px 0px; } }
 .discount-container .discount-content .discount-table .action-buttons {
   justify-content: center;

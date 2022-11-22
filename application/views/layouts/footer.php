@@ -25,7 +25,7 @@
 			<div class="row">
 				<div class="col-12 col-sm-10"><strong>COMPANY</strong></div>
 			</div>
-			<a href="<?= base_url(); ?>about-us" class="about">About Us</a><br/>
+			<a href="<?= base_url(); ?>company/about-us" class="about">About Us</a><br/>
 			<a href="<?= base_url(); ?>company/terms-and-condition">Terms and Condition</a>
 		</div>
 		<div class="col-sm-4">
