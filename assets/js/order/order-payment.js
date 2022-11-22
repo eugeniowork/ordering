@@ -352,7 +352,7 @@ $(document).ready(function(){
 		clearInterval(no_face_detected);
 	}
 
-    //prepare_face_detector();
+    prepare_face_detector();
 	function prepare_face_detector() {
 		Promise.all([
 			faceapi.nets.tinyFaceDetector.load(model_path),
