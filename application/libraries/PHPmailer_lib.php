@@ -31,13 +31,13 @@ class PHPMailer_Lib
         $mail->SMTPDebug = 0;
         $mail->Host     = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'adufacepay@gmail.com';
-        $mail->Password = 'Hello2022';
+        $mail->Username = 'acidojequerie@gmail.com';
+        $mail->Password = 'lbyrevzmnkbskrgw';
         $mail->SMTPSecure = 'tsl';
         $mail->Port = 587;
         //live server 25 localhost 587
-        $mail->setFrom('adufacepay@gmail.com', APPNAME);
-        $mail->addReplyTo('adufacepay@gmail.com', APPNAME);
+        $mail->setFrom('acidojequerie@gmail.com', APPNAME);
+        $mail->addReplyTo('acidojequerie@gmail.com', APPNAME);
 
         return $mail;
     }
