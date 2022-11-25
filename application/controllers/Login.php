@@ -59,53 +59,57 @@ class Login extends CI_Controller {
 	        				$this->data['error_msg'] = "Your account is still pending for approval, please check your email to monitor the status of your account.";
 			        	}
 			        	else{
+			        		$this->session->set_userdata('user_id', $user_id);
+				        	$this->session->set_userdata('user_firstname', $user_details['firstname']);
+				        	$this->session->set_userdata('user_lastname', $user_details['lastname']);
+				        	$this->session->set_userdata('user_type', $user_details['user_type']);
 				        	$this->data['email'] = $user_details['email'];
 				        	$this->data['is_error'] = false;
 
-				        	//UPDATE EXISTING ACTIVE OTP
-					        $update_data = [
-					            "is_active"=> 0,
-					        ];
-					        $this->global_model->update("otp", "email = '$email' AND is_active = 1 AND module = 'login_verification'", $update_data);
+				        	// //UPDATE EXISTING ACTIVE OTP
+					        // $update_data = [
+					        //     "is_active"=> 0,
+					        // ];
+					        // $this->global_model->update("otp", "email = '$email' AND is_active = 1 AND module = 'login_verification'", $update_data);
 
-					        $code = rand(100000, 999999);
-					        $otp_params = [
-					            'email'=> $email,
-					            'code'=> $code,
-					            'is_active'=> 1,
-					            'module'=> 'login_verification',
-					            //plus 20 mins
-					            // 20 * 60 = 1200
-					            'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),
-					            'created_date'=> getTimeStamp()
-					        ];
-					        $this->global_model->insert("otp", $otp_params);
+					        // $code = rand(100000, 999999);
+					        // $otp_params = [
+					        //     'email'=> $email,
+					        //     'code'=> $code,
+					        //     'is_active'=> 1,
+					        //     'module'=> 'login_verification',
+					        //     //plus 20 mins
+					        //     // 20 * 60 = 1200
+					        //     'date_expiration'=> date('Y-m-d H:i:s',strtotime(getTimeStamp()) + 1200),
+					        //     'created_date'=> getTimeStamp()
+					        // ];
+					        // $this->global_model->insert("otp", $otp_params);
 
-					        // Load PHPMailer library
-					        $this->load->library('PHPmailer_lib');
+					        // // Load PHPMailer library
+					        // $this->load->library('PHPmailer_lib');
 
-					        // PHPMailer object
-					        $mail = $this->phpmailer_lib->load();
+					        // // PHPMailer object
+					        // $mail = $this->phpmailer_lib->load();
 					        
-					        // Add a recipient
-					        $mail->addAddress($email);
+					        // // Add a recipient
+					        // $mail->addAddress($email);
 					        
-					        // Email subject
-					        $mail->Subject = "[".APPNAME."]For Login Verification";
+					        // // Email subject
+					        // $mail->Subject = "[".APPNAME."]For Login Verification";
 					        
-					        // Set email format to HTML
-					        $mail->isHTML(true);
+					        // // Set email format to HTML
+					        // $mail->isHTML(true);
 					        
-					        // Email body content
-					        $mail->Body = "
-					            Good day! <br><br>
-					            To proceed to your <strong>".APPNAME."</strong> account, please use this OTP:<br>
-					            <strong>".$code."</strong>
-					            <br><br>
-					            This is only valid for 20 minutes. Do not share your OTP to anyone.
-					        ";
+					        // // Email body content
+					        // $mail->Body = "
+					        //     Good day! <br><br>
+					        //     To proceed to your <strong>".APPNAME."</strong> account, please use this OTP:<br>
+					        //     <strong>".$code."</strong>
+					        //     <br><br>
+					        //     This is only valid for 20 minutes. Do not share your OTP to anyone.
+					        // ";
 
-					        $mail->send();
+					        // $mail->send();
 					    }
 		        	}
 		        	else{

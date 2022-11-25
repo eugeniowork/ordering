@@ -30,14 +30,14 @@ $(document).ready(function(){
 					else{
 						email = response.email;
 						loading_login = false;
-						$(".btn-login").prop("disabled", false).html("LOGIN")
-						$(".login-form").hide();
-						$(".otp-form").show();
-						// var msg = "<div class='spinner-border text-primary' role='status' style='color:#155724 !important;height:15px;width:15px;'></div>"+"&nbsp;Login successful, you'll be redirected to the page."
-	     // 				renderResponseNotClosable('.warning',msg, "success")
-	     // 				setTimeout(function(){
-	     // 					window.location.href = "dashboard";
-	     // 				},1000)
+						// $(".btn-login").prop("disabled", false).html("LOGIN")
+						// $(".login-form").hide();
+						// $(".otp-form").show();
+						var msg = "<div class='spinner-border text-primary' role='status' style='color:#155724 !important;height:15px;width:15px;'></div>"+"&nbsp;Login successful, you'll be redirected to the page."
+	     				renderResponseNotClosable('.warning',msg, "success")
+	     				setTimeout(function(){
+	     					window.location.href = "dashboard";
+	     				},1000)
 					}
 				},
 				error: function(error){
