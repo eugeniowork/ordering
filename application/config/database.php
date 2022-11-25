@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'ordering',
+	'hostname' => '127.0.0.1:3306',
+	'username' => 'u248017326_ordering',
+	'password' => 'v[3elCjNU',
+	'database' => 'u248017326_ordervingv2',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
