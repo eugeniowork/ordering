@@ -102,7 +102,8 @@
                     <a href="<?= base_url();?>wallet-transaction"><i class="fa-solid fa-repeat"></i>&nbsp;&nbsp;Transaction</a><br>
                     <a href="<?= base_url();?>points"><i class="fas fa-coins"></i></i>&nbsp;&nbsp;Points</a>
                 <?php else: ?>
-                    <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a>
+                    <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a><br>
+                    <a href="<?= base_url()?>points/my-points"><i class="fas fa-coins"></i>&nbsp;&nbsp;My Points</a>
                 <?php endif ?>
             </div>
 

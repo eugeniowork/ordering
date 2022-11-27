@@ -1211,6 +1211,21 @@ table {
       -moz-opacity: 0.8;
       opacity: 0.8; }
 
+.my-points-container .transaction-container .transaction-details-container {
+  display: inline-flex;
+  justify-content: space-between;
+  word-break: break-word;
+  padding: 10px 10px;
+  margin-top: 10px; }
+  .my-points-container .transaction-container .transaction-details-container .description-container {
+    width: 500px; }
+    .my-points-container .transaction-container .transaction-details-container .description-container .date {
+      font-size: 13px;
+      font-style: italic; }
+  .my-points-container .transaction-container .transaction-details-container .amount-container {
+    width: 250px;
+    text-align: end; }
+
 .product-view-container .product-image {
   width: 200px;
   height: 200px;

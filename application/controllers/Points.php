@@ -36,4 +36,17 @@ class Points extends CI_Controller {
 		session_start();
 		echo json_encode($this->data);
 	}
+
+	public function my_points(){
+		//GET USER INFORMATION
+		$user_id = $this->session->userdata("user_id");
+		$this->data['user_details'] = $this->global_model->get("users", "*", "id = '$user_id'", "", "single", []);
+
+		$this->data['page_title'] = "My Points";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('points/my-points');
+		$this->load->view('layouts/footer');
+	}
 }
