@@ -1,0 +1,5 @@
+2022-11-27
+ADDED NEW TABLE - points_activity
+
+added new column (points_balance) in users
+update views_users

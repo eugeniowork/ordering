@@ -1,7 +1,7 @@
 <style type="text/css">
-	.footer{
+	/*.footer{
 		top: 0px !important;
-	}
+	}*/
 </style>
 <div class="page-container signup-v2-container">
 	<div class="container-body" style="padding-top: 0px;">

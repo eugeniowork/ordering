@@ -366,7 +366,30 @@ class Order extends CI_Controller {
 		        	}
         		}
 
-        		$user = $this->global_model->get("users", "id, email", "id = '$customer_id'", [], "single", []);
+        		$user = $this->global_model->get("users", "id, email, points_balance", "id = '$customer_id'", [], "single", []);
+
+        		//INSERT POINTS
+        		$points = $order_details['total_amount'] / 100;
+        		$points = (int)$points;
+        		if($points > 0){
+        			$new_points_balance = $user['points_balance'] + $points;
+        			$points_activity_params = [
+		    			"user_id"=> $customer_id,
+		    			"reference_no"=> time() . rand(10*45, 100*98),
+		    			"description"=> "Points reward from order with order #{$order_number}",
+		    			"debit"=> $points,
+		    			"credit"=> 0,
+		    			"balance" => $new_points_balance,
+		    			"created_date"=> getTimeStamp(),
+		    			"created_by"=> $this->session->userdata("user_id")
+		    		];
+		    		$this->global_model->insert("points_activity", $points_activity_params);
+
+		    		$user_params = [
+	        			"points_balance"=> $new_points_balance
+	        		];
+	        		$this->global_model->update("users", "id = '$customer_id'", $user_params);
+        		}
 
         		//NOTIFY USER/CUSTOMER
         		$content = "Payment successful for Order Number <strong>{$order_number}</strong> using Cash Payment.";
@@ -448,7 +471,7 @@ class Order extends CI_Controller {
 			$customer_id = $order_details['user_id'];
         	$order_number = $order_details['order_number'];
 
-        	$user = $this->global_model->get("users", "id, email, facepay_wallet_balance", "id = '$customer_id'", [], "single", []);
+        	$user = $this->global_model->get("users", "id, email, facepay_wallet_balance, points_balance", "id = '$customer_id'", [], "single", []);
         	if($user['facepay_wallet_balance'] < $grand_total){
         		$this->data['error_msg'] = "Not enough FacePay wallet balance.<br> Balance: <strong><span>&#8369;</span>".number_format($user['facepay_wallet_balance'], 2)."</strong>";
         		$this->data['is_error'] = true;
@@ -483,6 +506,29 @@ class Order extends CI_Controller {
 				        ]);
 		        	}
 		        }
+
+		        //INSERT POINTS
+        		$points = $order_amount / 100;
+        		$points = (int)$points;
+        		if($points > 0){
+        			$new_points_balance = $user['points_balance'] + $points;
+        			$points_activity_params = [
+		    			"user_id"=> $customer_id,
+		    			"reference_no"=> time() . rand(10*45, 100*98),
+		    			"description"=> "Points reward from order with order #{$order_number}",
+		    			"debit"=> $points,
+		    			"credit"=> 0,
+		    			"balance" => $new_points_balance,
+		    			"created_date"=> getTimeStamp(),
+		    			"created_by"=> $this->session->userdata("user_id")
+		    		];
+		    		$this->global_model->insert("points_activity", $points_activity_params);
+
+		    		$user_params = [
+	        			"points_balance"=> $new_points_balance
+	        		];
+	        		$this->global_model->update("users", "id = '$customer_id'", $user_params);
+        		}
 		        
         		$new_facepay_wallet_balance = $user['facepay_wallet_balance'] - $grand_total;
         		//UPDATE USER FACEPAY WALLET BALANCE
