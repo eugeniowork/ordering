@@ -376,7 +376,7 @@ class Order extends CI_Controller {
         			$points_activity_params = [
 		    			"user_id"=> $customer_id,
 		    			"reference_no"=> time() . rand(10*45, 100*98),
-		    			"description"=> "Points reward from order with order #{$order_number}",
+		    			"description"=> "Points rewarded from order with order #{$order_number}",
 		    			"debit"=> $points,
 		    			"credit"=> 0,
 		    			"balance" => $new_points_balance,
@@ -515,7 +515,7 @@ class Order extends CI_Controller {
         			$points_activity_params = [
 		    			"user_id"=> $customer_id,
 		    			"reference_no"=> time() . rand(10*45, 100*98),
-		    			"description"=> "Points reward from order with order #{$order_number}",
+		    			"description"=> "Points rewarded from order with order #{$order_number}",
 		    			"debit"=> $points,
 		    			"credit"=> 0,
 		    			"balance" => $new_points_balance,
