@@ -3,3 +3,4 @@ ADDED NEW TABLE - points_activity
 
 added new column (points_balance) in users
 update views_users
+added new view views_points_activity

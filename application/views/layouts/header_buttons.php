@@ -99,7 +99,8 @@
             <div class="facepay-wallet-dropdown sub-buttons" id="sub_menu_facepay_wallet">
                 <?php if ($this->session->userdata("user_type") == "admin"): ?>
                     <a href="<?= base_url();?>cash-in-v2"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;Cash In</a><br>
-                    <a href="<?= base_url();?>wallet-transaction"><i class="fa-solid fa-repeat"></i>&nbsp;&nbsp;Transaction</a>
+                    <a href="<?= base_url();?>wallet-transaction"><i class="fa-solid fa-repeat"></i>&nbsp;&nbsp;Transaction</a><br>
+                    <a href="<?= base_url();?>points"><i class="fas fa-coins"></i></i>&nbsp;&nbsp;Points</a>
                 <?php else: ?>
                     <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a>
                 <?php endif ?>

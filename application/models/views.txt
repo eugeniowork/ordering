@@ -23,3 +23,10 @@ SELECT ohl.*, users.firstname, users.lastname, users.middlename
 FROM `order_history_logs` AS ohl
 LEFT JOIN users
 ON ohl.created_by = users.id
+
+---------------------------
+CREATE OR REPLACE VIEW views_points_activity AS
+SELECT pa.*, CONCAT(users.firstname,' ',users.lastname) AS fullname
+FROM `points_activity` AS pa
+LEFT JOIN users
+ON pa.user_id = users.id
