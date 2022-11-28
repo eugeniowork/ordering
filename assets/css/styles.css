@@ -21,7 +21,7 @@ body {
     padding-bottom: 20px;
     padding-top: 10px;
     border-bottom: 1px solid lightgray;
-    position: fixed;
+    position: relative;
     width: 100%;
     z-index: 5; }
     .page-container .container-header .header-title {
@@ -59,7 +59,7 @@ body {
     background: white;
     padding-left: 25px;
     padding-right: 25px;
-    padding-top: 70px;
+    padding-top: 25px;
     padding-bottom: 30px;
     position: relative; }
     .page-container .container-body .row .col-12 {
@@ -99,16 +99,18 @@ table {
   .page-container {
     min-height: 90vh; }
     .page-container .container-header {
-      padding-right: 5px;
-      padding-left: 5px;
       padding-bottom: 10px; }
       .page-container .container-header .inputs {
-        float: left;
+        float: none;
         position: relative;
         right: 0px;
         width: 100%; }
         .page-container .container-header .inputs input {
-          width: 100% !important; }
+          width: 100% !important;
+          margin-top: 10px; }
+        .page-container .container-header .inputs .fa-search {
+          bottom: 0px;
+          top: unset; }
 
   .modal .modal-dialog {
     margin: 0px;
@@ -1227,8 +1229,8 @@ table {
       opacity: 0.8; }
 
 .my-points-container .transaction-container .transaction-details-container {
+  width: 100%;
   display: inline-flex;
-  justify-content: space-between;
   word-break: break-word;
   padding: 10px 10px;
   margin-top: 10px; }
