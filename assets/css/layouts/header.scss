@@ -390,10 +390,15 @@
                 width: 100%;
             }
         }
+        .left{
+            display: none;
+        }
     }
     .side-navbar-container{
+        width: 80%;
         .side-navbar-content{
-            width: 500px;
+            //width: 500px;
+            width: 100%;
             .side-navbar-body{
                 .mobile-view-buttons-container{
                     display: block;

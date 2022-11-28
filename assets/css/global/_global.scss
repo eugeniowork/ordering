@@ -140,6 +140,20 @@ table{
 @media screen and (max-width : 950px){
     .page-container{
         min-height: 90vh;
+        .container-header{
+            padding-right: 5px;
+            padding-left: 5px;
+            padding-bottom: 10px;
+            .inputs{
+                float: left;
+                position: relative;
+                right: 0px;
+                width: 100%;
+                input{
+                    width: 100% !important;
+                }
+            }
+        }
     }
     .modal{
         .modal-dialog{

@@ -98,6 +98,17 @@ table {
 @media screen and (max-width: 950px) {
   .page-container {
     min-height: 90vh; }
+    .page-container .container-header {
+      padding-right: 5px;
+      padding-left: 5px;
+      padding-bottom: 10px; }
+      .page-container .container-header .inputs {
+        float: left;
+        position: relative;
+        right: 0px;
+        width: 100%; }
+        .page-container .container-header .inputs input {
+          width: 100% !important; }
 
   .modal .modal-dialog {
     margin: 0px;
@@ -437,11 +448,15 @@ table {
       height: 85vh; }
   .header .right .header-dropdown-wishlist {
     width: 100%; }
+  .header .left {
+    display: none; }
 
-  .side-navbar-container .side-navbar-content {
-    width: 500px; }
-    .side-navbar-container .side-navbar-content .side-navbar-body .mobile-view-buttons-container {
-      display: block; } }
+  .side-navbar-container {
+    width: 80%; }
+    .side-navbar-container .side-navbar-content {
+      width: 100%; }
+      .side-navbar-container .side-navbar-content .side-navbar-body .mobile-view-buttons-container {
+        display: block; } }
 .cookies-container {
   position: fixed;
   height: 100vh !important;

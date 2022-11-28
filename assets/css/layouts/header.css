@@ -311,10 +311,14 @@
       height: 85vh; }
   .header .right .header-dropdown-wishlist {
     width: 100%; }
+  .header .left {
+    display: none; }
 
-  .side-navbar-container .side-navbar-content {
-    width: 500px; }
-    .side-navbar-container .side-navbar-content .side-navbar-body .mobile-view-buttons-container {
-      display: block; } }
+  .side-navbar-container {
+    width: 80%; }
+    .side-navbar-container .side-navbar-content {
+      width: 100%; }
+      .side-navbar-container .side-navbar-content .side-navbar-body .mobile-view-buttons-container {
+        display: block; } }
 
 /*# sourceMappingURL=header.css.map */
