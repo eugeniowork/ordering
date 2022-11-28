@@ -94,7 +94,8 @@ $(document).ready(function(){
 
     function scroll(){
         if(!loading_load_more && !is_reached_product_end){
-            if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        	var original_height = $(document).height() - 200;
+            if($(window).scrollTop() + $(window).height() >= original_height) {
             	product_limit_start+=12;
 				loading_load_more = true;
 		       get_products("load_more")
