@@ -392,7 +392,7 @@ class Order extends CI_Controller {
         		}
 
         		//NOTIFY USER/CUSTOMER
-        		$content = "Payment successful for Order Number <strong>{$order_number}</strong> using Cash Payment.";
+        		$content = "Payment successful for Order <strong>#{$order_number}</strong> using Cash Payment.";
         		$notification_params = [
         			"receiver"=> $customer_id,
         			"user_id"=> $this->session->userdata('user_id'),
