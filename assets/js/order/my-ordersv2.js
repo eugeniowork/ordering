@@ -32,9 +32,9 @@ $(document).ready(function(){
 					if(response.orders.length > 0){
 						$.each(response.orders, function(key, data){
 							var row = $("<div class='row' style='border-bottom: 1px solid lightgrey; margin-bottom: 15px;'>")
-							var col_12_order_buttons = $("<div class='col-12 col-lg-12' style='margin-bottom: -10px !important;z-index:1'>")
-							var col_12_order_details = $("<div class='col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4'>")
-							var col_12_order_amount = $("<div class='col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3'>")
+							//var col_12_order_buttons = $("<div class='col-12 col-lg-12' style='margin-bottom: -10px !important;z-index:1'>")
+							var col_12_order_details = $("<div class='col-8 col-lg-4 col-xs-4 col-md-4 col-sm-4'>")
+							var col_12_order_amount = $("<div class='col-4 col-lg-3 col-xs-3 col-md-3 col-sm-3'>")
 							var col_12_order_status = $("<div class='col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5'>")
 
 							col_12_order_details.append('<br><span style="font-weight: 600; color: #333" class="order-number">Order <a href="'+base_url+'my-orders-view/'+this.encrypted_id+'" data-id="'+data.encrypted_id+'" style="font-style:italic;" class="btn-order-view-details">#'+data.order_number+'</a></span>')
@@ -45,20 +45,20 @@ $(document).ready(function(){
 
 							col_12_order_amount.append('<br><strong>'+moneyConvertion(parseFloat(data.grand_total))+'</strong>')
 
-							var col_12_order_status_row = $("<div class='row'>");
-							col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container '+(data.status == "FOR PROCESS"? 'status-container-active': '')+'"><span>For Process</span></div></div>')
-							col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container '+(data.status == "FOR PICKUP"? 'status-container-active': '')+'"><span>For Pickup</span></div></div>')
+							var col_12_order_status_row = $("<div class='row' style='margin-top: 20px;'>");
+							col_12_order_status_row.append('<div class="col-4 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container '+(data.status == "FOR PROCESS"? 'status-container-active': '')+'"><span>For Process</span></div></div>')
+							col_12_order_status_row.append('<div class="col-4 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container '+(data.status == "FOR PICKUP"? 'status-container-active': '')+'"><span>For Pickup</span></div></div>')
 
 							if(data.status == "CANCELED"){
-								col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container status-container-active"><span>Canceled</span></div></div>')
+								col_12_order_status_row.append('<div class="col-4 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container status-container-active"><span>Canceled</span></div></div>')
 							}
 							else{
-								col_12_order_status_row.append('<div class="col-12 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container '+(data.status == "PICKED UP"? 'status-container-active': '')+'"><span>Picked Up</span></div></div>')
+								col_12_order_status_row.append('<div class="col-4 col-lg-2 col-xs-4 col-md-4 col-sm-4"><div class="status-container '+(data.status == "PICKED UP"? 'status-container-active': '')+'"><span>Picked Up</span></div></div>')
 							}
 
 							col_12_order_status.append(col_12_order_status_row)
 
-							row.append(col_12_order_buttons)
+							//row.append(col_12_order_buttons)
 							row.append(col_12_order_details)
 							row.append(col_12_order_amount)
 							row.append(col_12_order_status)
