@@ -28,7 +28,7 @@ class Welcome extends CI_Controller {
 			redirect('dashboard');
 		}
 		else{
-			$this->load->view('home/home');
+			$this->load->view('home/homev2');
 		}
 		$this->load->view('layouts/footer');
 	}
