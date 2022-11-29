@@ -563,6 +563,9 @@ table {
     background: #007bb5;
     color: white; }
 
+@media screen and (max-width: 950px) {
+  .footer {
+    padding: 10px 10px; } }
 .signup-container .face-container img {
   height: 200px;
   width: 200px; }
