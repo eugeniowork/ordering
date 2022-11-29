@@ -112,6 +112,25 @@
             background: none;
             font-weight: 600;
             font-size: 12px; }
+          .header .right .header-dropdown-cart .cart-content .cart-product .cart-product-details {
+            line-height: 20px;
+            padding-left: 30px;
+            width: 100%;
+            display: flex; }
+            .header .right .header-dropdown-cart .cart-content .cart-product .cart-product-details .cart-product-details-name {
+              width: 70%; }
+            .header .right .header-dropdown-cart .cart-content .cart-product .cart-product-details .cart-product-details-price {
+              width: 40%; }
+      .header .right .header-dropdown-cart .cart-footer .cart-footer-details {
+        width: 100%;
+        display: flex; }
+        .header .right .header-dropdown-cart .cart-footer .cart-footer-details .cart-footer-details-label {
+          width: 50%; }
+        .header .right .header-dropdown-cart .cart-footer .cart-footer-details .cart-footer-details-amount {
+          width: 50%;
+          text-align: center; }
+      .header .right .header-dropdown-cart .cart-footer .cart-footer-button {
+        width: 100%; }
     .header .right .header-btn-wishlist .span-wishlist-total-product {
       background: red;
       padding: 0.2em 0.3em 0.3em;
@@ -308,7 +327,7 @@
   .header .right .header-dropdown-cart {
     width: 100%; }
     .header .right .header-dropdown-cart .cart-content {
-      height: 85vh; }
+      height: 60vh; }
   .header .right .header-dropdown-wishlist {
     width: 100%; }
   .header .left {
