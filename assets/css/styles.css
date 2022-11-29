@@ -318,18 +318,31 @@ table {
           font-size: 15px !important;
           color: #333;
           margin-bottom: 10px; }
-          .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlist-product-stock {
-            bottom: 0;
-            position: absolute; }
           .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product img {
             height: 60px;
             width: 60px;
             border-radius: 5px; }
           .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlist-buttons {
             text-align-last: right; }
-          .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlisth-product-stock {
-            position: relative;
-            top: 15px; }
+          .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlist-product-details {
+            line-height: 20px;
+            padding-left: 30px;
+            width: 100%;
+            display: flex; }
+            .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlist-product-details .wishlist-product-details-name {
+              width: 70%; }
+            .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlist-product-details .wishlist-product-details-price {
+              width: 40%;
+              text-align: right; }
+          .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlist-product-stock {
+            width: 100%;
+            display: flex; }
+            .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlist-product-stock .wishlist-product-stock-value {
+              width: 70%;
+              line-height: 35px; }
+            .header .right .header-dropdown-wishlist .wishlist-content .wishlist-product .wishlist-product-stock .wishlist-product-stock-buttons {
+              width: 30%;
+              text-align: right; }
     .header .right .header-btn-notifications .span-total-notif {
       background: red;
       padding: 0.3em 0.3em 0.3em;

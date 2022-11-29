@@ -416,23 +416,32 @@ $(document).ready(function(){
                         var wishlist_content = $('<div class="wishlist-content"></div>')
                         $.each(response.wishlist, function(key, data){
                             var wishlist_product = $('<div class="wishlist-product '+data.encrypted_product_id+' "></div>')
-                            var row_wishlist = $('<div class="row"></div>')
+                            var flex_row = $('<div class="d-flex flex-row"></div>')
+                            flex_row.append('<img src="'+base_url+data.image_path+'">')
+                            flex_row.append('<div class="wishlist-product-details"><div class="wishlist-product-details-name">'+data.name+'</div><div class="wishlist-product-details-price">'+moneyConvertion(parseFloat(data.price))+'</span></div>')
 
-                            row_wishlist.append('<div class="col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3"><img src="'+base_url+data.image_path+'"></div>')
-                            row_wishlist.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>'+data.name+'</span></div>')
-                            row_wishlist.append('<div class="col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4">'+moneyConvertion(parseFloat(data.price))+'</div>')
-
-                            var row_wishlist2 = $('<div class="row"></div>')
-                            row_wishlist2.append('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6"><span class="wishlisth-product-stock">Stock: '+data.stock+'</span></div>')
-                            var row_wishlist2_buttons = $('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6 wishlist-buttons"></div>')
+                            var flex_row2 = $('<div class="d-flex flex-row"></div>')
+                            var buttons = '<button class="btn btn-danger btn-sm btn-remove-to-wishlist" data-id="'+data.encrypted_wishlist_id+'" title="Remove to wishlist"><i class="fas fa-trash-alt"></i></button>';
                             if(data.stock > 0){
-                                row_wishlist2_buttons.append('<button class="btn btn-success btn-sm btn-add-to-cart" data-id="'+data.encrypted_product_id+'" title="Add to cart"><i class="fas fa-cart-plus"></i></button>')
+                                buttons += '&nbsp;<button class="btn btn-success btn-sm btn-add-to-cart" data-id="'+data.encrypted_product_id+'" title="Add to cart"><i class="fas fa-cart-plus"></i></button>';
                             }
-                            row_wishlist2_buttons.append('&nbsp;<button class="btn btn-danger btn-sm btn-remove-to-wishlist" data-id="'+data.encrypted_wishlist_id+'" title="Remove to wishlist"><i class="fas fa-trash-alt"></i></button>')
-                            row_wishlist2.append(row_wishlist2_buttons);
+                            flex_row2.append('<div class="wishlist-product-stock"><div class="wishlist-product-stock-value"><span>Stock: '+data.stock+'</span></div><div class="wishlist-product-stock-buttons">'+buttons+'</div></div>')
 
-                            wishlist_product.append(row_wishlist)
-                            wishlist_product.append(row_wishlist2)
+                            // row_wishlist.append('<div class="col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3"><img src="'+base_url+data.image_path+'"></div>')
+                            // row_wishlist.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>'+data.name+'</span></div>')
+                            // row_wishlist.append('<div class="col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4">'+moneyConvertion(parseFloat(data.price))+'</div>')
+
+                            // var row_wishlist2 = $('<div class="row"></div>')
+                            // row_wishlist2.append('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6"><span class="wishlisth-product-stock">Stock: '+data.stock+'</span></div>')
+                            // var row_wishlist2_buttons = $('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6 wishlist-buttons"></div>')
+                            // if(data.stock > 0){
+                            //     row_wishlist2_buttons.append('<button class="btn btn-success btn-sm btn-add-to-cart" data-id="'+data.encrypted_product_id+'" title="Add to cart"><i class="fas fa-cart-plus"></i></button>')
+                            // }
+                            // row_wishlist2_buttons.append('&nbsp;<button class="btn btn-danger btn-sm btn-remove-to-wishlist" data-id="'+data.encrypted_wishlist_id+'" title="Remove to wishlist"><i class="fas fa-trash-alt"></i></button>')
+                            // row_wishlist2.append(row_wishlist2_buttons);
+
+                            wishlist_product.append(flex_row)
+                            wishlist_product.append(flex_row2)
                             wishlist_content.append(wishlist_product)
                             wishlist_content.append('<hr>')
 
