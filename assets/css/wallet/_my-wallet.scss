@@ -1,8 +1,9 @@
 .my-wallet-container{
 	.transaction-container{
 		.transaction-details-container{
+			width: 100%;
 			display: inline-flex;
-		    justify-content: space-between;
+		    // /justify-content: space-between;
 		    word-break: break-word;
 		    //border: 1px solid #e1e1e1;
 		    padding: 10px 10px;

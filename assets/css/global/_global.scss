@@ -143,6 +143,8 @@ table{
     .page-container{
         min-height: 90vh;
         .container-header{
+            padding-left: 10px;
+            padding-right: 10px;
             padding-bottom: 10px;
             .inputs{
                 float: none;
@@ -158,6 +160,15 @@ table{
                     top: unset;
                 }
             }
+            .buttons{
+                float: unset;
+                position: relative;
+                right: 0px;
+            }
+        }
+        .container-body{
+            padding-left: 10px;
+            padding-right: 10px;
         }
     }
     .modal{
