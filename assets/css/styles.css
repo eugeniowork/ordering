@@ -951,36 +951,36 @@ table {
   box-shadow: 0px 0px 10px 0px rgba(193, 193, 193, 0.75); }
   .order-payment-container .summary-container .order-details-container .order-details-content {
     display: inline-flex;
-    justify-content: space-between;
-    word-break: break-word; }
+    word-break: break-word;
+    width: 100%; }
     .order-payment-container .summary-container .order-details-container .order-details-content .name-container {
-      width: 250px;
+      width: 50%;
       padding: 5px 10px; }
     .order-payment-container .summary-container .order-details-container .order-details-content .price-container {
-      width: 250px;
+      width: 35%;
       padding: 5px 10px; }
   .order-payment-container .summary-container .discounts-container .discounts-details-content {
     display: inline-flex;
-    justify-content: space-between;
-    word-break: break-word; }
+    word-break: break-word;
+    width: 100%; }
     .order-payment-container .summary-container .discounts-container .discounts-details-content .name-container {
-      width: 250px;
+      width: 50%;
       padding: 5px 10px; }
     .order-payment-container .summary-container .discounts-container .discounts-details-content .price-container {
-      width: 250px;
+      width: 35%;
       padding: 5px 10px; }
     .order-payment-container .summary-container .discounts-container .discounts-details-content .discount-value-container {
-      width: 250px;
+      width: 25%;
       padding: 5px 10px; }
   .order-payment-container .summary-container .totals-container .totals-details-content {
     display: inline-flex;
-    justify-content: space-between;
-    word-break: break-word; }
+    word-break: break-word;
+    width: 100%; }
     .order-payment-container .summary-container .totals-container .totals-details-content .name-container {
-      width: 250px;
+      width: 50%;
       padding: 5px 10px; }
     .order-payment-container .summary-container .totals-container .totals-details-content .price-container {
-      width: 250px;
+      width: 35%;
       padding: 5px 10px; }
 .order-payment-container .webcam-container {
   padding: 0; }
@@ -1020,6 +1020,16 @@ table {
       -moz-opacity: 0.8;
       opacity: 0.8; }
 
+@media screen and (max-width: 950px) {
+  .order-payment-container .summary-container .order-details-container .order-details-content .name-container {
+    width: 65%; }
+  .order-payment-container .summary-container .discounts-container .discounts-details-content .name-container {
+    width: 65%;
+    padding: 5px 0px; }
+  .order-payment-container .summary-container .totals-container .totals-details-content .name-container {
+    width: 65%; }
+  .order-payment-container .payment-method-container .cash-container input, .order-payment-container .payment-method-container .cash-container .cash-change {
+    width: 100% !important; } }
 .order-payment-successful-container .container-body {
   background: #A87824 !important; }
   .order-payment-successful-container .container-body .payment-successful-flex {
