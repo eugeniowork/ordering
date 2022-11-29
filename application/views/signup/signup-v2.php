@@ -2,6 +2,14 @@
 	/*.footer{
 		top: 0px !important;
 	}*/
+	body{
+		background: #A87824 !important;
+	}
+	@media screen and (max-width : 950px){
+		body{
+			background: white !important;
+		}
+	}
 </style>
 <div class="page-container signup-v2-container">
 	<div class="container-body" style="padding-top: 0px;">

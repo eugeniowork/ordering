@@ -1044,6 +1044,14 @@ table {
         height: 150px;
         width: 150px; }
 
+@media screen and (max-width: 950px) {
+  .order-payment-successful-container .container-body {
+    padding: 0px 0px; }
+    .order-payment-successful-container .container-body .payment-successful-flex .payment-successful-body {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      border-radius: 0px; } }
 #tracking {
   margin-bottom: 1rem; }
   #tracking .tracking-list {
