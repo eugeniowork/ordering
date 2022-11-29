@@ -3,7 +3,7 @@
 		<span class="header-title">My Points</span><br>
 	</div>
 	<div class="container-body">
-		<span style="font-size: 20px;">Points</span><br>
+		<span style="font-size: 20px;">Total Points</span><br>
 		<strong><?= number_format($user_details['points_balance'], 2) ?></strong>
 
 		<br><br>

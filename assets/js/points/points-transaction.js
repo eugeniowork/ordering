@@ -32,25 +32,19 @@ $(document).ready(function(){
 				            {
 				            	"data":"",
 				                "render": function(data, type, full, meta) {
-				                    var html = "";
-				                    html = moneyConvertion(parseFloat(full.debit))
-				                    return html;
+				                    return full.debit;
 				                }
 				            },
 				            {
 				            	"data":"",
 				                "render": function(data, type, full, meta) {
-				                    var html = "";
-				                    html = moneyConvertion(parseFloat(full.credit))
-				                    return html;
+				                    return full.credit;
 				                }
 				            },
 				            {
 				            	"data":"",
 				                "render": function(data, type, full, meta) {
-				                    var html = "";
-				                    html = moneyConvertion(parseFloat(full.balance))
-				                    return html;
+				                    return full.balance;
 				                }
 				            },
 				            {
@@ -86,13 +80,13 @@ $(document).ready(function(){
 		transaction_details.append('<div class="form-group"><span>Transaction Date</span><br><span>'+data.created_date+'</span></div>')
 		transaction_details.append('<div class="form-group"><span>Description</span><br><span>'+data.description+'</span></div>')
 		if(data.debit > 0){
-			transaction_details.append('<div class="form-group"><span>Amount</span><br><span>'+moneyConvertion(parseFloat(data.debit))+'</span></div>')
+			transaction_details.append('<div class="form-group"><span>Points</span><br><span>'+data.debit+'</span></div>')
 		}
 		else if (data.credit > 0){
-			transaction_details.append('<div class="form-group"><span>Amount</span><br><span>'+moneyConvertion(parseFloat(data.credit))+'</span></div>')
+			transaction_details.append('<div class="form-group"><span>Points</span><br><span>'+data.credit+'</span></div>')
 		}
 		
-		transaction_details.append('<div class="form-group"><span>Ending Balance</span><br><span>'+moneyConvertion(parseFloat(data.balance))+'</span></div>')
+		transaction_details.append('<div class="form-group"><span>Ending Balance</span><br><span>'+data.balance+'</span></div>')
 
 		$("#transaction_details_modal").modal("show")
 	})

@@ -15,17 +15,17 @@ $(document).ready(function(){
 
 				if(response.transactions.length > 0){
 					$.each(response.transactions, function(key, data){
-						var amount = 0;
+						var points = 0;
 						if(data.debit > 0){
-							amount = '+'+(parseFloat(data.debit))
+							points = '+'+(data.debit)+' points'
 						}
 						else if(data.credit > 0){
-							amount = '-'+(parseFloat(data.credit))
+							points = '-'+(data.credit)+' points'
 						}
 
 						var transaction_details_container = $("<div class='transaction-details-container'>");
 						transaction_details_container.append('<div class="description-container"><span>'+data.description+'</span><br><span class="date">'+data.created_date+'</span></div>')
-						transaction_details_container.append('<div class="amount-container">'+amount+'<br><button class="btn btn-sm btn-link btn-view-details" data-key="'+key+'">View details</button></div>')
+						transaction_details_container.append('<div class="amount-container">'+points+'<br><button class="btn btn-sm btn-link btn-view-details" data-key="'+key+'">View details</button></div>')
 
 						$(".transaction-container").append(transaction_details_container)
 						$(".transaction-container").append("<br>")
@@ -52,13 +52,13 @@ $(document).ready(function(){
 		transaction_details.append('<div class="form-group"><span>Transaction Date</span><br><span>'+details.created_date+'</span></div>')
 		transaction_details.append('<div class="form-group"><span>Description</span><br><span>'+details.description+'</span></div>')
 		if(details.debit > 0){
-			transaction_details.append('<div class="form-group"><span>Amount</span><br><span>'+moneyConvertion(parseFloat(details.debit))+'</span></div>')
+			transaction_details.append('<div class="form-group"><span>Points</span><br><span>'+details.debit+'</span></div>')
 		}
 		else if (details.credit > 0){
-			transaction_details.append('<div class="form-group"><span>Amount</span><br><span>'+moneyConvertion(parseFloat(details.credit))+'</span></div>')
+			transaction_details.append('<div class="form-group"><span>Points</span><br><span>'+details.credit+'</span></div>')
 		}
 		
-		transaction_details.append('<div class="form-group"><span>Ending Balance</span><br><span>'+moneyConvertion(parseFloat(details.balance))+'</span></div>')
+		transaction_details.append('<div class="form-group"><span>Ending Balance</span><br><span>'+details.balance+'</span></div>')
 
 		$("#transaction_details_modal").modal("show")
 	})
