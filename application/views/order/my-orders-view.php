@@ -61,6 +61,8 @@
                 <div class="name-container"><strong>Sub Total</strong></div>
                 <div class="price-container"><strong>&#8369;<?= number_format($order['total_amount'], 2); ?></strong></div>
             </div>
+
+            <?php $show_grand_total = false; ?>
             <?php if($order['status'] == 'PICKED UP' && $order_discounts): ?>
                 <?php foreach ($order_discounts as $key => $discount): ?>
                     <div class="items-content">
@@ -69,6 +71,19 @@
                         <div class="price-container"><strong><span>- &#8369;</span><?= number_format($discount->amount, 2); ?></strong></div>
                     </div>
                 <?php endforeach ?>
+                <?php $show_grand_total = true; ?>
+            <?php endif; ?>
+
+            <?php if($order['points_redeem'] > 0): ?>
+                <div class="items-content">
+                    <div class="qty-container"></div>
+                    <div class="name-container"><strong>Points redeem</strong></div>
+                    <div class="price-container"><strong><span>- &#8369;</span><?= number_format($order['points_redeem'], 2); ?></strong></div>
+                </div>
+                <?php $show_grand_total = true; ?>
+            <?php endif; ?>
+
+            <?php if($show_grand_total): ?>
                 <div class="items-content">
                     <div class="qty-container"></div>
                     <div class="name-container"><strong>Grand Total</strong></div>

@@ -377,7 +377,6 @@ $(document).ready(function(){
 
 	var added_discount = [];
 	var discount_total = 0;
-	var grand_total = total_order_amount;
 
 	$(".btn-add-discount").on("click", function(){
 		$("#add_discount_modal").modal("show")
@@ -513,7 +512,7 @@ $(document).ready(function(){
 
 	function calculate_totals(){
 		discount_total = 0;
-		grand_total = parseFloat(total_order_amount);
+		grand_total = parseFloat(grand_total);
 		$.each(added_discount, function(){
 			discount_total += parseFloat(this.amount);
 			grand_total -= parseFloat(this.amount);
