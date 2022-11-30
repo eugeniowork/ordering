@@ -492,7 +492,11 @@ table {
   .header .right .header-dropdown-wishlist {
     width: 100%; }
   .header .left {
-    display: none; }
+    padding-left: 5px; }
+    .header .left img {
+      margin-left: 0px !important; }
+    .header .left a {
+      display: none; }
 
   .side-navbar-container {
     width: 80%; }
@@ -1533,7 +1537,7 @@ table {
       font-size: 16px; } }
 @media screen and (min-width: 300px) and (max-width: 399px) {
   .home-containerv2 .section-one-container .description {
-    top: 30px; } }
+    top: 60px; } }
 @media screen and (min-width: 400px) and (max-width: 500px) {
   .home-containerv2 .section-one-container .description {
     top: 55px; } }
