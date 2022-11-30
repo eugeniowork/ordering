@@ -8,7 +8,6 @@
 
             <?php if ($order['status'] == "FOR PROCESS"): ?>
                 <button class="btn btn-sm btn-resched-pickup btn-primary">Resched pickup</button>
-                <button class="btn btn-sm btn-cancel-order btn-primary">Cancel Order</button>
             <?php endif ?>
             <a href="<?= base_url();?>my-orders" class="btn btn-sm btn-primary">Back</a>
         </div>
