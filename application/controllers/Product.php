@@ -326,7 +326,7 @@ class Product extends CI_Controller {
 	        			$points_activity_params = [
 			    			"user_id"=> $user_id,
 			    			"reference_no"=> time() . rand(10*45, 100*98),
-			    			"description"=> "Points redeemed on order with order #{$order_number}",
+			    			"description"=> "Points redeemed in order #{$order_number}",
 			    			"debit"=> 0,
 			    			"credit"=> $points_redeem,
 			    			"balance" => $new_points_balance,

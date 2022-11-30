@@ -126,6 +126,7 @@ $(document).ready(function(){
         $(".cart-content").remove()
         $(".cart-footer").remove()
         $(".cart-footer-points").remove();
+        total_cart_product_amount = 0;
 
         $.ajax({
             url: base_url + "product/cartItemList",
