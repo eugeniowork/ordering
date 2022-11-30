@@ -28,6 +28,9 @@ $(document).ready(function(){
             else if($(".global-loading").has(e.target).length > 0){
                 
             }
+            else if($("#terms_for_order_modal").has(e.target).length > 0){
+                
+            }
             else if (!$(".header-dropdown-cart").is(e.target) && $(".header-dropdown-cart").has(e.target).length === 0) {
                 $(".header-dropdown-cart").hide();
             }
@@ -126,6 +129,7 @@ $(document).ready(function(){
         $(".cart-content").remove()
         $(".cart-footer").remove()
         $(".cart-footer-points").remove();
+        $(".cart-footer-terms").remove();
         total_cart_product_amount = 0;
 
         $.ajax({
@@ -167,7 +171,7 @@ $(document).ready(function(){
                         }
                         if(redeemable_points > 0){
                             var cart_footer_points = $('<div class="cart-footer-points"></div>')
-                            cart_footer_points.append('<div class="cart-footer-points-details"><span>Redeemable points is '+redeemable_points+' points</span><input type="range" min="0" max="'+redeemable_points+'" value="0" /></div>')
+                            cart_footer_points.append('<div class="cart-footer-points-details"><span>Redeemable points is '+redeemable_points+' points</span><input style="position: relative;bottom: 20px;" type="range" min="0" max="'+redeemable_points+'" value="0" /></div>')
                             cart_footer_points.append('<div class="cart-footer-points-details"><span class="points-to-redeem-value"></span><button class="btn btn-sm btn-success btn-apply-redeem-points">Apply</button></div>')
                             $(".header-dropdown-cart").append(cart_footer_points)
                         }
@@ -576,9 +580,38 @@ $(document).ready(function(){
         cart_footer.append(flex_row)
 
         var flex_row2 = $('<div class="d-flex flex-row"></div>')
-        flex_row2.append('<div class="cart-footer-button"><button class="btn btn-success btn-checkout-cart" style="width: 100%">CHECKOUT</button></div>')
+        flex_row2.append('<div class="cart-footer-button"><button class="btn btn-success btn-checkout-cart" style="width: 100%; cursor: not-allowed;" disabled>CHECKOUT</button></div>')
         cart_footer.append(flex_row2)
-
         $(".header-dropdown-cart").append(cart_footer)
+
+        generate_terms_checkbox();
     }
+
+    function generate_terms_checkbox(){
+        $(".cart-footer-terms").remove();
+
+        var cart_footer_points = $('<div class="cart-footer-terms"></div>')
+        cart_footer_points.append('<div class="cart-footer-terms-details"><a class="btn-show-terms">View Terms and Condition</a></div>')
+        cart_footer_points.append('<div class="cart-footer-terms-details" style="position: relative;bottom: 25px;"><span><input type="checkbox" class="i-agree-checkbox">&nbsp;&nbsp;<span>I agree to the terms and condition.</span></span></div>')
+        $(".header-dropdown-cart").append(cart_footer_points)
+    }
+
+    $(document).on("click", ".btn-show-terms", function(){
+        $("#terms_for_order_modal").modal("show")
+    });
+
+     $(document).on("change", ".i-agree-checkbox", function(){
+        if($(this).is(":checked")){
+            $('.btn-checkout-cart').prop('disabled',false)
+            $('.btn-checkout-cart').css({
+                'cursor': 'pointer'
+            });
+        }
+        else{
+            $('.btn-checkout-cart').prop('disabled',true)
+            $('.btn-checkout-cart').css({
+                'cursor': 'not-allowed'
+            });
+        }
+    });
 })

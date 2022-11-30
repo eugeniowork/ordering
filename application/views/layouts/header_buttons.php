@@ -176,6 +176,26 @@
     </div>
 </div>
 
+<div class="modal fade" id="terms_for_order_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Terms and Conditions for Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Under House Bill No. 6958  </p>
+                <p>All orders that have been placed are considered final and immediately prepared and cook, so please consider carefully before placing an order. The <?= APPNAME ?> would have started to prepare the food and therefore no refunds and cancellation would be possible.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="global-loading"></div>
 
 <script type="text/javascript" src="<?= base_url();?>/assets/js/layouts/header.js"></script>

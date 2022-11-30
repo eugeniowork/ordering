@@ -179,6 +179,35 @@
                         margin-left: 20px;
                         display: none;
                     }
+
+                    a{
+                        text-decoration: unset;
+                        padding-right: unset;
+                        padding-left: unset;
+                        height: unset;
+                        color: #007bff;
+                        &:hover {
+                            color: #007bff !important;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
+            .cart-footer-terms{
+                .cart-footer-terms-details{
+                    width: 100%;
+                    a{
+                        text-decoration: unset;
+                        padding-right: unset;
+                        padding-left: unset;
+                        height: unset;
+                        color: #007bff;
+                        &:hover {
+                            color: #007bff !important;
+                            text-decoration: underline;
+                        }
+                    }
                 }
             }
         }
