@@ -30,3 +30,9 @@ SELECT pa.*, CONCAT(users.firstname,' ',users.lastname) AS fullname
 FROM `points_activity` AS pa
 LEFT JOIN users
 ON pa.user_id = users.id
+
+---------------------------
+CREATE OR REPLACE VIEW views_order_history AS 
+SELECT order_history.*, DATE_FORMAT(order_history.created_date, "%Y") as year, DATE_FORMAT(order_history.created_date, "%m") as month, DATE_FORMAT(order_history.created_date, "%d") as day, DATE_FORMAT(order_history.created_date, "%u") as week, CONCAT(users.firstname,' ',users.lastname) AS fullname 
+FROM order_history 
+LEFT JOIN users ON users.id = order_history.user_id

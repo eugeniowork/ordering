@@ -347,6 +347,8 @@
     padding-left: 5px; }
     .header .left .app-name {
       display: none; }
+    .header .left .btn-logo {
+      padding-left: 35px; }
 
   .side-navbar-container {
     width: 80%; }

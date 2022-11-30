@@ -3,7 +3,7 @@
 </div>
 <div class="header">
 	<div class="left">
-        <a href="<?= base_url(); ?>" style="padding-left: 0px;"><img src="<?= base_url().LOGO ?>" style="height: 45px; width: 45px;"></a>
+        <a href="<?= base_url(); ?>" class="btn-logo" style="padding-right: 0px;"><img src="<?= base_url().LOGO ?>" style="height: 45px; width: 45px;"></a>
         <a href="<?= base_url(); ?>" style="padding-left: 0px;" class="app-name"><?= APPNAME ?></a>
     </div>
 	<div class="right">
@@ -161,6 +161,10 @@
                 <div class="form-group">
                     <span>Date/Time Pickup <span class="text-danger">*</span></span>
                     <input type="datetime-local" class="form-control date-pickup" min="<?= date('Y-m-d H:i') ?>" value="<?= date('Y-m-d H:i') ?>">
+                </div>
+                <div class="form-group">
+                    <span>Special Instruction</span>
+                    <textarea rows="3" class="form-control instruction" placeholder="Enter remarks"></textarea>
                 </div>
                 <div class="warning text-danger"></div>
             </div>

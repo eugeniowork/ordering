@@ -4,3 +4,7 @@ ADDED NEW TABLE - points_activity
 added new column (points_balance) in users
 update views_users
 added new view views_points_activity
+
+2022-11-30
+added new column (instruction) in order_history
+update views_order_history

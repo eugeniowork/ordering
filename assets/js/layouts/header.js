@@ -272,7 +272,8 @@ $(document).ready(function(){
                 type: 'POST',
                 dataType: 'json',
                 data:{
-                    date_pickup: $(".date-pickup").val()
+                    date_pickup: $(".date-pickup").val(),
+                    instruction: $(".instruction").val()
                 },
                 success: function(response){
                     if(response.is_error){

@@ -45,6 +45,10 @@
                             <span><?= $order['mode_of_payment'] ?></span>
                         </div>
                     <?php endif; ?>
+                    <div class="col-12 col-lg-4">
+                        <strong>Special Instruction:</strong><br>
+                        <span><?= nl2br($order['instruction']); ?></span>
+                    </div>
                 </div>
             </div>
             <hr>

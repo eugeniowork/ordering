@@ -269,6 +269,7 @@ class Product extends CI_Controller {
 		session_write_close();
 
 		$date_pickup = $this->input->post("date_pickup");
+		$instruction = $this->input->post("instruction");
 		$user_id = $this->session->userdata('user_id');
 
 		$this->form_validation->set_rules('date_pickup','date pickup','required', array(
@@ -303,6 +304,7 @@ class Product extends CI_Controller {
 			        	// "total_items"=> $total_items,
 			        	// "total_amount"=> $total_amount,
 			        	"date_pickup"=> date('Y-m-d H:i:s', strtotime($date_pickup)),
+			        	"instruction"=> $instruction,
 			        	"status"=> "FOR PROCESS",
 			        	"created_date"=> getTimeStamp(),
 			        	"created_by"=> $user_id
