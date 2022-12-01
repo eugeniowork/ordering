@@ -1,15 +1,15 @@
 2022-11-27
-ADDED NEW TABLE - points_activity
+ADDED NEW TABLE - points_activity - DONE
 
-added new column (points_balance) in users
-update views_users
-added new view views_points_activity
+added new column (points_balance) in users - DONE
+update views_users - DONE
+added new view views_points_activity - DONE
 
 2022-11-30
-added new column (instruction) in order_history
-update views_order_history
+added new column (instruction) in order_history - DONE
+update views_order_history - DONE
 
-added new column (points_redeem) in order_history
+added new column (points_redeem) in order_history - DONE
 
 2022-12-01
-update views_wishlist
+update views_wishlist - DONE
