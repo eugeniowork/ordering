@@ -38,3 +38,6 @@ CREATE OR REPLACE VIEW views_order_history AS
 SELECT order_history.*, DATE_FORMAT(order_history.created_date, "%Y") as year, DATE_FORMAT(order_history.created_date, "%m") as month, DATE_FORMAT(order_history.created_date, "%d") as day, DATE_FORMAT(order_history.created_date, "%u") as week, CONCAT(users.firstname,' ',users.lastname) AS fullname 
 FROM order_history 
 LEFT JOIN users ON users.id = order_history.user_id
+
+---------------------------
+CREATE OR REPLACE VIEW views_users AS SELECT users.*, faces.face1_value, faces.face2_value FROM `users` LEFT JOIN faces ON users.id = faces.user_id
