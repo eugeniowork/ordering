@@ -25,7 +25,7 @@
 			<div class="description">
 				<span class="title">START YOUR DAY WITH A GOOD QUALITY</span><br>
 				<span class="sub-title">food and coffee</span><br>
-				<span class="schedule">We're open daily from 6 am to 5 pm</span><br>
+				<span class="schedule">We're open daily from 9 am to 4 pm</span><br>
 				<a href="<?= base_url();?>login" class="btn btn-primary">ORDER NOW</a>
 			</div>
 		</div>
