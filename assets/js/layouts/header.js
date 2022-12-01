@@ -28,6 +28,9 @@ $(document).ready(function(){
             else if($(".global-loading").has(e.target).length > 0){
                 
             }
+            else if($("#terms_for_order_modal").has(e.target).length > 0){
+                
+            }
             else if (!$(".header-dropdown-cart").is(e.target) && $(".header-dropdown-cart").has(e.target).length === 0) {
                 $(".header-dropdown-cart").hide();
             }
@@ -117,6 +120,7 @@ $(document).ready(function(){
         }
     }
 
+    var total_cart_product_amount = 0;
     //get_cart_item()
     function get_cart_item(){
         is_loaded_cart_products = true;
@@ -124,6 +128,9 @@ $(document).ready(function(){
 
         $(".cart-content").remove()
         $(".cart-footer").remove()
+        $(".cart-footer-points").remove();
+        $(".cart-footer-terms").remove();
+        total_cart_product_amount = 0;
 
         $.ajax({
             url: base_url + "product/cartItemList",
@@ -138,29 +145,42 @@ $(document).ready(function(){
                     $('.loading-cart-product-container').empty();
 
                     if(response.products.length > 0){
-                        var total_cart_product_amount = 0;
                         var cart_content = $('<div class="cart-content"></div>')
                         $.each(response.products, function(key, data){
                             var cart_product = $('<div class="cart-product '+data.encrypted_product_id+' "></div>')
-                            var row_cart = $('<div class="row"></div>')
+
                             var quantity = parseInt(data.quantity) > parseInt(data.stock)? data.stock: data.quantity
                             var total_product_price = parseInt(quantity) * parseFloat(data.price);
-
                             total_cart_product_amount += total_product_price;
-                            row_cart.append('<div class="col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3"><img src="'+base_url+data.image_path+'"></div>')
-                            row_cart.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>'+data.name+'</span></div>')
-                            row_cart.append('<div class="col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4">'+moneyConvertion(parseFloat(total_product_price))+'</div>')
-                            row_cart.append('<div class="col-12 col-lg-12"><button class="btn-remove-to-cart" data-id="'+data.encrypted_product_id+'"><i class="fa fa-minus"></i></button><span class="cart-product-quantity">'+quantity+'</span><button class="btn-add-to-cart" data-id="'+data.encrypted_product_id+'"><i class="fa fa-plus"></i></button></div>')
-                           
-                            cart_product.append(row_cart)
+
+                            var flex_row = $('<div class="d-flex flex-row"></div>')
+                            flex_row.append('<img src="'+base_url+data.image_path+'">')
+                            flex_row.append('<div class="cart-product-details"><div class="cart-product-details-name">'+data.name+'</div><div class="cart-product-details-price">'+moneyConvertion(parseFloat(total_product_price))+'</span></div>')
+
+                            var flex_row2 = $('<div class="d-flex flex-row"></div>')
+                            flex_row2.append('<div class="cart-product-quantity"><button class="btn-remove-to-cart" data-id="'+data.encrypted_product_id+'"><i class="fa fa-minus"></i></button><span>'+quantity+'</span><button class="btn-add-to-cart" data-id="'+data.encrypted_product_id+'"><i class="fa fa-plus"></i></button></div>')
+                            cart_product.append(flex_row)
+                            cart_product.append(flex_row2)
                             cart_content.append(cart_product)
                             $(".header-dropdown-cart").append(cart_content)
                         })
-                        var row_checkout = $('<div class="row cart-footer"></div>')
-                        row_checkout.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>Total Amount</span></div>')
-                        row_checkout.append('<div class="col-12 col-lg-7 col-xs-7 col-md-7 col-sm-7"><span class="bold-title pull-right">'+moneyConvertion(parseFloat(total_cart_product_amount))+'</span></div>')
-                        row_checkout.append('<div class="col-12 col-lg-12"><button class="btn btn-success btn-checkout-cart" style="width: 100%">CHECKOUT</button></div>')
-                        $(".header-dropdown-cart").append(row_checkout)
+
+                        var redeemable_points = response.points_balance;
+                        if(redeemable_points > total_cart_product_amount){
+                            redeemable_points = total_cart_product_amount;
+                        }
+                        if(redeemable_points > 0){
+                            var cart_footer_points = $('<div class="cart-footer-points"></div>')
+                            cart_footer_points.append('<div class="cart-footer-points-details"><span>Redeemable points is '+redeemable_points+' points</span><input style="position: relative;bottom: 20px;" type="range" min="0" max="'+redeemable_points+'" value="0" /></div>')
+                            cart_footer_points.append('<div class="cart-footer-points-details"><span class="points-to-redeem-value"></span><button class="btn btn-sm btn-success btn-apply-redeem-points">Apply</button></div>')
+                            $(".header-dropdown-cart").append(cart_footer_points)
+                        }
+
+                        $(".cart-footer").remove();
+                        var cart_footer = $('<div class="cart-footer"></div>')
+                        $(".header-dropdown-cart").append(cart_footer)
+                        createProcessLoadingV2({"div_name": ".cart-footer", "loading_text": " ", "font_size": "13px", "font_weight": "600", "height": "30px", "width": "30px"});
+                        calculate_total_payment();
                     }
                     else{
                         $(".header-dropdown-cart").append("<span>No product(s) on cart yet.</span>")
@@ -238,6 +258,7 @@ $(document).ready(function(){
         $("#checkout_modal").modal("show");
     })
 
+    var points_redeem = 0;
     $(".btn-place-order").on("click", function(){
         var loading_checkout = false;
         $(".warning").html("")
@@ -257,7 +278,10 @@ $(document).ready(function(){
                 type: 'POST',
                 dataType: 'json',
                 data:{
-                    date_pickup: $(".date-pickup").val()
+                    date_pickup: $(".date-pickup").val(),
+                    instruction: $(".instruction").val(),
+                    points_redeem: points_redeem,
+                    total_cart_product_amount: total_cart_product_amount,
                 },
                 success: function(response){
                     if(response.is_error){
@@ -401,23 +425,32 @@ $(document).ready(function(){
                         var wishlist_content = $('<div class="wishlist-content"></div>')
                         $.each(response.wishlist, function(key, data){
                             var wishlist_product = $('<div class="wishlist-product '+data.encrypted_product_id+' "></div>')
-                            var row_wishlist = $('<div class="row"></div>')
+                            var flex_row = $('<div class="d-flex flex-row"></div>')
+                            flex_row.append('<img src="'+base_url+data.image_path+'">')
+                            flex_row.append('<div class="wishlist-product-details"><div class="wishlist-product-details-name">'+data.name+'</div><div class="wishlist-product-details-price">'+moneyConvertion(parseFloat(data.price))+'</span></div>')
 
-                            row_wishlist.append('<div class="col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3"><img src="'+base_url+data.image_path+'"></div>')
-                            row_wishlist.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>'+data.name+'</span></div>')
-                            row_wishlist.append('<div class="col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4">'+moneyConvertion(parseFloat(data.price))+'</div>')
-
-                            var row_wishlist2 = $('<div class="row"></div>')
-                            row_wishlist2.append('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6"><span class="wishlisth-product-stock">Stock: '+data.stock+'</span></div>')
-                            var row_wishlist2_buttons = $('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6 wishlist-buttons"></div>')
+                            var flex_row2 = $('<div class="d-flex flex-row"></div>')
+                            var buttons = '<button class="btn btn-danger btn-sm btn-remove-to-wishlist" data-id="'+data.encrypted_wishlist_id+'" title="Remove to wishlist"><i class="fas fa-trash-alt"></i></button>';
                             if(data.stock > 0){
-                                row_wishlist2_buttons.append('<button class="btn btn-success btn-sm btn-add-to-cart" data-id="'+data.encrypted_product_id+'" title="Add to cart"><i class="fas fa-cart-plus"></i></button>')
+                                buttons += '&nbsp;<button class="btn btn-success btn-sm btn-add-to-cart" data-id="'+data.encrypted_product_id+'" title="Add to cart"><i class="fas fa-cart-plus"></i></button>';
                             }
-                            row_wishlist2_buttons.append('&nbsp;<button class="btn btn-danger btn-sm btn-remove-to-wishlist" data-id="'+data.encrypted_wishlist_id+'" title="Remove to wishlist"><i class="fas fa-trash-alt"></i></button>')
-                            row_wishlist2.append(row_wishlist2_buttons);
+                            flex_row2.append('<div class="wishlist-product-stock"><div class="wishlist-product-stock-value"><span>Stock: '+data.stock+'</span></div><div class="wishlist-product-stock-buttons">'+buttons+'</div></div>')
 
-                            wishlist_product.append(row_wishlist)
-                            wishlist_product.append(row_wishlist2)
+                            // row_wishlist.append('<div class="col-12 col-lg-3 col-xs-3 col-md-3 col-sm-3"><img src="'+base_url+data.image_path+'"></div>')
+                            // row_wishlist.append('<div class="col-12 col-lg-5 col-xs-5 col-md-5 col-sm-5"><span>'+data.name+'</span></div>')
+                            // row_wishlist.append('<div class="col-12 col-lg-4 col-xs-4 col-md-4 col-sm-4">'+moneyConvertion(parseFloat(data.price))+'</div>')
+
+                            // var row_wishlist2 = $('<div class="row"></div>')
+                            // row_wishlist2.append('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6"><span class="wishlisth-product-stock">Stock: '+data.stock+'</span></div>')
+                            // var row_wishlist2_buttons = $('<div class="col-12 col-lg-6 col-xs-6 col-md-6 col-sm-6 wishlist-buttons"></div>')
+                            // if(data.stock > 0){
+                            //     row_wishlist2_buttons.append('<button class="btn btn-success btn-sm btn-add-to-cart" data-id="'+data.encrypted_product_id+'" title="Add to cart"><i class="fas fa-cart-plus"></i></button>')
+                            // }
+                            // row_wishlist2_buttons.append('&nbsp;<button class="btn btn-danger btn-sm btn-remove-to-wishlist" data-id="'+data.encrypted_wishlist_id+'" title="Remove to wishlist"><i class="fas fa-trash-alt"></i></button>')
+                            // row_wishlist2.append(row_wishlist2_buttons);
+
+                            wishlist_product.append(flex_row)
+                            wishlist_product.append(flex_row2)
                             wishlist_content.append(wishlist_product)
                             wishlist_content.append('<hr>')
 
@@ -498,4 +531,87 @@ $(document).ready(function(){
             }
         })
     })
+
+    $(document).on('input', 'input[type=range]', function(e){
+        var min = e.target.min,
+        max = e.target.max,
+        val = e.target.value;
+
+        if(val > 0){
+            $(".points-to-redeem-value").html("Redeem "+moneyConvertion(parseFloat(val)))
+            $(".btn-apply-redeem-points").show();
+        }
+        else{
+            $(".points-to-redeem-value").html("Redeem "+moneyConvertion(parseFloat(val)))
+            if(points_redeem == 0){
+                $(".btn-apply-redeem-points").hide();
+            }
+        }
+        console.log(val)
+        
+        $(e.target).css({
+            'backgroundSize': (val - min) * 100 / (max - min) + '% 100%'
+        });
+    }).trigger('input');
+
+    $(document).on("click", ".btn-apply-redeem-points", function(){
+        points_redeem = $('input[type=range]').val();
+        console.log(points_redeem)
+
+        if(points_redeem == 0){
+            $(".points-to-redeem-value").html("")
+            $(".btn-apply-redeem-points").hide();
+        }
+
+        $(".cart-footer").remove();
+        var cart_footer = $('<div class="cart-footer"></div>')
+        $(".header-dropdown-cart").append(cart_footer)
+        createProcessLoadingV2({"div_name": ".cart-footer", "loading_text": " ", "font_size": "13px", "font_weight": "600", "height": "30px", "width": "30px"});
+        calculate_total_payment();
+    })
+
+    function calculate_total_payment(){
+        $(".cart-footer").remove();
+
+        var amount = total_cart_product_amount - points_redeem;
+        var cart_footer = $('<div class="cart-footer"></div>')
+        var flex_row = $('<div class="d-flex flex-row"></div>')
+        flex_row.append('<div class="cart-footer-details"><div class="cart-footer-details-label">Total Payment</div><div class="cart-footer-details-amount"><span class="bold-title">'+moneyConvertion(parseFloat(amount))+'</span></div></div>')
+        cart_footer.append(flex_row)
+
+        var flex_row2 = $('<div class="d-flex flex-row"></div>')
+        flex_row2.append('<div class="cart-footer-button"><button class="btn btn-success btn-checkout-cart" style="width: 100%; cursor: not-allowed;" disabled>CHECKOUT</button></div>')
+        cart_footer.append(flex_row2)
+        $(".header-dropdown-cart").append(cart_footer)
+
+        generate_terms_checkbox();
+    }
+
+    function generate_terms_checkbox(){
+        $(".cart-footer-terms").remove();
+
+        var cart_footer_points = $('<div class="cart-footer-terms"></div>')
+        cart_footer_points.append('<div class="cart-footer-terms-details"><a class="btn-show-terms">View Terms and Condition</a></div>')
+        cart_footer_points.append('<div class="cart-footer-terms-details" style="position: relative;bottom: 25px;"><span><input type="checkbox" class="i-agree-checkbox">&nbsp;&nbsp;<span>I agree to the terms and condition.</span></span></div>')
+        $(".header-dropdown-cart").append(cart_footer_points)
+    }
+
+    $(document).on("click", ".btn-show-terms", function(){
+        $("#terms_for_order_modal").modal("show")
+    });
+
+     $(document).on("change", ".i-agree-checkbox", function(){
+        if($(this).is(":checked")){
+            $('.btn-checkout-cart').prop('disabled',false)
+            $('.btn-checkout-cart').css({
+                'cursor': 'pointer'
+            });
+        }
+        else{
+            $('.btn-checkout-cart').prop('disabled',true)
+            $('.btn-checkout-cart').css({
+                'cursor': 'not-allowed'
+            });
+        }
+    });
 })

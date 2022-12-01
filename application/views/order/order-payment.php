@@ -95,9 +95,15 @@
 									<div class="name-container"><strong>Discount</strong></div>
 									<div class="price-container"><strong class="discount-total">&#8369;0.00</strong></div>
 								</div>
+								<?php if($order['points_redeem'] > 0): ?>
+					                <div class="totals-details-content">
+					                    <div class="name-container"><strong>Points redeem</strong></div>
+					                    <div class="price-container"><strong><span>- &#8369;</span><?= number_format($order['points_redeem'], 2); ?></strong></div>
+					                </div>
+					            <?php endif; ?>
 								<div class="totals-details-content">
 									<div class="name-container"><strong>Grand Total</strong></div>
-									<div class="price-container"><strong class="grand-total">&#8369;<?= number_format($order['total_amount'], 2); ?></strong></div>
+									<div class="price-container"><strong class="grand-total">&#8369;<?= number_format($order['grand_total'], 2); ?></strong></div>
 								</div>
 							</div>
 						</div>
@@ -247,6 +253,7 @@
 	    		var customer_email = '<?= $user_details['email'] ?>';
 	    		//var discounts = '<?= json_encode($discounts); ?>'
 	    		var discounts = JSON.parse('<?= json_encode($discounts); ?>')
+	    		var grand_total = '<?= $order['grand_total'] ?>';
 	    	</script>
 	    	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 			<script type="text/javascript" src="<?= base_url();?>assets/js/external/face-api.min.js"></script>

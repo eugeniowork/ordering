@@ -3,10 +3,12 @@ CREATE OR REPLACE VIEW views_cart AS SELECT cart.*, products.name, products.code
 ---------------------
 
 CREATE OR REPLACE VIEW views_wishlist AS
-SELECT wishlist.*, products.name, products.code, products.price, products.stock, products.category_name, products.image_path
+SELECT wishlist.*, products.name, products.code, products.price, products.stock, products.category_name, products.image_path, CONCAT(users.firstname,' ',users.lastname) AS fullname
 FROM `wishlist`
 LEFT JOIN views_products AS products 
 ON products.id = wishlist.product_id
+LEFT JOIN users
+ON wishlist.user_id = users.id
 
 ------------------------------
 CREATE OR REPLACE VIEW view_users_approval_history AS SELECT uah.*, users.firstname, users.lastname, users.middlename FROM `users_approval_history` AS uah LEFT JOIN users ON users.id = uah.created_by
@@ -23,3 +25,19 @@ SELECT ohl.*, users.firstname, users.lastname, users.middlename
 FROM `order_history_logs` AS ohl
 LEFT JOIN users
 ON ohl.created_by = users.id
+
+---------------------------
+CREATE OR REPLACE VIEW views_points_activity AS
+SELECT pa.*, CONCAT(users.firstname,' ',users.lastname) AS fullname
+FROM `points_activity` AS pa
+LEFT JOIN users
+ON pa.user_id = users.id
+
+---------------------------
+CREATE OR REPLACE VIEW views_order_history AS 
+SELECT order_history.*, DATE_FORMAT(order_history.created_date, "%Y") as year, DATE_FORMAT(order_history.created_date, "%m") as month, DATE_FORMAT(order_history.created_date, "%d") as day, DATE_FORMAT(order_history.created_date, "%u") as week, CONCAT(users.firstname,' ',users.lastname) AS fullname 
+FROM order_history 
+LEFT JOIN users ON users.id = order_history.user_id
+
+---------------------------
+CREATE OR REPLACE VIEW views_users AS SELECT users.*, faces.face1_value, faces.face2_value FROM `users` LEFT JOIN faces ON users.id = faces.user_id

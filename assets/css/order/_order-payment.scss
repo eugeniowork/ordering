@@ -98,14 +98,15 @@
 	    .order-details-container{
 	    	.order-details-content{
 				display: inline-flex;
-			    justify-content: space-between;
+			    //justify-content: space-between;
 			    word-break: break-word;
+			    width: 100%;
 			    .name-container{
-			    	width: 250px;
+			    	width: 50%;
 			    	padding: 5px 10px;
 			    } 
 			    .price-container{
-			    	width: 250px;
+			    	width: 35%;
 			    	padding: 5px 10px;
 			    }
 			}
@@ -114,18 +115,19 @@
 	    .discounts-container{
 	    	.discounts-details-content{
 				display: inline-flex;
-			    justify-content: space-between;
+			    //justify-content: space-between;
 			    word-break: break-word;
+			    width: 100%;
 			    .name-container{
-			    	width: 250px;
+			    	width: 50%;
 			    	padding: 5px 10px;
 			    } 
 			    .price-container{
-			    	width: 250px;
+			    	width: 35%;
 			    	padding: 5px 10px;
 			    }
 			    .discount-value-container{
-			    	width: 250px;
+			    	width: 25%;
 			    	padding: 5px 10px;
 			    }
 			}
@@ -134,14 +136,15 @@
 	    .totals-container{
 	    	.totals-details-content{
 				display: inline-flex;
-			    justify-content: space-between;
+			    //justify-content: space-between;
 			    word-break: break-word;
+			    width: 100%;
 			    .name-container{
-			    	width: 250px;
+			    	width: 50%;
 			    	padding: 5px 10px;
 			    } 
 			    .price-container{
-			    	width: 250px;
+			    	width: 35%;
 			    	padding: 5px 10px;
 			    }
 			}
@@ -190,6 +193,45 @@
 			    filter: alpha(opacity=80);
 			    -moz-opacity: 0.8;
 			    opacity: 0.8;   
+			}
+		}
+	}
+}
+
+@media screen and (max-width : 950px){
+	.order-payment-container{
+		.summary-container{
+			.order-details-container{
+			    .order-details-content{
+			    	.name-container{
+			    		width: 65%;
+			    	}
+			    }
+			}
+
+			.discounts-container{
+		    	.discounts-details-content{
+		    		.name-container{
+		    			width: 65%;
+				    	padding: 5px 0px;
+				    }
+		    	}
+		    }
+
+		    .totals-container{
+		    	.totals-details-content{
+				    .name-container{
+				    	width: 65%;
+				    }
+				}
+		    }
+		}
+
+		.payment-method-container{
+			.cash-container{
+				input, .cash-change{
+					width: 100% !important;
+				}
 			}
 		}
 	}

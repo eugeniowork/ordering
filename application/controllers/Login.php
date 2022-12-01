@@ -56,9 +56,18 @@ class Login extends CI_Controller {
 			        	// $this->session->set_userdata('user_type', $user_details['user_type']);
 			        	if($user_details['approval_status'] == "FOR APPROVAL"){
 			        		$this->data['is_error'] = true;
-	        				$this->data['error_msg'] = "Your account is still pending for approval, please check your email to monitor the status of your account.";
+	        				$this->data['error_msg'] = "Wait for the admin's approval to be able to log in.";
 			        	}
 			        	else{
+			        		//CREATE AUDIT TRAIL
+					        $params = [
+					        	'user_id'=> $user_details['id'],
+					        	'code'=> 'ACCOUNT',
+					        	'description'=> 'Logged in',
+					        	'created_date'=> getTimeStamp()
+					        ];
+					        $this->global_model->insert("audit_trail", $params);
+			        
 			        		$this->session->set_userdata('user_id', $user_id);
 				        	$this->session->set_userdata('user_firstname', $user_details['firstname']);
 				        	$this->session->set_userdata('user_lastname', $user_details['lastname']);

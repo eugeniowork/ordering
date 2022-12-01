@@ -1,6 +1,14 @@
 <style type="text/css">
-	.footer{
+	/*.footer{
 		top: 0px !important;
+	}*/
+	body{
+		background: #A87824 !important;
+	}
+	@media screen and (max-width : 950px){
+		body{
+			background: white !important;
+		}
 	}
 </style>
 <div class="page-container signup-v2-container">

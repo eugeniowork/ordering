@@ -252,7 +252,7 @@ class Discount extends CI_Controller {
         		$this->data['discount_amount'] = round($amount * ($discount_details['value'] / 100), 2);
         	}
         	else{
-        		$this->data['discount_amount'] = $discount_details['value'];
+        		$this->data['discount_amount'] = round($discount_details['value'], 2);
         	}
         	$this->data['discount_name'] = $discount_details['name'];
 	        $this->data['discount_value'] = $discount_details['value'];

@@ -247,6 +247,8 @@ class Product extends CI_Controller {
 		session_write_close();
 
 		$user_id = $this->session->userdata('user_id');
+		$user_details = $this->global_model->get("users", "points_balance", "id = {$user_id}", "", "single", "");
+		$this->data['points_balance'] = $user_details['points_balance'];
 
 		//GET CART PRODUCTS
 		$db_name = "views_cart";
@@ -269,6 +271,9 @@ class Product extends CI_Controller {
 		session_write_close();
 
 		$date_pickup = $this->input->post("date_pickup");
+		$instruction = $this->input->post("instruction");
+		$points_redeem = $this->input->post("points_redeem");
+		$total_cart_product_amount = $this->input->post("total_cart_product_amount");
 		$user_id = $this->session->userdata('user_id');
 
 		$this->form_validation->set_rules('date_pickup','date pickup','required', array(
@@ -283,6 +288,10 @@ class Product extends CI_Controller {
         	if(strtotime($date_pickup) < strtotime(getTimeStamp())){
         		$this->data['is_error'] = true;
             	$this->data['error_msg'] = "You can't select previous date/time.";
+        	}
+        	else if($points_redeem > $total_cart_product_amount){
+        		$this->data['is_error'] = true;
+            	$this->data['error_msg'] = "Points redeem cannot be greater than the sub total amount.";
         	}
         	else{
         		//GET CART PRODUCTS
@@ -303,11 +312,34 @@ class Product extends CI_Controller {
 			        	// "total_items"=> $total_items,
 			        	// "total_amount"=> $total_amount,
 			        	"date_pickup"=> date('Y-m-d H:i:s', strtotime($date_pickup)),
+			        	"instruction"=> $instruction,
+			        	"points_redeem"=> $points_redeem,
 			        	"status"=> "FOR PROCESS",
 			        	"created_date"=> getTimeStamp(),
 			        	"created_by"=> $user_id
 			        ];
 			        $insert_id = $this->global_model->insert("order_history", $order_history_params);
+
+			        if($points_redeem > 0){
+			        	$user = $this->global_model->get("users", "points_balance", "id = '$user_id'", [], "single", []);
+			        	$new_points_balance = $user['points_balance'] - $points_redeem;
+	        			$points_activity_params = [
+			    			"user_id"=> $user_id,
+			    			"reference_no"=> time() . rand(10*45, 100*98),
+			    			"description"=> "Points redeemed in order #{$order_number}",
+			    			"debit"=> 0,
+			    			"credit"=> $points_redeem,
+			    			"balance" => $new_points_balance,
+			    			"created_date"=> getTimeStamp(),
+			    			"created_by"=> $this->session->userdata("user_id")
+			    		];
+			    		$this->global_model->insert("points_activity", $points_activity_params);
+
+			    		$user_params = [
+		        			"points_balance"=> $new_points_balance
+		        		];
+		        		$this->global_model->update("users", "id = '$user_id'", $user_params);
+			        }
 
 			        //INSERT LOGS
 			        $params = [
@@ -388,7 +420,7 @@ class Product extends CI_Controller {
 			        $update_order_history_params = [
 			        	'total_quantity'=> $total_quantity,
 			        	'total_amount'=> $total_amount,
-			        	'grand_total'=> $total_amount
+			        	'grand_total'=> $total_amount - $points_redeem
 			        ];
 			        $this->global_model->update("order_history", "id = '$insert_id'", $update_order_history_params);
 
@@ -873,4 +905,26 @@ class Product extends CI_Controller {
 		];
 		echo json_encode($result);
 	}
+
+	public function wishlistPage(){
+		$this->data['page_title'] = "Wishlist";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('product/wishlist');
+		$this->load->view('layouts/footer');
+	}
+
+	public function wishlistData(){
+		session_write_close();
+
+		//GET CART PRODUCTS
+        $wishlist = $this->global_model->get("views_wishlist", "*", "name != 'null'", "", "multiple", "");
+        $this->data['wishlist'] = $wishlist;
+
+		session_start();
+
+		echo json_encode($this->data);
+	}
+
 }

@@ -3,7 +3,8 @@
 </div>
 <div class="header">
 	<div class="left">
-        <a href="<?= base_url(); ?>"><?= APPNAME ?></a>
+        <a href="<?= base_url(); ?>" class="btn-logo" style="padding-right: 0px;"><img src="<?= base_url().LOGO ?>" style="height: 45px; width: 45px;"></a>
+        <a href="<?= base_url(); ?>" style="padding-left: 0px;" class="app-name"><?= APPNAME ?></a>
     </div>
 	<div class="right">
 		<ul>
@@ -99,9 +100,11 @@
             <div class="facepay-wallet-dropdown sub-buttons" id="sub_menu_facepay_wallet">
                 <?php if ($this->session->userdata("user_type") == "admin"): ?>
                     <a href="<?= base_url();?>cash-in-v2"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;Cash In</a><br>
-                    <a href="<?= base_url();?>wallet-transaction"><i class="fa-solid fa-repeat"></i>&nbsp;&nbsp;Transaction</a>
+                    <a href="<?= base_url();?>wallet-transaction"><i class="fa-solid fa-repeat"></i>&nbsp;&nbsp;Transaction</a><br>
+                    <a href="<?= base_url();?>points"><i class="fas fa-coins"></i></i>&nbsp;&nbsp;Points</a>
                 <?php else: ?>
-                    <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a>
+                    <a href="<?= base_url()?>my-wallet"><i class="fa-solid fa-wallet"></i>&nbsp;&nbsp;My Wallet</a><br>
+                    <a href="<?= base_url()?>points/my-points"><i class="fas fa-coins"></i>&nbsp;&nbsp;My Points</a>
                 <?php endif ?>
             </div>
 
@@ -129,6 +132,7 @@
             <?php if ($this->session->userdata("user_type") == "admin"): ?>
                 <a href="<?= base_url(); ?>audit-trail" class="btn"><i class="fa-solid fa-list"></i>&nbsp;&nbsp;Audit Trail</a><br>
                 <a href="<?= base_url(); ?>discount" class="btn"><i class="fa fa-percent"></i>&nbsp;&nbsp;Discounts</a><br>
+                <a href="<?= base_url(); ?>wishlist" class="btn"><i class="fa fa-heart"></i>&nbsp;&nbsp;Wishlist</a><br>
             <?php endif ?>
 
             <div class="mobile-view-buttons-container">
@@ -159,11 +163,35 @@
                     <span>Date/Time Pickup <span class="text-danger">*</span></span>
                     <input type="datetime-local" class="form-control date-pickup" min="<?= date('Y-m-d H:i') ?>" value="<?= date('Y-m-d H:i') ?>">
                 </div>
+                <div class="form-group">
+                    <span>Special Instruction</span>
+                    <textarea rows="3" class="form-control instruction" placeholder="Enter remarks"></textarea>
+                </div>
                 <div class="warning text-danger"></div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-place-order">Place Order</button>
                 <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="terms_for_order_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Terms and Conditions for Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Under House Bill No. 6958  </p>
+                <p>All orders that have been placed are considered final and immediately prepared and cook, so please consider carefully before placing an order. The <?= APPNAME ?> would have started to prepare the food and therefore no refunds and cancellation would be possible.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
             </div>
         </div>
     </div>

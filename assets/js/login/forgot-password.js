@@ -9,7 +9,7 @@ $(document).ready(function(){
 			},
 			beforeSend: function(){
 				$(".btn-submit-email").prop("disabled", true).html("Please wait...")
-				$(".forgot-password-form .warning").html("");
+				$(".forgot-password-container .warning").html("");
 			},
 			success: function(response){
 				$(".btn-submit-email").prop("disabled", false).html("Submit")
@@ -18,12 +18,12 @@ $(document).ready(function(){
 					$(".success-msg").html("We've sent password reset instructions to your email.");
 				}
 				else{
-					renderResponse('.forgot-password-form .warning',response.msg, "danger")
+					renderResponse('.forgot-password-container .warning',response.msg, "danger")
 				}
 			},
 			error: function(error){
 				$(".btn-submit-email").prop("disabled", false).html("Submit")
-				renderResponse('.forgot-password-form .warning',"Something went wrong, please try again.", "danger")
+				renderResponse('.forgot-password-container .warning',"Something went wrong, please try again.", "danger")
 			}
 		})
 	});

@@ -1,6 +1,6 @@
 3.7.4
-144a06f20e7fa0ae96f9a90a470a94139f90c2aa
-o:Sass::Tree::RootNode:@children[o:Sass::Tree::CommentNode:@value[I"$./* .cookiealert {
+ac780d71be07ceec7e6e03e02fabe8980c70effa
+o:Sass::Tree::RootNode:@children[o:Sass::Tree::CommentNode:@value[I"$./* .cookiealert {
  *     position: fixed;
  *     bottom: 0;
  *     left: 0;
@@ -170,7 +170,13 @@ white;	T;@;
 ;-;.0;ix;o;	;o;;ix;i;o;;ix;i!;@;@;)i ;/;0;[ ;0;@;ix;o;	;o;;ix;i;o;;ix;i!;@;@;1o;	;@m;o;;ix;i;@;@;2o;	;o;;ix;i;@n;@;@o;*;%[I"
 color;	T;[o;+;o;,	;I"
 white;	T;@;
-;-;.0;iy;o;	;o;;iy;i;o;;iy;i;@;@;)i ;/;0;[ ;0;@;iy;o;	;o;;iy;i;o;;iy;i;@;@;1o;	;@;o;;iy;i;@;@;2o;	;o;;iy;i;@€;@;@;0;@;iw;o;	;@^;o;;iw;i;@;@;ET;0;@;iH;o;	;@;o;;iH;i;@;@;ET;0;@:@templateI"N6// .cookiealert {
+;-;.0;iy;o;	;o;;iy;i;o;;iy;i;@;@;)i ;/;0;[ ;0;@;iy;o;	;o;;iy;i;o;;iy;i;@;@;1o;	;@;o;;iy;i;@;@;2o;	;o;;iy;i;@€;@;@;0;@;iw;o;	;@^;o;;iw;i;@;@;ET;0;@;iH;o;	;@;o;;iH;i;@;@;ETo:Sass::Tree::MediaNode:@query[I"screen;	TI"
+ and ;	TI"(;	To;+	;o;,	;I"max-width;	T;@;
+;-;.0;i};o;	;o;;i};i;o;;i};i";@;@;@I": ;	To;+	;o;5
+;i¶;@;6[I"px;	T;7[ ;8I"
+950px;	T;i};o;	;o;;i};i%;o;;i};i*;@;@;@I");	T;I" ;	T;)i ;[o;;[I".footer;	T;o; ;![o;";![o;#;![o;$;%I"footer;	T;i~;0;&0;'o;;} F;o;	;o;;i;i;o;;i;i;0;0;i~;0;i~;i~;0;(o;	;o;;i~;i
+;o;;i~;i;@;@;)i ;[o;*;%[I"padding;	T;[o;+;o;,	;I"10px 10px;	T;@;
+;-;.0;i;o;	;o;;i;i;o;;i;i ;@;@;)i ;/;0;[ ;0;@;i;o;	;o;;i;i;o;;i;i ;@;@;1o;	;@Á;o;;i;i;@;@;2o;	;o;;i;i;@Â;@;@;0;@;i~;o;	;@²;o;;i~;i;@;@;ET;0;@;i};o;	;o;;i};i;o;;i};i+;@;@;ET;0;@:@templateI"§6// .cookiealert {
 //     position: fixed;
 //     bottom: 0;
 //     left: 0;
@@ -286,5 +292,11 @@ white;	T;@;
     .linkedin{
         background: #007bb5;
         color: white;
+    }
+}
+
+@media screen and (max-width : 950px){
+    .footer{
+        padding: 10px 10px;
     }
 };	T;i;o;	;o;;i;i;o;;i;i;@;@;ET

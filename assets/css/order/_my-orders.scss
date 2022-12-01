@@ -1,22 +1,28 @@
 
 .my-orders-container{
-	.btn-status{
-		width: 100%;
-	    justify-content: center;
-	    display: flex;
-	    background: white;
-		button{
-			padding: 18px 10px;
-		    width: 180px;
-		    border: none;
-		    background: none;
-		    &:hover{
-		    	color: #A87824;
+	.btn-status-container{
+		width: auto;
+		overflow-y: auto;
+		.btn-status-content{
+			min-width: 100%;
+			width: auto;
+		    justify-content: center;
+		    // display: flex;
+		    display: inline-flex;
+		    background: white;
+			button{
+				padding: 18px 10px;
+			    width: 180px;
+			    border: none;
+			    background: none;
+			    &:hover{
+			    	color: #A87824;
+			    }
+			}
+			.btn-active{
+		    	border-bottom: 3px solid #A87824;
 		    }
 		}
-		.btn-active{
-	    	border-bottom: 3px solid #A87824;
-	    }
 	}
 
 	.active-orders-container, .past-orders-container{

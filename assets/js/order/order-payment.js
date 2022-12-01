@@ -352,7 +352,7 @@ $(document).ready(function(){
 		clearInterval(no_face_detected);
 	}
 
-    prepare_face_detector();
+	prepare_face_detector();
 	function prepare_face_detector() {
 		Promise.all([
 			faceapi.nets.tinyFaceDetector.load(model_path),
@@ -377,7 +377,6 @@ $(document).ready(function(){
 
 	var added_discount = [];
 	var discount_total = 0;
-	var grand_total = total_order_amount;
 
 	$(".btn-add-discount").on("click", function(){
 		$("#add_discount_modal").modal("show")
@@ -453,13 +452,17 @@ $(document).ready(function(){
 	});
 
 	function create_discount_container(params){
+		console.log(params)
 		$(".discount-loading").remove();
 
 		var discount_details_content = $("<div class='discounts-details-content' id='"+params.id+"'>")
-		discount_details_content.append('<div class="name-container"><button style="color: red;" class="btn btn-sm btn-remove-discount" data-id="'+params['id']+'" title="Remove"><i class="fa fa-minus-circle"></i></button><strong>'+params['name']+'</strong></div>')
-		discount_details_content.append('<div class="price-container"><strong>'+moneyConvertion(params['amount'])+'</strong></div>')
+		discount_details_content.append('<div class="name-container"><button style="color: red;" class="btn btn-sm btn-remove-discount" data-id="'+params['id']+'" title="Remove"><i class="fa fa-minus-circle"></i></button>'+params['name']+'</div>')
+		
 		if(params['type'] == "Percentage"){
-			discount_details_content.append('<div class="discount-value-container"><strong>'+params['value']+'%</strong></div>')
+			discount_details_content.append('<div class="price-container">'+moneyConvertion(params['amount'])+' ('+params['value']+'%)</div>')
+		}
+		else{
+			discount_details_content.append('<div class="price-container">'+moneyConvertion(params['amount'])+'</div>')
 		}
 		
 		$(".discounts-container").append(discount_details_content)
@@ -509,7 +512,7 @@ $(document).ready(function(){
 
 	function calculate_totals(){
 		discount_total = 0;
-		grand_total = parseFloat(total_order_amount);
+		grand_total = parseFloat(grand_total);
 		$.each(added_discount, function(){
 			discount_total += parseFloat(this.amount);
 			grand_total -= parseFloat(this.amount);

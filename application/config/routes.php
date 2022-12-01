@@ -97,6 +97,7 @@ $route['product'] = 'product/productPage';
 $route['product-add'] = 'product/productAddPage';
 $route['product-view/(:any)'] = 'product/productViewPage/$1';
 $route['product-edit/(:any)'] = 'product/productEditPage/$1';
+$route['wishlist'] = 'product/wishlistPage';
 
 //FOR AUDIT RELATED
 $route['audit-trail'] = 'audit/auditTrailPage';

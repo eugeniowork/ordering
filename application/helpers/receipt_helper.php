@@ -204,6 +204,16 @@
 			";
 		}
 
+		$points_redeem = "";
+	    if($order['points_redeem'] > 0){
+	    	$points_redeem .= "
+	    		<tr>
+	    			<td style='text-align: left;' colspan='3'><b>Points Redeem</b></td>
+	    			<td style='text-align: right;'>- P".number_format($order['points_redeem'], 2)."</td>
+	    		</tr>
+	    	";
+	    }
+
 		$cash_amount = "";
 		$change_amount = "";
 		if($order['mode_of_payment'] == "CASH"){
@@ -281,6 +291,7 @@
 							<td style="text-align: right;">P'.number_format($order['total_amount'],2).'</td>
 						</tr>
 						'.$discount_list.'
+						'.$points_redeem.'
 						'.$cash_amount.'
 						<tr>
 							<td style="text-align: left;" colspan="3"><b>Total Payment</b></td>
