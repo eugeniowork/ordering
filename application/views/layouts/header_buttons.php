@@ -132,6 +132,7 @@
             <?php if ($this->session->userdata("user_type") == "admin"): ?>
                 <a href="<?= base_url(); ?>audit-trail" class="btn"><i class="fa-solid fa-list"></i>&nbsp;&nbsp;Audit Trail</a><br>
                 <a href="<?= base_url(); ?>discount" class="btn"><i class="fa fa-percent"></i>&nbsp;&nbsp;Discounts</a><br>
+                <a href="<?= base_url(); ?>wishlist" class="btn"><i class="fa fa-heart"></i>&nbsp;&nbsp;Wishlist</a><br>
             <?php endif ?>
 
             <div class="mobile-view-buttons-container">

@@ -905,4 +905,26 @@ class Product extends CI_Controller {
 		];
 		echo json_encode($result);
 	}
+
+	public function wishlistPage(){
+		$this->data['page_title'] = "Wishlist";
+
+		$this->load->view('layouts/header', $this->data);
+        $this->load->view('layouts/header_buttons');
+		$this->load->view('product/wishlist');
+		$this->load->view('layouts/footer');
+	}
+
+	public function wishlistData(){
+		session_write_close();
+
+		//GET CART PRODUCTS
+        $wishlist = $this->global_model->get("views_wishlist", "*", "name != 'null'", "", "multiple", "");
+        $this->data['wishlist'] = $wishlist;
+
+		session_start();
+
+		echo json_encode($this->data);
+	}
+
 }

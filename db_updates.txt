@@ -10,3 +10,6 @@ added new column (instruction) in order_history
 update views_order_history
 
 added new column (points_redeem) in order_history
+
+2022-12-01
+update views_wishlist
