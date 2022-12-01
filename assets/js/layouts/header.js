@@ -183,7 +183,7 @@ $(document).ready(function(){
                         calculate_total_payment();
                     }
                     else{
-                        $(".header-dropdown-cart").append("<span>No product(s) on cart yet.</span>")
+                        $(".header-dropdown-cart").html("<span>No product(s) on cart yet.</span>")
                     }
 
                 }
@@ -458,7 +458,7 @@ $(document).ready(function(){
                         })
                     }
                     else{
-                        $(".header-dropdown-wishlist").append("<span>No item(s) on wishlist yet.</span>")
+                        $(".header-dropdown-wishlist").html("<span>No item(s) on wishlist yet.</span>")
                     }
 
                 }
