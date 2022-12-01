@@ -85,6 +85,7 @@ class Product extends CI_Controller {
 		session_write_close();
 		$id = $this->input->post('id');
 		$id = decryptData($id);
+		$user_id = $this->session->userdata('user_id');
 
 		// //GET PRODUCTS
 		$db_name = "views_products";
@@ -107,7 +108,7 @@ class Product extends CI_Controller {
         	else{
 				$db_name = "views_cart";
 		        $select =  "id, quantity, stock";
-		        $where = "product_id = '$id'";
+		        $where = "product_id = '$id' AND user_id = {$user_id}";
 		        $product_on_cart = $this->global_model->get($db_name, $select, $where, "", "single", "");
 
 		        //CHECK IF PRODUCT IS ALREADY ON CART
@@ -167,10 +168,11 @@ class Product extends CI_Controller {
 		session_write_close();
 		$id = $this->input->post('id');
 		$id = decryptData($id);
+		$user_id = $this->session->userdata('user_id');
 
 		$db_name = "views_cart";
         $select =  "id, quantity, stock, name";
-        $where = "product_id = '$id'";
+        $where = "product_id = '$id' AND user_id = {$user_id}";
         $product_on_cart = $this->global_model->get($db_name, $select, $where, "", "single", "");
 
         if($product_on_cart){
