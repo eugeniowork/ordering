@@ -435,7 +435,7 @@ class Wallet extends CI_Controller {
 
 		$this->data['page_title'] = "Cash In Receipt";
 
-		$this->load->view('wallet/cash-in-receipt-pdf', $this->data);
+		$this->load->view('wallet/cash-in-receipt-pdfv2', $this->data);
 	}
 
 	public function walletTransactionPage(){
