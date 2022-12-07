@@ -276,4 +276,23 @@ $(document).ready(function(){
 			}
 		})
 	})
+
+	$(".btn-show-terms").on("click", function(){
+		$("#terms_for_signup_modal").modal("show")
+	});
+
+	$(document).on("change", ".i-agree-checkbox-signup", function(){
+        if($(this).is(":checked")){
+            $('.btn-save-registration').prop('disabled',false)
+            $('.btn-save-registration').css({
+                'cursor': 'pointer'
+            });
+        }
+        else{
+            $('.btn-save-registration').prop('disabled',true)
+            $('.btn-save-registration').css({
+                'cursor': 'not-allowed'
+            });
+        }
+    });
 })
