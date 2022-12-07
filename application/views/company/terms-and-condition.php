@@ -38,6 +38,25 @@
 			<p>0.4. To impersonate or attempt to impersonate Company, a Company employee, another user, or any other person or entity.</p>
 			<p>0.5. In any way that infringes upo the rights of others, or in any way is illegal, threatening, fraudulent, or harmful, or in connection with any unlawful, illegal, fraudulent, or harmful purpose or activity.</p>
 			<p>0.6. To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of Service, or which, as determined by us, may harm or offend Company or users of Service or expose them to liability.</p>
+
+			<p class="title"><b>Consent</b></p>
+			<p>Taking pictures is a requirement in registration to register the customer's face to be able to process facial recognition for identification and account verification when choosing Adu Facepay as the payment method.  </p>
+
+			<p class="title"><b>Transparency</b></p>
+			<p>Facial recognition data that will be collected will be used for the purpose of the user's identification for its account and verification of payment.</p>
+			<p>Personal information and facial recognition data from the customers of the Cafe De San Vicente at Adamson University will be collected.</p>
+
+			<p class="title"><b>Use of Data</b></p>
+			<ul>
+				<li>To provide and maintain our Services</li>
+				<li>To notify you about changes to our Services</li>
+				<li>To allow you to participate in interactive features of our Service when you choose to do so</li>
+				<li>To provide customer support</li>
+				<li>To gather analysis or valuable information so that we can improve our Services</li>
+				<li>To monitor the usage of our Services</li>
+				<li>To detect, prevent and address technical issues</li>
+				<li>To provide you with news, special offers, and general information about other goods, services, and events which we offer that are similar to those that you have already purchased or enquired about unless you have opted not to receive such information</li>
+			</ul>
 		</div>
 	</div>
 </div>
