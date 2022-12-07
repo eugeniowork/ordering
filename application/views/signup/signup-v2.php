@@ -167,6 +167,18 @@
 	            	<p><?= APPNAME ?> will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes and enforce our legal agreements and policies.</p>
 	                <p><?= APPNAME ?> will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of our Service, or we are legally obligated to retain this data for more extended periods.
 	                </p>
+
+	                <p><b>Use of Data</b></p>
+					<ul>
+						<li>To provide and maintain our Services</li>
+						<li>To notify you about changes to our Services</li>
+						<li>To allow you to participate in interactive features of our Service when you choose to do so</li>
+						<li>To provide customer support</li>
+						<li>To gather analysis or valuable information so that we can improve our Services</li>
+						<li>To monitor the usage of our Services</li>
+						<li>To detect, prevent and address technical issues</li>
+						<li>To provide you with news, special offers, and general information about other goods, services, and events which we offer that are similar to those that you have already purchased or enquired about unless you have opted not to receive such information</li>
+					</ul>
 	            </div>
 	            <div class="modal-footer">
 	                <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
