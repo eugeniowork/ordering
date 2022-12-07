@@ -26,7 +26,7 @@
 				<div class="col-12 col-sm-10"><strong>COMPANY</strong></div>
 			</div>
 			<a href="<?= base_url(); ?>company/about-us" class="about">About Us</a><br/>
-			<a href="<?= base_url(); ?>company/terms-and-condition">Terms and Condition</a>
+			<a href="<?= base_url(); ?>company/terms-and-condition">Terms and Condition</a><br>
 		</div>
 		<div class="col-sm-4">
 			<div class="row">
@@ -37,6 +37,14 @@
 			<a href="https://twitter.com" target="_blank" class="social-media twitter fab fa-twitter"></a>
 			<a href="https://linkedin.com" target="_blank" class="social-media linkedin fab fa-linkedin"></a>
 		</div>
+	</div>
+	<br>
+	<div style="border-top: 0.5px solid #cccc; padding: 5px 10px;">
+		<p><b>Disclaimer:</b>&nbsp;Please read this disclaimer ("disclaimer") carefully before using adufacepay.online website pictures of the AdU Face Pay operated by Café De San Vicente.
+			The content displayed on the website is the intellectual property of the Café De San Vicente. You may not reuse, republish, or reprint such content without our written consent.
+			All information posted is merely for educational and informational purposes. It is not intended as a substitute for professional advice. Should you decide to act upon any information on this website, you do so at your own risk.
+			While the information on this website has been verified to the best of our abilities, we cannot guarantee that there are no mistakes or errors.
+			We reserve the right to change this policy at any given time, of which you will be promptly updated. If you want to make sure that you are up to date with the latest changes, we advise you to frequently visit this page.</p>
 	</div>
 	<br/>
 	<div class="footer-all-rights-container">© <?= date('Y').' '.APPNAME; ?>. All rights reserved.</div>

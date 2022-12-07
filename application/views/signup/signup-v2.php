@@ -21,6 +21,7 @@
 			        	<div class="row">
 				            <div class="col-12 col-lg-12" style="text-align: center;">
 				            	<span>Face Recognition&nbsp;<span class="text-danger">*</span></span><br>
+				            	<small class="text-danger">Please remove your eyeglasses and face mask</small><br>
 				            	<img id="img_face" src="<?= base_url();?>assets/uploads/images/face-recognition-default.jpg"><br>
 				                <button type="button" class="btn btn-sm btn-primary btn-open-camera" style="width: 130px">Register Face</button>
 				            </div>
@@ -154,6 +155,13 @@
 	                </button>
 	            </div>
 	            <div class="modal-body">
+	            	<p><b>Consent</b></p>
+	            	<p>Taking pictures is a requirement in registration to register the customer's face to be able to process facial recognition for identification and account verification when choosing Adu Facepay as the payment method.</p>
+
+	            	<p><b>Transparency</b></p>
+	            	<p>Facial recognition data that will be collected will be used for the purpose of the user's identification for its account and verification of payment.</p>
+					<p>Personal information and facial recognition data from the customers of the Cafe De San Vicente at Adamson University will be collected.</p>
+
 	            	<p><b>RETENTION OF DATA</b></p>
 	            	<p>The personal data of registered customers will be kept for the duration of studying in the university.</p>
 	            	<p><?= APPNAME ?> will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes and enforce our legal agreements and policies.</p>
