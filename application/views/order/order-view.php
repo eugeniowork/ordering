@@ -92,7 +92,7 @@
                 <?php if($show_grand_total): ?>
                     <div class="items-content">
                         <div class="qty-container"></div>
-                        <div class="name-container"><strong>Grand Total</strong></div>
+                        <div class="name-container"><strong>Total Payment</strong></div>
                         <div class="price-container"><strong>&#8369;<?= number_format($order['grand_total'], 2); ?></strong></div>
                     </div>
                 <?php endif; ?>

@@ -102,7 +102,7 @@
 					                </div>
 					            <?php endif; ?>
 								<div class="totals-details-content">
-									<div class="name-container"><strong>Grand Total</strong></div>
+									<div class="name-container"><strong>Total Payment</strong></div>
 									<div class="price-container"><strong class="grand-total">&#8369;<?= number_format($order['grand_total'], 2); ?></strong></div>
 								</div>
 							</div>

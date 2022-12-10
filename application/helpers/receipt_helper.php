@@ -209,6 +209,10 @@
 		//GET DISCOUNTS
 		$order_discounts = $CI->global_model->get("order_history_discounts", "*", "order_history_id = '$order_id'", [], "multiple", []);
 
+		//GET CUSTOMER DETAILS
+		$user_id = $order['user_id'];
+		$customer_details = $CI->global_model->get("users", "*", "id = '$user_id'", [], "single", []);
+
 		$user_in_charge_id = $order['user_in_charge'];
 		$user_in_charge_details = $CI->global_model->get("users", "*", "id = '$user_in_charge_id'", [], "single", []);
 
@@ -272,6 +276,34 @@
 				</tfoot>
 			";
 		}
+
+		//POINTS EARNED
+	    $earned_points = $order['total_amount'] / 100;
+	    $earned_points = (int)$earned_points;
+	    $points = "";
+	    if($earned_points > 0){
+	    	$points = "
+	    		<tfoot style='border-top:2px dashed #c9c5c5;'>
+		    		<tr>
+		    			<td style='text-align: left;' colspan='3'><b>Earned Points</b></td>
+		    			<td style='text-align: right;'>".$earned_points."</td>
+		    		</tr>
+	    		</tfoot>
+	    	";
+	    }
+
+	    //FACEPAY WALLET BALANCE
+	    $face_pay_bal = "";
+	    if($order['mode_of_payment'] == "FACE PAY"){
+	    	$face_pay_bal = "
+	    		<tfoot style='border-top:2px dashed #c9c5c5;'>
+		    		<tr>
+		    			<td style='text-align: left;' colspan='3'><b>Facepay Balance</b></td>
+		    			<td style='text-align: right;'>P".number_format($customer_details['facepay_wallet_balance'], 2)."</td>
+		    		</tr>
+	    		</tfoot>
+	    	";
+	    }
 
 		$html = '
 			<style>
@@ -349,6 +381,9 @@
 							<td style="text-align: right;">P'.number_format($total_vat - $total_vatable,2).'</td>
 						</tr>
 					</tfoot>
+
+					'.$points.'
+					'.$face_pay_bal.'
 				</table>
 			</div><br><br><br>
 

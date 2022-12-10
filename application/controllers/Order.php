@@ -769,12 +769,17 @@ class Order extends CI_Controller {
 		$id = decryptData($hash_id);
 
 		$this->data['page_title'] = "Order Receipt";
-
+		
 		$order = $this->global_model->get("views_order_history", "*", "id = '$id'", [], "single", []);
 		$this->data['order'] = $order;
 
 		$products = $this->global_model->get("order_history_products", "*", "order_history_id = '$id'", [], "multiple", []);
 		$this->data['products'] = $products;
+
+		//GET CUSTOMER DETAILS
+		$user_id = $order['user_id'];
+		$customer_details = $this->global_model->get("users", "*", "id = '$user_id'", [], "single", []);
+		$this->data['customer_details'] = $customer_details;
 
 		//GET DISCOUNTS
 		$order_discounts = $this->global_model->get("order_history_discounts", "*", "order_history_id = '$id'", [], "multiple", []);
